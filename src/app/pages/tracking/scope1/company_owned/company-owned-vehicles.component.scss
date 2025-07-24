@@ -1,0 +1,128 @@
+.et_tab_btn{
+    background-color: transparent;
+    padding-block: 8px;
+    border-radius: 10px;
+    border: 0px solid #fff !important;
+    background-color: #f5f5f5 !important;
+    font-size: 16px;
+    color: #333 !important;
+    line-height: 16px;
+    font-weight: 400;
+    padding-inline: 10px;
+  }
+  .et_tab_btn.active{
+    border-radius: 8px;
+      background: rgba(136, 173, 71, 0.75) !important;
+      color: #fff !important;
+      font-weight: 500;
+  }
+  
+  .et_plusadd_455{
+    height: 28px !important;
+    padding: 0px !important;
+    width: 28px;
+    display: flex !important
+  ;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ett_verticle_align_top td{
+    vertical-align: top;
+  }
+
+
+  div#DPRow.active {
+    background-color: #e9ecef !important;
+  }
+  .ct_status_tble_230_space.p-datatable .p-datatable-tbody > tr > td {
+    padding-block: 10px !important;
+    white-space: nowrap;
+  }
+  .table .thead-dark th{
+    white-space: nowrap;
+  }
+  
+  .table .thead-dark th {
+  
+    border-color: #dee2e6;
+  }
+  
+  @media screen and (max-width:991px){
+    .ct_px_0_232{
+        padding-inline: 0px !important;
+    }
+  }
+
+  
+.ct_home_office_table th{
+    padding-block: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    // border: unset;
+    background-color: rgba(136, 173, 71, 0.75) ;
+  }
+  .ct_home_office_table td{
+    vertical-align: middle;
+    font-size: 14px;
+    padding-block: 10px;
+    
+  }
+  .ct_home_office_table td input {
+    height: 30px;
+    background-color: #f5f5f5;
+  }
+  .ct_home_office_table td input:focus{
+  border-color: #80a745 !important;
+  box-shadow: 0px 0px 1px 1px #679f5442 !important;
+  
+  }
+  .ct_home_office_table th:first-child{
+    border-radius: 5px 0px 0px 0px;
+  }
+   .ct_home_office_table th:last-child{
+    border-radius: 0px 5px 0px 0px;
+  }
+  
+  .ct_home_office_table{
+  border: 1px solid #eee;
+  border-radius: 8px;
+  }
+  .ct_home_office_table table{
+  margin-bottom: 0px;
+  }
+  // this is a static css and erase it E
+  // this is a static css and erase it E
+  // this is a static css and erase it E
+  
+  .ct_file_upload_1 input[type=file] {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    width: 196px;
+    height: 38px;
+  }
+  
+  .input-group.ct_file_upload_1 {
+    border: 1px solid #eee;
+    border-radius: 5px
+  }
+  .input-group.ct_file_upload_1 input.form-control.filename {
+  border: 0;
+  }
+  
+  .ct_file_upload_1 .trackingsubmitb {
+  border-radius: 0px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 0px 5px 5px 0px;
+  }
+  

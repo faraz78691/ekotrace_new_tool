@@ -1,1 +1,381 @@
-<p>company-owned-vehicles works!</p>
+
+
+
+<div class="row text-white border-bottom">
+    <div class="d-flex align-items-center justify-content-between w-100">
+        <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+            Company-owned vehicles
+        </p>
+        <div  class="ml-auto">
+            <button class=" mr-2 et_tab_btn" [ngClass]="{'active': singleCompanyTab}"
+                type="button" (click)="bulkUploadCompany('1')">By Vehicle Type</button>
+            <button class=" mr-2 et_tab_btn" [ngClass]="{'active': multipleCompanyTab}"
+                type="button" (click)="bulkUploadCompany('2')">By Vehicle Model</button>
+            <button class="et_tab_btn" [ngClass]="{'active': bulkCompanyTab}" type="button"
+                (click)="bulkUploadCompany('3')"> Bulk Upload</button>
+
+
+        </div>
+        <div class="ct_how_use_tooltip_main">
+            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                <div>
+                    <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
+                        stationary sources owned or controlled by an organization. These
+                        sources include equipment and systems that are fixed in place, such
+                        as boilers, furnaces, turbines, and other types of heating and
+                        power-generating equipment.
+                    </p>
+                    <ol>
+                        <li>Liquid fuels: Emissions resulting from the combustion of liquid
+                            fuels in stationary sources are a significant part of an
+                            organization’s overall carbon footprint due to the widespread
+                            use of liquid fuels such as gasoline, diesel, fuel oil,
+                            kerosene, and others.
+                        </li>
+                        <li>Solid fuels: These fuels typically include coal, peat, and other
+                            solid materials used for heating, power generation, or
+                            industrial processes.
+                        </li>
+                        <li>Gaseous fuels: These fuels are typically in a gaseous state at
+                            normal atmospheric conditions and include natural gas, propane,
+                            butane, and other similar gases used for heating, power
+                            generation, and transportation.
+                        </li>
+                        <li>Biofuels: Biofuels are derived from renewable biomass sources
+                            such as plant matter, agricultural residues, or waste materials.
+                        </li>
+                        <li>Biomass: Biomass refers to organic materials derived from plants
+                            or animals that can be used as fuel. This includes wood,
+                            agricultural residues, animal waste, and dedicated energy crops.
+                        </li>
+                        <li>Biogas: Biogas is a renewable energy source produced through the
+                            anaerobic digestion or fermentation of organic materials such as
+                            agricultural residues, food waste, sewage sludge, or energy
+                            crops.
+                        </li>
+                    </ol>
+
+                    <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
+                        emissions in a company, follow these steps:
+                    </h5>
+                    <ol>
+                        <li>Identify stationary combustion sources - Determine which
+                            equipment and facilities generate emissions, such as: Boilers,
+                            Furnaces, Generators, Heaters, Chillers
+                        </li>
+                        <li>Collect fuel consumption data:
+                            Fuel Purchase Records - Collect data from fuel purchase receipts
+                            and invoices.
+                            Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
+                            and equipment.
+                            Meter Readings - Use meter readings for equipment that consumes
+                            liquid fuels.
+                            Operational Records - Document hours of operation for
+                            fuel-consuming equipment
+                        </li>
+                        <li>Relevant departments for collecting the data - Production
+                            department, Operational department
+                        </li>
+                    </ol>
+                    <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                        emissions
+                    </h5>
+                    <ol>
+                        <li>Select the months and year for which you want to enter the
+                            emissions data. If you select multiple months, same data will be
+                            replicated for the months selected.
+                        </li>
+                        <li>Once submitted, data is sent for approval. Manager of facility
+                            or the admin has approval rights. Only the approved data is
+                            included in emissions calculations. You can check the approval
+                            status in ‘Status’ tab
+                        </li>
+                        <li>User can attach the bills, invoices as attachment for record
+                            purpose.
+                        </li>
+                    </ol>
+
+                    <h5 class="ct_fs_16 ">Guidance on input fields</h5>
+                    <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
+                        blend% of biofuel (bioethanol / biodiesel). Final emission factor is
+                        the weighted average of emission factor for 100% mineral petrol /
+                        diesel and biofuel. Average blend type assumes 7% blend perc.
+                    </p>
+                    <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
+                        Gross CV of the fuel is entered, it overwrites the average CV.
+                    </p>
+
+                </div>
+
+
+                <p class="ct_fs_16 ">Emissions occur directly from the leakage or
+                    discharge of the extinguishing agents. The fire extinguishers must
+                    be owned or controlled by the organization. Common agents include
+                    halons, HFCs, and other fluorinated gases.
+                </p>
+                <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
+                    extinguishers owned by company, follow these steps:
+                </h5>
+                <ol>
+                    <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
+                        halon).
+                    </li>
+                    <li>Location of each fire extinguisher within the facility.
+                    </li>
+                    <li>Relevant departments for collecting the data - Environment,
+                        Health and Safety/ Facilities Management department
+                    </li>
+                </ol>
+                <p>You can download the ‘Fire Extinguisher
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+    <div class="p-3">
+        <ng-container *ngIf="singleCompanyTab">
+            <div class="col-md-12 table-responsive" style="height: 40vh;">
+                <table class="table ct_home_office_table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">S.No.</th>
+                            <th scope="col">Vehicle Type</th>
+                            <th scope="col">No of vehicles</th>
+                            <th scope="col">Trips per vehicle</th>
+
+                            <th scope="col">Mode of data entry</th>
+
+                            <th scope="col">Value</th>
+                            <th scope="col">Unit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody #commuteTable>
+
+                        <tr *ngFor="let rows of rowsCompany; index as i">
+                            <td>{{i +1}}</td>
+                            <td>
+                                <p-dropdown
+                                    class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                    [(ngModel)]="rows.vehicleType"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [options]="VehicleType"
+                                    optionLabel="VehicleType" optionValue="ID"
+                                    placeholder="Select type" appendTo="body">
+                                </p-dropdown>
+
+                            </td>
+                            <td>
+
+                                <input required [(ngModel)]="rows.noOfVehicles"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="search-input" type="number"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+
+                            </td>
+                            <td>
+                                <input required [(ngModel)]="rows.tripsPerVehicle"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="search-input" type="number"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+
+                            </td>
+                            <td>
+                                <p-dropdown
+                                    class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                    [(ngModel)]="rows.modeOfEntry"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [options]="ModeType"
+                                    (ngModelChange)="modeOfEntryChange(rows.modeOfEntry ,rows)"
+                                    optionLabel="modeName" optionValue="modeName"
+                                    placeholder="Select type" appendTo="body">
+                                </p-dropdown>
+
+                            </td>
+
+                            <td>
+                                <input [(ngModel)]="rows.value"
+                                    [ngModelOptions]="{standalone: true}"
+                                    type="text"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+                            </td>
+                            <td>
+                                <input disabled required ngModel name="NoOfVehicles"
+                                    #NoOfVehicles="ngModel" [(ngModel)]="rows.unit"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    <p class="ml-2 trackingsubmitb" (click)="addCompanyRows()">+</p>
+
+                </table>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="multipleCompanyTab">
+            <div class="col-md-12 table-responsive" style="height: 40vh;">
+                <table class="table ct_home_office_table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">S.No.</th>
+                            <th scope="col">Vehicle Model</th>
+
+                            <th scope="col">Mode of data entry</th>
+
+                            <th scope="col">Value</th>
+                            <th scope="col">Unit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody #commuteTable>
+
+                        <tr *ngFor="let rows of rowsCompany; index as i">
+                            <td>{{i +1}}</td>
+                            <td>
+                                <p-dropdown
+                                    class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                    [(ngModel)]="rows.vehicleType"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [options]="vehicleModalFleet"
+                                    optionLabel="vehicle_model"
+                                    optionValue="vehicle_model"
+                                    placeholder="Select Vehicle model" appendTo="body">
+                                </p-dropdown>
+
+                            </td>
+
+
+                            <td>
+                                <p-dropdown
+                                    class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                    [(ngModel)]="rows.modeOfEntry"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [options]="ModeType"
+                                    (ngModelChange)="modeOfEntryChange(rows.modeOfEntry ,rows)"
+                                    optionLabel="modeName" optionValue="modeName"
+                                    placeholder="Select type" appendTo="body">
+                                </p-dropdown>
+
+                            </td>
+
+                            <td>
+                                <input [(ngModel)]="rows.value"
+                                    [ngModelOptions]="{standalone: true}"
+                                    type="text"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+                            </td>
+                            <td>
+                                <input disabled required ngModel name="NoOfVehicles"
+                                    #NoOfVehicles="ngModel" [(ngModel)]="rows.unit"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter value" />
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    <p class="ml-2 trackingsubmitb" (click)="addCompanyRows()">+</p>
+
+                </table>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="bulkCompanyTab">
+
+            <div class="d-flex align-items-center ct_gap_10 flex-wrap mb-3">
+                <div>
+                    <div
+                        class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40 ct_svg_icon_white   ">
+                        <p-fileUpload #fileUpload mode="basic" accept=".xlsx, .xls"
+                            class="" chooseLabel="Please select a File" (onSelect)="onCompanyUpload($event.files,fileUpload)
+                    "></p-fileUpload>
+                    </div>
+                    <!-- <input type="file" class="form-control"  (change)="onPurchaseGoodsUpload($event)" accept=".xlsx, .xls"  id="ct_product_upload_file" > -->
+                </div>
+                <a (click)="downloadCompanyExcel()" download
+                    class="px-4 trackingsubmitb"><i
+                        class="fa-solid fa-download mr-2"></i>Download Vehicle Data
+                    Template</a>
+
+            </div>
+            <div class="col-md-12 table-responsive" style="height: 40vh;">
+                <table class="table ct_home_office_table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">S.No.</th>
+                            <th scope="col">Vehicle Model</th>
+                            <th scope="col">Mode of data entry</th>
+
+                            <th scope="col">Value</th>
+                            <th scope="col">Unit</th>
+
+                        </tr>
+                    </thead>
+                    <tbody #commuteTable>
+
+                        <tr *ngFor="let rows of jsonCompanyData; index as i">
+                            <td>{{i +1}}</td>
+                            <td>
+                                {{rows.vehicleType}}
+
+
+                            </td>
+                            <!-- <td>
+                                {{rows.noOfVehicles}}
+                               
+
+                            </td>
+                            <td>
+                                {{rows.tripsPerVehicle}}
+                            
+
+                            </td> -->
+                            <td>
+                                {{rows.modeOfEntry}}
+
+
+                            </td>
+
+                            <td>
+                                {{rows.value}}
+
+                            </td>
+                            <td>
+                                {{rows.unit}}
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    <!-- <p class="ml-2 trackingsubmitb" (click)="addCompanyRows()">+</p> -->
+
+                </table>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col-12 mt-5 pt-3 ml-3 text-center">
+        <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+    </div>
+</form>

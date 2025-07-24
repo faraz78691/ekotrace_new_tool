@@ -179,21 +179,13 @@
                                             </div> -->
                                             <div class="ct_overflow_box" style="max-height: 100%;">
 
-                                                <div
-                                                    class="card ct_shadow_none  flex justify-content-center ct_scope_3cata_list">
+                                                <div class="card ct_shadow_none  flex justify-content-center ct_scope_3cata_list">
                                                     <p-accordion styleClass="accordianclass ct_accordian_height_48vh12"
                                                         [activeIndex]="accordianIndex" [multiple]="false">
                                                         <ng-container>
 
-                                                            <ng-container *ngFor="
-                                                        let head of seed.manageDataPointCategories
-                                                    ">
-                                                                <ng-container *ngIf="
-                                                                head
-                                                                    .manageDataPointSubCategories
-                                                                    .length > 0
-                                                            ">
-
+                                                            <ng-container *ngFor="let head of seed.manageDataPointCategories">
+                                                                <ng-container *ngIf="head.manageDataPointSubCategories.length > 0">
 
                                                                     <div id="DPRow" *ngFor="
                                                                             let child of head.manageDataPointSubCategories

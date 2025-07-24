@@ -1,1 +1,240 @@
-<p>electricity works!</p>
+
+
+
+<div class="row text-white border-bottom">
+    <div class="d-flex align-items-center justify-content-between w-100">
+        <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+            {{subCategoryID == 9 ? 'Location Based' : 'Market Based'}}
+        </p>
+        <div class="ct_how_use_tooltip_main">
+            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                <div>
+                    <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
+                        stationary sources owned or controlled by an organization. These
+                        sources include equipment and systems that are fixed in place, such
+                        as boilers, furnaces, turbines, and other types of heating and
+                        power-generating equipment.
+                    </p>
+                    <ol>
+                        <li>Liquid fuels: Emissions resulting from the combustion of liquid
+                            fuels in stationary sources are a significant part of an
+                            organization’s overall carbon footprint due to the widespread
+                            use of liquid fuels such as gasoline, diesel, fuel oil,
+                            kerosene, and others.
+                        </li>
+                        <li>Solid fuels: These fuels typically include coal, peat, and other
+                            solid materials used for heating, power generation, or
+                            industrial processes.
+                        </li>
+                        <li>Gaseous fuels: These fuels are typically in a gaseous state at
+                            normal atmospheric conditions and include natural gas, propane,
+                            butane, and other similar gases used for heating, power
+                            generation, and transportation.
+                        </li>
+                        <li>Biofuels: Biofuels are derived from renewable biomass sources
+                            such as plant matter, agricultural residues, or waste materials.
+                        </li>
+                        <li>Biomass: Biomass refers to organic materials derived from plants
+                            or animals that can be used as fuel. This includes wood,
+                            agricultural residues, animal waste, and dedicated energy crops.
+                        </li>
+                        <li>Biogas: Biogas is a renewable energy source produced through the
+                            anaerobic digestion or fermentation of organic materials such as
+                            agricultural residues, food waste, sewage sludge, or energy
+                            crops.
+                        </li>
+                    </ol>
+
+                    <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
+                        emissions in a company, follow these steps:
+                    </h5>
+                    <ol>
+                        <li>Identify stationary combustion sources - Determine which
+                            equipment and facilities generate emissions, such as: Boilers,
+                            Furnaces, Generators, Heaters, Chillers
+                        </li>
+                        <li>Collect fuel consumption data:
+                            Fuel Purchase Records - Collect data from fuel purchase receipts
+                            and invoices.
+                            Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
+                            and equipment.
+                            Meter Readings - Use meter readings for equipment that consumes
+                            liquid fuels.
+                            Operational Records - Document hours of operation for
+                            fuel-consuming equipment
+                        </li>
+                        <li>Relevant departments for collecting the data - Production
+                            department, Operational department
+                        </li>
+                    </ol>
+                    <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                        emissions
+                    </h5>
+                    <ol>
+                        <li>Select the months and year for which you want to enter the
+                            emissions data. If you select multiple months, same data will be
+                            replicated for the months selected.
+                        </li>
+                        <li>Once submitted, data is sent for approval. Manager of facility
+                            or the admin has approval rights. Only the approved data is
+                            included in emissions calculations. You can check the approval
+                            status in ‘Status’ tab
+                        </li>
+                        <li>User can attach the bills, invoices as attachment for record
+                            purpose.
+                        </li>
+                    </ol>
+
+                    <h5 class="ct_fs_16 ">Guidance on input fields</h5>
+                    <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
+                        blend% of biofuel (bioethanol / biodiesel). Final emission factor is
+                        the weighted average of emission factor for 100% mineral petrol /
+                        diesel and biofuel. Average blend type assumes 7% blend perc.
+                    </p>
+                    <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
+                        Gross CV of the fuel is entered, it overwrites the average CV.
+                    </p>
+
+                </div>
+
+
+                <p class="ct_fs_16 ">Emissions occur directly from the leakage or
+                    discharge of the extinguishing agents. The fire extinguishers must
+                    be owned or controlled by the organization. Common agents include
+                    halons, HFCs, and other fluorinated gases.
+                </p>
+                <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
+                    extinguishers owned by company, follow these steps:
+                </h5>
+                <ol>
+                    <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
+                        halon).
+                    </li>
+                    <li>Location of each fire extinguisher within the facility.
+                    </li>
+                    <li>Relevant departments for collecting the data - Environment,
+                        Health and Safety/ Facilities Management department
+                    </li>
+                </ol>
+                <p>You can download the ‘Fire Extinguisher
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+    <div class="trackingContent">
+        
+            <div class="row mt-4 mx-2" *ngIf="subCategoryID == 9" >
+                <div class="col-lg-4"
+               >
+                <label for="fname">Reading Value</label>
+                <div class="position-relative">
+                    <input required ngModel name="readingvalue" #readingvalue="ngModel"
+                        placeholder="Enter value" 
+                        readingvalue id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" />
+                    <p-dropdown
+                        class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
+                        ngModel [options]="units" optionLabel="UnitName"
+                        optionValue="UnitName"  name="unitSet"
+                        #unitSet="ngModel"></p-dropdown>
+                </div>
+                <!-- <p class="validation" *ngIf="
+                    dataEntry.readingValue < 0 &&
+                    dataEntryForm.submitted
+                ">
+                    Data entry should be greater than 0
+                </p> -->
+    
+                <p class="validation"
+                    *ngIf="readingvalue.errors?.['required'] && dataEntryForm.submitted">
+                    Reading value required.
+                </p>
+            </div>
+    
+            <div 
+                class="col-lg-4">
+                <label for="fname">Grid</label>
+                <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " 
+                    [options]="regionType" optionLabel="RegionName" optionValue="RegionID"
+                    ></p-dropdown>
+            </div>
+    
+    
+    
+    
+            </div>
+       
+            <ng-container *ngIf="subCategoryID ==1002">
+                <div class="row mt-4 mx-2">
+                    <div class="col-lg-4" >
+                        <label for="fname">Type</label>
+                        <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"  [options]="" optionLabel="TypeName"
+                            optionValue="ID" 
+                            ></p-dropdown>
+                    </div>
+                </div>
+                <div class="row mt-4 mx-2" >
+                    <div class="col-lg-4"
+                   >
+                    <label for="fname">Reading Value</label>
+                    <div class=" position-relative">
+                        <input required ngModel name="readingvalue" #readingvalue="ngModel"
+                            placeholder="Enter value" 
+                            readingvalue id="search-input" type="text"
+                            class="form-control Dashboard-tab text-white" />
+                        <p-dropdown
+                            class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
+                            ngModel [options]="" optionLabel="UnitName"
+                            optionValue="UnitName"  name="unitSet"
+                            #unitSet="ngModel"></p-dropdown>
+                    </div>
+                    <!-- <p class="validation" *ngIf="
+                        dataEntry.readingValue < 0 &&
+                        dataEntryForm.submitted
+                    ">
+                        Data entry should be greater than 0
+                    </p> -->
+        
+                    <p class="validation"
+                        *ngIf="readingvalue.errors?.['required'] && dataEntryForm.submitted">
+                        Reading value required.
+                    </p>
+                </div>
+        
+                <div 
+                    class="col-lg-4">
+                    <label for="fname">Grid</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " 
+                        [options]="" optionLabel="RegionName" optionValue="RegionID"
+                        
+                          [disabled]></p-dropdown>
+                </div>
+        
+        
+        
+        
+                </div>
+            </ng-container>
+        
+        
+        <div class="col-12 mt-5 pt-3 ml-3 text-center">
+            <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+        </div>
+
+
+
+
+    </div>
+</form>

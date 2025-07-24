@@ -82,6 +82,8 @@ export class TrackingComponent {
 
         try {
             this.dynamicComponent = await loadComponentByCategoryId(categoryID);
+         
+            
         } catch (err) {
             console.warn(err);
             this.dynamicComponent = null;

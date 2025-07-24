@@ -16,6 +16,7 @@ export async function loadComponentByCategoryId(categoryID: number): Promise<any
         return (await import('./scope1/company_owned/company-owned-vehicles.component')).CompanyOwnedVehiclesComponent;
   
       case 5:
+       
         return (await import('./scope2/Electricity/electricity.component')).ElectricityComponent;
   
       case 7:

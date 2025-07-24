@@ -33,7 +33,7 @@ export class SettingsTableComponent {
       this.columns = this.getColumnsByCategory(this.categoryId, this.businessId);
     }
  
-    console.log(366666666666666, this.data);
+  
   }
  
   getColumnsByCategory(categoryId: number, businessId?: number): { xtra?: string; field: string; header: string }[] {
