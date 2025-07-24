@@ -69,8 +69,8 @@ export class TrackingComponent {
     dynamicComponent: any = null;
 
 
-    async SubCatData(child: any, categoryID: number, catName: string) {
-       
+    async SubCatData(child: any, categoryID: number, catName: string, businessId?: number) {
+
         const year = this.trackingService.getYear(this.year);
         this.categoryId = categoryID;
         this.ALLEntries();
@@ -81,7 +81,7 @@ export class TrackingComponent {
         this.facilityService.monthSignal.set(monthString);
 
         try {
-            this.dynamicComponent = await loadComponentByCategoryId(categoryID);
+            this.dynamicComponent = await loadComponentByCategoryId(categoryID, businessId);
         } catch (err) {
             console.warn(err);
             this.dynamicComponent = null;
@@ -1317,10 +1317,10 @@ export class TrackingComponent {
                             } else if (this.businessId == 25 && this.categoryId == 13) {
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'hotel_stay');
                             } else if (this.businessId == 26 && this.categoryId == 13) {
- 
+
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'other_modes_of_transport');
                             } else {
- 
+
                                 this.dataEntriesPending = response.categories;
                             }
                         }
@@ -1691,7 +1691,6 @@ export class TrackingComponent {
     ToggleClick() {
         this.isVisited = true;
     }
-
 
     GetVendors() {
 
@@ -3446,7 +3445,7 @@ export class TrackingComponent {
     };
 
 
-    setActive(index: number): void {
+    setActive(index: number, child: any, categoryID: number, catName: string): void {
 
         this.categoryId = 13;
         this.businessId = index;
@@ -3456,6 +3455,8 @@ export class TrackingComponent {
         // this.ModeSelected = false;
         this.calculationRow = false;
         this.equityInvestmentRow = false;
+
+        this.SubCatData(child, categoryID, catName, this.businessId);
 
         // if (this.categoryId == 24) {
 

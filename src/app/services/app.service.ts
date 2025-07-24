@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginInfo } from '@/models/loginInfo';
 import { Observable } from 'rxjs';
 import { FacilityService } from './facility.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -86,5 +87,11 @@ export class AppService {
             this.loginInfo = jsonObj as LoginInfo;
             return this.loginInfo.role;
         }
+    }
+
+    getYear(year: Date): string {
+        const datePipe = new DatePipe('en-US');
+        const selectedDate = new Date(year);
+        return datePipe.transform(selectedDate, 'yyyy');
     }
 }

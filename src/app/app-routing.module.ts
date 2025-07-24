@@ -81,47 +81,51 @@ const routes: Routes = [
         path: '',
         component: MainComponent,
         canActivate: [AuthGuard],
-     
+
         //canActivateChild: [AuthGuard],
         children: [
             {
                 path: 'dashboard',
                 loadChildren: () =>
-                  import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+                    import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
                 canActivate: [RoleGuard],
                 data: {
-                  roles: [
-                    'Super Admin',
-                    'Admin',
-                    'Manager',
-                    'Preparer',
-                    'Approver',
-                    'Platform Admin',
-                     'Auditor'
-                  ]
+                    roles: [
+                        'Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver',
+                        'Platform Admin',
+                        'Auditor'
+                    ]
                 },
-              },
+            },
             {
                 path: 'financeDash',
                 canActivate: [RoleGuard],
                 component: FinanceDashboardComponent,
-                data: { roles: ['Super Admin',
-                'Admin',
-                'Manager',
-                'Preparer',
-                'Approver',
-                'Auditor'] }
+                data: {
+                    roles: ['Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver',
+                        'Auditor']
+                }
             },
             {
                 path: 'attachments',
                 canActivate: [RoleGuard],
                 component: AttachmentsComponent,
-                data: { roles: ['Super Admin',
-                'Admin',
-                'Manager',
-                'Preparer',
-                'Approver',
-                'Auditor'] }
+                data: {
+                    roles: ['Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver',
+                        'Auditor']
+                }
             },
             {
                 path: 'company-register',
@@ -133,22 +137,28 @@ const routes: Routes = [
                 path: 'finance_emission',
                 canActivate: [RoleGuard],
                 component: FinanceEmissionsComponent,
-                data: { roles: ['Platform Admin','Super Admin',
-                'Admin', 'Auditor']}
+                data: {
+                    roles: ['Platform Admin', 'Super Admin',
+                        'Admin', 'Auditor']
+                }
             },
             {
                 path: 'finance-view-approve-groups/:groupId',
                 canActivate: [RoleGuard],
                 component: ViewApproveGroupsComponent,
-                data: { roles: ['Platform Admin','Super Admin',
-                'Admin', 'Auditor']}
+                data: {
+                    roles: ['Platform Admin', 'Super Admin',
+                        'Admin', 'Auditor']
+                }
             },
             {
                 path: 'kpiDashboard',
                 canActivate: [RoleGuard],
                 component: KpiDashboardComponent,
-                data: { roles: ['Platform Admin','Super Admin',
-                'Admin', 'Auditor','Preparer'] }
+                data: {
+                    roles: ['Platform Admin', 'Super Admin',
+                        'Admin', 'Auditor', 'Preparer']
+                }
             },
             {
                 path: 'company-register',
@@ -160,55 +170,55 @@ const routes: Routes = [
                 path: 'brsr-qa',
                 canActivate: [RoleGuard],
                 component: BrsrQaComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'finance_emissions',
                 canActivate: [RoleGuard],
                 component: FinanceEmissionsComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'setGhgTemplate',
                 canActivate: [RoleGuard],
                 component: GhgTemplateComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'vendors',
                 canActivate: [RoleGuard],
                 component: VendorsComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'cost_centre',
                 canActivate: [RoleGuard],
                 component: CostCentreComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'dataProgress',
                 canActivate: [RoleGuard],
                 component: DataProgressComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'vendorDashboard',
                 canActivate: [RoleGuard],
                 component: VendorDashboardComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'main_tree',
                 canActivate: [RoleGuard],
                 component: MainTreeComponent,
-                data: { roles: ['Platform Admin','Super Admin','Admin','Manager','Preparer', 'Auditor'] },
-                children:[
-                    {path:'',redirectTo:'view', pathMatch:'full'},
-                    {path:'view', component:TreeComponent},
-                    {path:'facility', component:FacilityComponent},
-                    {path:'subgroup', component:SubgroupComponent},
-                    {path:'group', component:GroupComponent}
+                data: { roles: ['Platform Admin', 'Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] },
+                children: [
+                    { path: '', redirectTo: 'view', pathMatch: 'full' },
+                    { path: 'view', component: TreeComponent },
+                    { path: 'facility', component: FacilityComponent },
+                    { path: 'subgroup', component: SubgroupComponent },
+                    { path: 'group', component: GroupComponent }
                 ]
             },
             {
@@ -253,7 +263,7 @@ const routes: Routes = [
                 path: 'user',
                 component: UserComponent,
                 canActivate: [RoleGuard],
-                data: { roles: ['Super Admin', 'Admin', 'Manager','Preparer', 'Auditor'] }
+                data: { roles: ['Super Admin', 'Admin', 'Manager', 'Preparer', 'Auditor'] }
             },
             {
                 path: 'tree/:id',
@@ -267,14 +277,16 @@ const routes: Routes = [
                 canActivate: [RoleGuard],
                 data: { roles: ['Super Admin', 'Admin', 'Auditor'] }
             },
-       
+
             {
                 path: 'billing',
                 canActivate: [RoleGuard],
                 component: BillingComponent,
-                data: { roles: ['Super Admin','Admin','Manager',
-                'Preparer',
-                'Approver', 'Auditor'] }
+                data: {
+                    roles: ['Super Admin', 'Admin', 'Manager',
+                        'Preparer',
+                        'Approver', 'Auditor']
+                }
             },
             {
                 path: 'adminBilling',
@@ -286,36 +298,44 @@ const routes: Routes = [
                 path: 'carbonOffset',
                 canActivate: [RoleGuard],
                 component: CarbonOffsettingComponent,
-                data: { roles: [  'Super Admin',
-                'Admin',
-                'Manager',
-                'Preparer',
-                'Approver', 'Auditor'] }
+                data: {
+                    roles: ['Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver', 'Auditor']
+                }
             },
-            { path: 'tracking',   canActivate: [RoleGuard],data: {
-                roles: [
-                    'Super Admin',
-                    'Admin',
-                    'Manager',
-                    'Preparer',
-                    'Approver', 'Auditor'
-                ]
-            }, loadChildren: () => import('./pages/tracking/tracking.module').then(m => m.TrackingModule) },
-          
-            { path: 'GhgReporting',   canActivate: [RoleGuard],data: {
-                roles: [
-                    'Super Admin',
-                    'Admin',
-                    'Manager',
-                    'Preparer',
-                    'Approver', 'Auditor'
-                ]
-            }, loadChildren: () => import('./pages/reporting/reporting.module').then(m => m.ReportingModule) },
-            { path: 'platformAdmin',canActivate: [RoleGuard],data: {
-                roles: [
-                    'Platform Admin'
-                ]
-            }, loadChildren: () => import('./pages/platform-admin/platform-admin.module').then(m => m.PlatformAdminModule) },
+            {
+                path: 'tracking', canActivate: [RoleGuard], data: {
+                    roles: [
+                        'Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver', 'Auditor'
+                    ]
+                }, loadChildren: () => import('./pages/tracking/tracking.module').then(m => m.TrackingModule)
+            },
+
+            {
+                path: 'GhgReporting', canActivate: [RoleGuard], data: {
+                    roles: [
+                        'Super Admin',
+                        'Admin',
+                        'Manager',
+                        'Preparer',
+                        'Approver', 'Auditor'
+                    ]
+                }, loadChildren: () => import('./pages/reporting/reporting.module').then(m => m.ReportingModule)
+            },
+            {
+                path: 'platformAdmin', canActivate: [RoleGuard], data: {
+                    roles: [
+                        'Platform Admin'
+                    ]
+                }, loadChildren: () => import('./pages/platform-admin/platform-admin.module').then(m => m.PlatformAdminModule)
+            },
             {
                 path: 'notification',
                 canActivate: [RoleGuard],
@@ -606,7 +626,7 @@ const routes: Routes = [
     //     path: 'tracking',
     //     loadChildren: () => import('./pages/tracking/tracking.module').then(m => m.TrackingModule)
     //   },
-  
+
     {
         path: 'login',
         component: LoginComponent,
@@ -639,10 +659,10 @@ const routes: Routes = [
         canActivate: [NonAuthGuard]
     },
     { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
-  
 
     { path: '**', redirectTo: '/dashboard/ghgEmission' }
 ];
+
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
