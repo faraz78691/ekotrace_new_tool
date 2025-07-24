@@ -1312,15 +1312,15 @@ export class TrackingComponent {
                         if (response.success === false) {
                             this.dataEntriesPending = null;
                         } else {
-                            if (this.categoryId == 24) {
+                            if (this.businessId == 24 && this.categoryId == 13) {
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'flight_travel');
-                            } else if (this.categoryId == 25) {
+                            } else if (this.businessId == 25 && this.categoryId == 13) {
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'hotel_stay');
-                            } else if (this.categoryId == 26) {
-
+                            } else if (this.businessId == 26 && this.categoryId == 13) {
+ 
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'other_modes_of_transport');
                             } else {
-
+ 
                                 this.dataEntriesPending = response.categories;
                             }
                         }
@@ -1382,18 +1382,18 @@ export class TrackingComponent {
                     if (response.success === false) {
                         this.dataEntriesPending = null;
                     } else {
-                        if (this.categoryId == 24) {
+                        if (this.businessId == 24 && this.categoryId == 13) {
                             this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'flight_travel');
-                        } else if (this.categoryId == 25) {
+                        } else if (this.businessId == 25 && this.categoryId == 13) {
                             this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'hotel_stay');
-                        } else if (this.categoryId == 26) {
+                        } else if (this.businessId == 26 && this.categoryId == 13) {
 
                             this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'other_modes_of_transport');
                         } else {
+
                             this.dataEntriesPending = response.categories;
                         }
                     }
-                    console.log("this.dataEntriesPending", this.dataEntriesPending);
                 },
                 error: (err) => {
                     this.notification.showError('Operation failed', 'Error');

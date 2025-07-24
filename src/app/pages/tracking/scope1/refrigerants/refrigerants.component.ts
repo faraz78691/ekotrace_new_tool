@@ -49,16 +49,21 @@ export class RefrigerantsComponent {
     if (dataEntryForm.valid) {
       this.isSubmitting = true;
       let formData = new FormData();
-     
     
-      formData.set('readingValue', dataEntryForm.value.readingvalue.toString());
+
+      formData.set('subCategoryTypeId', (this.fuelId).toString());
+      formData.set('SubCategorySeedID', this.subCategoryID.toString());
+      formData.set('refAmount', dataEntryForm.value.refAmount.toString());
+
+      formData.set('unit', 'KG');
+      formData.set('facilities', this.facilityID.toString());
+
       formData.set('months', this.months);
-      formData.set('year',  this.year );
-      formData.set('facility_id', this.facilityID.toString());
+      formData.set('year', this.year);
       // if (this.selectedFile) {
       //     formData.set('file', this.selectedFile, this.selectedFile.name);
       // }
-      this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
+      this.appService.postAPI('/Addrefrigerant', formData).subscribe({
           next: (response:any) => {
 
               if (response.success == true) {

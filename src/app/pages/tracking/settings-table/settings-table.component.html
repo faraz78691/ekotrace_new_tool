@@ -1,1 +1,31 @@
-<p>settings-table works!</p>
+<p-table [value]="data" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
+      styleClass="statusTable ct_status_tble_230_space ct_status_table_main">
+      <ng-template pTemplate="header">
+            <tr>
+                  <th *ngFor="let col of columns">{{ col.header }}</th>
+            </tr>
+      </ng-template>
+ 
+      <ng-template pTemplate="body" let-row>
+            <tr>
+                  <td *ngFor="let col of columns">
+                        <ng-container [ngSwitch]="col.field">
+                              <ng-container *ngSwitchCase="'combineVehicle'">
+                                    {{ row.category_name }} - {{ row.type }}
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'franchise_spaceLease'">
+                                    {{ row.franchise_space }} {{ row.unit }}
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'endOfLife'">
+                                    {{ row.landfill }}, {{ row.emission_factor_combustion }},{{
+                                    row.emission_factor_recycling }},{{row.emission_factor_composing}}
+                              </ng-container>
+                              <ng-container *ngSwitchDefault>
+                                    {{ col.xtra ? col.xtra + row[col.field] : row[col.field] || '-' }}
+                              </ng-container>
+                        </ng-container>
+                  </td>
+            </tr>
+      </ng-template>
+</p-table>
+ 

@@ -14,6 +14,7 @@ import { ControlSidebarComponent } from '@modules/main/control-sidebar/control-s
 
 import { HeaderComponent } from '@modules/main/header/header.component';
 import { StatusTableComponent } from "./status-table/status-table.component";
+import { SettingsTableComponent } from './settings-table/settings-table.component';
 @NgModule({
   declarations: [TrackingComponent],
   imports: [
@@ -22,7 +23,8 @@ import { StatusTableComponent } from "./status-table/status-table.component";
     NgxSpinnerModule,
     SharedModule,
     HeaderComponent,
-    StatusTableComponent
+    StatusTableComponent,
+    SettingsTableComponent
 ],
   providers: [
   

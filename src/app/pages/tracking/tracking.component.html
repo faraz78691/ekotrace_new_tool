@@ -486,7 +486,7 @@
                         </p-tabPanel>
 
                         <p-tabPanel header="Settings">
-                           
+                            <app-settings-table [categoryId]="categoryId" [data]="dataEntriesPending" [businessId]="businessId"></app-settings-table>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
