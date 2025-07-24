@@ -1,0 +1,554 @@
+.Location-tabD {
+  background-color: #454149;
+  color: #fff !important;
+  // box-shadow: 0 .5rem 1rem rgb(124, 122, 122) !important;
+  height: 550px;
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 14px -5px #fff !important;
+}
+
+.Location-tabL {
+  background-color: #fff;
+  // box-shadow: 0 .5rem 1rem rgb(124, 122, 122) !important;
+  color: #242529 !important;
+  // height: 550px;
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 14px -5px #242529 !important;
+}
+
+// .box-shadow {
+//   box-shadow: white !important;
+// }
+
+.span-color {
+  background-color: #88AD47;
+}
+
+.font-pera {
+  font-size: 16px;
+}
+
+.font-LocProfile {
+  font-size: 16px;
+}
+
+.loc-headD {
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 20%;
+}
+
+.loc-headL {
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  height: 20%;
+}
+
+
+.myCol {
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  flex-basis: 47% !important;
+  max-width: 47% !important;
+}
+
+.loc-head p {
+  margin-top: 5px;
+  margin-left: 6px;
+  font-size: larger;
+}
+
+.scope-Div {
+  font-size: small;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.p-scope {
+  color: #0ac60a;
+  border-bottom: green;
+  background-color: #0ac60a;
+  opacity: 1;
+
+}
+
+.searchWidth {
+  width: 310px;
+}
+
+.has-search .form-controlD {
+  padding-left: 2.375rem;
+  border-radius: 5px;
+  border-color: white;
+  background-color: #454149;
+  color: white;
+}
+
+.has-search .form-controlL {
+  padding-left: 2.375rem;
+  border-radius: 5px;
+  border-color: #d8d8d8 !important;
+  background-color: #fff;
+  color: #242529;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.LocButton {
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: rgba(136, 173, 71, 0.75);
+  margin-top: 3px;
+  width: 120px;
+  color: white;
+  height: 35px;
+}
+
+.LocButtonEdit {
+  //border-left: 10px;
+  // border-top-left-radius: 10px;
+  // border-bottom-left-radius: 10px;
+  border-color: transparent;
+  background-color: rgba(136, 173, 71, 0.75);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-top: 3px;
+  width: 80px;
+  color: rgb(17, 16, 16);
+  height: 30px;
+  padding-top: 8px;
+  padding-left: 9px;
+
+}
+
+
+
+
+
+.saveLocButton {
+
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-color: transparent;
+  background-color: #88AD47;
+  margin-top: 3px;
+  width: 80px;
+  color: white;
+  height: 30px;
+}
+
+.deleteButton {
+  width: 90px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-color: transparent;
+  background-color: rgb(154, 9, 9);
+  margin-top: 3px;
+  color: white;
+  height: 30px;
+
+  padding-top: 8px;
+  padding-left: 8px;
+  //margin-left: 5px;
+}
+
+.dataTable {
+  width: 100%;
+}
+
+.table_loc {
+  font-size: 16px;
+  width: 100%;
+  //display: flex;
+  justify-content: flex-start;
+  border-bottom: white;
+
+}
+
+.modal-dialog {
+  max-width: 1999px;
+}
+
+.delete-dialog {
+  max-width: 500px;
+}
+
+.popup-Data-model {
+  max-width: 530px;
+  margin-top: 100px;
+  margin-left: 450px;
+
+}
+
+.form-control {
+  background-color: #454149;
+}
+
+.td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+tr.border-bottom td {
+  border-bottom: 1pt solid #5a5858;
+}
+
+tr.border-bottom td button {
+  // font-size: smaller;
+  color: #88AD47;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+//drop down
+/* Dropdown Button */
+.dropbtnD {
+  background-color: #454149;
+  color: #88AD47;
+  width: 120px;
+  height: 30px;
+  font-size: 16px;
+  border-color: #88AD47;
+  border-width: 2px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
+
+.dropbtnL {
+  background-color: #fff;
+  color: #88AD47;
+  width: 120px;
+  height: 30px;
+  font-size: 16px;
+  border-color: #88AD47;
+  border-width: 2px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+
+/* Dropdown button on hover & focus */
+.dropbtnD:hover,
+.dropbtnD:focus {
+  background-color: #88AD47;
+  color: #454149;
+}
+
+.dropbtnD:hover span {
+  border: 1px solid #454149;
+}
+
+.dropbtnD:focus span {
+  border: 1px solid #454149;
+}
+
+.dropbtnL:hover,
+.dropbtnL:focus {
+  background-color: #88AD47;
+  color: #454149;
+}
+
+.dropbtnL:hover span {
+  border: 1px solid #454149;
+}
+
+.dropbtnL:focus span {
+  border: 1px solid #454149;
+}
+
+.tableRow:hover,
+.tableRow:focus {
+  background-color: #c3c6bc !important;
+  ;
+  color: #88AD47;
+}
+
+.tableRowclicked {
+  background-color: #DEE9C7 !important;
+  ;
+  color: #454149;
+}
+
+.vdtextColor {
+  color: skyblue;
+}
+
+.test {
+  background-color: aqua !important;
+}
+
+.dataPointD {
+  background-color: #454149;
+  color: #88AD47;
+  width: 150px;
+  height: 30px;
+  font-size: 16px;
+  border-color: #88AD47;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.dataPointL {
+  background-color: #FFF;
+  color: #88AD47;
+  width: 150px;
+  height: 30px;
+  font-size: 16px;
+  border-color: #88AD47;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.dataPointD:hover,
+.dataPointD:focus {
+  background-color: #88AD47;
+  color: #454149;
+}
+
+.dataPointL:hover,
+.dataPointL:focus {
+  background-color: #88AD47;
+  color: #454149;
+}
+
+.dataPointDiv {
+  margin-top: 0.50rem;
+}
+
+/* The container <div> - needed to position the dropdown content */
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  width: 120px !important;
+  background-color: #454149;
+  color: #fff;
+  font-size: 16px;
+  overflow: scroll !important;
+  border: 1px solid white;
+  padding-bottom: 0px !important;
+  padding-top: 0px !important;
+  z-index: 1;
+}
+
+.dropItemManager {
+  color: #fff;
+}
+
+.dropItemStaff {
+  color: #fff;
+}
+
+.badgeDiv {
+  width: 20px;
+  height: 10px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #fff;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-bottom: 1px solid white;
+}
+
+.p-multiSelect {
+  background-color: #454149;
+  border-color: transparent;
+}
+
+.dpDIv {
+  height: 1000px !important;
+
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color: #242529;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+.gap-4 {
+  gap: 0.75rem;
+}
+
+.deletePop-header-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  color: #88AD47;
+}
+
+.scrollit {
+  overflow: scroll !important;
+  overflow-x: scroll;
+  height: 575px;
+  width: 100%;
+}
+
+.padding {
+  padding: 5px;
+}
+
+.scopeButtonDiv {
+  display: flex;
+  justify-items: center;
+  font-size: 16px;
+
+  border-bottom: #88AD47;
+}
+
+.scopeButton {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.searchWidthDP {
+  width: 100%;
+}
+
+.points {
+  width: 467px;
+  background-color: #454149;
+}
+
+.pointsSelect {
+  width: 100%;
+  background-color: #454149;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: white;
+}
+
+.subcatagory {
+  background-color: #454149;
+}
+
+.label {
+  width: 100%;
+  color: #88AD47;
+  font-size: 16px;
+}
+
+.scopeDiv {
+  justify-content: center;
+  height: 30px;
+}
+
+.tabMenu {
+  width: 100%;
+}
+
+.cardDiv {
+
+  background-color: #454149 !important;
+
+}
+
+.dpDiv {
+  height: 50px;
+  border-bottom: 1px solid grey;
+
+}
+
+.togglewidth {
+  width: 100px;
+  justify-content: end;
+  flex-direction: column;
+}
+
+
+
+.mandatorylabel {
+  width: 100px;
+  height: 10px;
+  font-size: 16px;
+  margin-top: 1px !important;
+  margin-left: none;
+
+}
+
+.badgespan {
+  border: 1px solid #88AD47;
+  border-radius: 50% !important;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.custom-dialog {
+  width: 500px;
+  height: 300px;
+}
+
+.facilitygrid {
+  height: 100% !important;
+  // display: grid;
+}
+.ct_facility_2_main button {
+  background-color: #f5f5f5 !important;
+  border: 1px solid #eee !important;
+  color: #333 !important;
+  font-size: 13px !important;
+  font-weight: 600;
+}
+
+.ct_facility_2_main .dropdown-content.dropdown-menu.show {
+  background-color: rgb(136 173 71 / 80%) !important;
+  border: none;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+.ct_facility_2_main .dropdown-content.dropdown-menu.show:hover a{
+  background-color: #88ad47 !important;
+}
+.ct_facility_2_main .dropdown-content.dropdown-menu.show a{
+color: #fff!important;
+font-size: 16px;
+font-weight: 400;
+}
+.ct_close_btn1231 {
+  background-color: #eee;
+  color: #333 !important;
+  padding: 6px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  height: 35px;
+  font-weight: 400 !important;
+}
+
+
+@media screen and (max-width:991px){
+  .myCol{
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+  }
+}

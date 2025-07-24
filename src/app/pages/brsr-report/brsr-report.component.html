@@ -1,0 +1,386 @@
+<div class="container-fluid">
+  
+    <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="m-0 pl-4">BRSR Report</h3>
+        </div>
+    </div>
+
+
+<div class="row d-flex justify-content-between gap-1 mx-3 pt-3 pb-5" [ngClass]="this.updatedtheme === 'dark' ? 'firstboxD' : 'firstboxL'">
+    <div class="col">
+        <table class="table ct_billing_table_bg_120 ct_table_nowrape1234">
+            <thead>
+              <tr>
+                <th scope="col ml-2">Sections</th>
+                <th scope="col" style="text-align: center;">Human Resource Department</th>
+                <th scope="col" style="text-align: center;">Finance Department</th>
+                <th scope="col" style="text-align: center;">Company Secretary</th>
+                <th scope="col" style="text-align: center;">FM & Supply Chain Departmemt</th>
+          
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td  scope="row">General Disclosures</td>
+                <td  style="text-align: center"><i class="fa-solid fa-check"></i>
+                </td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Management and Process </td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                </td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Transparency and Accountability (P1)</td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i>
+                </td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Sustainability and Safety (P2)</td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                </td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Well-being of Employees (P3)</td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i>
+                </td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Stakeholders Interests (P4)</td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                </td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Human Rights (P5)</td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Environment (P6)</td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                </td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Public and Regulatory (P7)</td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                </td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td scope="row">Inclusive Growth Dev (P8)</td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i>
+                </td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>    
+                 <td scope="row">Consumer Engagement (P9)</td>
+                 <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i>
+                 </td>
+                 <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                 <td style="text-align: center"><i class="fa-solid fa-check"></i></td>
+                 <td style="text-align: center"><i class="fa fa-times" aria-hidden="true"></i></td>
+              </tr>
+              <tr>    
+                 <td scope="row"></td>
+                <td style="text-align: center">  <a class="trackingsubmitb ct_green_text_120 d-block" href="assets/BRSR_Template_HR Dept.xlsx"
+                    download="">Click here to
+                    download template</a></td>
+                <td style="text-align: center">  <a class="trackingsubmitb ct_green_text_120 d-block" href="assets/BRSR_Template_Finance Dept.xlsx"
+                    download="">Click here to
+                    download template</a></td>
+                <td style="text-align: center">  <a class="trackingsubmitb ct_green_text_120 d-block" href="assets/BRSR_Template_Company Secretary.xlsx"
+                    download="">Click here to
+                    download template</a></td>
+                <td style="text-align: center">  <a class="trackingsubmitb ct_green_text_120 d-block" href="assets/BRSR_Template_FM & Supply Chain.xlsx"
+                    download="">Click here to
+                    download template</a></td>
+              </tr>
+              <tr>    
+                 <td scope="row"></td>
+                 <td style="text-align: center">
+                  <input type="file" class=" ct_animation_btn_121 ct_change_choose_file_input12" (change)="onFileSelected($event , '1')">
+               
+                </td>
+                 <td style="text-align: center">
+                  <input type="file" class="  ct_animation_btn_121 ct_change_choose_file_input12" (change)="onFileSelected($event , '2')">
+               
+                </td>
+                 <td style="text-align: center">
+                  <input type="file" class="  ct_animation_btn_121 ct_change_choose_file_input12" (change)="onFileSelected($event , '3')">
+              
+                </td>
+                 <td style="text-align: center">
+                  <input type="file" class="  ct_animation_btn_121 px-0 ct_change_choose_file_input12" (change)="onFileSelected($event , '4')">
+              
+                </td>
+              
+              </tr>
+              <tr>    
+                 <td scope="row"></td>
+                 <td style="text-align: center"><button  class="LocButton ct_animation_btn_121" (click)="uploadFiles('HR')">Submit</button></td>
+                 <td style="text-align: center"><button  class="LocButton ct_animation_btn_121" (click)="uploadFiles('FD')">Submit</button></td>
+                 <td style="text-align: center"><button  class="LocButton ct_animation_btn_121" (click)="uploadFiles('CS')">Submit</button></td>
+                 <td style="text-align: center"><button  class="LocButton ct_animation_btn_121" (click)="uploadFiles('FCD')">Submit</button></td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+<!-- old section startsssss -->
+
+        <!-- <div class="row mt-2">
+            <div class="tab-header togglewidth d-flex align-items-center">
+                <p-inputSwitch [(ngModel)]="showUnansweredFields"></p-inputSwitch>
+            </div>
+            <p-tabView [activeIndex]="defaultTabIndex">
+                <p-tabPanel *ngFor="let brsr of brsrPrinciplesandQA; let i = index"
+                            header="{{ brsr.principleName }}"
+                            (click)="navigateToTab('/brsr-report', { defaultTab: i })">
+                               
+                    <div class="questions-row">
+                        <div class="row px-5">
+                            <ng-container *ngIf="showUnansweredFields; else answeredFields">
+                                <div class="col-6 py-4 questions-grid" *ngFor="let brsrq of getUnansweredQuestions(brsr); let j = index">
+                                    <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}. {{ brsrq.question }}</label>
+                                    <input [disabled]="islock == true" name="answer{{ j }}"
+                                        [(ngModel)]="brsrq.answer" class="form-control Dashboard-tab text-white"
+                                        placeholder="Enter.." />
+                                </div>
+                            </ng-container>
+                            <ng-template #answeredFields>
+                                <div class="col-6 py-4 questions-grid" *ngFor="let brsrq of brsr.brsR_Q_As; let j = index">
+                                    <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}. {{ brsrq.question }}</label>
+                                    <input [disabled]="islock == true" name="answer{{ j }}"
+                                        [(ngModel)]="brsrq.answer" class="form-control Dashboard-tab text-white"
+                                        placeholder="Enter.." />
+                                </div>
+                            </ng-template>
+    <div class="row d-flex justify-content-between gap-1 mx-3 pt-3 pb-5" [ngClass]="this.updatedtheme === 'dark' ? 'firstboxD' : 'firstboxL'">
+        <div class="col">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col ml-2">Principles</th>
+                    <th scope="col">HR</th>
+                    <th scope="col">CS</th>
+                    <th scope="col">FD</th>
+              
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">General Disclosures</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Management and Process </th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Transparency and Account (P1)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Sustainability and Safety (P2)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Well-being of Employees (P3)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Stakeholders Interests (P4)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Human Rights (P5)</th>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Environment (P6)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Public and Regulatory (P7)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Inclusive Growth Dev (P9)</th>
+                    <td><i class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>    
+                     <th scope="row">Consumer Engagement (P10)</th>
+                     <td><i class="fa fa-times" aria-hidden="true"></i>
+                     </td>
+                     <td><i class="fa-solid fa-check"></i></td>
+                     <td><i class="fa-solid fa-check"></i></td>
+                  </tr>
+                  <tr>    
+                     <th scope="row"></th>
+                    <td>  <a class="trackingsubmitb d-block" href="assets/template.xlsx"
+                        download="">Click here to
+                        download template</a></td>
+                    <td>  <a class="trackingsubmitb d-block" href="assets/template.xlsx"
+                        download="">Click here to
+                        download template</a></td>
+                    <td>  <a class="trackingsubmitb d-block" href="assets/template.xlsx"
+                        download="">Click here to
+                        download template</a></td>
+                  </tr>
+                  <tr>    
+                     <th scope="row"></th>
+                    <td><button  class="LocButton ct_animation_btn_121">Upload</button></td>
+                    <td><button  class="LocButton ct_animation_btn_121">Upload</button></td>
+                    <td><button  class="LocButton ct_animation_btn_121">Upload</button></td>
+                  </tr>
+                </tbody>
+              </table>
+             <div class="row mt-2">
+                <div class="tab-header togglewidth d-flex align-items-center">
+                    <p-inputSwitch [(ngModel)]="showUnansweredFields"></p-inputSwitch>
+                </div>
+                <p-tabView [activeIndex]="defaultTabIndex">
+                    <p-tabPanel *ngFor="let brsr of brsrPrinciplesandQA; let i = index"
+                                header="{{ brsr.principleName }}"
+                                (click)="navigateToTab('/brsr-report', { defaultTab: i })">
+                                   
+                        <div class="questions-row">
+                            <div class="row px-5">
+                                <ng-container *ngIf="showUnansweredFields; else answeredFields">
+                                    <div class="col-6 py-4 questions-grid" *ngFor="let brsrq of getUnansweredQuestions(brsr); let j = index">
+                                        <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}. {{ brsrq.question }}</label>
+                                        <input [disabled]="islock == true" name="answer{{ j }}"
+                                            [(ngModel)]="brsrq.answer" class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter.." />
+                                    </div>
+                                </ng-container>
+                                <ng-template #answeredFields>
+                                    <div class="col-6 py-4 questions-grid" *ngFor="let brsrq of brsr.brsR_Q_As; let j = index">
+                                        <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}. {{ brsrq.question }}</label>
+                                        <input [disabled]="islock == true" name="answer{{ j }}"
+                                            [(ngModel)]="brsrq.answer" class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter.." />
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div> -->
+
+
+        <!-- <div class="row mt-2">
+
+            <p-tabView [activeIndex]="defaultTabIndex">
+                <p-tabPanel *ngFor="let brsr of brsrPrinciplesandQA; let i = index"
+                    (click)="navigateToTab('/brsr-report', { defaultTab: i })">
+
+                    <ng-template pTemplate="header">
+                        {{ brsr.principleName }} -
+                        <span [ngClass]="{
+                                    'requestcount': answeredQuestionsCount(brsr),
+                                    'bg-orange': parseAnsweredCount(answeredQuestionsCount(brsr)) <= 15,
+                                    'bg-yellow': parseAnsweredCount(answeredQuestionsCount(brsr)) > 15 && parseAnsweredCount(answeredQuestionsCount(brsr)) < parseTotalCount(answeredQuestionsCount(brsr)),
+                                    'bg-green': parseAnsweredCount(answeredQuestionsCount(brsr)) === parseTotalCount(answeredQuestionsCount(brsr))
+                                }">
+                            {{ answeredQuestionsCount(brsr) }}
+                        </span>
+                    </ng-template>
+
+
+
+
+                    <div class="questions-row">
+                        <div class="row px-5">
+                            <div class="col-6 py-4 questions-grid" *ngFor="
+                            let brsrq of brsr.brsR_Q_As;
+                            let j = index
+                        ">
+                                <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}.
+                                    {{ brsrq.question }}</label>
+                                <div>
+                                    <input [disabled]="islock == true" name="answer{{ j }}"
+                                        [(ngModel)]="brsrq.answer" class="form-control Dashboard-tab text-white"
+                                        placeholder="Enter.." />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div> -->
+
+
+     
+    </div>
+</div>
+<!-- <p-confirmDialog #cd [style]="{width: '60vw'}">
+    <ng-template pTemplate="footer">
+        <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+            class="span-color cancel-button p-button-success"></button>
+        <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+            class="p-button-raised p-button-danger"></button>
+    </ng-template>
+</p-confirmDialog> -->
+</div>

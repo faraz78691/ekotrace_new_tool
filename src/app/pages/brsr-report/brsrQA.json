@@ -1,0 +1,15 @@
+[
+    {
+        "question": "Total fuel"
+    },
+    {
+        "question": "Total electricity consumed"
+    },
+    {
+        "question": "Total energy consumed"
+    },
+    {
+        "question": "Total diesel consumed"
+    }
+
+]

@@ -1,0 +1,105 @@
+.billing-tab {
+    background-color: #454149;
+    // box-shadow: 0 .5rem 1rem rgb(124, 122, 122) !important;
+    height: 199px;
+    width: 100%;
+    top: 10px;
+    left: 20px;
+    border-radius: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .active-dot {
+    //background-color:green;
+    color: green;
+  }
+  
+  .inactive-dot {
+   // background-color: red;
+    color: red;
+  }
+
+
+.dot{
+    padding-left: 4px;
+    color: red;
+    height: 10px;
+    width: 10px;
+    background-color: var(--status-color);
+    display: inline-block;
+}
+.dotActive{
+    padding-left: 4px;
+    //color: #55BF92;
+    height: 10px;
+    width: 10px;
+    background-color: #55BF92;
+    display: inline-block;
+}
+.cardD{
+    background-color: #454149;
+    color: #FFF !important;
+    left: 10px;
+    margin-right: 22px;   
+    box-shadow: 0px 0px 14px -5px #fff !important;
+
+}
+.cardL{
+    background-color: #FFF;
+    color: #242529 !important;
+    left: 10px;
+    margin-right: 22px;   
+    box-shadow: 0px 0px 14px -5px #242529 !important;
+
+}
+.card-headerD{
+
+border-bottom: 1px solid #fff ;
+color: #fff;
+   
+}
+.card-headerL{
+    border-bottom: 1px solid #eee ;
+    color: #242529;
+}
+
+.textpera{
+    font-size: 18px;
+}
+// .span-color {
+//     background-color: #88AD47;
+   
+// }
+
+#roundedicon{
+    width: 30%;
+    height: 30%
+}
+
+
+.btn-succes{
+    background-color: #88AD47; 
+    font-size: 16px;
+}
+
+img{
+height: 50px;
+width: 50px;
+
+}
+
+.statusactive{
+    margin-left: 50px;
+}
+.renewalbutton{
+    margin-top: 40px;
+    margin-left: 70px;
+}
+

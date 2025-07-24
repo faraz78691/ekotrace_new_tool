@@ -1,0 +1,138 @@
+<!-- Main content -->
+
+<section class="content">
+  <div class="container-fluid">
+    <div *ngIf="EnvironmentDataPoints && EnvironmentDataPoints.length > 0">
+      <p-carousel [numVisible]="4" [numScroll]="4" [value]="EnvironmentDataPoints" [responsive]="true">
+        <ng-template pTemplate="item" let-item let-indexofelement="index">
+          <div class="px-2" (click)="changecombustiontabs(item)">
+            <div class="small-box text-center d-flex" [ngClass]="{
+                          'Dashboard-tabD': this.updatedtheme === 'dark',
+                          'Dashboard-tabL': this.updatedtheme === 'light',
+                          'Dashboard-tab1': this.updatedtheme === 'theme1',
+                          'Dashboard-tab2': this.updatedtheme === 'theme2',
+                          'Dashboard-tab3': this.updatedtheme === 'theme3',
+                          'Dashboard-tab4': this.updatedtheme === 'theme4',
+                          activecombustion:
+                              this.activecombustiontab === item.id
+                      }">
+              <div class="combustionicon">
+                <img src="assets/img/dashboard/combustionicon.png" />
+              </div>
+              <div>
+                <p class="Consumptions">
+                  Total
+                  {{ item.dataPointName }} Combustion
+                </p>
+
+                <div class="text-center">
+                  <p class="innervalue">
+                    {{ item.totalCombustion }}
+                  </p>
+                  <p class="unit">{{ item.unit }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+    <div *ngIf="EnvironmentDataPoints && EnvironmentDataPoints.length === 0">
+      <p>No data available</p>
+    </div>
+    <div class="row text-white">
+      <div class="col-7">
+        <div class="small-box" [ngClass]="
+                      this.updatedtheme === 'dark'
+                          ? 'Dashboard-tabD'
+                          : this.updatedtheme === 'light'
+                          ? 'Dashboard-tabL'
+                          : this.updatedtheme === 'theme1'
+                          ? 'Dashboard-tab1'
+                          : this.updatedtheme === 'theme2'
+                          ? 'Dashboard-tab2'
+                          : this.updatedtheme === 'theme3'
+                          ? 'Dashboard-tab3'
+                          : this.updatedtheme === 'theme4'
+                          ? 'Dashboard-tab4'
+                          : ''
+                  ">
+          <div class="inner">
+            <p>Top {{dataPointName}} consuming side</p>
+            <div *ngIf="TopCarbonConsumingList && TopCarbonConsumingList.length > 0; else emptyList">
+              <ngx-charts-bar-vertical [view]=" [630, 300]" [results]="TopCarbonConsumingList"
+                [xAxisLabel]="'Facilities'" [legendTitle]="'C E Chart'" [yAxisLabel]="'Carbon Emission'" [legend]="true"
+                [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true" [gradient]="true"
+                [scheme]="'forest'">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+          <ng-template #emptyList>
+            <p>No data available</p>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-5">
+        <div class="small-box" [ngClass]="
+                      this.updatedtheme === 'dark'
+                          ? 'Dashboard-tabD'
+                          : this.updatedtheme === 'light'
+                          ? 'Dashboard-tabL'
+                          : this.updatedtheme === 'theme1'
+                          ? 'Dashboard-tab1'
+                          : this.updatedtheme === 'theme2'
+                          ? 'Dashboard-tab2'
+                          : this.updatedtheme === 'theme3'
+                          ? 'Dashboard-tab3'
+                          : this.updatedtheme === 'theme4'
+                          ? 'Dashboard-tab4'
+                          : ''
+                  ">
+          <div class="inner">
+            <P>renewable {{dataPointName}}</P>
+            <div *ngIf="TopCarbonConsumingList && TopCarbonConsumingList.length > 0; else emptyList">
+              <ngx-charts-advanced-pie-chart [results]="TopCarbonConsumingList" [view]="[400, 300]" [scheme]="'forest'">
+              </ngx-charts-advanced-pie-chart>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptyList>
+          <p>No data available</p>
+        </ng-template>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="small-box" [ngClass]="
+                      this.updatedtheme === 'dark'
+                          ? 'Dashboard-tabD'
+                          : this.updatedtheme === 'light'
+                          ? 'Dashboard-tabL'
+                          : this.updatedtheme === 'theme1'
+                          ? 'Dashboard-tab1'
+                          : this.updatedtheme === 'theme2'
+                          ? 'Dashboard-tab2'
+                          : this.updatedtheme === 'theme3'
+                          ? 'Dashboard-tab3'
+                          : this.updatedtheme === 'theme4'
+                          ? 'Dashboard-tab4'
+                          : ''
+                  ">
+          <div class="inner">
+            <P>Total {{dataPointName}} Consumption by month</P>
+            <div *ngIf="TopCarbonConsumingList && TopCarbonConsumingList.length > 0; else emptyList">
+              <ngx-charts-area-chart class="text-white" [results]="TopCarbonConsumingByMonthList"
+                [xAxisLabel]="'Facilities'" [yAxisLabel]="'Carbon Emission'" [view]="[1000, 300]" [scheme]="'forest'"
+                [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true">
+              </ngx-charts-area-chart>
+            </div>
+          </div>
+          <ng-template #emptyList>
+            <p>No data available</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /.content -->

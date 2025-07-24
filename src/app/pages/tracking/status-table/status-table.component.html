@@ -1,0 +1,41 @@
+<p-table
+  [value]="data"
+  [paginator]="true"
+  [rows]="10"
+  [rowHover]="true"
+  dataKey="id"
+  styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of columns">{{ col.header }}</th>
+      <th>Year</th>
+      <th>Status</th>
+      <th>Emission (tCO2e)</th>
+      <th>User</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td *ngFor="let col of columns">
+        <ng-container [ngSwitch]="col.field">
+          <ng-container *ngSwitchCase="'combineVehicle'">
+            {{ row.category_name }} - {{ row.type }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'franchise_spaceLease'">
+            {{ row.franchise_space }} {{ row.unit }}
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ row[col.field] }}
+          </ng-container>
+        </ng-container>
+      </td>
+
+      <td>{{ row.year }}</td>
+      <td>{{ row.status }}</td>
+      <td>{{ row.emission }}</td>
+      <td>{{ row.user_name }}</td>
+    </tr>
+  </ng-template>
+</p-table>

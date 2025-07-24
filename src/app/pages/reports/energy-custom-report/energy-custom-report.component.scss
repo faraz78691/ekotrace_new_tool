@@ -1,0 +1,178 @@
+.backicon{
+    padding-left: 10px;
+    padding-top: 6px;
+    padding-right: 7px;
+
+}
+.selectyear {
+    margin-left: 15px;
+    // box-shadow: 0px 0px 14px -8px #b3b4bb;
+    border: 1px solid #ced4da;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+.firstbox{
+    background-color: #fff;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right:15px;
+    margin-top:15px;
+    // box-shadow: 0px 0px 14px -5px #fff;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.09);
+    border-top: 3px solid rgba(136, 173, 71, 0.75);
+}
+
+.Secondbox{
+    background-color: #fff;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right:15px;
+    margin-top:15px;
+    box-shadow: 0px 0px 14px -5px #fff;
+ 
+   
+}
+.Secondbox h4{
+    color: #333;
+}
+.facilityrow{
+    margin-right: 14px;
+
+    
+}
+.facilitydropdown{
+    border: 1px solid #ced4da;
+    align-items: center;
+    border-radius: 8px;
+    background-color: transparent;
+    
+}
+.reporttable{
+ height: 400px;
+ overflow: auto;
+}
+.nodata{
+   text-align: center;
+   margin-top: 100px;
+}
+.generateReportButton{
+    background-color: rgba(136, 173, 71, 0.75);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    padding-right: 15px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+
+    color: #fff;
+    border-radius: 5px;
+
+}
+
+.calenderinput{
+    height: 38px;
+    width: 90%;
+    // padding-top: 5px;
+}
+
+.pi-chevron{
+    top: 20px;
+}
+
+.finput{
+width: 100%;
+}
+
+.calender-wrapper {
+    flex-grow: 1;
+  }
+  
+  .icon-wrapper {
+    margin-left: 10px; /* Adjust the margin as needed */
+  }
+.datapointDiv{
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.facilityinput{
+    width: 80px;
+}
+
+.dropdown-menu{
+    background-color: #ffffff !important;
+    color: #fff !important;
+}
+.ct_box_shadow_none{
+
+    box-shadow: none;
+}
+label {
+    font-size: 18px;
+}
+// govngggggggggg---------------
+
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 25px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d3dfcd;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: rgba(136, 173, 71, 0.75);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px rgba(136, 173, 71, 0.75);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }

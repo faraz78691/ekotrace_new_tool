@@ -1,0 +1,1431 @@
+<button (click)="downloadPDF()">Download</button>
+<div id="pdf-content">
+    <!-- GHG EMISSION REPORT S -->
+    <div class="et_pdf_white_bg et_pdf_width d-flex mt-5">
+        <div class="row align-items-center">
+            <div class="col-sm-7">
+                <div class="et_inner_space_15 text-center et_py_15">
+                    <h2 class="et_fs_36 et_fw_500">GHG EMISSION <br>
+                        REPORT</h2>
+                    <h3 class="et_light_green_bg et_fs_24 mx-auto mt-4">{{loginInfo.companyName}}
+                    </h3>
+                    <!-- <p class="et_grey_bg mx-auto mt-3 et_fw_500">Company logo/image</p> -->
+                    <div class="mt-4">
+                        <img src="assets/ghgImages/ekobonL.png" alt="">
+                    </div>
+                    <hr class="et_hr_line_green mb-3" />
+                    <p class="et_text_595959 et_fw_500 et_fs_18">Year {{currentYear}}
+                    </p>
+
+                    <div class="mt-5 pt-5">
+                        <img loading="lazy" src="assets/ghgImages/Picture2.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-5">
+                <div class="et_right_img">
+                    <img  loading="lazy"  src="assets/ghgImages/Picture1.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- GHG EMISSION REPORT E -->
+
+
+    <!-- Index REPORT S -->
+    <div class="et_pdf_white_bg et_pdf_width">
+        <div class="row align-items-center">
+            <div class="col-sm-5">
+                <div class="et_left_img">
+                    <img src="assets/ghgImages/Picture3.png" alt="">
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="et_inner_space_15  et_py_15">
+                    <h2 class="et_fs_36 et_fw_500 text-center">INDEX</h2>
+                    <hr class="et_hr_line_green mb-3" />
+                    <div>
+                        <div class="d-flex et_gap_20">
+                            <div class="et_leaf_icon">
+                                <h4 class="mb-0 et_green_text">1</h4>
+                            </div>
+                            <div>
+                                <h4 class="et_fs_24 ct_ff_arial_bold">Overview</h4>
+                                <ul class="mb-0 ct_ul_decoration">
+                                    <li>Executive Summary</li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="d-flex  et_gap_20 mt-4">
+                            <div class="et_leaf_icon">
+                                <h4 class="mb-0 et_green_text">2</h4>
+                            </div>
+                            <div>
+                                <h4 class="et_fs_24 ct_ff_arial_bold">Emission Report
+                                </h4>
+                                <ul class="mb-0 ct_ul_decoration">
+                                    <li>Scope 1</li>
+                                    <li>Scope 2</li>
+                                    <li>Scope 3</li>
+                                    <li>Overall GHG Inventory</li>
+                                    <li>GHG Emission Per Employee </li>
+                                    <li>Emission Intensity Per Unit Output</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="d-flex et_gap_20 mt-4">
+                            <div class="et_leaf_icon">
+                                <h4 class="mb-0 et_green_text">3</h4>
+                            </div>
+                            <div>
+                                <h4 class="et_fs_24 ct_ff_arial_bold">Other Reports
+                                </h4>
+                                <ul class="mb-0 ct_ul_decoration">
+                                    <li>Waste Generated</li>
+                                    <li>Waste Disposal</li>
+                                    <li>Waste Diverted</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="d-flex  et_gap_20 mt-4">
+                            <div class="et_leaf_icon">
+                                <h4 class="mb-0 et_green_text">4</h4>
+                            </div>
+                            <div>
+                                <h4 class="et_fs_24 ct_ff_arial_bold">Conclusion
+                                </h4>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Index REPORT E -->
+
+    <!-- EXECUTIVE SUMMARY 1 S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <p class="ct_fw_500">This report presents the findings of {{loginInfo.companyName}}'s {{currentYear}} GHG emissions
+                    assessment, based on the data provided and subject to its accuracy, completeness, and
+                    appropriate classification. The assessment provides valuable insights into the company’s carbon
+                    footprint, helping to identify key emission sources and opportunities for reduction. By
+                    leveraging these insights, Ekotrace Company can take strategic steps toward enhanced
+                    sustainability
+                    and net-zero alignment.
+                </p>
+                <div class="text-center mt-2">
+                    <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in 2024
+                    </small>
+                    <!-- <img src="assets/ghgImages/Picture4.png" alt="" class="ct_circle_chart_w_80"> -->
+                 
+                        <div class="ct_grey_border_1 d-flex align-items-center justify-content-center">
+                            <!-- <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                                <div>
+                                    <h5 class="ct_font_16">Electricity Used</h5>
+                                    <h3 class="ct_fs_24">{{renewableTotal}}</h3>
+                                    <p class="mb-0">KWH</p>
+                                </div>
+                               
+                            </div> -->
+                            <div id="By_employee_location" *ngIf="pieChart">
+                                <apx-chart [series]="pieChart.series" [chart]="pieChart.chart"
+                                    [labels]="pieChart.labels" [legend]="pieChart.legend"
+                                    [responsive]="pieChart.responsive" [colors]="pieChart.colors"></apx-chart>
+                            </div>
+                        </div>
+                   
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="et_inner_space_15">
+                    <div class="table-container">
+                        <table class="styled-table ct_dark_table_head">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">General overview
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Reporting period</td>
+                                    <td>{{currentYear}}</td>
+                                </tr>
+                                <tr *ngIf="baseYear">
+                                    <td>Base year and comparability</td>
+                                    <td>2020</td>
+                                </tr>
+                                <tr>
+                                    <td>Plot area</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Regulatory and reporting frameworks</td>
+                                    <td>GHG Protocol, ISO 14064, SBTi
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-container mt-2">
+                        <table class="styled-table ct_dark_table_head">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Key findings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GHG emissions</td>
+                                    <td>
+                                        Scope 1: {{this.scopeEmissons?.Scope1[0].total_emission /1000 }} tCO2e<br>
+                                        Scope 2: {{this.scopeEmissons?.Scope2[0].total_emission /1000 }} tCO2e
+                                        <br>
+                                        Scope 3: {{this.scopeEmissons?.Scope3[0].total_emission /1000 }} tCO2e
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Waste </td>
+                                    <td>
+                                        Generated: 2,600 MT
+                                        <br>
+                                        Disposal: 950 MT
+                                        <br>
+                                        Diversion: 1,650 MT
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>% Reduction in GHG emission from baseline (2020)
+                                    </td>
+                                    <td>
+                                        6.809%
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- EXECUTIVE SUMMARY 1 E -->
+
+    <!-- EXECUTIVE SUMMARY  S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+
+            <div class="col-sm-12">
+                <div class="et_inner_space_15">
+                    <div class="table-container">
+                        <table class="styled-table ct_dark_table_head">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="3">KPI₁ (tCO₂e)</th>
+                                    <th colspan="3">KPI₂ (tCO₂e)</th>
+                                    <th colspan="3">KPI₃ (unit)</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Base year</th>
+                                    <th>Current year</th>
+                                    <th>ΔKPI₁</th>
+                                    <th>Base year</th>
+                                    <th>Current year</th>
+                                    <th>ΔKPI₂</th>
+                                    <th>Base year</th>
+                                    <th>Current year</th>
+                                    <th>ΔKPI₃</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">Facility 1</td>
+                                    <td>2250</td>
+                                    <td>1000</td>
+                                    <td>1250</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">Facility 2</td>
+                                    <td colspan="9"></td>
+                                </tr>
+                                <tr>
+                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">Facility 3</td>
+                                    <td colspan="9"></td>
+                                </tr>
+                                <tr>
+                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">Facility 4</td>
+                                    <td colspan="9"></td>
+                                </tr>
+                                <tr>
+                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">Facility 5</td>
+                                    <td colspan="9"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="ct_fs_14 mt-3 text-end et_fw_700">Base year: 2020<br>Current
+                            year:
+                            2024</p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- EXECUTIVE SUMMARY E -->
+
+    <!-- EMISSION REPORT S -->
+    <div class="ct_light_green_bg ct_my_15 et_pdf_width">
+        <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">EMISSION REPORT</h4>
+    </div>
+    <!-- EMISSION REPORT E -->
+
+    <!--SCOPE 1  S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 1
+        </h2>
+        <small class="d-block text-center et_fw_500">(Direct emissions - generated directly by company and it’s
+            activities)
+        </small>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Scope 1 category</th>
+                                <th>Emission source</th>
+                                <th>Emissions (tCO₂)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3" class="category">Fuels</td>
+                                <td>Fuel type 1</td>
+                                <td>7,000</td>
+                            </tr>
+                            <tr>
+                                <td>Fuel type 2</td>
+                                <td>1,800</td>
+                            </tr>
+                            <tr>
+                                <td>Fuel type 3</td>
+                                <td>25,000</td>
+                            </tr>
+                            <tr>
+                                <td class="category">Refrigerants</td>
+                                <td>Type 1</td>
+                                <td>10,000</td>
+                            </tr>
+                            <tr>
+                                <td class="category">Fire extinguisher</td>
+                                <td>CO₂ type</td>
+                                <td>30,000</td>
+                            </tr>
+                            <tr>
+                                <td class="category">Company owned vehicles</td>
+                                <td>Passenger vehicle (Diesel)</td>
+                                <td>5,000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Passenger vehicle (Petrol)</td>
+                                <td>6,000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Delivery vehicle (Diesel)</td>
+                                <td>8,000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Delivery vehicle (Other)</td>
+                                <td>10,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ct_dark_green_bg mt-3">
+                    <p class="mb-0 et_fw_700">Total scope 1 emissions = 102,800 tCO₂e</p>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="">
+                    <img src="assets/ghgImages/Picture6.png" alt="" class="ct_cart_height">
+                </div>
+                <div class="mt-3">
+                    <img src="assets/ghgImages/Picture7.png" alt="" class="ct_cart_height">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Scope 1 E -->
+
+    <!--SCOPE 2  S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 2
+        </h2>
+        <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s consumption of
+            electricity, heat & steam)
+
+        </small>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="">
+                    <img src="assets/ghgImages/Picture8.png" alt="" class="ct_cart_height">
+                </div>
+
+                <div class="table-responsive mt-4 w-75 ms-auto">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Energy source</th>
+                                <th>Emissions (tCO₂)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Electricity from grid</td>
+                                <td>35,000</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="category">Renewable energy</td>
+                                <td>Solar - 9,000</td>
+                            </tr>
+                            <tr>
+                                <td>Wind - 14,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="">
+                    <img src="assets/ghgImages/Picture9.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+                <div class="ct_dark_green_bg mt-5">
+                    <p class="mb-0 et_fw_700">Total scope 2 emissions = 57,000 tCO₂e
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Scope 2 E -->
+
+
+    <!--SCOPE 3 S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 3
+        </h2>
+        <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s upstream &
+            downstream operations & activities)
+
+
+        </small>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="">
+                    <img src="assets/ghgImages/Picture10.png" alt="" class="ct_cart_height">
+                </div>
+
+                <div class="table-responsive mt-4 w-75 ms-auto">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Emission category</th>
+                                <th>Emissions (tCO₂)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard goods & services</td>
+                                <td>50,000</td>
+                            </tr>
+                            <tr>
+                                <td>Capital goods</td>
+                                <td>30,000</td>
+                            </tr>
+                            <tr>
+                                <td>Upstream transport</td>
+                                <td>20,000</td>
+                            </tr>
+                            <tr>
+                                <td>Downstream transport</td>
+                                <td>18,000</td>
+                            </tr>
+                            <tr>
+                                <td>Waste generated in operations</td>
+                                <td>12,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="">
+                    <img src="assets/ghgImages/Picture11.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+                <div class=" position-relative">
+                    <div class="ct_dark_green_bg mt-5 et_verticle_badge">
+                        <p class="mb-0 et_fw_700">Total scope 3 emissions = 465,000 tCO₂e
+
+                        </p>
+                    </div>
+                    <div class="table-responsive mt-4 w-75 ms-auto">
+                        <table class="table-bordered styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Emission category</th>
+                                    <th>Emissions (tCO₂)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Business travel</td>
+                                    <td>8,500</td>
+                                </tr>
+                                <tr>
+                                    <td>Employee commuting</td>
+                                    <td>14,500</td>
+                                </tr>
+                                <tr>
+                                    <td>Water supply & treatment</td>
+                                    <td>9,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Use of sold products</td>
+                                    <td>40,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Processing of sold products</td>
+                                    <td>25,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Scope 3 E -->
+
+
+    <!--BUSINESS TRAVEL S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width ">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">BUSINESS TRAVEL
+        </h2>
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-4">
+                <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of transport
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture12.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+
+                <div class="table-responsive mt-4  ms-auto">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Modes of transport
+                                </th>
+                                <th>Emissions (tCO2)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Flight</td>
+                                <td>3,000</td>
+                            </tr>
+                            <tr>
+                                <td>Car
+                                </td>
+                                <td>750</td>
+                            </tr>
+                            <tr>
+                                <td>Bus</td>
+                                <td>750</td>
+                            </tr>
+                            <tr>
+                                <td>Rail</td>
+                                <td>500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Auto
+                                </td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Ferry
+                                </td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <small class="d-block text-center et_fw_600 mb-2">Emissions due to different types of flights
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture13.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+                <div class="table-responsive mt-4  ms-auto">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Type of flight
+
+                                </th>
+                                <th>Emissions (tCO2)
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Domestic (2 hr)
+
+                                </td>
+                                <td>2,100
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Short haul (3-4 hr)
+
+                                </td>
+                                <td>360</td>
+                            </tr>
+                            <tr>
+                                <td>long haul (10-14 hr)
+                                </td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td>International (>14 hr)
+                                </td>
+                                <td>90
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of transport
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture14.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+                <div class="table-responsive mt-4  ms-auto">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Type of hotel stay
+                                </th>
+                                <th>Emissions (tCO2)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5 star
+                                </td>
+                                <td>525</td>
+                            </tr>
+                            <tr>
+                                <td>4 star
+
+                                </td>
+                                <td>1,225</td>
+                            </tr>
+                            <tr>
+                                <td>3 star
+                                </td>
+                                <td>1,225</td>
+                            </tr>
+                            <tr>
+                                <td>2 star</td>
+                                <td>525
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BUSINESS TRAVEL E -->
+    <!--EMPLOYEE COMMUTE   S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMPLOYEE COMMUTE
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="w-75 mx-auto">
+
+
+                    <div class="table-responsive">
+                        <table class="table-bordered styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Type of transport</th>
+                                    <th>Emissions (tCO2)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Car</td>
+                                    <td>3,625</td>
+                                </tr>
+                                <tr>
+                                    <td>Two-wheeler
+                                    </td>
+                                    <td>5,075
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Three-wheeler
+                                    </td>
+                                    <td>1,450
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Carpool
+                                    </td>
+                                    <td>725
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bus
+                                    </td>
+                                    <td>2,900
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Train
+
+                                    </td>
+                                    <td>725
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ferry
+
+                                    </td>
+                                    <td>0
+
+
+                                    </td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ct_dark_green_bg mt-3">
+                        <p class="mb-0 et_fw_700">Total emissions from employee commute = 14,500 tCO₂e
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <small class="et_fw_700 d-block mb-2 text-center">Emissions due to employee commute
+                </small>
+                <div class="">
+                    <img src="assets/ghgImages/Picture15.png" alt="" class="ct_circle_chart_w_80">
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <!-- EMPLOYEE COMMUTE  E -->
+
+    <!--FUEL AND RELATED ACTIVITIES S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width ">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">FUEL AND RELATED ACTIVITIES
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <small class="et_fw_700 d-block mb-2 text-center">Emission by stationary combustion
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture16.png" alt="" class="w-50 mx-auto">
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <small class="et_fw_700 d-block mb-2 text-center">Emission by activity
+
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture17.png" alt="" class="w-50 mx-auto">
+                </div>
+
+            </div>
+            <div class="col-sm-12 mt-4">
+
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture18.png" alt="" class="w-100 mx-auto">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- FUEL AND RELATED ACTIVITIES   E -->
+
+    <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR 2024
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <small class="et_fw_700 d-block mb-2 text-center">Emission by stationary combustion
+                </small>
+                <div class="text-center position-relative">
+                    <img src="assets/ghgImages/Picture19.png" alt="" class="w-75 mx-auto">
+                    <img src="assets/ghgImages/Picture30.png" alt="" class="ct_arrow_icon">
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <small class="et_fw_700 d-block mb-2 text-center">Emission by activity
+
+                </small>
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture20.png" alt="" class="w-100 mx-auto">
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
+
+
+    <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM 2020-2024
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-12">
+
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture21.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+
+                <p class="mt-4"><strong>Remark:</strong> The graph highlights a consistent reduction in emissions
+                    across all
+                    scopes from 2020 to
+                    2024, showcasing effective mitigation efforts. However, Scope 3 emissions remain the highest,
+                    indicating the need for deeper engagement with the value chain for further reductions.
+                </p>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
+
+    <!--GHG EMISSIONS PER NUMBER OF EMPLOYEES S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">GHG EMISSIONS PER NUMBER OF EMPLOYEES
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th class="ct_word_break">Year</th>
+                                <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
+                                <th class="ct_word_break">Number of employees</th>
+                                <th class="ct_word_break">GHG emission per employee (tCO₂e)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">2020</td>
+                                <td class="text-center">102,800</td>
+                                <td class="text-center">200</td>
+                                <td class="text-center">2056</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2021</td>
+                                <td class="text-center">101,800</td>
+                                <td class="text-center">210</td>
+                                <td class="text-center">484.76</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2022</td>
+                                <td class="text-center">100,300</td>
+                                <td class="text-center">220</td>
+                                <td class="text-center">455.90</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2023</td>
+                                <td class="text-center">98,300</td>
+                                <td class="text-center">230</td>
+                                <td class="text-center">427.39</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2024</td>
+                                <td class="text-center">95,800</td>
+                                <td class="text-center">240</td>
+                                <td class="text-center">399.16</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture22.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> The steady decline in the carbon footprint per employee from 2056
+            tCO₂e in 2020 to 399.16 tCO₂e in 2024 highlights significant efficiency gains in emission reductions.
+            This trend reflects effective sustainability strategies, improved operational efficiency, and a shift
+            toward lower-carbon practices.
+
+        </p>
+    </div>
+    <!-- GHG EMISSIONS PER NUMBER OF EMPLOYEES  E -->
+
+
+    <!--EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT
+
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th class="ct_word_break">Year</th>
+                                <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
+                                <th class="ct_word_break">Revenue
+                                    (in million $)
+                                </th>
+                                <th class="ct_word_break">Emission Intensity (tCO2e per million $ of revenue)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">2020</td>
+                                <td class="text-center">102,800</td>
+                                <td class="text-center">100</td>
+                                <td class="text-center">1028
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2021</td>
+                                <td class="text-center">101,800</td>
+                                <td class="text-center">160</td>
+                                <td class="text-center">636.25
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2022</td>
+                                <td class="text-center">100,300</td>
+                                <td class="text-center">270</td>
+                                <td class="text-center">371.48
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2023</td>
+                                <td class="text-center">98,300</td>
+                                <td class="text-center">310</td>
+                                <td class="text-center">230.00
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2024</td>
+                                <td class="text-center">95,800</td>
+                                <td class="text-center">420</td>
+                                <td class="text-center">228.09
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture23.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> The decline in emission intensity from 1028 to 228.09 tCO₂e per
+            unit of revenue shows improved efficiency, reflecting sustainable growth and effective carbon reduction
+            strategies.
+
+        </p>
+    </div>
+    <!-- EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT  E -->
+
+    <!-- WASTE REPORT S -->
+    <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_waste_report">
+        <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">WASTE REPORT
+        </h4>
+    </div>
+    <!-- WASTE REPORT E -->
+
+
+    <!--REPORT ON WASTE GENERATED S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE GENERATED
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Type of waste</th>
+                                <th>Quantity (Metric tons)
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Construction
+                                </td>
+                                <td class="text-center">500</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Metal
+
+                                </td>
+                                <td class="text-center">300</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Plastic
+
+                                </td>
+                                <td class="text-center">400</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Electrical
+                                </td>
+                                <td class="text-center">250</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Battery
+
+                                </td>
+                                <td class="text-center">150</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Paper
+
+                                </td>
+                                <td class="text-center">350</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Refuse waste
+
+
+                                </td>
+                                <td class="text-center">450
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Glass
+
+
+                                </td>
+                                <td class="text-center">200
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture25.png" alt="" class="w-100 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> A significant portion of waste comes from construction waste (500
+            tons) and refuse (450 tons), indicating major waste streams. Plastic (400 tons) and paper (350 tons)
+            also contribute substantially, emphasizing the need for enhanced recycling and waste reduction measures.
+
+
+        </p>
+    </div>
+    <!-- REPORT ON WASTE GENERATED  E -->
+
+
+    <!--REPORT ON WASTE DISPOSAL S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DISPOSAL
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Disposal method</th>
+                                <th>Percentage (%)
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Recycling
+
+                                </td>
+                                <td class="text-center">30.8</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Incineration
+
+
+                                </td>
+                                <td class="text-center">23.1</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Composting
+
+
+                                </td>
+                                <td class="text-center">19.2</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Landfill
+
+                                </td>
+                                <td class="text-center">15.4</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Anaerobic digestion
+
+
+                                </td>
+                                <td class="text-center">11.5</td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <small class="et_fw_700 d-block text-center mb-2">Waste Disposal Method Distribution</small>
+                    <img src="assets/ghgImages/Picture26.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> A total of 63% of waste is recovered through recycling, composting,
+            and anaerobic digestion, contributing to sustainability efforts. However, 37% of waste is still managed
+            through incineration and landfill, emphasizing the need for enhanced waste diversion strategies to
+            minimize environmental impact.
+
+
+        </p>
+    </div>
+    <!--REPORT ON WASTE DISPOSAL E -->
+
+    <!--REPORT ON WASTE DIVERSION S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DIVERSION
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Waste diversion method
+                                </th>
+                                <th>Percentage (%)
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Reuse
+
+
+                                </td>
+                                <td class="text-center">33.3</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Open loop recycling
+
+
+
+                                </td>
+                                <td class="text-center">27.8</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Closed loop recycling
+
+
+
+                                </td>
+                                <td class="text-center">22.2</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Composting
+
+
+                                </td>
+                                <td class="text-center">16.7</td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture27.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> A total of 100% of diverted waste is effectively managed through
+            reuse, recycling (open and closed loop), and composting, reducing landfill dependency and supporting a
+            circular economy. Notably, reuse and closed-loop recycling contribute significantly, emphasizing
+            sustainable resource utilization.
+
+
+        </p>
+    </div>
+    <!--REPORT ON WASTE DIVERSION E -->
+
+    <!--CONCLUSION S -->
+    <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_conclusion">
+        <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">CONCLUSION
+
+        </h4>
+    </div>
+    <!-- CONCLUSION E -->
+
+
+    <!--CONCLUSION S -->
+    <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width">
+        <h2 class="et_fs_36 et_fw_500 text-center mb-0">CONCLUSION
+
+        </h2>
+
+        <hr class="et_hr_line_green mb-3 mt-2" />
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table-bordered styled-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Metrics</th>
+                                <th>Result</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top;" rowspan="7">GHG emissions</td>
+                                <td style="vertical-align: top;">Scope 1:</td>
+                                <td style="vertical-align: top;">102,800 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Scope 2:</td>
+                                <td style="vertical-align: top;">57,000 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Scope 3:</td>
+                                <td style="vertical-align: top;">465,000 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Business Travel</td>
+                                <td style="vertical-align: top;">8,500 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Employee Commute</td>
+                                <td style="vertical-align: top;">14,500 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">GHG emission per employee:</td>
+                                <td style="vertical-align: top;">399.16 tCO₂e</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Emission intensity per unit output:</td>
+                                <td style="vertical-align: top;">22.2 tCO₂e per million $ of revenue</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;" rowspan="3">Waste</td>
+                                <td style="vertical-align: top;">Total waste generated:</td>
+                                <td style="vertical-align: top;">2,600 MT</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Total waste disposal:</td>
+                                <td style="vertical-align: top;">950 MT</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Total waste diverted:</td>
+                                <td style="vertical-align: top;">1,650 MT</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-center">
+                    <img src="assets/ghgImages/Picture29.png" alt="" class="w-75 mx-auto"
+                        style="object-fit: contain;height: 400px;">
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="mt-4"><strong>Remark:</strong> The steady decline in GHG emissions from the 2020 baseline reflects
+            a consistent commitment to emission reduction, achieving a total decrease of 6.81% by 2024. This
+            progress highlights the effectiveness of implemented sustainability strategies.
+
+
+        </p>
+    </div>
+    <!--REPORT ON WASTE DIVERSION E -->
+
+</div>
+
+
+

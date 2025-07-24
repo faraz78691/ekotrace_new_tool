@@ -1,0 +1,278 @@
+<div class="ct_seprate_page_div" style="height: 100vh; overflow-y: auto;">
+
+    <div class="container-fluid">
+        <!-- <div class="row pt-4">
+            <div class="col-sm-6" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+                ">
+                <h3 class="m-0 pl-4 ">Facilities</h3>
+            </div>
+        </div> -->
+
+        <div class="row d-flex justify-content-between gap-1 mx-3 pt-3 pb-5">
+            <div class="col-lg-5 myCol" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+                ">
+                <div class="row p-2">
+                    <div class="loc-head d-flex align-items-center pb-2" [ngClass]="
+                            this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                        ">
+                        <p class="ct_fw_600 mb-0">Set GHG Template</p>
+                        <div class="ct_how_use_tooltip_main ml-auto">
+                            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                                <div>
+                                    <p class="mb-1 ">
+                                        The <strong>Set GHG Template</strong> section allows users to configure which
+                                        GHG emission
+                                        categories (data points) are relevant for each facility across Scope 1, Scope 2,
+                                        and Scope 3. This setup ensures that only selected and applicable emission
+                                        categories appear during data entry in the Corporate Emissions section,
+                                        streamlining data management and enhancing accuracy.
+
+                                    </p>
+                                    <h5 class="ct_fs_16 mt-3">Steps to set template:
+
+                                    </h5>
+
+                                    <ul style="list-style: disc;" class="mb-0 pl-4">
+                                        <li>Select the facility you want to configure.
+
+                                        </li>
+                                        <li>Choose from a list of Scope 1, 2, and 3 emission categories that are
+                                            applicable to the selected facility.
+
+
+                                        </li>
+                                        <li>Multiple categories can be selected for a single facility.
+
+                                        </li>
+                                        <li>The template is flexible - categories can be added or removed anytime as
+                                            operations evolve or reporting requirements change.
+
+
+                                        </li>
+                                    </ul>
+
+                                    <h5 class="ct_fs_16  mt-3">Access Rights:
+                                    </h5>
+                                    <ol style="list-style: numric;" class="mb-2 pl-4">
+                                        <li>Super-Admin:
+                                            <ol style="list-style: circle;" class="mb-2 pl-4">
+                                                <li>Has full access to set GHG templates for all facilities across the
+                                                    organization.
+                                                </li>
+                                                <li>Can modify templates at any point in time based on updates or
+                                                    changes in reporting needs.
+                                                </li>
+                                            </ol>
+
+
+                                        </li>
+                                        <li>Admin:
+                                            <ol style="list-style: circle;" class="mb-2 pl-4">
+                                                <li>Can set and edit the GHG template for facilities under their
+                                                    associated subgroup.
+
+                                                </li>
+                                                <li>Cannot view or edit templates outside of their subgroup.
+
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li>Manager:
+                                            <ol style="list-style: circle;" class="mb-2 pl-4">
+                                                <li>
+                                                    Can set and modify the GHG template only for their assigned
+                                                    facility.
+
+                                                </li>
+                                                <li>
+                                                    Cannot access templates of other facilities or subgroups.
+
+                                                </li>
+                                            </ol>
+
+                                        </li>
+                                    </ol>
+
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-between text-style text-light scope-Div gap-2 mx-0">
+                        <div class="searchWidth form-group has-search">
+                            <span class="fa fa-search form-control-feedback"></span>
+                            <input [(ngModel)]="searchData" autocomplete="off" type="text" [ngClass]="
+                                    this.updatedtheme === 'dark'
+                                        ? 'form-controlD'
+                                        : 'form-controlL'
+                                " class="form-control" placeholder="Search" />
+                        </div>
+                        <!-- <div class="form-group has-search text-light">
+                            <button class="LocButton ct_animation_btn_121" (click)="showAddFacilityDialog()">
+                                Add Facility
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="dataTable scrollit" [ngStyle]="{display: FacilityData}">
+                    <table class="table_loc ct_billing_table_bg_120">
+                        <thead>
+                            <tr>
+
+                                <th>Assest Name</th>
+                                <th class="text-center">Assest Type</th>
+                                <th class="text-center">Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr clickable (click)="tableData(d)" *ngFor="let d of LocData"
+                                class="col-12 tableRow border-bottom rounded pointer"
+                                [ngClass]="{tableRowclicked: id_var === d.id}">
+                                <!-- <td><p-checkbox name="groupname" [value]="d.ID" (onChange)="onSelectChange($event)" [(ngModel)]="selectedValues"></p-checkbox></td> -->
+                                <td class="col-lg-4 td text-initial">
+                                    {{ d.AssestType }}
+                                </td>
+                                <td class="col-lg-4 td text-center">
+                                    {{ d.name }}
+                                    <i class="fa fa-industry" style="font-size: 15px"></i>
+                                </td>
+                                <td class="col-lg-4 td text-center">
+                                    {{ d.country_name }}
+                                    <i class="fa fa-map-marker-alt" style="font-size: 15px"></i>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-light noData" [ngStyle]="{display: NoData}">
+                    <div class="icon mt-3">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No facilities available. Start by adding a new facility
+                        using the add facility button.</label>
+                </div>
+            </div>
+
+            <div class="col-lg-6 rounded" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+                ">
+                <div class="row p-2">
+                    <div class="loc-head" [ngClass]="
+                            this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                        ">
+                        <p class="ct_fw_600">Manage Data points:</p>
+                    </div>
+                </div>
+
+                <div class="col d-flex justify-content-end mt-3"></div>
+                <div class="row font-LocProfile mt-0" [ngStyle]="{display: FacilityFullData}">
+                    <div class="row mx-0 px-4">
+                        <div class="col-md-12 mb-4">
+                            <div class="">
+                                <div class="ct_company_profile_input">
+                                    <label for="" class="text-dark w-100">Scope 1</label>
+
+                                    <p-multiSelect
+                                        class="ct_select_2_full_width12 ct_input_dark_text_145 ct_multi_select_overlap_text_302"
+                                        [options]="scope1Category" [(ngModel)]="selectedScope1"
+                                        [ngModelOptions]="{standalone: true}" [group]="true"
+                                        defaultLabel="Select category" scrollHeight="250px" display="chip">
+                                        <ng-template let-group pTemplate="group">
+                                            <div class="flex align-items-center">
+                                                <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/> -->
+                                                <span>{{group.label}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <div class="">
+                                <label for="" class="text-dark w-100">Scope 2</label>
+                                <p-multiSelect
+                                    class="ct_select_2_full_width12 ct_input_dark_text_145 ct_multi_select_overlap_text_302"
+                                    [options]="scope2Category" [group]="true" [(ngModel)]="selectedScope2"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Select category"
+                                    scrollHeight="250px" display="chip">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="flex align-items-center">
+                                            <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/> -->
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-multiSelect>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <div class="">
+                                <label for="" class="text-dark w-100">Scope 3</label>
+
+
+                                <p-multiSelect
+                                    class="ct_select_2_full_width12 ct_input_dark_text_145 ct_multi_select_overlap_text_302"
+                                    [options]="scope3Category" [(ngModel)]="selectedScope3"
+                                    [ngModelOptions]="{standalone: true}" defaultLabel="Select category"
+                                    optionLabel="label" optionValue="value" display="chip"></p-multiSelect>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+                            <div class="">
+                                <Button type="submit" class="LocButton ct_animation_btn_121"
+                                    (click)="SaveManageDataPoint()">
+                                    Save
+                                </Button>
+
+                            </div>
+                        </div>
+                        <!-- <button (click)="logSelectedFacilityIds()">Log Selected Facility Ids</button> -->
+
+
+                        <!-- <p  class="mr-2 pt-1 pointer ct_filter_dropdown" >
+                            
+                        </p> -->
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="text-light noData" [ngStyle]="{display: NoData}">
+                    <div class="icon mt-3">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No facilities available. Start by adding a new facility
+                        using the add facility button.</label>
+                </div>
+
+
+
+
+
+
+                <!-- close manage data point model dialog -->
+            </div>
+        </div>
+    </div>
+
+</div>

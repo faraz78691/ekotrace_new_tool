@@ -1,0 +1,270 @@
+<!-- <p>water-usage works!</p> -->
+<div class="row">
+    <div class="col-xl-9 mb-4">
+       
+    </div>
+    <div class="col-xl-3 mb-4 ct_mt_top_68">
+       
+        <div class="ct_right_sidebar">
+            <div class="mb-4">
+                <div *ngIf="selectedFacility">
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" required  #country="ngModel"
+                    [options]="dashboardData" optionLabel="AssestType" 
+                    optionValue="ID" [(ngModel)]="selectedFacility" [ngModelOptions]="{standalone: true}" [scrollable]="true"
+                    (onChange)="onFacilityChange($event)">
+                    <ng-template let-option pTemplate="item">
+                        <div class="d-flex justify-content-between">
+                          <div>{{ option.AssestType }}</div>
+                          <div class="d-flex justify-content-end pt-1 ml-1">
+                            <i class="fa" [class.fa-users]="isArray(option.ID)" [class.fa-user]="!isArray(option.ID)"></i>
+                          </div>
+                        </div>
+                      </ng-template>
+                </p-dropdown>
+                    <div class="mt-4">
+                        <p class="mb-1 ct_fw_500">Calendar Year</p>
+                        <p-calendar class="w-100 ct_input_dark_text_145" [(ngModel)]="year" ngModel name="year" year   (ngModelChange)="onFacilityChange($event)"
+                         view="year" dateFormat="yy"   inputId="yearpicker"
+                         styleClass="pcalender"
+                        [showIcon]="true"></p-calendar>
+                        <!-- <select class="ct_period_select w-100">
+                            <option value="">2023-2024</option>
+                            <option value="">2023-2024</option>
+                        </select> -->
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+           <div class="col-md-12">
+            <div class="ct_grid_5">
+                <div class=" mb-4">
+                    <div class="ct_dark_grey_bg1 mb-0" >
+                        <h4>Water Emisisons (t C02e)</h4>
+                        <div class="row pt-3">
+                            <div class="col-lg-6 mb-2">
+                                <h5>{{waterTotal}}</h5>
+                            </div>
+                            <!-- <div class="col-lg-6 mb-2">
+                                <h5><i class="fa-solid fa-caret-up ct_green_up" ></i> 23%</h5>
+                            </div> -->
+                            
+                        </div>
+                      </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="ct_dark_grey_bg1 mb-0 " >
+                        <h4>Total water withdrawn</h4>
+                        <div class="row  pt-3">
+                            <div class="col-lg-6 mb-2">
+                                <h5>{{totalWithdrawn}}</h5>
+                            </div>
+                            <!-- <div class="col-lg-6 mb-2">
+                                <h5><i class="fa-solid fa-caret-up ct_green_up" ></i> 23%</h5>
+                            </div> -->
+                            
+                        </div>
+                      </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="ct_dark_grey_bg1 mb-0 " >
+                        <h4>Total water consumed</h4>
+                        <div class="row  pt-3">
+                            <div class="col-lg-6 mb-2">
+                                <h5>{{totalConsumed}}</h5>
+                            </div>
+                            <!-- <div class="col-lg-6 mb-2">
+                                <h5><i class="fa-solid fa-caret-up ct_green_up" ></i> 23%</h5>
+                            </div> -->
+                            
+                        </div>
+                      </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="ct_dark_grey_bg1  mb-0" >
+                        <h4>Total water discharged</h4>
+                        <div class="row  pt-3">
+                            <div class="col-lg-6 mb-2">
+                                <h5>{{totalDischarged}}</h5>
+                            </div>
+                            <!-- <div class="col-lg-6 mb-2">
+                                <h5><i class="fa-solid fa-caret-up ct_green_up" ></i> 23%</h5>
+                            </div> -->
+                            
+                        </div>
+                      </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="ct_dark_grey_bg1  mb-0" >
+                        <h4>Total water treated</h4>
+                        <div class="row  pt-3">
+                            <div class="col-lg-6 mb-2">
+                                <h5>{{totalTreated}}</h5>
+                            </div>
+                            <!-- <div class="col-lg-6 mb-2">
+                                <h5><i class="fa-solid fa-caret-up ct_green_up" ></i> 23%</h5>
+                            </div> -->
+                            
+                        </div>
+                      </div>
+                </div>
+         
+            </div>
+
+           </div>
+            <!-- <div class="col-xl-3 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16"><strong>Cost Centre</strong></h5>
+                            <h3 class="ct_fs_24"><strong>5.987,34</strong></h3>
+                            <p class="mb-0">tCO2e</p>
+                        </div>
+                        <div class="ct_info_icon">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
+                    </div>
+                    <div id="ct_emission_by_travel">
+                        <apx-chart
+                        [series]="chartOptions.series"
+                        [chart]="chartOptions.chart"
+                        [labels]="chartOptions.labels"
+                        [responsive]="chartOptions.responsive"
+                      ></apx-chart>
+                    </div>
+                </div>
+            </div> -->
+           
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16">Water withdrawn (by source %)</h5>
+                            <!-- <h3><strong>5.987,34</strong></h3>
+                            <p class="mb-0">tCO2e</p> -->
+                        </div>
+                        
+                    </div>
+                    <div id="By_employee_location" *ngIf="pieChart">
+                        <apx-chart [series]="pieChart.series" [chart]="pieChart.chart"
+                            [labels]="pieChart.labels" [legend]="pieChart.legend"
+                            [responsive]="pieChart.responsive" [colors]="pieChart.colors"></apx-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16">Water discharged (by destination %)</h5>
+                            <!-- <h3><strong>5.987,34</strong></h3>
+                            <p class="mb-0">tCO2e</p> -->
+                        </div>
+                        
+                    </div>
+                    <div id="By_employee_location" *ngIf="pieChart2">
+                        <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart"
+                            [labels]="pieChart2.labels" [legend]="pieChart2.legend"
+                            [responsive]="pieChart2.responsive" [colors]="pieChart2.colors"></apx-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                   <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                       <div>
+                           <h5 class="ct_font_16"><strong>Water Emissions (t C02e)</strong></h5>
+                           <!-- <h3 class="ct_fs_24">2,563</h3>
+                           <p class="mb-0">tCO2e</p> -->
+                       </div>
+                     
+                   </div>
+                   <div id="ct_business_divisions">
+                    <div id="ct_cost_center" *ngIf="donotOptions3">
+                           <apx-chart
+                           [series]="donotOptions3.series"
+                           [chart]="donotOptions3.chart"
+                           [labels]="donotOptions3.labels"
+                           [legend]="donotOptions3.legend"
+                           [responsive]="donotOptions3.responsive"
+                         ></apx-chart>
+                       </div>
+                   </div> 
+               </div> 
+              </div>
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16">Treated vs Non-Treated Water (% of discharged water)</h5>
+                            <!-- <h3><strong>5.987,34</strong></h3>
+                            <p class="mb-0">tCO2e</p> -->
+                        </div>
+                        
+                    </div>
+                    <div id="ct_business_divisions">
+                        <div id="ct_cost_center" *ngIf="donotOptions1">
+                               <apx-chart
+                               [series]="donotOptions1.series"
+                               [chart]="donotOptions1.chart"
+                               [labels]="donotOptions1.labels"
+                               [legend]="donotOptions1.legend"
+                               [responsive]="donotOptions1.responsive"
+                             ></apx-chart>
+                           </div>
+                       </div> 
+                </div>
+            </div>
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16">Water treated by destination (%)</h5>
+                            <!-- <h3><strong>5.987,34</strong></h3>
+                            <p class="mb-0">tCO2e</p> -->
+                        </div>
+                        
+                    </div>
+                    <div id="By_employee_location" *ngIf="pieChart3">
+                        <apx-chart [series]="pieChart3.series" [chart]="pieChart3.chart"
+                            [labels]="pieChart3.labels" [legend]="pieChart3.legend"
+                            [responsive]="pieChart3.responsive" [colors]="pieChart3.colors"></apx-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 mb-4">
+                <div class="ct_grey_border_1 ">
+                   <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                       <div>
+                           <h5 class="ct_font_16"><strong>Water Treatment by Level (%)</strong></h5>
+                           <!-- <h3 class="ct_fs_24">2,563</h3>
+                           <p class="mb-0">tCO2e</p> -->
+                       </div>
+                     
+                   </div>
+                   <div id="ct_business_divisions">
+                    <div id="ct_cost_center" *ngIf="donotOptions2">
+                           <apx-chart
+                           [series]="donotOptions2.series"
+                           [chart]="donotOptions2.chart"
+                           [labels]="donotOptions2.labels"
+                           [legend]="donotOptions2.legend"
+                           [responsive]="donotOptions2.responsive"
+                         ></apx-chart>
+                       </div>
+                   </div> 
+               </div> 
+              </div>
+        </div>
+       
+       
+        
+     
+    </div>
+
+</div>

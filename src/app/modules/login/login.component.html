@@ -1,0 +1,80 @@
+<div class="test pt-2 cti_login_left_img_12" [class.disabled]="isLoading">
+    <img src="assets/img/Rectangle 174.png" class="img-fluid" />
+    <div class="absolute cti_login_right_56">
+        <div class="container pt-2">
+            <div class="row">
+                <div class="col text-center pt-2 ">
+                    <img src="assets/img/Carbontek.png" style="object-fit: contain;" style="justify-items: center;max-width:500px; width: 100%;" />
+                    <!-- <img src="assets/img/ekobon.png" style="object-fit: contain;" style="justify-items: center" /> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col pt-2">
+                    <h2 class="text-center">Sign in your account</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col pt-2">
+                    <p class="text-center">
+                        Enter Your Credentials to Sign in your account
+                    </p>
+                </div>
+            </div>
+
+            <div class="row pr-md-5 ">
+                <div class="col pt-3">
+                    <form [formGroup]="loginForm" (ngSubmit)="loginByAuth()">
+                        <div class="form-group">
+                            <div class="input-field"
+                                [class.error]="loginForm.controls['email'].dirty &&loginForm.hasError('required', 'email')">
+                                <label for="formGroupExampleInput">Email Or Username</label>
+                                <input type="text" formControlName="email" class="form-control text-white pt-1"
+                                    style="background-color: transparent" placeholder="Enter your registered email or username" />
+                            </div>
+                        </div>
+                        <p class="text-danger mt-0" *ngIf="submitted && loginForm.controls.email.invalid">
+                            Email is required
+                        </p>
+
+                        <div class="form-group">
+                            <div class="input-field">
+                                <label for="formGroupExampleInput2">Password</label>
+                                <input type="text" autocomplete="off" formControlName="password" type="password"
+                                    class="form-control text-white pt-1" style="background-color: transparent" placeholder="Enter your password" />
+                            </div>
+                        </div>
+                        <p *ngIf="submitted && loginForm.controls.password.invalid" class="text-danger pt-0">Password is
+                            required</p>
+
+                        <div class="form-group">
+                            <div class="input-field">
+                                <!-- <ngx-recaptcha2 #captchaElem width="100%" [siteKey]="
+                                     '6LeRTbwlAAAAAGEVe4yfdUYWzXarB5YwQ3NaIa07'
+                                    " (reset)="handleReset()" (expire)="handleExpire()" (load)="handleLoad()"
+                                    (resolved)="handleSuccess($event)" [size]="size" [hl]="lang" [theme]="theme"
+                                    [type]="type" formControlName="recaptcha"></ngx-recaptcha2> -->
+                                <!-- <ngx-recaptcha2 #captchaElem width="100%"
+                                    [siteKey]="'6Le2vx0pAAAAAC-SCjOLEXtd5NWVtMpZaBs7Koed'" (reset)="handleReset()"
+                                    (expire)="handleExpire()" (load)="handleLoad()" (resolved)="handleSuccess($event)"
+                                    [size]="size" [hl]="lang" [theme]="theme" [type]="type"
+                                    formControlName="recaptcha"></ngx-recaptcha2> -->
+                            </div>
+                        </div>
+                        <!-- <p *ngIf="submitted && loginForm.controls.recaptcha.invalid" class="text-danger">Please complete
+                            the Captcha</p> -->
+
+                        <p>forgot your password? <a routerLink="/forgot-password">Reset it here</a></p>
+                        <div class="row">
+                            <div class="col-12 pt-2 d-flex justify-content-center">
+                                <button class="text-white btn pt-1" type="submit">
+                                    <span class="fa fa-spinner fa-spin" *ngIf="showLoader"></span> Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

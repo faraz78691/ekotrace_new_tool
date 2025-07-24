@@ -1,0 +1,518 @@
+<div class="ct_seprate_page_div">
+
+<div class="container-fluid">
+    <!-- <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="m-0 pl-4 ">Facilities</h3>
+        </div>
+    </div> -->
+
+    <div class="row d-flex justify-content-between  mx-3 pt-3 pb-5">
+        <div class="col-lg-7 rounded" [ngClass]="
+                this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+            ">
+            <div class="row p-2">
+                <div class="loc-head" [ngClass]="this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                    ">
+                    <p class="ct_fw_600">Facility</p>
+                </div>
+                <div class="d-flex justify-content-between text-style text-light scope-Div gap-2 mx-0">
+                    <div class="searchWidth form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input [(ngModel)]="searchData" autocomplete="off" type="text" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-controlD'
+                                    : 'form-controlL'
+                            " class="form-control" placeholder="Search" (input)="onInputSearch(searchData)" />
+                    </div>
+                    <div class="form-group has-search text-light ml-2">
+                        <!-- <button class="LocButton ct_animation_btn_121" (click)="showAddFacilityDialog()">
+                            Add Facility
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dataTable scrollit" [ngStyle]="{display: FacilityData}">
+                <table class="table_loc ct_billing_table_bg_120">
+                    <thead>
+                        <tr>
+                            <th>Assest Name</th>
+                            <th class="text-center">Assest Type</th>
+                            <th class="text-center">Country</th>
+                            <th class="text-center" style="min-width: 8rem;">Vehicle Fleet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr clickable (click)="tableData(d.id)" *ngFor="let d of LocData"
+                            class="col-12 tableRow border-bottom rounded pointer"
+                            [ngClass]="{tableRowclicked: id_var === d.id}">
+                            <td class="col-lg-4 td text-initial">
+                                {{ d.AssestType }}
+                            
+                            </td>
+                            <td class="col-lg-4 td text-center">
+                                {{ d.name }}
+                                <i class="fa fa-industry" style="font-size: 15px"></i>
+                            </td>
+                            <td class="col-lg-4 td text-center">
+                                {{ d.country_name }}
+                                <i class="fa fa-map-marker-alt" style="font-size: 15px"></i>
+                            </td>
+                            <td class="col-lg-4 td text-right w-25">
+                                <button type="button" [routerLink]="['/vehicle-fleet']" [queryParams]="{name: d.AssestName, id: d.id}">
+                                    Go to Fleet
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-light noData" [ngStyle]="{display: NoData}">
+                <div class="icon mt-3">
+                    <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                </div>
+                <label class="text-center label">No facilities available. Start by adding a new facility
+                    using the add facility button.</label>
+            </div>
+        </div>
+
+        <div class="col-lg-4 rounded" [ngClass]="
+                this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+            ">
+            <div class="row p-2">
+                <div class="loc-head" [ngClass]="
+                        this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                    ">
+                    <p class="ct_fw_600">Facility Details:</p>
+                </div>
+            </div>
+
+            <div class="col d-flex justify-content-end mt-3"></div>
+            <div class="row font-LocProfile mt-0" [ngStyle]="{display: FacilityFullData}">
+                <table class="table ct_billing_border_0_none">
+                    <tr>
+                        <td>
+                            <p class="mb-0">Asset Name :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ facilityDetails.AssestName }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >Asset Type :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ facilityDetails.AssestType }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Water Stress Area :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngIf="facilityDetails.IsWaterStreenArea != 'undefined'">{{ facilityDetails.IsWaterStreenArea }}</p>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            <p class="mb-0" >Area :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngIf="facilityDetails.total_area != undefined && facilityDetails.total_area != 0">{{ facilityDetails.total_area }} (sqft)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >Energy Ref Area :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngIf="facilityDetails.energy_ref_area != undefined && facilityDetails.energy_ref_area != 0">{{ facilityDetails.energy_ref_area }} (sqft)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >No of Occupants :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngIf="facilityDetails.no_of_employee != undefined && facilityDetails.no_of_employee != 0">{{ facilityDetails.no_of_employee }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >Address :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngIf="facilityDetails.Address != null && facilityDetails.Address != 'null'">{{ facilityDetails.Address }}</p> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >City :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ facilityDetails.city_name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >State :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ facilityDetails.state_name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0" >Country :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ facilityDetails.country_name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Assigned User :</p>
+                        </td>
+                        <td>
+                            <div class="row gap-4">
+                                <div class="dropdown ct_facility_2_main">
+                                    <button [ngClass]="
+                                            this.updatedtheme === 'dark'
+                                                ? 'dropbtnD'
+                                                : 'dropbtnL'
+                                        " class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div>
+                                            Manager
+        
+                                            <!-- <span class="badge badgespan">{{
+                                                dropCountManager.length
+                                            }}</span> -->
+                                            <span class="badge badgespan" *ngIf="managerList1">{{ managerList1.length
+                                                }}</span>
+        
+                                        </div>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item dropItemManager" *ngFor="let d of managerList1">{{ d.username }}</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown ct_facility_2_main">
+                                    <button [ngClass]="
+                                            this.updatedtheme === 'dark'
+                                                ? 'dropbtnD'
+                                                : 'dropbtnL'
+                                        " class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div>
+                                            Staff
+                                            <span class="badge badgespan">{{
+                                                staffList1.length
+                                                }}</span>
+                                        </div>
+                                    </button>
+                                    <div class="dropdown-content dropdown-menu">
+                                        <a class="dropdown-item dropItemStaff" *ngFor="let s of staffList1">{{ s.username }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                  
+                </table>
+               
+
+                <div class="d-flex text-light text-style scope-Div">
+                    <div>
+                        <i class="LocButtonEdit pi pi-user-edit pointer d-flex text-white"
+                            (click)="showEditFacilityDialog()">
+                            <p class="pl-2">Edit</p>
+                        </i>
+                    </div>
+                    <div class="form-group has-search text-light pointer">
+                        <i *ngIf="userdetails.isDisabledDelete !== true"
+                            (click)="deleteFacility($event, facilityDetails.id)"
+                            class="deleteButton pi pi-trash pointer d-flex text-white">
+                            <p class="pl-2">Delete</p>
+                        </i>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="text-light noData" [ngStyle]="{display: NoData}">
+                <div class="icon mt-3">
+                    <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                </div>
+                <label class="text-center label">No facilities available. Start by adding a new facility
+                    using the add facility button.</label>
+            </div>
+
+
+
+            <div class="justify-content-center">
+                <p-dialog [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" styleClass="facilityDialog ct_h_none_143"
+                    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" >
+                    <p-header *ngIf="isEdit === false">
+                        Add new Facility
+                    </p-header>
+                    <p-header *ngIf="isEdit === true"> Edit Facility </p-header>
+                   
+                    <div class="modal-body text-white text-style">
+                        <form style="height: 100%;" #addCompForm="ngForm" class="col-12" (ngSubmit)="
+                                isEdit === false
+                                    ? saveFacility(addCompForm.value)
+                                    : editfacility(
+                                          facilityDetails.id,
+                                          addCompForm.value
+                                      )
+                            ">
+                            <div  class="d-flex row">
+                                <div class="facilitygrid col-lg-6 mb-4">
+                                    <div class="mb-4">
+                                        <label for="Aname" class="text-dark">Asset name</label>
+                                        <input required ngModel name="assetName" type="text"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter Asset Name.." #assetName="ngModel" disabled="true"
+                                            [(ngModel)]="facilityDetails.AssestName" assetName />
+                                        <p *ngIf="addCompForm.submitted && assetName.errors?.['required']"
+                                            class="text-danger mb-0">
+                                            Asset Name is required
+                                        </p>
+
+                                    </div>
+                                    
+                                    <div class="ct_input_white_bg13 mb-4 ct_input_dark_text_121 ct_city_name_select_2_search">
+                                        <label for="country" class=" text-dark">Country Name</label>
+                                        <p-dropdown required  #country="ngModel"
+                                            [options]="countryData" optionLabel="Name" [filter]="true" filterBy="Name"
+                                            [showClear]="true" optionValue="ID" [(ngModel)]="facilityDetails.CountryId " [ngModelOptions]="{standalone: true}" [scrollable]="true" placeholder="Select country"
+                                            (onChange)="searchState()">
+                                        </p-dropdown>
+                               
+
+                                    </div>
+                                    <div class="ct_input_white_bg13 mb-4 ct_input_dark_text_121 ct_city_name_select_2_search">
+                                        <label for="state" class=" text-dark">State Name</label>
+                                        <p-dropdown  ngModel name="state" #state="ngModel" [options]="stateData"
+                                            optionLabel="Name" optionValue="ID" [filter]="true" filterBy="Name"
+                                            [showClear]="true" [(ngModel)]="facilityDetails.StateId" [ngModelOptions]="{standalone: true}"
+                                            placeholder="Select a State" (onChange)="searchCity()">
+                                        </p-dropdown>
+                                        <p *ngIf="addCompForm.submitted && state.errors?.['required']"
+                                            class="text-danger mb-0">
+                                            State Name is required
+                                        </p>
+                                    </div>
+                                    <div class="ct_input_white_bg13 mb-4 ct_input_dark_text_121 ct_city_name_select_2_search">
+                                        <label for="city" class=" text-dark">City Name</label>
+                                        <p-dropdown  ngModel name="city" #city="ngModel" [options]="cityData"
+                                            optionLabel="Name" optionValue="ID" [filter]="true" filterBy="Name"
+                                            [showClear]="true" [(ngModel)]="facilityDetails.CityId" [ngModelOptions]="{standalone: true}"
+                                            placeholder="Select a City"></p-dropdown>
+                                        <p *ngIf="addCompForm.submitted && city.errors?.['required']"
+                                            class="text-danger mb-0">
+                                            City Name is required
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="atype" class=" text-dark">Asset type / Department</label>
+                                        <input  ngModel name="assetType" type="text" disabled="true"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter Asset Type.." [(ngModel)]="facilityDetails.AssestType"
+                                            #assetType="ngModel" />
+                                        <p *ngIf="addCompForm.submitted && assetType.errors?.['required']"
+                                            class="text-danger mb-0">
+                                            Asset Type is required
+                                        </p>
+
+                                    </div>
+                              
+
+                                </div>
+
+                                <div class="facilitygrid col-lg-6 ">
+                                  
+                                   
+                                    <!-- <div class="mb-4">
+                                        <label for="equity" class=" text-dark">Equity percentage</label>
+                                        <input ngModel name="equity" type="number"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter equity percentage.." [(ngModel)]="
+                                                facilityDetails.EquityPercentage
+                                            "  />
+                                          
+
+                                    </div> -->
+                                    <div class="mb-4">
+                                        <label for="equity" class=" text-dark">Area (sqr ft)</label>
+                                        <input  type="number"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter area" [(ngModel)]="
+                                                facilityDetails.total_area 
+                                            " [ngModelOptions]="{standalone: true}"  />
+                                           
+
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equity" class=" text-dark">No of Occupants</label>
+                                        <input ngModel name="area" type="number"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter No of Employee" [(ngModel)]="
+                                                facilityDetails.no_of_employee 
+                                            " [ngModelOptions]="{standalone: true}" />
+                                           
+
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equity" class=" text-dark">Energy Ref Area (sqr ft)</label>
+                                        <input ngModel name="ref" type="number"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter Energy Ref Area" [(ngModel)]="
+                                                facilityDetails.energy_ref_area
+                                            "  />
+                                           
+
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="address" class=" text-dark">Address</label>
+                                        <input  ngModel name="address" type="text"
+                                            class="form-control Dashboard-tab text-white"
+                                            placeholder="Enter full address.." [(ngModel)]="facilityDetails.Address"
+                                            #address="ngModel" />
+
+                                        <p *ngIf="addCompForm.submitted && address.errors?.['required']"
+                                            class="text-danger mb-0">
+                                            Address is required
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                       
+                                        <label for="fname" class="text-dark">Water stress area</label>
+                                        <div class="form-check">
+                                            <input ngModel class="form-check-input" type="checkbox" name="yes" 
+                                                 [(ngModel)]="
+                                                    isWaterStreenArea
+                                                " />
+                                            <label class="form-check-label text-dark" for="false">
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div style="height: 68px;"></div>
+                            <div class="modal-footer">
+                                <Button *ngIf="isEdit == false" type="submit" class="LocButton ct_animation_btn_121">
+                                    Save
+                                </Button>
+                                <Button *ngIf="isEdit == true" type="submit" class="LocButton ct_animation_btn_121">
+                                    Update
+                                </Button>
+                                <span type="button" class="text-white font-weight-light ct_close_btn1231" (click)="
+                                        isEdit == false
+                                            ? closeAddFacilityDialog()
+                                            : closeEditFacilityDialog()
+                                    ">
+                                    Close
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </p-dialog>
+            </div>
+            <!-- close model dialog -->
+            <!-- open delete dialog -->
+
+            <!-- ghghjujhuj -->
+
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+            <!-- close delete dialog -->
+            <!-- open manage data point model dialog -->
+            <div class="justify-content-center">
+                <p-dialog class="dpDIv ct_scrool_none_121" header="Manage Data Point" [visible]="DP_BoxVisible"
+                    [breakpoints]="{'2460px': '50vw'}" [style]="{width: '45vw'}" [draggable]="false"
+                    [(visible)]="DP_BoxVisible">
+                    <div class="modal-body text-white text-style">
+                        <form #DataPointForm="ngForm" class="col-12" (ngSubmit)="SaveManageDataPoint()">
+                            <div class="">
+                           
+
+                                <div class="row" *ngIf="scope1Category">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="">
+                                            <label for="" class="text-dark w-100">Scope 1</label>
+                                            <!-- <p-multiSelect class="ct_drop_scroll" [options]="scope1Category" name="Item" defaultLabel="Select a template"
+                                         
+                                            optionLabel="Item" optionValue="Id"></p-multiSelect> -->
+                                            <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" (onChange)="onMultiSelectChange($event)" [options]="scope1Category" [(ngModel)]="selectedScope1" [ngModelOptions]="{standalone: true}"  [group]="true"   defaultLabel="Select category" scrollHeight="250px" display="chip">
+                                                <ng-template let-group pTemplate="group">
+                                                    <div class="flex align-items-center">
+                                                        <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/> -->
+                                                        <span>{{group.label}}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-4">
+                                        <div class="">
+                                            <label for="" class="text-dark w-100">Scope 2</label>
+                                            <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" [options]="scope2Category" [group]="true" [(ngModel)]="selectedScope2" [ngModelOptions]="{standalone: true}"  defaultLabel="Select category" scrollHeight="250px" display="chip">
+                                                <ng-template let-group pTemplate="group">
+                                                    <div class="flex align-items-center">
+                                                        <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/> -->
+                                                        <span>{{group.label}}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-4">
+                                        <div class="">
+                                            <label for="" class="text-dark w-100">Scope 3</label>
+                                      
+
+                                            <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" [options]="scope3Category" [(ngModel)]="selectedScope3" [ngModelOptions]="{standalone: true}" defaultLabel="Select category" optionLabel="label" optionValue="value" display="chip"></p-multiSelect>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="height: 200px;"></div>
+
+
+                            <div class="modal-footer ct_mt_60">
+                                <Button type="submit" class="LocButton ct_animation_btn_121">
+                                    Save
+                                </Button>
+                                <span type="button" class="font-weight-light text-dark" (click)="closeDp_Dialog()">
+                                    Close
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </p-dialog>
+            </div>
+            <!-- close manage data point model dialog -->
+        </div>
+    </div>
+</div>
+
+</div>

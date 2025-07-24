@@ -1,0 +1,156 @@
+import { Component, effect } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppService } from '@services/app.service';
+import { FacilityService } from '@services/facility.service';
+import { NotificationService } from '@services/notification.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { SubmitButtonComponent } from '@/shared/submit-button/submit-button.component';
+import { TabViewModule } from "primeng/tabview";
+
+@Component({
+  selector: 'app-stationary-combustion',
+  standalone: true,
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule],
+  templateUrl: './stationary-combustion.component.html',
+  styleUrls: ['./stationary-combustion.component.scss']
+})
+export class StationaryCombustionComponent {
+  facilityID: number;
+  facilityCountryCode: string;
+  isHowtoUse = false;
+  subCategoryID: number = 1;
+  fuelType: [] = [];
+  units: any[] = [];
+  fuelId: number = 0;
+  isSubmitting = false;
+  unit: any;
+  blendType =
+    [
+      {
+        "id": 1,
+        "typeName": "No Blend"
+      },
+      {
+        "id": 2,
+        "typeName": "Average Blend"
+      },
+      {
+        "id": 3,
+        "typeName": "Perc. Blend"
+      },
+
+    ]
+  selectedBlend: any;
+  blendPercent: any = 20;
+  year: string;
+  months: string;
+
+
+  constructor(private facilityService: FacilityService,private notification: NotificationService,private appService: AppService) {
+    effect(() => {
+      this.subCategoryID = this.facilityService.subCategoryId();
+      this.year = this.facilityService.yearSignal();
+      this.months = this.facilityService.monthSignal();
+      if (this.facilityService.selectedfacilitiesSignal() != 0) {
+        this.facilityID = this.facilityService.selectedfacilitiesSignal();
+        this.facilityCountryCode = this.facilityService.countryCodeSignal();
+       
+      }
+    });
+  };
+
+  ngOnInit(): void {
+    this.getsubCategoryType(this.subCategoryID);
+    this.getUnit(this.subCategoryID);
+  }
+
+
+  EntrySave(dataEntryForm: NgForm) {
+    console.log(dataEntryForm.value);
+    if (dataEntryForm.valid) {
+      this.isSubmitting = true;
+      let formData = new FormData();
+     
+      formData.set('subCategoryTypeId', (this.fuelId).toString());
+      formData.set('SubCategorySeedID', (this.subCategoryID).toString());
+      formData.set('blendType', this.selectedBlend);
+      formData.set('calorificValue', dataEntryForm.value.calorificValue ? dataEntryForm.value.calorificValue : '');
+      formData.set('unit', this.unit);
+      formData.set('readingValue', dataEntryForm.value.readingvalue.toString());
+      formData.set('months', this.months);
+      formData.set('year',  this.year );
+      formData.set('facility_id', this.facilityID.toString());
+      // if (this.selectedFile) {
+      //     formData.set('file', this.selectedFile, this.selectedFile.name);
+      // }
+      this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
+          next: (response:any) => {
+
+              if (response.success == true) {
+                  this.notification.showSuccess(
+                      'Data entry added successfully',
+                      'Success'
+                  );
+                 this.isSubmitting = false;
+                  // this.resetForm();
+                  // // this.getStationaryFuelType(this.SubCatAllData
+                  // //     .manageDataPointSubCategorySeedID);
+                  // this.ALLEntries();
+                  // this.getUnit(this.SubCatAllData
+                  //     .manageDataPointSubCategorySeedID);
+                  // //this.GetAssignedDataPoint(this.facilityID);
+                  // // this.trackingService.getrefdataentry(this.SubCatAllData.id, this.loginInfo.tenantID).subscribe({
+                  // //     next: (response) => {
+                  // //         this.commonDE = response;
+                  // //     }
+                  // // });
+
+                  // this.activeindex = 0;
+              } else {
+                  this.notification.showError(
+                      response.message,
+                      'Error'
+                  );
+                  this.isSubmitting = false;
+              }
+          },
+          error: (err) => {
+              this.notification.showError(
+                  'Data entry added failed.',
+                  'Error'
+              );
+              console.error('errrrrrr>>>>>>', err);
+          },
+          complete: () => { }
+      });
+    }
+  };
+
+
+  getsubCategoryType(subCatID: number) {
+    this.appService.getApi(`/GhgSubcategoryTypesByCategoryId?category_id=${subCatID}`).subscribe({
+      next: (response: any) => {
+        this.fuelType = response.data;
+      },
+      error: (err) => {
+
+      }
+    })
+  };
+
+  getUnit(subcatId) {
+    this.appService.getApi('/GetUnits/' + subcatId).subscribe({
+      next: (Response) => {
+        if (Response) {
+
+          this.units = Response['categories'];
+
+        }
+        else {
+          this.units = [];
+        }
+      }
+    })
+  };
+}

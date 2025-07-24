@@ -1,0 +1,473 @@
+<div class="container-fluid p-5">
+
+
+
+
+    <div class="row pt-3">
+        <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc User-tabL">
+            <div class="row">
+                <div class="User-headL">
+                    <div
+                        class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between">
+                        <h4 class=" ct_fw_600 m-0 my-0" style="flex: 1;">Saved Attachments</h4>
+                        <div class="d-flex align-items-center" style="gap: 20px;">
+
+                            <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230 ct_calender_38" ngModel
+                                [options]="facilityData" [(ngModel)]="selectedFacility" placeholder="Select facility"
+                                (onChange)="onFacilitySelect(selectedFacility)" optionLabel="AssestType"
+                                optionValue="id">
+                            </p-dropdown>
+
+
+                            <p-multiSelect
+                                class="ct_select_2_full_width12 ct_input_dark_text_145 ct_multi_select_overlap_text_302"
+                                [options]="categories" placeholder="Select category" name="category"
+                                styleClass="pcalender" [(ngModel)]="selectedCategory"
+                                [ngModelOptions]="{standalone: true}" (onChange)="onCategorySelect(selectedCategory)"
+                                optionLabel="label" optionValue="value"></p-multiSelect>
+
+                        </div>
+
+                    </div>
+                  
+                </div>
+
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+
+
+
+            <ng-container>
+                <div class="dataTable  mt-4 ct_vender_scroll_320">
+                    <!-- <h3>{{ facility.facilityName }} ({{ facility.assetName || 'Unknown' }})</h3> -->
+                    <table class="table_loc ct_space_table_21 ct_billing_table_bg_120">
+                        <thead>
+                            <tr>
+
+
+
+                                <th scope="col">Category</th>
+                                <th scope="col">File name</th>
+                                <th scope="col">Date of Upload</th>
+                                <th scope="col">User name </th>
+                                <th scope="col">Action </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="selectedCategory.includes('stationaryCombustionde')">
+                                <ng-container *ngIf="attachmentsData?.stationaryCombustionde.length >0">
+                                    <tr *ngFor="let group of attachmentsData.stationaryCombustionde;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+
+                                        <td class="td ">
+                                            Stationary Combustion
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              download="{{group.FileName}}"
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+
+                                    </tr>
+
+                                </ng-container>
+
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('refrigerants')">
+                                <ng-container *ngIf="attachmentsData?.refrigerants.length >0">
+                                    <tr *ngFor="let group of attachmentsData.refrigerants;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Refrigerants
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('fireExtinguisher')">
+                                <ng-container *ngIf="attachmentsData?.fireExtinguisher.length >0">
+                                    <tr *ngFor="let group of attachmentsData.fireExtinguisher;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Fire Extinguisher
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('companyOwnedVehichle')">
+                                <ng-container *ngIf="attachmentsData?.companyOwnedVehichle.length >0">
+                                    <tr *ngFor="let group of attachmentsData.companyOwnedVehichle;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Company Owned Vehichle
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('electricity')">
+                                <ng-container *ngIf="attachmentsData?.electricity.length >0">
+                                    <tr *ngFor="let group of attachmentsData.electricity;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Electricity
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                             download="{{group.FileName}}"
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('heatAndSteam')">
+                                <ng-container *ngIf="attachmentsData?.heatAndSteam.length >0">
+                                    <tr *ngFor="let group of attachmentsData.heatAndSteam;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Heat And Steam
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.CreatedDate | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('purchasedGoodsAndServices')">
+                                <ng-container *ngIf="attachmentsData?.purchasedGoodsAndServices.length >0">
+                                    <tr *ngFor="let group of attachmentsData.purchasedGoodsAndServices;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Purchased Goods And Services
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.created_at | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="selectedCategory.includes('bussinessTravel')">
+                                <ng-container *ngIf="attachmentsData?.bussinessTravel.flight_travel.length >0">
+                                    <tr *ngFor="let group of attachmentsData.bussinessTravel.flight_travel;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Business Travel - Flight Travel
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.created_at | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+                                    </tr>
+
+                                </ng-container>
+
+                                <ng-container *ngIf="attachmentsData?.bussinessTravel.hotel_stay.length >0">
+                                    <tr *ngFor="let group of attachmentsData.bussinessTravel.hotel_stay;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Business Travel - Hotel Stay
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.created_at | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-danger mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+
+
+
+                                    </tr>
+
+                                </ng-container>
+                                <ng-container *ngIf="attachmentsData?.bussinessTravel.other_mode_of_transport.length >0">
+                                    <tr *ngFor="let group of attachmentsData.bussinessTravel.other_mode_of_transport;let i = index"
+                                        class="col-12 tableRow border-bottom rounded pointer">
+
+                                        <td class="td ">
+                                            Business Travel - Other modes of travel
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.FileName }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.created_at | date }}
+
+                                        </td>
+                                        <td class="td pb-1">
+                                            {{ group.userName}}
+
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a
+                                              [href]="group.FileName"
+                                              attr.download
+                                              class="btn btn-sm btn-success mr-1"
+                                              target="_blank"
+                                            >
+                                              <i class="fa-solid fa-download"></i>
+                                            </a>
+                                          </td>
+                                    </tr>
+
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+
+            </ng-container>
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="true">
+    <p style="color: white"> Fetching Data... </p>
+</ngx-spinner>

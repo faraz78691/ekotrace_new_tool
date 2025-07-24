@@ -1,0 +1,37 @@
+<pf-dropdown hide-arrow>
+    <div slot="button" class="pt-0">
+        <a class="">
+            <i class="far fa-bell bellicon"
+                (click)="getAllNotifications(this.loginInfo.facilityID,this.loginInfo.role)"></i>
+            <span *ngIf="notificationCount > 0" class="badge badge-warning navbar-badge">{{
+                notificationCount
+                }}</span>
+        </a>
+    </div>
+    <div *ngIf="notificationCount ===0" slot="menu" class="notification-card ">
+        <span class="dropdown-item dropdown-header">No Notifications</span>
+    </div>
+    <div *ngIf="notificationCount >0" slot="menu" class="notification-card notify">
+        <span class="dropdown-item dropdown-header">New Notifications</span>
+        <div class="dropdown-divider"></div>
+
+        <div (click)="ClickNotification(notify)" [routerLink]="getRouterLink(notify)"
+            [queryParams]="getQueryParams(notify)" *ngFor="let notify of AllNotifications">
+            <div class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i>
+                {{ notify.message }}
+                <span class="float-right text-white text-sm">{{
+                    notify.count
+                    }}</span>
+            </div>
+        </div>
+    </div>
+</pf-dropdown>
+
+<ng-template #notification>
+    <a href="#" class="dropdown-item">
+        <i class="fas fa-envelope mr-2"></i> 4 new messages
+        <span class="float-right text-muted text-sm">3 mins</span>
+    </a>
+    <div class="dropdown-divider"></div>
+</ng-template>

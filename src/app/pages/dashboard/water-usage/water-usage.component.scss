@@ -1,0 +1,26 @@
+.ct_green_up{
+    color: #269300;
+}
+
+.ct_dark_grey_bg1{
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 80px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    height: 100%;
+}
+.ct_dark_grey_bg1 h4{
+    font-size: 24px;
+    font-weight: 600;
+}
+.ct_fs_24{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.ct_grid_5{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 15px;
+}

@@ -1,0 +1,8 @@
+<button 
+  type="submit" 
+  class="px-4 trackingsubmitb"
+  [disabled]="isLoading || disabled"
+>
+  <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+  {{ isLoading ? 'Submitting...' : text }}
+</button>

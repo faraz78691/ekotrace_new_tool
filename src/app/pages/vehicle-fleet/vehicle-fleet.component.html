@@ -1,0 +1,315 @@
+<div class="container-fluid p-5">
+    <!-- <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="pl-4 card-header card-headerL">Set Target</h3>
+        </div>
+    </div> -->
+
+    <div class="row pt-3">
+        <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc"
+            [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+            <div class="">
+                <div class="" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'User-headD'
+                            : 'User-headL'
+                    ">
+                    <div
+                        class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between">
+                        <h5 class=" ct_fw_600 m-0 my-0" style="flex: 1;">{{facilityName}}- Vehicle Fleets</h5>
+                        <div class="flex items-center mr-3">
+                            <input type="radio" id="passenger" name="vehicleType" value="1" [(ngModel)]="vehicleType"
+                                (change)="onVehicleTypeChange($event)" />
+                            <label for="passenger" class="ml-2">Passenger Vehicle</label>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="radio" id="delivery" name="vehicleType" value="2" [(ngModel)]="vehicleType"
+                                (change)="onVehicleTypeChange($event)" />
+                            <label for="delivery" class="ml-2">Delivery Vehicle</label>
+                        </div>
+                        <div class="ct_how_use_tooltip_main ml-auto">
+                            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                                <div>
+                                    <p class="mb-1 ">The Vehicle Fleet section enables users to input and manage the
+                                        list of company-owned passenger and delivery vehicles associated with a specific
+                                        facility. These vehicles are directly linked to the “Company-Owned Vehicles”
+                                        category under Corporate Emissions, contributing to Scope 1 emissions
+                                    </p>
+                                    <h5 class="ct_fs_16 mt-3">Key Features:
+                                    </h5>
+
+                                    <ol style="list-style: disc;" class="mb-0 pl-4">
+                                        <li>Allows entry of facility-level passenger and delivery vehicles.
+                                        </li>
+                                        <li>Vehicles added here will be automatically reflected in the Corporate
+                                            Emission section.
+
+                                        </li>
+                                        <li>Vehicle status can be managed as Active or Retired.
+                                        </li>
+                                        <li>Retired vehicles will no longer appear in the Company-Owned Vehicles
+                                            category for emission calculations but will remain in records for historical
+                                            reference.
+
+                                        </li>
+                                    </ol>
+
+                                    <h5 class="ct_fs_16  mt-3">Steps to Add Vehicle Fleet:
+
+
+                                    </h5>
+                                    <ol style="list-style: disc;" class="mb-2 pl-4">
+                                        <li>Download the appropriate template (Passenger/Delivery).
+
+                                        </li>
+                                        <li>Fill in the required fleet details in the template (such as model number,
+                                            vehicle type, fuel type, etc.).
+
+
+                                        </li>
+                                        <li>Upload the completed template into the tool.
+
+                                        </li>
+                                    </ol>
+                                    <h5 class="ct_fs_16  mb-0 mt-3">Access Rights:
+                                    </h5>
+                                    <ol style="list-style: disc;" class="mb-2 pl-4">
+                                        <li>Super-Admin, Admin, Manager as well as Data Preparer roles can upload, edit,
+                                            or retire vehicles for their respective facilities.
+
+                                        </li>
+                                    </ol>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- <a href="assets/passenger_fleet.xlsx"  download
+                        class="px-4 trackingsubmitb ct_h_40">Passenger Vehicle</a> -->
+                    </div>
+
+                    <div class="d-flex align-items-center ct_gap_10 flex-wrap my-3 justify-content-between  ">
+                        <div>
+                            <a [href]="vehicleType ==1 ? 'assets/VehicleFleet-passengervehicle.xlsx' : 'assets/VehicleFleet-deliveryVehicle.xlsx'"
+                                download class="px-4 trackingsubmitb ct_h_40"><i
+                                    class="fa-solid fa-download mr-2"></i>Vehicle upload template</a>
+                        </div>
+                        <div class="d-flex ct_gap_10">
+                            <div class=" ct_h_40 rounded">
+                                <p-fileUpload class="ct_svg_icon_white" #fileUpload mode="basic" accept=".xlsx, .xls"
+                                    (onSelect)="overideSheet($event.files,fileUpload)"
+                                    chooseLabel="Override vehicle list"></p-fileUpload>
+                            </div>
+                            <div class=" ct_h_40 rounded">
+                                <p-fileUpload class="ct_svg_icon_white" #fileUpload2 mode="basic" accept=".xlsx, .xls"
+                                    (onSelect)="onPurchaseGoodsUpload($event.files,fileUpload2)"
+                                    chooseLabel="Add to vehicle list"></p-fileUpload>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+
+            <div *ngIf="vehicleType == 1" class="dataTable scrollit mt-4 ct_vender_scroll_320">
+                <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+                    <thead>
+                        <tr>
+
+
+                            <th scope="col" style="font-size: 16px;">Vehicle Model </th>
+                            <th scope="col" style="font-size: 16px;">Vehicle Type </th>
+                            <th scope="col" style="font-size: 16px;">Fuel</th>
+
+                            <th scope="col" style="font-size: 16px;">Acquisition Date</th>
+                            <th scope="col" style="font-size: 16px;">Status</th>
+                            <th scope="col" style="font-size: 16px;" *ngIf="!showSubmit1">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let group of jsonData;let index = index">
+                            <tr *ngIf="group.category == 1" clickable (click)="selectGroup(group,index)"
+                                class="col-12 tableRow border-bottom rounded pointer">
+
+                                <td class="td " style="font-size: 16px;">
+                                    {{ group.vehicle_model }}
+
+                                </td>
+                                <td class="td pb-1" style="font-size: 16px;">
+                                    {{group.vehicle_type }}
+
+                                </td>
+                                <td class="td  pb-1" style="font-size: 16px;">
+                                    {{ group.fuel_type }}
+
+                                </td>
+
+                                <td class="td  pb-1" style="font-size: 16px;">
+                                    {{ group['Acquisition Date']
+                                    || group.acquisition_date}}
+
+                                </td>
+                                <td class="td  pb-1" style="font-size: 16px;">
+                                    <ng-container *ngIf="editingId === group.id; else displayMode">
+                                        <select [(ngModel)]="group.retire_vehicle">
+                                            <option value=0>Active</option>
+                                            <option value=1>Retire</option>
+                                        </select>
+                                    </ng-container>
+                                    <ng-template #displayMode>
+                                        {{ group.retire_vehicle == 0 ? 'Active' : 'Retire' }}
+                                    </ng-template>
+
+                                </td>
+                                <ng-container *ngIf="!showSubmit1">
+                                    <td *ngIf="editingId !== group.id" class="td pb-1" (click)="editRow(group)">
+                                        <i class="fas fa-edit"></i>
+                                    </td>
+                                    <td *ngIf="editingId == group.id" class="td pb-1" (click)="updateRow(group)">
+                                        <i class="fas fa-save"></i>
+                                    </td>
+                                </ng-container>
+                            </tr>
+
+                        </ng-container>
+                    </tbody>
+                </table>
+                <ng-container *ngIf="showSubmit1">
+                    <div *ngIf="!overRide" class="col-12 mt-5">
+                        <button type="submit" class="px-4 trackingsubmitb" (click)="saveVehicleFleet()">
+                            Submit
+                        </button>
+                    </div>
+                    <div *ngIf="overRide" class="col-12 mt-5">
+                        <button type="submit" class="px-4 trackingsubmitb" (click)="oversideVehicleFleet()">
+                            Submit
+                        </button>
+                    </div>
+
+                </ng-container>
+
+            </div>
+            <div *ngIf="vehicleType == 2" class="dataTable scrollit mt-4 ct_vender_scroll_320">
+                <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+                    <thead>
+                        <tr>
+
+
+                            <th scope="col" style="font-size: 16px;">Vehicle Model </th>
+                            <th scope="col" style="font-size: 16px;">Vehicle Type </th>
+                            <th scope="col" style="font-size: 16px;">Fuel </th>
+                            <th scope="col" style="font-size: 16px;">Acquisition Date</th>
+                            <th scope="col" style="font-size: 16px;">Status</th>
+                            <th scope="col" style="font-size: 16px;" *ngIf="!showSubmit2">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let group of jsonData;let index = index">
+
+                            <tr *ngIf="group.category === '2'" clickable (click)="selectGroup(group,index)"
+                                class="col-12 tableRow border-bottom rounded pointer">
+
+                                <td class="td " style="font-size: 16px;">
+                                    {{ group.vehicle_model }}
+
+                                </td>
+                                <td class="td pb-1" style="font-size: 16px;">
+                                    {{ group.vehicle_type }}
+
+                                </td>
+                                <td class="td pb-1" style="font-size: 16px;">
+                                    {{ group.fuel_type }}
+
+                                </td>
+                                <td class="td  pb-1" style="font-size: 16px;">
+                                    {{ group.acquisition_date}}
+
+                                </td>
+
+                                <td class="td  pb-1" style="font-size: 16px;">
+                                    <ng-container *ngIf="editingId === group.id; else displayMode">
+                                        <select [(ngModel)]="group.retire_vehicle">
+                                            <option value=0>Active</option>
+                                            <option value=1>Retire</option>
+                                        </select>
+                                    </ng-container>
+                                    <ng-template #displayMode>
+                                        {{ group.retire_vehicle == 0 ? 'Active' : 'Retire' }}
+                                    </ng-template>
+
+                                </td>
+                                <ng-container *ngIf="!showSubmit2">
+                                    <td *ngIf="editingId !== group.id" class="td pb-1" (click)="editRow(group)">
+                                        <i class="fas fa-edit"></i>
+                                    </td>
+                                    <td *ngIf="editingId == group.id" class="td pb-1" (click)="updateRow(group)">
+                                        <i class="fas fa-save"></i>
+                                    </td>
+
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <ng-container *ngIf="showSubmit2">
+                    <div *ngIf="!overRide" class="col-12 mt-5">
+                        <button type="submit" class="px-4 trackingsubmitb" (click)="saveVehicleFleet()">
+                            Submit
+                        </button>
+                    </div>
+                    <div *ngIf="overRide" class="col-12 mt-5">
+                        <button type="submit" class="px-4 trackingsubmitb" (click)="oversideVehicleFleet()">
+                            Submit
+                        </button>
+                    </div>
+
+                </ng-container>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- dhdfjhfjfgk -->
+
+
+
+
+</div>

@@ -1,0 +1,43 @@
+
+.ct_tree_list_table td:last-child {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.ct_tree_list_table td:last-child i {
+    font-size: 16px;
+}
+.ct_trush_icon ,.ct_view_eye{
+
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    border-radius: 5px;
+}
+.ct_trush_icon{
+    background-color: #d92e2e;
+    color: #fff;
+    border-color:#d92e2e !important;
+}
+.ct_view_eye{
+    background-color: #d8d8d8;
+    border-color:#d8d8d8 !important ;
+}
+p-table.p-element.ct_tree_list_table tr:focus{
+    outline: none !important;
+}
+p-table.p-element.ct_tree_list_table tr:hover td{
+    background-color: #eee;
+}
+p-table.p-element.ct_tree_list_table tr th,p-table.p-element.ct_tree_list_table tr td{
+    font-size: 16px !important;
+    text-align: left !important;
+    transition: 0.4s ease all;
+}
+p-table.p-element.ct_tree_list_table tr th{
+    padding: 6px 10px !important;
+}
+

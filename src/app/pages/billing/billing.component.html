@@ -1,0 +1,192 @@
+
+<div class="container-fluid">
+    <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
+    <div class="row">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="m-0 pl-4">Billing</h3>
+        </div>
+
+
+        <div class="col-sm-6 d-flex flex-row">
+            <div class="row text-white border-bottom"></div>
+        </div>
+    
+    </div>
+    <br /> 
+     <div class="row pt-3">
+        <div class="col">
+            <div class="card rounded shadow" [ngClass]="this.updatedtheme === 'dark' ? 'cardD' : 'cardL'">
+
+                <h5 class="card-header" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'card-headerD'
+                            : 'card-headerL'
+                    ">
+                    {{ companyDetails.companyName }}
+                </h5>
+
+                <div class="card-body">
+                    <div class=" row p-2 d-flex ">
+                       
+                        <div class="col-8  font-pera mt-2">
+                            <p class="">
+                                {{ companyDetails.companyName }}
+                            </p>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="" style="--status-color: {{companyDetails.active? '#55BF92': 'red'
+                                                                }}; font-size: 16px;">
+                                        Status:
+                                    </p>
+                                    <p  class="" style="font-size: 16px">
+                                        Active Since:
+                                    </p>
+                                    <p  class="" style="font-size: 16px">
+                                        Expiry Date:
+                                    </p>
+                                </div>
+                                   
+                                <div class="col-3 statusactive" style="font-size: 16px">      
+                                                                <span class="dot" [ngStyle]="{ '--status-color': isExpired ? 'red' : '#55BF92' }"></span>
+                                    {{ isExpired ? 'Inactive' : 'Active' }}
+                                   
+                                  
+                                    <p  class="mt-3">
+                                        {{
+                                        companyDetails.package_info?.created_at 
+                                      | date: 'dd MMM yyyy'
+                                        }}
+                                    </p>
+                                    <p  class="mt-3">
+                                        {{
+                                        companyDetails.package_info?.expired_at
+                                       | date: 'dd MMM yyyy'
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+                        <!-- <div class="text-right renewalbutton">
+                            <button *ngIf="isExpired" style="
+                                    background-color: #88ad47;
+                                    font-size: 14px;
+                                " class="btn btn-success float-right mb-5 mt-0 text-white" (click)="onClick()">
+                                <span class="fa fa-spinner fa-spin mr-2" *ngIf="showLoader"></span>
+                                Request For Renewal
+                            </button>
+                        </div> -->
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div> 
+     <div class="row">
+        <div class="col">
+            <div class="card rounded mt-3 shadow" [ngClass]="this.updatedtheme === 'dark' ? 'cardD' : 'cardL'">
+                <h5 class="card-header" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'card-headerD'
+                            : 'card-headerL'
+                    ">
+                    Plan Details
+                </h5>
+
+                <div class="card-body">
+                    <div class="col ml-0">
+                        <div class="row">
+                            <div class="col-3 ml-0 p-0" style="font-size: 16px">
+                                <p class="ml-0 p-0" style="--status-color: {{
+                                        companyDetails.active
+                                            ? '#55BF92'
+                                            : 'red'
+                                    }};">
+                                    <i class="fa fa-id-card mr-2"></i>
+                                    Type Of license:
+                                </p>
+                            
+                                <!-- <p class="ml-0 mt-0">
+                                    <i class="fas fa-user mr-2"></i> Type of plan :
+                                </p> -->
+                                <p class="ml-0 mt-0">
+                                    <i class="fas fa-user mr-2"></i> Number Of
+                                    User Allowed :
+                                </p>
+                                <p class="ml-0 mt-0">
+                                    <i class="fas fa-calendar-alt mr-2"></i>
+                                    Start Date :
+                                </p>
+                            </div>
+
+                            <div class="col-3" style="font-size: 16px">
+                                <p class="pointer">
+                                    {{ loginInfo.package_name }}
+                                    <i *ngIf="
+                                          loginInfo.package_name  ==
+                                            'Normal'
+                                        " class="fa fa-info-circle tooltip-icon"
+                                        pTooltip="You will get access to only BRSR Section with this license type"
+                                        tooltipPosition="top" style="color: #88ad47"></i>
+                                    <i *ngIf="
+                                          loginInfo.package_name  ==
+                                            'Basic'
+                                        " class="fa fa-info-circle tooltip-icon"
+                                        pTooltip="You will get access to Scope 1-2 and Users with this license type"
+                                        tooltipPosition="top" style="color: #88ad47"></i>
+                                </p>
+
+                              
+                                <!-- <p>{{ loginInfo.package_name }}</p> -->
+                                <p>  {{
+                                    companyDetails.package_info?.users
+                                   
+                                    }}</p>
+
+                                <p>
+                                    {{
+                                        companyDetails.package_info?.created_at 
+                                     | date: 'dd MMM yyyy'
+                                        }}
+                                </p>
+                            </div>
+
+                            <div class="col-4" style="font-size: 16px">
+                                <p>
+                                    <i class="fas fa-calendar-alt mr-2"></i>Next
+                                    renewal date :
+                                </p>
+                               
+                                <!-- <p>
+                                    <i class="fas fa-phone-alt mr-2"></i> Phone
+                                    Number :
+                                </p> -->
+                            </div>
+
+                            <div class="col-2 v" style="font-size: 16px">
+                                <p> {{
+                                    companyDetails.package_info?.expired_at | date: 'dd MMM yyyy'
+                                    }}</p>
+
+                               
+                                <!-- <span>{{companyDetails.countryCode }} -
+                                    {{companyDetails.phoneNumber }}</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+ </div>

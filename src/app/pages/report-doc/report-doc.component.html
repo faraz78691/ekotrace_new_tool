@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <div
+        class=""
+        [ngClass]="this.updatedtheme === 'dark' ? 'firstboxD' : 'firstboxL'"
+    >
+        <div class="">
+            <div class="mt-4 ml-3">
+                <a
+                    class="filedoc text-center"
+                    (click)="ViweForm()"
+                    style="text-decoration: underline"
+                    >View report form</a
+                >
+            </div>
+            <div class="row text-white mt-4 firstbox-content">
+                
+                <div class="col text-center">
+                    <div>
+                        <label
+                            class="dotted-border filedoc text-center mt-3 mb-2"
+                            >{{ brsrdata.docName }}</label
+                        >
+                    </div>
+                </div>
+                <!-- <div class="col text-center">
+                    <div class="mt-4">
+                        <a
+                            class="viewreport filedoc text-center"
+                            (click)="ViweForm()"
+                            >View report form</a
+                        >
+                    </div>
+                </div> -->
+                <div class="col text-center">
+                    <button
+                        (click)="DownloadFile(brsrdata.docName)"
+                        class="btn downloadbtn btn-primary"
+                    >
+                        Download
+                        <i
+                            class="pi pi-download pl-2 pt-1 pointer mb-1"
+                            aria-hidden="true"
+                            id="downloadIcon"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            title="download"
+                            aria-expanded="false"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+            <div
+                class="row text-white buttons-main-div mt-2"
+                *ngIf="!AcceptorReject"
+            >
+                <div class="pt-3 buttons-div">
+                    <button
+                        *ngIf="!brsrdoc.isAccept"
+                        class="acceptButton"
+                        (click)="updateDocument(true)"
+                    >
+                        Accept
+                    </button>
+
+                    <button
+                        *ngIf="!brsrdoc.isAccept"
+                        (click)="showDialog()"
+                        class="rejectButton btn-danger"
+                    >
+                        Reject
+                    </button>
+
+                    <p-dialog
+                        header="Header"
+                        [(visible)]="visible"
+                        [style]="{width: '50vw'}"
+                    >
+                        <ng-template pTemplate="header">
+                            <span class="text-xl font-bold">Reason</span>
+                        </ng-template>
+
+                        <label class="py-2 ml-5"
+                            >Please enter Reason for reject entry</label
+                        >
+                        <div class="pl-5">
+                            <textarea
+                                name="reason"
+                                rows="5"
+                                cols="60"
+                                pInputTextarea
+                                [(ngModel)]="brsrdoc.reason"
+                                #inputreason="ngModel"
+                                required
+                            ></textarea>
+                            <p
+                                class="text-danger mb-0"
+                                *ngIf="inputreason.errors?.['required']"
+                            >
+                                reason is required
+                            </p>
+                        </div>
+
+                        <ng-template pTemplate="footer">
+                            <button
+                                pButton
+                                icon="pi pi-times"
+                                label="Cancel"
+                                (click)="cancelUpdate()"
+                                class="cancelButton"
+                            ></button>
+                            <button
+                                pButton
+                                icon="pi pi-check"
+                                label="Submit"
+                                [disabled]="!brsrdoc.reason"
+                                (click)="updateDocument(false)"
+                                class="submitButton"
+                            ></button>
+                        </ng-template>
+                    </p-dialog>
+                </div>
+            </div>
+            <!-- {{brsrdata.docPath}}
+                <ngx-extended-pdf-viewer src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    [height]="'600px'"></ngx-extended-pdf-viewer> -->
+            <!-- <ngx-doc-viewer [src]="docxUrl" [height]="'600px'"></ngx-doc-viewer> -->
+        </div>
+    </div>
+</div>

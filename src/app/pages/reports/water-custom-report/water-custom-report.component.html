@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <div class="row pt-3">
+        <div class="d-flex text-white mt-2 pointer" [routerLink]="['/custom-report']">
+            <div class="backicon">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+
+            <h3>Refrigerant Combustion Report</h3>
+        </div>
+    </div>
+
+    <div class="row firstbox">
+        <div class="col">
+            <div class="row mt-4 pl-2 text-white">
+                <div class="col">
+                    <label for="fyear">Financial Year</label>
+                    <div class="selectyear">
+                        <p-calendar placeholder="Select Year" #calendarRef class="calenderinput" [(ngModel)]="date"
+                            view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+
+
+
+                        <div class="icon-wrapper">
+                            <i class="pi pi-chevron-down" (click)="openCalendar(calendarRef)"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="fname">Facility</label>
+                    <div class="row facilityrow">
+                        <p-dropdown class="mx-2 finput" name="facility" #facility="ngModel" [options]="facilityData"
+                            optionLabel="AssestType" optionValue="id" styleClass="facilitydropdown"
+                            [(ngModel)]="selectedFacilityID" (ngModelChange)="checkFacilityID(selectedFacilityID)">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 mx-2 text-white">
+                <div class="col-6">
+                    <label for="fname ">Data points</label>
+
+                    <p-multiSelect [options]="refrigenrateCategories()" defaultLabel="Select Data Points"
+                        [(ngModel)]="selectedDataPoints" optionLabel="subCatName" display="chip"
+                        name="datapoint"></p-multiSelect>
+
+
+                </div>
+                <div class="col">
+                    <label for="fname ">Note</label>
+
+                    <textarea rows="4" pInputTextarea [(ngModel)]="notevalue"></textarea>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="pt-3">
+                    <button (click)="generateReport()" class="generateReportButton">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Secondbox">
+        <div class="col">
+            <div class="row mt-4 mx-2 text-white">
+                <div class="row">
+                    <h4>Report</h4>
+                    <div *ngIf="CustomReportData && CustomReportData.length > 0" class="row text-white" style="margin-left: 830px;">
+                        Download
+                        <i class="pi pi-download pl-2 pt-1 pointer mb-1" aria-hidden="true" id="downloadIcon"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+                        <div class="dropdown-menu brsr dropdown-menu-right" aria-labelledby="downloadIcon">
+                            <a class="dropdown-item pointer" value="Download PDF" (click)="downloadAsPDF()">
+                                <i class="fas fa-file-pdf" style="color: red"></i>&nbsp;&nbsp; Download as PDF</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col p-0 m-0 reporttable">
+                    <div *ngIf="CustomReportData && CustomReportData.length > 0; else emptyList">
+                    <p-table [value]="CustomReportData" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>DataPoints</th>
+                                <th>April</th>
+                                <th>May</th>
+                                <th>June</th>
+                                <th>July</th>
+                                <th>August</th>
+                                <th>September</th>
+                                <th>October</th>
+                                <th>November</th>
+                                <th>December</th>
+                                <th>Januray</th>
+                                <th>February</th>
+                                <th>March</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-report>
+
+                            <tr>
+                                <td>{{report.dataPoint}}</td>
+                                <td>{{ report.April }}</td>
+                                <td>{{report.May}}</td>
+                                <td>{{ report.June }}</td>
+                                <td>{{ report.July }}</td>
+                                <td>{{ report.August }}</td>
+                                <td>{{ report.September }}</td>
+                                <td>{{ report.October }}</td>
+                                <td>{{ report.November }}</td>
+                                <td>{{report.December}}</td>
+                                <td>{{report.January}}</td>
+                                <td>{{report.February}}</td>
+                                <td>{{report.March}}</td>
+                            </tr>
+
+
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <ng-template #emptyList>
+                <p class="nodata text-white">No data available</p>
+            </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

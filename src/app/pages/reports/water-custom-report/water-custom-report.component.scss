@@ -1,0 +1,105 @@
+.backicon{
+    padding-left: 10px;
+    padding-top: 6px;
+    padding-right: 7px;
+
+}
+.selectyear {
+    margin-left: 15px;
+    // box-shadow: 0px 0px 14px -8px #b3b4bb;
+    border: 1px solid #ced4da;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+.firstbox{
+    background-color: #454149;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right:15px;
+    margin-top:15px;
+    box-shadow: 0px 0px 14px -5px #fff;
+
+
+}
+
+.Secondbox{
+    background-color: #454149;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right:15px;
+    margin-top:15px;
+    box-shadow: 0px 0px 14px -5px #fff;
+ 
+   
+}
+.facilityrow{
+    margin-right: 14px;
+
+    
+}
+.facilitydropdown{
+    border: 1px solid #ced4da;
+    align-items: center;
+    border-radius: 8px;
+    background-color: transparent;
+    
+}
+.reporttable{
+ height: 400px;
+ overflow: auto;
+}
+
+.generateReportButton{
+    background-color: #88AD47;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    padding-right: 15px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+
+    color: #fff;
+    border-radius: 5px;
+
+}
+
+.calenderinput{
+    height: 38px;
+    width: 90%;
+    padding-top: 5px;
+}
+
+.pi-chevron{
+    top: 20px;
+}
+
+.finput{
+width: 100%;
+}
+
+.calender-wrapper {
+    flex-grow: 1;
+  }
+  
+  .icon-wrapper {
+    margin-left: 10px; /* Adjust the margin as needed */
+  }
+.datapointDiv{
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.facilityinput{
+    width: 80px;
+}
+
+.nodata{
+    text-align: center;
+    margin-top: 100px;
+ }
+.dropdown-menu{
+    background-color: #ffffff !important;
+    color: #fff !important;
+}

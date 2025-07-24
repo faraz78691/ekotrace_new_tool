@@ -1,0 +1,254 @@
+<div class="ct_seprate_page_div">
+
+    <div class="container-fluid">
+        <!-- <div class="row pt-4">
+            <div class="col-sm-6" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+                ">
+                <h3 class="m-0 pl-4 ">Facilities</h3>
+            </div>
+        </div> -->
+    
+        <div class="row d-flex justify-content-between gap-1 mx-3 pt-3 pb-5">
+            <div class="col-lg-5 myCol" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+                ">
+                <div class="row p-2">
+                    <div class="loc-head" [ngClass]="
+                            this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                        ">
+                        <p class="ct_fw_600">Sub Group</p>
+                    </div>
+                    <div class="d-flex justify-content-between text-style text-light scope-Div gap-2 mx-0">
+                        <div class="searchWidth form-group has-search">
+                            <span class="fa fa-search form-control-feedback"></span>
+                            <input [(ngModel)]="searchData" autocomplete="off" type="text" [ngClass]="
+                                    this.updatedtheme === 'dark'
+                                        ? 'form-controlD'
+                                        : 'form-controlL'
+                                " class="form-control" placeholder="Search" (input)="onInputSearch(searchData)"/>
+                        </div>
+                        <div class="form-group has-search text-light ml-2">
+                            <!-- <button class="LocButton ct_animation_btn_121" (click)="showAddFacilityDialog()">
+                                Add Facility
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="dataTable scrollit" [ngStyle]="{display: FacilityData}">
+                    <table class="table_loc ct_billing_table_bg_120">
+                        <thead>
+                            <tr>
+                                <th>Sub Group Name</th>
+                                <th class="text-center"> Type</th>
+                                <th class="text-center">Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            <tr clickable (click)="tableData(d)" *ngFor="let d of LocData"
+                                class="col-12 tableRow border-bottom rounded pointer"
+                                [ngClass]="{tableRowclicked: id_var === d.id}">
+                                <td class="col-lg-4 td text-initial">
+                                    {{ d.name }}
+                                </td>
+                                <td class="col-lg-4 td text-center">
+                                    {{ d.is_main_group == 1 ? 'Main Group' : 'Sub Group'  }}
+                                  
+                                </td>
+                                <td class="col-lg-4 td text-center">
+                                    {{ d.country_name }}
+                                  
+                                </td>
+                                <!-- <td class="col-lg-4 td text-right">
+                                    <button type="button" (click)="tableData(d.id)"
+                                        [ngClass]="{vdtextColor: id_var === d.id}">
+                                        view details>>
+                                    </button>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-light noData" [ngStyle]="{display: NoData}">
+                    <div class="icon mt-3">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No facilities available. Start by adding a new facility
+                        using the add facility button.</label>
+                </div>
+            </div>
+    
+            <div class="col-lg-6 rounded" [ngClass]="
+                    this.updatedtheme === 'dark' ? 'Location-tabD' : 'Location-tabL'
+                ">
+                <div class="row p-2">
+                    <div class="loc-head" [ngClass]="
+                            this.updatedtheme === 'dark' ? 'loc-headD' : 'loc-headL'
+                        ">
+                        <p class="ct_fw_600">SubGroup Details:</p>
+                    </div>
+                </div>
+    
+                <div class="col d-flex justify-content-end mt-3"></div>
+                <div class="row font-LocProfile mt-0" [ngStyle]="{display: FacilityFullData}">
+                    <table class="table ct_billing_border_0_none">
+                        <tr>
+                            <td>
+                                <p class="mb-0" >Name :</p>
+                            </td>
+                            <td>
+                                <p class="mb-0">{{ facilityDetails.name }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="mb-0">Type :</p>
+                            </td>
+                            <td>
+                                <p class="mb-0">Sub Group</p>
+                            </td>
+                        </tr>
+                 
+                     
+                
+                        <tr>
+                            <td>
+                                <p class="mb-0">Country :</p>
+                            </td>
+                            <td>
+                                <p class="mb-0">{{ facilityDetails.country_name }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="mb-0">Assigned User :</p>
+                            </td>
+                            <td>
+                                <div class="row gap-4">
+                                    <div class="dropdown ct_facility_2_main">
+                                        <button [ngClass]="
+                                                this.updatedtheme === 'dark'
+                                                    ? 'dropbtnD'
+                                                    : 'dropbtnL'
+                                            " class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div>
+                                                Admin
+            
+                                                <!-- <span class="badge badgespan">{{
+                                                    dropCountManager.length
+                                                }}</span> -->
+                                                <span class="badge badgespan" *ngIf="managerList1">{{ managerList1.length
+                                                    }}</span>
+            
+                                            </div>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item dropItemManager" *ngFor="let d of managerList1">{{ d.firstname + ' ' + d.lastname}}</a>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </td>
+                        </tr>
+                      
+                    </table>
+          
+    
+                    <div class="d-flex text-light text-style scope-Div">
+                        <div>
+                            <i class="LocButtonEdit pi  pointer d-flex text-white"
+                                (click)="showEditFacilityDialog()">
+                                <p class="pl-2">Assign Country</p>
+                            </i>
+                        </div>
+                       
+                    </div>
+    
+    
+                </div>
+                <div class="text-light noData" [ngStyle]="{display: NoData}">
+                    <div class="icon mt-3">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No facilities available. Start by adding a new facility
+                        using the add facility button.</label>
+                </div>
+    
+
+                <!-- close manage data point model dialog -->
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+
+    <div class="justify-content-center">
+        <p-dialog [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" styleClass="facilityDialog ct_h_none_143"
+            [style]="{width: '30vw'}" [draggable]="false" [resizable]="false" >
+            <p-header *ngIf="isEdit === false">
+                Add new Facility
+            </p-header>
+            <p-header *ngIf="isEdit === true"> Assign Country </p-header>
+            <div class="modal-body text-white text-style">
+                <form style="height: 100%;" #addCompForm="ngForm" class="col-12" (ngSubmit)="
+                        isEdit === false
+                            ? ''
+                            : editfacility(
+                                  facilityDetails.id,
+                                  addCompForm.value
+                              )
+                    ">
+                    <div  class="row">
+                       
+                            <div class="col-lg-6 mb-4">
+                                <label for="Aname" class="text-dark">SubGroup name</label>
+                                <input required ngModel name="assetName" type="text" disabled
+                                    class="form-control Dashboard-tab text-white"
+                                    placeholder="Enter Asset Name.." #assetName="ngModel"
+                                    [(ngModel)]="facilityDetails.name" assetName />
+                                <p *ngIf="addCompForm.submitted && assetName.errors?.['required']"
+                                    class="text-danger mb-0">
+                                    Asset Name is required
+                                </p>
+
+                            </div>
+                            
+                            <div class="ct_input_white_bg13 mb-4 ct_input_dark_text_121 ct_city_name_select_2_search col-lg-6 mb-4">
+                                <label for="country" class=" text-dark">Assign Country</label>
+                                <p-dropdown required  #country="ngModel"
+                                    [options]="countryData" optionLabel="Name" [filter]="true" filterBy="Name"
+                                    [showClear]="true" optionValue="ID" [(ngModel)]="facilityDetails.country_id " [ngModelOptions]="{standalone: true}" [scrollable]="true" placeholder="Select country"
+                                    >
+                                </p-dropdown> 
+                                <p *ngIf="addCompForm.submitted && country.errors?.['required']"
+                                    class="text-danger mb-0">
+                                    Country Name is required
+                                </p>
+
+                            </div>
+                           
+                    </div>
+                    <div style="height: 200px;"></div>
+                     <div class="modal-footer">
+                        <Button *ngIf="isEdit == false" type="submit" class="LocButton ct_animation_btn_121">
+                            Save
+                        </Button>
+                        <Button *ngIf="isEdit == true" type="submit" class="LocButton ct_animation_btn_121">
+                            Update
+                        </Button>
+                        <span type="button" class="text-white font-weight-light ct_close_btn1231" (click)="
+                                isEdit == false
+                                    ? closeAddFacilityDialog()
+                                    : closeEditFacilityDialog()
+                            ">
+                            Close
+                        </span>
+                    </div>
+                </form>
+            </div>
+         </p-dialog>
+     </div>   

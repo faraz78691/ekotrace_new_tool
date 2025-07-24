@@ -1,0 +1,137 @@
+.firstboxD{
+  background-color: #454149;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-right:15px;
+  margin-top:15px;
+  box-shadow: 0px 0px 14px -5px #fff;
+  height: max-content;
+  display: grid;
+  color: #fff;
+}
+.firstboxL{
+  background-color: #fff;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-right:15px;
+  margin-top:15px;
+  box-shadow: 0px 0px 14px -5px #fff;
+  height: max-content;
+  display: grid;
+  color: black;
+  box-shadow: 0px 0px 14px -5px #242529 !important;
+
+}
+
+.firstbox-content{
+  display: flex;
+  justify-content: space-between;
+}
+.dotted-border {
+   border: 2px dotted #ccc;
+   padding: 10px;
+   cursor: pointer;
+   width: 40%; 
+   height: 40px;
+   margin-left: 323px;
+   margin-top: 30px;
+   background-color: transparent;
+   text-align: center;
+   border-radius: 10px;
+  }
+
+  .viewreport{
+    border: 2px dotted #ccc;
+    padding: 10px;
+    cursor: pointer;
+   width: 40%;
+   height: 30px;
+   background-color: transparent;
+   text-align: center;
+   border-radius: 10px;
+
+  }
+
+  .downloadbtn{
+    margin-top: 15px;
+    background-color: #88AD47;
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 303px; 
+  }
+  
+  /* ... Other styles ... */
+
+.Secondbox{
+  background-color: #454149;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-right:15px;
+  margin-top:15px;
+  box-shadow: 0px 0px 14px -5px #fff;
+  gap:15px
+}
+.buttons-main-div{
+  display: flex;
+  justify-content: center;
+}
+.buttons-div{
+ display: flex;
+ justify-content: center;
+ gap: 10px;
+}
+.acceptButton{
+  background-color: #88AD47;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom:5px;
+  padding-right: 15px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 138px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+
+}
+
+
+.rejectButton{
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom:5px;
+  padding-right: 15px;
+  margin-top: 40px;
+  width: 138px;
+  margin-bottom: 40px;
+  color: #fff;
+  margin-left: 99px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(154, 9, 9);
+}
+
+.submitButton{
+  background-color: #88AD47;
+  border: none;
+  border-right: none;
+  border-bottom: none;
+
+}
+
+
+.cancelButton{
+  border: none;
+  background-color: rgb(154, 9, 9);
+}
+
+
+.green-btn{
+  display: flex;
+  justify-content: end;
+  margin-bottom: 15px;
+}
+.generateReportButton[disabled] {
+  cursor: not-allowed;
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Coal(Industrial)",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Diesel",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Petrol",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Furnance Oil",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Natural Gas",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "LNG",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Stationary Combustion",
+    "subCatagory": "Liquified Petroleum Gas(LPG)",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-23",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-32",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-41",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-125",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-134",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-134a",
+    "Scope": "1"
+  },
+  {
+    "Catagory": "Refrigents",
+    "subCatagory": "HFC-143",
+    "Scope": "1"
+  }
+]

@@ -1,0 +1,177 @@
+<app-header style="padding: 0px; border-bottom: 0px; height: 80px " class="ct_remove_side_bar_10
+"></app-header>
+
+
+
+
+<div class="content-wrapper mt-5 pt-5">
+
+    <section>
+        <div class="container-fluid px-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ct_setting_menu_links">
+                        <ul>
+                            <li>
+                                <a routerLink="/dashboard"><i class="fa-solid fa-gauge-high mr-2"></i>Dashbaord</a>
+                            </li>
+                            <li>
+                                <a routerLink="/tracking"><i class="fa-solid fa-gauge-high mr-2"></i>Corporate GHG Emissions</a>
+                            </li>
+                            <li>
+                                <a routerLink="/report"><i class="fa-solid fa-chart-column mr-2"></i>Reports</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <div class="ct_setting_box_bg_12">
+                        <div>
+                            <h2>General</h2>
+                            <div class="row">
+                               
+                               
+                               <div class="col-md-3 col-sm-6 mb-4">
+                                    <div class="ct_setting_card_box_23" (click)="dialogOpen('1')">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <h5 class="mb-0">Hazard & Non Hazard</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-4">
+                                    <div class="ct_setting_card_box_23" (click)="dialogOpen('2')">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <h5 class="mb-0">Year Set</h5>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div> 
+                      
+                    </div> -->
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- <app-footer style="padding-top: 34px"></app-footer>
+<app-control-sidebar></app-control-sidebar> -->
+<!-- <button style="width: 60px;" id="" (click)="onToggleMenuSidebar()">check</button> -->
+
+<p-dialog  [(visible)]="visible" 
+    [style]="{width: '50vw'}" class="ct_overflow_hidden_hide_585">
+    <p-header > Hazardous Non-Hazardous Waste Type</p-header>
+
+    <div class="modal-body text-white text-style Dashboard-tab">
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ct_setting_box_bg_12 px-0 mt-0 pt-0">
+                           
+                            <!-- <div class="col-sm-12 pb-3" [ngClass]="
+                                    this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+                                ">
+                                <h3>Hazardous Non-Hazardous Waste Type</h3>
+                            </div> -->
+                           
+                            <div class="row" [ngClass]="this.updatedtheme === 'dark' ? 'main-boxD' : 'main-boxL'">
+                                <div class="col-12">
+                                    <div class="ct_company_profile_input">
+                                        <label for="industryType" class="mt-3 mb-2 text-dark">Hazardous</label>
+                                        <div class="">
+                                            <p-multiSelect class="ct_select_2_full_width12 ct_input_dark_text_145 ct_select_2_full_width12" placeholder="Please select" [options]="wasteGrid" [(ngModel)]="hazadrous" [ngModelOptions]="{standalone: true}"   optionValue="type"
+                                            optionLabel="type" display="chip"
+                                            name="sub_category"></p-multiSelect>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="ct_company_profile_input">
+                                        <label for="secondaryIndustryType" class="mt-3 mb-2 w-100  text-dark">Non Hazardous</label>
+                                        <p-multiSelect class="ct_select_2_full_width12 ct_input_dark_text_145 ct_select_2_full_width12" placeholder="Please select" [options]="wasteGrid" [(ngModel)]="non_hazadrous" [ngModelOptions]="{standalone: true}"   optionValue="type"
+                                            optionLabel="type" display="chip"
+                                            name="sub_category"></p-multiSelect>
+                                    </div>
+                    
+                                    
+                    
+                                    <div class="row mt-5">
+                                        <button  type="submit" class="px-3 ct_animation_btn_121" (click)="saveChanges()">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                                
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </section>
+    </div>
+</p-dialog>
+
+
+<p-dialog  [(visible)]="visible2" class="ct_overflow_hidden_hide_585" 
+    [style]="{width: '50vw'}">
+
+    <p-header >Set Current Year</p-header>
+    <div class="modal-body text-white text-style Dashboard-tab ">
+      
+        <section>
+            <div class="container-fluid">
+             
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ct_setting_box_bg_12 pt-0 mt-0 px-0">
+                            <!-- <div class="col-sm-12 pb-3" [ngClass]="
+                                    this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+                                ">
+                                <h3 class="pl-3">Set Current Year</h3>
+                            </div> -->
+                    
+                            
+                            <div class="row" [ngClass]="this.updatedtheme === 'dark' ? 'main-boxD' : 'main-boxL'">
+                                <div class="col-12">
+                                    <div class="ct_company_profile_input">
+                                        <label for="industryType" class="mt-3 mb-2 text-dark">Year Type</label>
+                                        <div class="">
+                                            <p-dropdown
+                                            class="ct_select_op_input"
+                                            ngModel [options]="yearType"  [(ngModel)]="yearSelect" placeholder="Select type"
+                                            optionLabel="year" optionValue="id"
+                                            name="yearType" #units="ngModel">
+                                        </p-dropdown>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-5">
+                                        <button  type="submit" class="px-3 ct_animation_btn_121" (click)="saveCurrency()">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                                
+                                
+                            </div>
+                              
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </section>
+    </div>
+</p-dialog>

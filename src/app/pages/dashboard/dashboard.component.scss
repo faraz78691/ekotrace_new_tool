@@ -1,0 +1,155 @@
+.tabs-container {
+    display: flex;
+    text-align: center;
+    overflow-x: auto !important;
+
+}
+
+.Dashboard-tabD {
+    background-color: #454149;
+    color: #fff;
+    // box-shadow: 0px 0px 14px -7px #fff;
+
+}
+
+.Dashboard-tabL {
+    background-color: #fff;
+    color: #242529;
+    box-shadow: 0px 0px 14px -5px #b3b4bb;
+    border-radius: 5px;
+}
+
+.Dashboard-tab1 {
+    background-color: #FFFAFA;
+    color: #242529;
+    box-shadow: 0px 0px 14px -5px #FFFAFA;
+}
+
+.Dashboard-tab2 {
+    background-color: #f8f9f5;
+    color: #242529;
+    box-shadow: 0px 0px 14px -5px #f8f9f5;
+}
+
+.Dashboard-tab3 {
+    background-color: #fdfff5;
+    color: #242529;
+    box-shadow: 0px 0px 14px -5px #FFFAFA;
+}
+
+.Dashboard-tab4 {
+    background-color: #ebf5f0;
+    color: #242529;
+    box-shadow: 0px 0px 14px -5px #FFFAFA;
+}
+
+.dateD {
+    background-color: #454149;
+    color: #fff;
+
+}
+.ct_calender_38{
+    background-color: #fff!important;
+}
+.dateL {
+    background-color: #fff;
+    color: #242529;
+    border: none;
+
+}
+
+
+.font-size {
+
+    font-size: 24px;
+}
+
+.popup-model {
+    position: absolute;
+    top: 74px;
+    bottom: 0;
+    left: 300px;
+    width: 800px;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+}
+
+.modal-dialog {
+    margin: 0px !important;
+}
+
+.headtab {
+    font-weight: 500 !important;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.headtabs {
+    background-color: #88AD47;
+    padding: 10px;
+    border-radius: 6px;
+    color: #fff;
+    border-bottom: 0px !important;
+
+
+}
+
+.headtabs:hover {
+    border-bottom: 1px solid #88AD47;
+}
+
+.Consumptions {
+    padding-left: 15px;
+    margin-top: 15px;
+    font-size: 12px;
+    height: 25px;
+
+}
+
+.innervalue {
+    font-size: 35px;
+}
+
+.unit {
+    font-size: 12px;
+}
+
+.activecombustion {
+    box-shadow: 0px 0px 14px -6px #FFFAFA;
+    border: 2px solid #88AD47;
+}
+
+.small-box {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.combustionicon {
+    position: relative;
+    background-color: #DEE9C7;
+    border-radius: 50%;
+    padding: 30px;
+    height: 100px;
+    margin-top: -15px;
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+
+}
+
+::-webkit-scrollbar {
+    height: 2px !important;
+    background-color: transparent !important;
+}
+
+.ct_flex_tabs{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+

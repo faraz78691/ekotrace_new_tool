@@ -1,0 +1,203 @@
+<!-- <div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="m-0 pl-2 text-white text-style font-size">
+                    Dashboard
+                </h3>
+            </div>
+        </div>
+        
+    </div>
+   
+    <br />
+
+    <div class="card test">
+        <p-table [paginator]="true" [rows]="10" [value]="CompaniesList" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true" [tableStyle]="{
+                'min-width': '50rem',
+                'background-color': 'red!important'
+            }" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 20, 30]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 15%">Company Name</th>
+                    <th style="width: 30%">Email</th>
+                    <th style="width: 20%">License Type</th>
+                    <th style="width: 15%">Mobile</th>
+                    <th style="width: 10%">Amount</th>
+                    <th style="width: 20%">License Expired</th>
+                    <th style="width: 20%">Details</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-company>
+               
+                <tr>
+                    <td>{{ company.companyName }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.licenseType }}</td>
+                    <td>{{ company.phoneNumber }}</td>
+                    <td>{{ company.amount }}</td>
+                    <td>{{ company.licenseExpired | date: 'dd:MM:yyyy' }}</td>
+                    <td> <a [routerLink]="['/brsr-qa']" [queryParams]="{data: company.id}" style="
+                        cursor: pointer;
+                        color: #88ad47;
+                        font-size: 13px;
+                        
+                    ">View Details</a></td>
+                </tr>
+            </ng-template>
+            <p-paginator class="custom-paginator text-white" [rows]="10"></p-paginator>
+        </p-table>
+    </div>
+
+
+</div> -->
+
+<div class="ct_dashboard_main">
+    <div class="ct_dashboard_right">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-8 mb-4">
+                    <div class="ct_emission_menu_link">
+                        <ul class="ps-0 mb-0">
+                            <li>
+                                <a href="ghg_emission.html">GHG Emissions</a>
+                            </li>
+                            <li>
+                                <a href="admin-energy-consumption.html" >Energy Consumption</a>
+                            </li>
+                            <li>
+                                <a href="admin-business-travel.html"  class="ct_active">Business Travel</a>
+                            </li>
+                            <li>
+                                <a href="#">Water Usage</a>
+                            </li>
+                            <li>
+                                <a href="#">Wastage</a>
+                            </li>
+                        </ul>
+
+                 
+                  
+
+                </div>
+                </div>
+                <div class="col-xl-4 mb-4">
+                    <div class="ct_right_sidebar">
+                        <select class="ct_all_vender_select">
+                            <option value="">All Vendors</option>
+                            <option value="">All Vendors</option>
+                            <option value="">All Vendors</option>
+                            <option value="">All Vendors</option>
+                        </select>
+
+
+                        <div class="mt-4">
+                            <p class="mb-1 ct_fw_500">Financial Year</p>
+                            <select class="ct_period_select w-100">
+                                <option value="">2023-2024</option>
+                                <option value="">2023-2024</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-3 mb-4">
+                    <div class="ct_grey_border_1 ">
+                        <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                            <div>
+                                <h5 class="ct_font_16"><strong>Emissions by travel</strong></h5>
+                                <h3 class="ct_fs_24"><strong>5.987,34</strong></h3>
+                                <p class="mb-0">tCO2e</p>
+                            </div>
+                            <div class="ct_info_icon">
+                                <i class="fa-solid fa-info"></i>
+                            </div>
+                        </div>
+                        <div id="ct_emission_by_travel"></div>
+                    </div>
+                </div>
+                <div class="col-xl-3 mb-4">
+                    <div class="ct_grey_border_1">
+                        <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                            <div>
+                                <h5 class="ct_font_16"><strong>Cost centre</strong></h5>
+                                <h3><strong>5,887,34</strong></h3>
+                                <p class="mb-0">tCO2e</p>
+                            </div>
+                            <div class="ct_info_icon">
+                                <i class="fa-solid fa-info"></i>
+                            </div>
+                        </div>
+                        <div id="ct_cost_center"></div>
+                    </div>
+                </div>
+                <div class="col-xl-6 mb-4">
+                    <div class="ct_grey_border_1 ">
+                        <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                            <div>
+                                <h5 class="ct_font_16"><strong>Total emissions by month</strong></h5>
+                                <p class="mb-0">FY 2023-2024</p>
+                            </div>
+                            <div class="ct_info_icon">
+                                <i class="fa-solid fa-info"></i>
+                            </div>
+                        </div>
+                        <div id="ct_emission_by_month"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-xl-6 mb-4">
+                <div class="ct_grey_border_1 ">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16"><strong>Emissions by business divisions</strong></h5>
+                            <h3><strong>5.987,34 mt CO2e</strong></h3>
+                            <p class="mb-0">FY 2023-2024</p>
+                        </div>
+                        <div class="ct_info_icon">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
+                    </div>
+                    <div id="ct_business_divisions"></div>
+                </div>
+               </div>
+               <div class="col-xl-3 mb-4">
+                <div class="ct_grey_border_1">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_16"><strong>By employee location</strong></h5>
+                            <h3><strong>2,563</strong></h3>
+                            <p class="mb-0">tCO2e</p>
+                        </div>
+                        <div class="ct_info_icon">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
+                    </div>
+                    <div id="By_employee_location"></div>
+                </div>
+            </div>
+            <div class="col-xl-3 mb-4">
+                <div class="ct_grey_border_1">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="mb-0"><strong>Path to net-zero</strong></h5>
+                        </div>
+                        <div class="ct_info_icon">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
+                    </div>
+                    <div id="ct_net_zeo_donut"></div>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

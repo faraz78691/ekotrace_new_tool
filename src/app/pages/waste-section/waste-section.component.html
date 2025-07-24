@@ -1,0 +1,146 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div
+                class="col-sm-6"
+                [ngClass]="
+                    this.updatedtheme === 'dark'
+                        ? 'headlinetextD'
+                        : 'headlinetextL'
+                "
+            >
+                <h3 class="m-0 pl-2">Dashboard</h3>
+            </div>
+
+            <!-- <<----MODEL POPUP ----->
+
+            <div
+                class="modal popup-model"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{display: display}"
+            >
+                <div class="modal-dialog popup-model" role="document">
+                    <div class="modal-content Dashboard-tab">
+                        <div class="modal-body">
+                            <form class="col-12">
+                                <select
+                                    class="form-control select2 Dashboard-tab text-white"
+                                >
+                                    <option class="text-white">Select</option>
+                                    <option class="text-white">Chennai</option>
+                                    <option class="text-white">Delhi</option>
+                                    <option class="text-white">
+                                        Bengaluru
+                                    </option>
+                                    <option class="text-white">Kolkata</option>
+                                    <option class="text-white">Indore</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                (click)="onCloseHandled()"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+
+            <div class="col-sm-6 d-flex flex-row justify-content-end mb-2">
+                <div
+                    class="mx-2 px-4 pt-2 d-flex flex-row rounded pointer"
+                    [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'Dashboard-tabD'
+                            : 'Dashboard-tabL'
+                    "
+                >
+                    <img
+                        *ngIf="updatedtheme === 'dark'"
+                        class="pt-1"
+                        src="assets/img/Location.png "
+                        height="20vh"
+                    />
+                    <img
+                        *ngIf="updatedtheme === 'light'"
+                        class="pt-1"
+                        src="assets/img/locationiconB.png "
+                        height="20vh"
+                    />
+
+                    <p class="pl-2" (click)="openModal()">Location</p>
+                </div>
+
+                <input
+                    type="date"
+                    class="px-2 mx-2 pt-2 rounded"
+                    [ngClass]="this.updatedtheme === 'dark' ? 'dateD' : 'dateL'"
+                />
+
+                <!-- /.col -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <div
+            class="row rounded d-flex flex-row justify-content-between mx-2 mb-3 pt-3 px-3"
+            [ngClass]="
+                this.updatedtheme === 'dark'
+                    ? 'Dashboard-tabD'
+                    : 'Dashboard-tabL'
+            "
+        >
+            <div>
+                <p class="pointer" [routerLink]="['/']">Envirnoment</p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/energy-section']">Energy</p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/emission-section']">
+                    Emission
+                </p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/waste-section']">Waste</p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/water-section']">Water</p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/social-section']">Social</p>
+            </div>
+            <div>
+                <p class="pointer" [routerLink]="['/governance-section']">
+                    Governance
+                </p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div
+            [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            "
+        >
+            <h4 class="pl-3">We are on Waste Section</h4>
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- Main row -->
+</section>
+<!-- /.content -->

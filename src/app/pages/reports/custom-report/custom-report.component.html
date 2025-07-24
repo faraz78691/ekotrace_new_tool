@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row pt-3">
+        <div class="d-flex text-white mt-2 pointer" [routerLink]="['/report']">
+            <div class="backicon">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+
+            <h3>Custom Reports</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 text-center" *ngFor="let report of customreports">
+            <div class="reportsclass">
+                <h4>{{ report.heading }}</h4>
+                <p>{{ report.pera }}</p>
+                <button class="ct_custom_sub_btn" [routerLink]="report.path">{{ report.button }}</button>
+            </div>
+        </div>
+    </div>
+</div>

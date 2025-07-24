@@ -1,0 +1,316 @@
+<div class="container-fluid p-5">
+    <!-- <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="pl-4 card-header card-headerL">Set Target</h3>
+        </div>
+    </div> -->
+
+
+    <div class="row pt-3">
+        <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc User-tabL">
+            <div class="row">
+                <div class="User-headL">
+                    <div
+                        class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between User-tabL">
+                        <h4 class=" ct_fw_600 m-0 my-0" style="flex: 1;">GHG Emissions Data Tracker</h4>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+
+
+
+
+            <div class="dataTable scrollit mt-4  h-auto">
+                <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+                    <thead>
+                        <tr>
+
+                            <!-- <th scope="col" style="font-size: 16px;">Sub Group</th> -->
+                            <th scope="col" style="font-size: 16px;">Facility </th>
+                            <th scope="col" style="font-size: 16px;">Scope 1 %</th>
+                            <th scope="col" style="font-size: 16px;">Scope 2 %</th>
+                            <th scope="col" style="font-size: 16px;">Scope 3 %</th>
+                            <th scope="col" style="font-size: 16px;">Overall Progress</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr clickable *ngFor="let group of transformedData;let index = index
+                                    " class="col-12 tableRow border-bottom rounded pointer"
+                            [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+                            <!-- <td class="td text-initial" style="font-size: 16px;">
+                                        {{ index + 1 }}
+                                    </td> -->
+                            <td class="td " style="font-size: 16px;"
+                                (click)="onFacilityClick(group.facilityId , index,group.facilityName )">
+                                {{ group.facilityName }}
+
+                            </td>
+                            <td class="td " style="font-size: 16px;">
+                                {{ group.scope1 | number : '1.2-2' }}
+
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ group.scope2 | number : '1.2-2' }}
+
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ group.scope3 | number : '1.2-2'}}
+
+                            </td>
+                            <td class="td pb-1">
+                                {{ ((+group.scope1 + +group.scope2 + +group.scope3) / 3) | number : '1.2-2'}}
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div class="text-light" *ngIf="groupdata === false">
+                            <div class="icon">
+                                <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                            </div>
+                            <label class="text-center label">No group available. Start by add a new group using the
+                                add group button.</label>
+                        </div> -->
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="row pt-3">
+        <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc User-tabL">
+            <div class="row">
+                <div class="User-headL">
+                    <div
+                        class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between">
+                        <h4 class=" ct_fw_600 m-0 my-0" style="flex: 1;">{{selectedFaciltiy}}</h4>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+            <ng-container *ngIf="!defaultScope;else default">
+                <div class="dataTable scrollit mt-4 ct_vender_scroll_320" *ngFor="let facility of dataPreparer">
+                    <!-- <h3>{{ facility.facilityName }} ({{ facility.assetName || 'Unknown' }})</h3> -->
+                    <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+                        <thead style="position: sticky;top:0px;">
+                            <tr>
+                                <th scope="col" style="font-size: 16px;">Scopes</th>
+                                <th scope="col" style="font-size: 16px;">Assigned Category</th>
+                                <th scope="col" style="font-size: 16px;">Jan</th>
+                                <th scope="col" style="font-size: 16px;">Feb</th>
+                                <th scope="col" style="font-size: 16px;">Mar</th>
+                                <th scope="col" style="font-size: 16px;">Apr</th>
+                                <th scope="col" style="font-size: 16px;">May</th>
+                                <th scope="col" style="font-size: 16px;">June</th>
+                                <th scope="col" style="font-size: 16px;">July</th>
+                                <th scope="col" style="font-size: 16px;">Aug</th>
+                                <th scope="col" style="font-size: 16px;">Sep</th>
+                                <th scope="col" style="font-size: 16px;">Oct</th>
+                                <th scope="col" style="font-size: 16px;">Nov</th>
+                                <th scope="col" style="font-size: 16px;">Dec</th>
+                                <th scope="col" style="font-size: 16px;">Overall Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iterate over each scope (scope_1, scope_2, scope_3) -->
+                            <tr *ngFor="let scope of facility.scope_1">
+                                <td *ngIf=" scope.scope == 'scope_1' ">Scope 1</td>
+
+
+                                <td>{{ scope.category }}</td>
+                                <td [ngClass]="{'background': scope.data?.Jan}" class="m-1"></td>
+                                <td [ngClass]="{'background': scope.data?.Feb}"></td>
+                                <td [ngClass]="{'background': scope.data?.Mar}"></td>
+                                <td [ngClass]="{'background': scope.data?.Apr}"></td>
+                                <td [ngClass]="{'background': scope.data?.May}"></td>
+                                <td [ngClass]="{'background': scope.data?.Jun}"></td>
+                                <td [ngClass]="{'background': scope.data?.Jul}"></td>
+                                <td [ngClass]="{'background': scope.data?.Aug}"></td>
+                                <td [ngClass]="{'background': scope.data?.Sep}"></td>
+                                <td [ngClass]="{'background': scope.data?.Oct}"></td>
+                                <td [ngClass]="{'background': scope.data?.Nov}"></td>
+                                <td [ngClass]="{'background': scope.data?.Dec}"></td>
+                                <td>{{ scope.percentage }}</td>
+                            </tr>
+
+                            <!-- Repeat for scope_2 and scope_3 -->
+                            <tr *ngFor="let scope of facility.scope_2">
+                                <td *ngIf=" scope.scope == 'scope_2' ">Scope 2</td>
+                                <td>{{ scope.category }}</td>
+                                <td [ngClass]="{'background': scope.data?.Jan}"></td>
+                                <td [ngClass]="{'background': scope.data?.Feb}"></td>
+                                <td [ngClass]="{'background': scope.data?.Mar}"></td>
+                                <td [ngClass]="{'background': scope.data?.Apr}"></td>
+                                <td [ngClass]="{'background': scope.data?.May}"></td>
+                                <td [ngClass]="{'background': scope.data?.Jun}"></td>
+                                <td [ngClass]="{'background': scope.data?.Jul}"></td>
+                                <td [ngClass]="{'background': scope.data?.Aug}"></td>
+                                <td [ngClass]="{'background': scope.data?.Sep}"></td>
+                                <td [ngClass]="{'background': scope.data?.Oct}"></td>
+                                <td [ngClass]="{'background': scope.data?.Nov}"></td>
+                                <td [ngClass]="{'background': scope.data?.Dec}"></td>
+                                <td>{{ scope.percentage }}</td>
+                            </tr>
+
+                            <tr *ngFor="let scope of facility.scope_3">
+                                <td *ngIf=" scope.scope == 'scope_3' ">Scope 3</td>
+                                <td>{{ scope.category }}</td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Jan}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Feb}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Mar}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Apr}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.May}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Jun}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Jul}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Aug}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Sep}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Oct}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Nov}"></td>
+                                <td class="m-1" [ngClass]="{'background': scope.data?.Dec}"></td>
+                                <td>{{ scope.percentage }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </ng-container>
+            <ng-template #default>
+                <h6 class="mt-3">Template not found for this facility</h6>
+            </ng-template>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- dhdfjhfjfgk -->
+    <!-- <p-tabPanel header="Cost Centre">
+            <div class="row pt-3">
+                <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc"
+                    [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+                    <div class="row">
+                        <div class="" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'User-headD'
+                                    : 'User-headL'
+                            ">
+                            <div
+                                class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between">
+                                <h4 class=" ct_fw_600 m-0 my-0" style="flex: 1;">Cost Centre</h4>
+                                <button class="GroupButton ct_assign_package_btn129 ct_animation_btn_121 w-auto px-3"
+                                    (click)="showAddGroupDialog('2')">
+                                    + Add Cost Centre
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p-toast></p-toast>
+                    <p-confirmDialog #cd [style]="{width: '60vw'}">
+                        <ng-template pTemplate="footer">
+                            <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                                class="span-color cancel-button"></button>
+                            <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                                class="p-button-raised p-button-danger"></button>
+                        </ng-template>
+                    </p-confirmDialog>
+
+
+
+
+
+                    <div class="dataTable scrollit mt-4">
+                        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col" style="width: 400px; font-size: 16px;">S.No.</th>
+                                    <th scope="col" style="width: 400px;font-size: 16px;"> Cost Centre Name </th>
+                                    <th scope="col" style="font-size: 16px;">Reference ID</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr clickable (click)="selectGroup(group,index)" *ngFor="
+                                        let group of groupsCostList;let index = index
+                                    " class="col-12 tableRow border-bottom rounded pointer"
+                                    (click)="UnlockComplete(group.id)"
+                                    [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+                                    <td class="td text-initial" style="width: 300px; font-size: 16px;">
+                                        {{ index + 1 }}
+                                    </td>
+                                    <td class="td " style="width: 400px; font-size: 16px;">
+                                        {{ group.cost_center_name }}
+
+                                    </td>
+                                    <td class="td  pb-1" style="font-size: 16px;">
+                                        {{ group.cost_center_refer_id }}
+
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-light" *ngIf="groupdata === false">
+                            <div class="icon">
+                                <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                            </div>
+                            <label class="text-center label">No group available. Start by add a new group using the
+                                add group button.</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </p-tabPanel> -->
+
+
+
+
+</div>

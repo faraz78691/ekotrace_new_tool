@@ -1,0 +1,380 @@
+<div class="row ct_responsive_reverse">
+    <div class="col-xl-9">
+
+        <div class="ct_reduction_graph_main mt-1 pt-2">
+            <!-- <div class="ct_d_flex_1">
+                <div class="ct_reduction_title">
+                    <h4>Reduction over time</h4>
+                    <p class="mb-0">FY - 2023-24</p>
+                </div>
+                <div>
+                    <p class="mb-1 ct_fw_500 text-white">Period Type</p>
+                    <select class="ct_period_select">
+                        <option value="">Monthly</option>
+                        <option value="">Yearly</option>
+                    </select>
+                </div>
+            </div> -->
+
+            <div class="mt-3">
+                <div class="ct_grey_border_1">
+                    <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                        <div>
+                            <h5 class="ct_font_24 ct_fw_600">Scope wise emission</h5>
+                        </div>
+                    </div>
+                    <div id="scope_wise_emission" *ngIf="chartOptions">
+                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                            [dataLabels]="chartOptions.dataLabels" [plotOptions]="chartOptions.plotOptions"
+                            [yaxis]="chartOptions.yaxis" [legend]="chartOptions.legend" [fill]="chartOptions.fill"
+                            [colors]="chartOptions.colors" [stroke]="chartOptions.stroke"
+                            [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div>
+                <div class="ct_d_flex_1">
+                    <div class="ct_reduction_title">
+                        <h4 class="text-dark ct_fs_24 ">Top 5 Contributors of Total Emissions</h4>
+                        <!-- <p class="mb-0 text-dark">FY - 2023-24</p> -->
+                    </div>
+                    <!-- <div>
+                        <p class="mb-1 ct_fw_500 text-white">Type</p>
+                        <select class="ct_period_select">
+                            <option value="">Sub Scope</option>
+                            <option value="">Sub Scope</option>
+                        </select>
+                    </div> -->
+                </div>
+                <div class="row mt-3">
+                    <div class="ct_colo_2 col-md-6 mb-3" *ngFor="let fItems of topFIveE">
+                        <div class="ct_total_emission_card" *ngIf="fItems.emission != '0.000'">
+                            <!-- <p class="mb-2"><strong>1</strong></p> -->
+                            <h2>{{fItems.emission | number:'1.3-3'}}</h2>
+                            <p class="mb-2 ">tCO2e</p>
+                            <!-- <button class="ct_scope_btn" >{{fItems.scope }}</button>
+                            <h6>{{fItems.category}}</h6> -->
+
+                            <button class="ct_scope_btn text-capitalize">{{fItems.scope}}</button>
+                            <ng-container *ngIf="fItems.scope === 'scope3' && fItems.category === 'Stationary Combustion'; else defaultButton">
+                                <h6 >Fuel and Energy-related Activities</h6>
+                              </ng-container>
+                              
+                              <ng-template #defaultButton>
+                                <h6 >{{ fItems.category }}</h6>
+                              </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 mb-4 ct_mt_top_68">
+
+        <div class="ct_right_sidebar">
+            <div class="mb-4">
+                <div>
+                    <ng-container *ngIf="dashboardFacilities$ | async as dashboardData">
+                        <p-dropdown 
+                          class="ct_select_op_input ct_chev_icon_dark230" 
+                          required  
+                          #country="ngModel"
+                          [options]="dashboardData.categories" 
+                          optionLabel="AssestType" 
+                          optionValue="ID" 
+                          [(ngModel)]="selectedFacility" 
+                          [ngModelOptions]="{standalone: true}"
+                          [scrollable]="true"
+                          (onChange)="onFacilityChange($event)">
+                          
+                          <ng-template let-option pTemplate="item">
+                            <div class="d-flex justify-content-between">
+                              <div>{{ option.AssestType }}</div>
+                              <div class="d-flex justify-content-end pt-1 ml-1">
+                                <i class="fa" [class.fa-users]="isArray(option.ID)" [class.fa-user]="!isArray(option.ID)"></i>
+                              </div>
+                            </div>
+                          </ng-template>
+                          
+                        </p-dropdown>
+                      </ng-container>
+                      
+                    <!-- <select class="ct_all_vender_select" [(ngModel)]="selectedFacility"
+                        (change)="onFacilityChange($event)">
+                        <option value="" *ngFor="let items of dashboardData.categories" [value]="items.ID">
+                            <div class="d-flex justify-content-end pt-1 ml-1">
+                                <i class="fa fa-users"></i>
+                            </div>  {{items.AssestType}}</option>
+                    </select> -->
+                  
+                    <div class="mt-4">
+                        <p class="mb-1 ct_fw_500">Calendar Year</p>
+                        <p-calendar class="w-100 ct_input_dark_text_145" [(ngModel)]="year" ngModel name="year" year
+                            view="year" dateFormat="yy" inputId="yearpicker" (ngModelChange)="onFacilityChange($event)"
+                            [disabledDates]="disabledDates" yearRange="5" styleClass="pcalender" [maxDate]="maxYear"
+                            [showIcon]="true"></p-calendar>
+                        <!-- <select class="ct_period_select w-100">
+                            <option value="">2023-2024</option>
+                            <option value="">2023-2024</option>
+                        </select> -->
+                    </div>
+                </div>
+            </div>
+            <div class="ct_grey_border_1 p-3 mt-4">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div>
+                        <div class="d-flex align-items-center gap-3 p mb-2 justify-content-between ct_gap_20">
+                            <h4 class="mb-0"><strong>{{sumofScope2 | number :'1.2-2'}}</strong>&nbsp;tCO2e</h4>
+
+                        </div>
+                        <!-- <div class="d-flex align-items-center gap-2 justify-content-between ct_gap_20">
+                            <h6 class="mb-0"><strong>+12%</strong></h6>
+                            <h6 class="mb-0"><strong>From previous year</strong></h6>
+                        </div> -->
+                        <div class="ct_graph_lable">
+                            <ul class="ps-0 mb-0">
+                                <li>
+                                    <span class="ct_dark_blue_dots"></span>Scope 1
+                                </li>
+                                <li>
+                                    <span class="ct_sky_blue_dots"></span>Scope 2
+                                </li>
+                                <li>
+                                    <span class="ct_yellow_dots"></span>Scope 3
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="previous_year_donut" *ngIf="previoucsOptions">
+                        <apx-chart [series]="previoucsOptions.series" [chart]="previoucsOptions.chart"
+                            [labels]="previoucsOptions.labels" [responsive]="previoucsOptions.responsive"
+                            [colors]="previoucsOptions.colors"></apx-chart>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mt-4">
+             
+                <div class="ct_grey_border_1 ct_py_padd mt-3 py-2 " (click)="status = 1"
+                    [ngClass]="status ==1 ? 'ct_progress_active1': '' ">
+                    <div class="">
+                        <div class="d-flex align-items-center ct_gap_20 flex-wrap justify-content-between mb-2">
+                            <div>
+                                <h5 class="mb-0"><strong>{{scope1E}}</strong></h5>
+                            <p class="mb-0">tCO2e</p>
+                            </div>
+                            <h5 class="mb-0"><strong>Scope 1</strong></h5>
+                        </div>
+                        <div class="d-flex align-items-center ct_gap_20 flex-wrap">
+                            <p class="mb-0" style="color: #213D49;">{{progress1 | number:'1.2-2'}}%</p>
+                           
+                        </div>
+                    </div>
+                    <div class="progress mt-4" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{width:progress1 +'%'}"
+                            style="background-color: #11235aa8; border-radius: 2px;" aria-valuenow="50" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="ct_grey_border_1 ct_py_padd mt-3 py-2" (click)="status = 2"
+                    [ngClass]="status ==2 ? 'ct_progress_active1': '' ">
+                    <div class="">
+                        <div class="d-flex  ct_gap_20 flex-wrap justify-content-between mb-2">
+                           <div>
+                            <h5 class="mb-0"><strong>{{scope2E}}</strong></h5>
+                            <p class="mb-0">tCO2e</p>
+                           </div>
+                           <h5 class="mb-0"><strong>Scope 2</strong></h5>
+                        </div>
+                        <div class="d-flex align-items-center ct_gap_20 flex-wrap">
+                            <p class="mb-0" style="color: #46A5CD;">{{progress2 | number:'1.2-2'}}%</p>
+                          
+                        </div>
+                    </div>
+                    <div class="progress mt-2" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{width:progress2 +'%'}"
+                            style="background-color: #46A5CD; border-radius: 2px;" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="ct_grey_border_1 ct_py_padd mt-3 py-2" (click)="status = 3"
+                    [ngClass]="status ==3 ? 'ct_progress_active1': '' ">
+                    <div class="">
+                        <div class="d-flex  ct_gap_20 flex-wrap justify-content-between mb-2">
+                           <div>
+                            <h5 class="mb-0"><strong>{{scope3E}}</strong></h5>
+                            <p class="mb-0">tCO2e</p>
+                           </div>
+                           <h5 class="mb-0"><strong>Scope 3</strong></h5>
+                        </div>
+                        <div class="d-flex align-items-center ct_gap_20 flex-wrap">
+                            <p class="mb-0" style="color: #FFD914;">{{progress3 | number:'1.2-2'}}%</p>
+                          
+                        </div>
+                    </div>
+                    <div class="progress mt-2" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{width:progress3 +'%'}"
+                            style="background-color: #FFD914; border-radius: 2px;" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1">
+            <div class="mb-4">
+                <h5 class="mb-0 ct_fw_600">Scope 1</h5>
+            </div>
+            <div id="chart" *ngIf="donotOptions1">
+                <apx-chart [series]="donotOptions1.series" [chart]="donotOptions1.chart" [labels]="donotOptions1.labels"
+                    [legend]="donotOptions1.legend" [fill]="donotOptions1.fill" [colors]="donotOptions1.colors"
+                    [dataLabels]="donotOptions1.dataLabels" [responsive]="donotOptions1.responsive"></apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1">
+            <div class="mb-4">
+                <h5 class="mb-0 ct_fw_600">Scope 2</h5>
+            </div>
+            <div id="chart" *ngIf="donotOptions2">
+                <apx-chart [series]="donotOptions2.series" [chart]="donotOptions2.chart" [labels]="donotOptions2.labels"
+                    [fill]="donotOptions2.fill" [colors]="donotOptions2.colors" [legend]="donotOptions2.legend"
+                    [dataLabels]="donotOptions2.dataLabels" [responsive]="donotOptions2.responsive"></apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1">
+            <div class="mb-4">
+                <h5 class="mb-0 ct_fw_600">Scope 3</h5>
+            </div>
+            <div id="chart" *ngIf="donotOptions3">
+                <apx-chart [series]="donotOptions3.series" [chart]="donotOptions3.chart" [labels]="donotOptions3.labels"
+                    [fill]="donotOptions3.fill" [colors]="donotOptions3.colors" [legend]="donotOptions3.legend"
+                    [dataLabels]="donotOptions3.dataLabels" [responsive]="donotOptions3.responsive"></apx-chart>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1 ">
+            <div class="ct_d_flex_1  pb-3">
+                <div>
+                    <h5 class="ct_fw_600">Top emissions by vendor (tCO2e)</h5>
+                </div>
+                <div>
+                    <!-- <a href="#" class="ct_view_all_link">View All</a> -->
+                </div>
+            </div>
+            <div class="ct_emission_vender_list">
+                <div class="d-flex  ct_emission_vender_list_item_12 align-items-center gap-2 justify-content-between "
+                    *ngFor="let vendorItems of vendorData">
+                    <div>
+                        <h5 class="mb-1">{{vendorItems.supplier}}</h5>
+
+                    </div>
+                    <div>
+                        <p class="mb-0 d-flex align-items-center">{{vendorItems.emssion / 1000 | number:'1.3-3'}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1">
+            <div class="ct_d_flex_1  pb-3">
+                <div>
+                    <h5 class="ct_fw_600">Emission by Activity (tCO2e)</h5>
+                </div>
+                <div>
+                    <!-- <a href="#" class="ct_view_all_link">View All</a> -->
+                </div>
+            </div>
+
+            <ul class="nav nav-pills mb-3 ct_emission_tab " id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-Personal-tab" data-toggle="pill"
+                        data-target="#pills-Personal" type="button" role="tab" aria-controls="pills-Personal"
+                        aria-selected="true">Upstream</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-Company-tab" data-toggle="pill" data-target="#pills-Company"
+                        type="button" role="tab" aria-controls="pills-Company" aria-selected="false">Downstream</button>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-Personal" role="tabpanel"
+                    aria-labelledby="pills-Personal-tab">
+                    <div class="ct_emission_vender_list">
+                        <div class="d-flex  align-items-center gap-2 justify-content-between  ct_emission_vender_list_item_12"
+                            *ngFor="let items of upstreamArray">
+                            <div>
+                                <h5 class="mb-1">{{items.category}}</h5>
+                                <!-- <p class="mb-2">33 Units</p> -->
+                            </div>
+                            <div>
+                                <p class="mb-0 d-flex align-items-center">{{items.emission}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-Company" role="tabpanel" aria-labelledby="pills-Company-tab">
+                    <div class="ct_emission_vender_list">
+                        <div class="d-flex  align-items-center gap-2 justify-content-between  ct_emission_vender_list_item_12"
+                            *ngFor="let items of downstreamArray">
+                            <div>
+                                <h5 class="mb-0">{{items.category}}</h5>
+                                <!-- <p class="mb-2">33 Units</p> -->
+                            </div>
+                            <div>
+                                <p class="mb-0 d-flex align-items-center">{{items.emission}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="col-xl-4 mb-4">
+        <div class="ct_grey_border_1">
+            <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                <div>
+                    <h5 class="mb-0 ct_fw_600">Path to net-zero </h5>
+                </div>
+                <!-- <div class="ct_info_icon">
+                    <i class="fa-solid fa-info"></i>
+                </div> -->
+            </div>
+            <div id="ct_net_zeo_donut" *ngIf="donotoptions">
+                <apx-chart [series]="donotoptions.series" [chart]="donotoptions.chart" [labels]="donotoptions.labels"
+                    [legend]="donotoptions.legend" [responsive]="donotoptions.responsive"></apx-chart>
+            </div>
+        </div>
+    </div>
+
+</div>

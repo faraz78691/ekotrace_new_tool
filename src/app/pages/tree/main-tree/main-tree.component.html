@@ -1,0 +1,122 @@
+
+<div class="container-fluid">
+    <div class="row pt-3">
+        <div class="w-100  mt-2 pointer mb-4 ">
+           
+            <h3 class="mb-3 pl-4">Tree List</h3>
+<div class="d-flex align-items-center gap-2 pl-4">
+    <button class="ct_custom_btn_500 ct_animation_btn_121 mr-2" routerLink="/main_tree">Tree</button>
+<button class="ct_custom_btn_500 ct_animation_btn_121 mr-2" routerLink="facility">Facility</button>
+<button class="ct_custom_btn_500 ct_animation_btn_121 mr-2" routerLink="subgroup">Sub Group</button>
+<button class="ct_custom_btn_500 ct_animation_btn_121 w-auto"  routerLink="group">Dashboard Groups</button>
+<div class="ct_how_use_tooltip_main ml-auto">
+    <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+    <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+        <div>
+            <h5 class="ct_fs_16 mb-2">Organisation Tree</h5>
+            <p class="mb-1">There is a three-layer organizational structure for emissions reporting, with the following hierarchy:
+            </p>
+            <h5 class="ct_fs_16 mt-2 mb-0">Top Layer: Main Group (Parent Company)
+            </h5>
+
+            <ol style="list-style: none;"class="mb-0">
+                <li>- No emissions data input at this level
+
+                </li>
+                <li>- Only aggregated data from sub-groups is reported
+
+                </li>
+            </ol>
+
+            <h5 class="ct_fs_16 mb-0 mt-2">Mid Layer: Sub-Groups (Sub-Entities)
+            </h5>
+            <ol style="list-style: none;" class="mb-2">
+                <li>- Financed emissions data is input and reported at this level
+                </li>
+                <li>- Sub-groups are subsidiaries or business units of the main group
+
+                </li>
+                <li>- Emissions data from facilities is aggregated to this level
+
+                </li>
+            </ol>
+            <h5 class="ct_fs_16  mb-0">Lower Layer: Facilities
+
+            </h5>
+            <ol style="list-style: none;" class="mb-2">
+                <li>- GHG Emissions data is input for each facility. Some examples of facilities - office, manufacturing plant, sales store, data centre. 
+                </li>
+                <li>- Facilities are associated with sub-groups and report emissions data to their respective sub-group
+                </li>
+                <li>-Data is then aggregated from facilities to sub-groups and finally to the main group
+
+                </li>
+            </ol>
+
+            <h5 class="ct_fs_16 ">This structure allows for: </h5>
+            <ol class="mb-2">
+                <li>Granular emissions tracking at the facility level
+                </li>
+                <li>Aggregated reporting at the sub-group level, including financed emissions
+                </li>
+                <li>Consolidated reporting at the main group level, providing an overall emissions profile
+                </li>
+            </ol>
+            <h5 class="ct_fs_16 ">How to create your organisation tree
+            </h5>
+            <ol class="mb-2">
+                <li>Load template - Choose one of the three available templates
+                    <ul style="list-style: none;">
+                        <li>- Single Corporate
+                        </li>
+                        <li>- Corporate with multiple sub-entities
+                        </li>
+                        <li>- VC fund 
+
+                        </li>
+                    </ul>
+                </li>
+                <li>Edit Node - Add, delete, or edit nodes in the organizational structure.  Nodes represent entities in the hierarchy, such as: Main Group, Sub-Groups, Facilities. 
+                    <ul style="list-style: none;">
+                        <li>- Top layer (Main Group) – There can only be one node which represents the Parent    company name.
+
+                        </li>
+                        <li>-  Middle layer (Sub-groups) – The nodes represent subsidiaries or business units of the main group. To add a ‘sub-group’ node, right click on Main group node and enter sub-group details like subsidiary name
+
+                        </li>
+                        <li>- Bottom-layer (Facilities) – To add facilities, right click on sub-group node and add facility details including facility name and facility type e.g. office, mfg. plant, sales store 
+
+
+                        </li>
+                    </ul>
+                </li>
+                <li>Ensure the tree structure follows the predefined hierarchy
+                    <ul style="list-style: none;">
+                        <li>- Main Group (top-level)
+                        </li>
+                        <li>- Sub-Groups (mid-level)
+                        </li>
+                        <li>- Facilities (lower-level)
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+       
+
+
+
+
+
+    </div>
+</div>
+</div>
+           <router-outlet></router-outlet>
+        </div>
+    </div>
+
+
+
+ 
+</div>
+

@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+pf-dropdown {
+    border: none;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    --pf-dropdown-menu-min-width: 20rem;
+
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        background-color: #454149 !important;
+        color: #fff !important;
+    }
+
+
+
+    .dropdown-item:hover {
+        padding: 0.5rem 1rem;
+        background-color: #88AD47 !important;
+        color: #fff !important;
+    }
+
+
+    .dropdown-divider {
+        margin: 0;
+    }
+
+
+
+
+}
+
+.notify {
+    width: max-content !important;
+}

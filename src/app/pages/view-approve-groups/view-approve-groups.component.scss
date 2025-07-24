@@ -1,0 +1,232 @@
+.SendforApproval-button {
+    border-radius: 5px;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #88AD47;
+    cursor: pointer;
+  
+  
+  }
+  
+  .Rejected {
+    background-color: rgb(154, 9, 9);
+    border-radius: 5px;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+  
+  
+  }
+  
+  .Approved {
+    background-color: #88AD47;
+    border-radius: 5px;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+  
+  
+  }
+  
+  .Pending {
+    background-color: rgb(244, 115, 29);
+    border-radius: 5px;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+  
+  
+  }
+  
+  .font-pera {
+    font-size: 16px;
+    padding-top: 13px;
+    justify-content: center;
+  
+  }
+  
+  
+  .LocButton {
+    border-radius: 10px;
+    border-color: transparent;
+    background-color: #88AD47;
+    width: 100px;
+    color: white;
+    height: 30px;
+  }
+  
+  .LocButtonEdit {
+    //border-left: 10px;
+    // border-top-left-radius: 10px;
+    // border-bottom-left-radius: 10px;
+    border-color: transparent;
+    background-color: #88AD47;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: -6px;
+    width: 80px;
+    padding-top: 9px;
+    padding-left: 5px;
+    color: rgb(17, 16, 16);
+    height: 29px;
+    font-size: small !important;
+  }
+  
+  .deleteButton {
+    width: 85px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-color: transparent;
+    background-color: rgb(154, 9, 9);
+    margin-top: 3px;
+    color: white;
+    height: 30px;
+    padding-top: 8px;
+    padding-left: 8px;
+    //margin-left: 5px;
+    font-size: small !important;
+  
+  }
+  
+  // .view-request-div {
+  //   height: 600px !important;
+  // }
+  .cd_requst__static12 .p-datatable .p-datatable-tbody > tr > td {
+    padding-block: 7px !important;
+  }
+  .contents {
+    display: contents;
+  }
+  
+  .view-request-col {
+    border-radius: 15px !important;
+  }
+  
+  .view-details {
+    color: #88AD47;
+    background-color: #454149;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  .sendLable {
+    font-size: 10px;
+    color: #929492;
+  }
+  
+  .countrequest {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  
+  .selectyear {
+    display: flex !important;
+    justify-content: center !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    width: 120px !important;
+    background-color: #fff !important;
+    border: 1px solid white;
+    color: #fff;
+    display: flex;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .selectedmonths {
+    margin-top: 10px !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #88AD47;
+    border: 1px solid #88AD47;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #f5f5f5;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin: auto;
+  }
+  
+  
+  .filledselectedmonths {
+  
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: #88AD47 !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .globalsearch {
+    margin-top: 3px;
+  }
+  
+  .globalsearch input {
+    background-color: #454149;
+    color: #fff !important;
+    border: 1px solid #fff;
+    border-radius: 5px;
+  }
+  .ct_border_radius_8{
+    border-radius: 8px !important;
+  }
+  .ct_custom_drop_white .p-dropdown.p-component {
+    background-color: #fff !important;
+  }   
+  
+  .ct_modal_center_120{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: auto !important;
+  }
+  .ct_modal_main_div140 button#closePopup {
+    background-color: #eee;
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: -6px;
+    margin-right: -6px;
+  }
+  .ct_drop_input_250123{
+    flex-wrap: nowrap;
+  }
+  .ct_drop_input_250123 .ct_custom_drop_white {
+    width: 100%;
+    max-width: 300px;
+  }
+  .ct_calander_600_height_38 {
+    height: 36.13px;
+    max-width: 300px;
+    width: 100%;
+  }
+  .ct_drop_input_250123 .p-dropdown.p-component.p-dropdown-open {
+    width: 386px !important;
+  }
+  
+  button.btn.btn-dark.margin.ct_view_request_action_btn_green {
+    background-color: #a3bf72;
+    border-color: #a3bf72;
+  }
+  .p-dropdown .p-dropdown-trigger {
+    color: #000 !important;
+  }

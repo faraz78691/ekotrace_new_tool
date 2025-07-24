@@ -1,0 +1,41 @@
+
+
+<div class="ct_dashboard_main">
+    <div class="ct_dashboard_right">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-9 mb-4">
+                    <div class="ct_emission_menu_link">
+                        <ul class="ps-0 mb-0">
+                            <li>
+                                <a routerLink="/dashboard/ghgEmission"  routerLinkActive="ct_active" [routerLinkActiveOptions]="{ exact: false }">GHG Emissions</a>
+                            </li>
+                            <li>
+                                <a routerLink="/dashboard/energyEmission" routerLinkActive="ct_active" [routerLinkActiveOptions]="{ exact: false }">Energy Consumption</a>
+                            </li>
+                            <li>
+                                <a routerLink="/dashboard/businessTravel" routerLinkActive="ct_active" [routerLinkActiveOptions]="{ exact: false }">Business Travel</a>
+                            </li>
+                            <li>
+                                <a routerLink="/dashboard/waterUsage" routerLinkActive="ct_active" [routerLinkActiveOptions]="{ exact: false }">Water Usage</a>
+                            </li>
+                            <li>
+                                <a routerLink="/dashboard/waste" routerLinkActive="ct_active">Waste Generated</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+          
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+
+           
+
+        </div>
+
+    </div>
+</div>

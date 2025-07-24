@@ -1,0 +1,473 @@
+<div class="container-fluid">
+    <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="pl-4">Carbon Offset</h3>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-between mx-3 pt-3">
+        <div class="col-8 myCol overflow-auto mb-5 ct_custom_flex_basisc"
+            [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+            <div class="row p-2">
+                <div class="" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'User-headD'
+                            : 'User-headL'
+                    ">
+                    <p class="ml-3 ct_fw_600">Carbon Offset List</p>
+                </div>
+                <div class="d-flex justify-content-between text-style text-light scope-Div">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-control-feedbackD'
+                                    : 'form-control-feedbackL'
+                            ">
+                        </span>
+                        <input type="text" name="search" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-controlD'
+                                    : 'form-controlL'
+                            " class="form-control" placeholder="Search" [(ngModel)]="searchData" />
+                    </div>
+                    <div class="form-group has-search text-light">
+                        <button class="GroupButton ct_assign_package_btn129 ct_animation_btn_121"
+                            (click)="showAddGroupDialog()">
+                            + Add Offset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+            <p-dialog (click)="removeCss()" [(visible)]="visible" [breakpoints]="{'960px': '75vw'}"
+                [style]="{width: '50vw'}">
+                <p-header *ngIf="FormEdit === false"> Add New Offset </p-header>
+                <p-header *ngIf="FormEdit === true"> Edit Carbon Offset </p-header>
+
+                <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
+                    <form #GroupForm="ngForm" class="col-12" (ngSubmit)="
+                            FormEdit === false
+                                ? saveOffset(GroupForm)
+                                : updateGroup(groupdetails.id, GroupForm)
+                        ">
+                        <div class="mb-5 pb-0 row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Project Name</label>
+                                <input name="project_details" ngModel id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white" placeholder="Enter Project Name"
+                                    #groupName="ngModel" [disabled]="isloading" required [(ngModel)]="project_name" />
+                                <p class="text-danger mb-0"
+                                    *ngIf="groupName.errors?.['required'] && GroupForm.submitted">
+                                    Project name is required
+                                </p>
+                                <p class="text-danger mb-0" *ngIf="
+                                    isgroupExist === true && groupName.touched
+                                ">
+                                    group already exist please use other groupname
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Project Type</label>
+                                <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required
+                                    ngModel placeholder="Select" [options]="Groupby" optionLabel="name"
+                                    optionValue="name" name="project_type" #group="ngModel"
+                                    [(ngModel)]="project_type"></p-dropdown>
+                                <p class="text-danger mb-0" *ngIf="GroupForm.submitted && group.errors?.['required']">
+                                    Project Type is required
+                                </p>
+                                <p class="text-danger mb-0" *ngIf="
+                                    isgroupExist === true && group.touched
+                                ">
+                                    group already exist please use other groupname
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Date of Purchase</label>
+                                <div class="field">
+                                    <p-calendar [(ngModel)]="date3" name="date_of_purchase" placeholder="Select date"
+                                        #date_of_purchase="ngModel" [showIcon]="true" inputId="icon"
+                                        class="ct_year_input_full_w"></p-calendar>
+                                </div>
+                                <p class="text-danger mb-0"
+                                    *ngIf="GroupForm.submitted && date_of_purchase.errors?.['required']">
+                                    Date is required
+                                </p>
+                                <p class="text-danger mb-0" *ngIf="
+                                    isgroupExist === true && date_of_purchase.touched
+                                ">
+                                    group already exist please use other date_of_purchase
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Vintage</label>
+                                <!-- <input ngModel name="vintage" id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white" placeholder="Enter Vintage"
+                                    #vintage="ngModel" [disabled]="isloading" required ngModel /> -->
+                                <p-calendar class="ct_calender_input_38_action_12 " ngModel name="vintage" [(ngModel)]="vintage" year
+                                    placeholder="Select year" styleClass="pcalender" view="year"
+                                    dateFormat="yy" inputId="yearpicker" [showIcon]="true"></p-calendar>
+                               
+                                
+                                <p class="text-danger mb-0" *ngIf="
+                                    isgroupExist === true && groupName.touched
+                                ">
+                                    group already exist please use other groupname
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Standard</label>
+
+                                <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required
+                                    ngModel placeholder="Select" [options]="standardList" optionLabel="name"
+                                    optionValue="name" name="standard"  [(ngModel)]="standard"></p-dropdown>
+                                <p class="text-danger mb-0" *ngIf="GroupForm.submitted && group.errors?.['required']">
+                                    Project Type is required
+                                </p>
+                                <p class="text-danger mb-0" *ngIf="
+                                isgroupExist === true && group.touched">
+                                    group already exist please use other groupname
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Carbon Offset (tCO2e)</label>
+                                <input ngModel name="carbon_offset" id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white " placeholder="Enter Carbon Offset"
+                                   [disabled]="isloading" required ngModel [(ngModel)]="carbon_offset" />
+                                <!-- <p class="text-danger mb-0"
+                                    *ngIf="GroupForm.submitted && carbon_offset.errors?.['required']">
+                                    Carbon Offset is required
+                                </p> -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Carbon Credit Value (usd/tonnes)</label>
+
+                                <input ngModel name="carbon_credit_value" id="search-input" type="text"
+                                    class="form-control Dashboard-tab text-white "
+                                    placeholder="Enter carbon credit value" 
+                                    [disabled]="isloading" required [(ngModel)]="carbon_credit_value" />
+                                <!-- <p class="text-danger mb-0"
+                                    *ngIf="GroupForm.submitted && carbon_credit_value.errors?.['required']">
+                                    Carbon Credit Value is required
+                                </p> -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname">Attachments</label>
+
+                                <input ngModel name="comments" id="search-input" style="padding: 0px;" type="file"
+                                    class="form-control Dashboard-tab text-white ct_change_choose_file_input12 "
+                                    (change)="onFileSelected($event)" placeholder="Enter carbon credit value"
+                                    #groupName="ngModel" [disabled]="isloading" />
+                            </div>
+
+                            <div class="row px-3 w-100">
+
+                                <div class="col-md-12">
+                                    <label for="fname">Allocation</label>
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-3">
+
+
+
+                                            <label for="fname">Scope 1</label>
+                                            <input ngModel name="scope_1" id="search-input" type="text"
+                                                class="form-control Dashboard-tab text-white "
+                                                placeholder="Enter Allocation in %" 
+                                                [disabled]="isloading" required [(ngModel)]="scope_1" />
+                                            <!-- <p class="text-danger mb-0"
+                                                *ngIf="GroupForm.submitted && scope_1.errors?.['required']">
+                                                Scope 1 Value is required
+                                            </p> -->
+
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fname">Scope 2</label>
+                                            <input ngModel name="scope_2" id="search-input" type="text"
+                                                class="form-control Dashboard-tab text-white "
+                                                placeholder="Enter Allocation in %" 
+                                                [disabled]="isloading" required [(ngModel)]="scope_2"  />
+                                            <!-- <p class="text-danger mb-0"
+                                                *ngIf="GroupForm.submitted && scope_1.errors?.['required']">
+                                                Scope 2 Value is required
+                                            </p> -->
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fname">Scope 3</label>
+                                            <input ngModel name="scope_3" id="search-input" type="text"
+                                                class="form-control Dashboard-tab text-white "
+                                                placeholder="Enter Allocation in %" 
+                                                [disabled]="isloading" required [(ngModel)]="scope_3"  />
+                                            <!-- <p class="text-danger mb-0"
+                                                *ngIf="GroupForm.submitted && scope_1.errors?.['required']">
+                                                Scope 3 Value is required
+                                            </p> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="fname">Comments</label>
+                                <!-- 
+                                <input ngModel name="comments" id="search-input"  type="text"
+                                    class="form-control Dashboard-tab text-white "
+                                    placeholder="Enter carbon credit value" #groupName="ngModel"
+                                   [disabled]="isloading" required /> -->
+                                <textarea rows="4" class="form-control ct_text bg-white"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-3 ct_modal_btns_12">
+                            <Button (click)="removeCss()" type="submit" *ngIf="FormEdit === false" [disabled]="
+                                    (this.selectedRole !== Roleaccess &&
+                                        facilitydata === true) ||
+                                    usernameIsExist === true ||
+                                    emailIstExist === true
+                                " class="rounded span-color px-3 text-white text-style loading ">
+                                <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                                Save
+                            </Button>
+                            <Button *ngIf="FormEdit === true" type="submit "
+                                class="rounded span-color px-3 text-white text-style ">
+                                <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                                Update
+                            </Button>
+
+                            <span type="button" class="text-white font-weight-light ml-3 " (click)="removeCss()"
+                                (click)="onCloseHandled()">
+                                Close
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </p-dialog>
+
+
+
+            <div class="dataTable scrollit">
+                <table class="table_loc ct_space_table_21 ct_billing_table_bg_120">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Project type</th>
+                            <th scope="col">Standard</th>
+                            <th scope="col">Date of Purchase</th>
+                            <th scope="col">Carbon offset </th>
+                            <th scope="col">Carbon credit </th>
+                            <th scope="col">User </th>
+                            <th scope="col">Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr clickable (click)="selectGroup(group,index)" *ngFor="
+                                let group of groupsList;let index = index
+                            " class="col-12 tableRow border-bottom rounded pointer" (click)="UnlockComplete(group.id)"
+                            [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+                            <td class="td text-initial">
+                                {{ group.project_name }}
+                            </td>
+                            <td class="td ">
+                                {{ group.type }}
+
+                            </td>
+                            <td class="td text-center pb-1">
+                                {{ group.standard }}
+
+                            </td>
+                            <td class="td text-center pb-1">
+                                {{ group.date_of_purchase | date:'dd-MM-yyyy' }}
+
+                            </td>
+                            <td class="td text-center pb-1">
+                                {{ group.offset }}
+
+                            </td>
+                            <td class="td text-center pb-1">
+                                {{ group.carbon_credit_value }}
+
+                            </td>
+                            <td class="td text-center pb-1">
+                                {{ group.user_name }}
+
+                            </td>
+                            <td class="td text-right">
+                                <button class="btn" style="
+                                        cursor: pointer;
+                                        color: #88ad47;
+                                        font-size: 13px;
+                                    " (click)="editButton(group)"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-light" *ngIf="groupdata === false">
+                    <div class="icon">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No group available. Start by add a new group using the
+                        add group button.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4" [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'" style="height: 350px">
+            <h5 class="pl-3 mt-3 ct_fw_600">Carbon Offset Details</h5>
+            <div class="row font-UserProfile mt-4" *ngIf="groupdata === true">
+                <table class="table ct_billing_border_0_none">
+                    <tr>
+                        <td>
+                            <p class="mb-0">Project Detals:</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.project_name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Project type :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.type}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Date of Purchase:</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.date_of_purchase | date:'dd-MM-yyyy'}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Vintage:</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.vintage | date:'yyyy' }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Standard:</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.standard }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Carbon offset :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.offset }} (tCO2e)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Carbon Credit Value:</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.carbon_credit_value }} (usd/tonnes)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-2 ct_fw_600">Allocation:</p>
+                            <div>
+                                <p class="mb-2">Scope 1:</p>
+                                <p class="mb-2">Scope 2:</p>
+                                <p class="mb-0">Scope 3:</p>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="mb-2">{{'-' }}</p>
+                            <div>
+                                <p class="mb-2">{{ groupdetails.scope1 }} %</p>
+                                <p class="mb-2">{{ groupdetails.scope2 }} %</p>
+                                <p class="mb-0">{{ groupdetails.scope3 == null ? '-' : groupdetails.scope3 + '%' }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Comments</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.comments || '-'}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Attachments</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.file }}</p>
+                        </td>
+                    </tr>
+
+
+
+
+
+                </table>
+                <!-- <div class="col-5 ml-3">
+                    <p>Project Detals:</p>
+                    <p>Project type :</p>
+                    <p>Date of Purchase:</p>
+                    <p>Vintage:</p>
+                    <p>Standard:</p>
+                    <p>Carbon offset  :</p>
+                    <p>Offset:</p>
+                    <p>Carbon Credit Value:</p>
+                    <p>Allocation:</p>
+                    <p>Scope 1:</p>
+                    <p>Scope 2:</p>
+                    <p>Scope 3:</p>
+                    <p>Comments</p>
+                    <p>Attachments</p>
+
+                </div>
+                <div class="col-6">
+                    <p>{{ groupdetails.project_name }}</p>
+                    <p>{{ groupdetails.type}}</p>
+                    <p>{{ groupdetails.date_of_purchase }}</p>
+                    <p>{{ groupdetails.vintage }}</p>
+                    <p>{{ groupdetails.standard }}</p>
+                    <p>{{ groupdetails.offset }}</p>
+                    <p>{{ groupdetails.carbon_credit_value }}</p>
+                    <p>{{'' }}</p>
+                    <p>{{ groupdetails.scope1 }}</p>
+                    <p>{{ groupdetails.scope2 }}</p>
+                    <p>{{ groupdetails.scope3 }}</p>
+                    <p>{{ groupdetails.comments || '-'}}</p>
+                    <p>{{ groupdetails.file }}</p>
+
+                </div> -->
+            </div>
+
+            <div class="text-light noData" *ngIf="groupdata === false">
+                <div class="icon mt-3">
+                    <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                </div>
+                <label class="text-center label">No groups available. Start by adding a new group using the
+                    add group button.</label>
+            </div>
+        </div>
+    </div>
+</div>

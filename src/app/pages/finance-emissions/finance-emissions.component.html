@@ -1,0 +1,739 @@
+<div class="container-fluid px-0 mt-5">
+
+    <div class="row pt-2 ml-0 mx-0 px-0">
+
+        <div class="col-lg-10 mx-auto mb-4 px-2">
+            <div class="TrackingDiv2-border Dashboard-tab ct_dash_board_tab text-white ct_scroll_dash"
+               >
+               <!-- style="height: calc(100vh - 210px);" -->
+
+                <p-tabView #dataentryTab activeIndex="{{ activeindex }}">
+                    <p-tabPanel header="Data Entry">
+                        <div class="row text-white border-bottom">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+
+
+                                <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+                                    Investment
+                                </p>
+
+                                <div class="ct_how_use_tooltip_main">
+                                    <i class="fa-solid fa-circle-question"></i>
+                                    <div class="ct_how_use_tooltip_cnt" [class.ct_active]="isHowtoUse">
+                                        <h5 class="mb-2 ct_fs_16">Financed Emissions
+
+                                        </h5>
+                                        <p>Emissions from investments made by the company, including equity investments,
+                                            loans, and other financial assets. This category covers emissions from the
+                                            activities of entities in which the company has invested.
+                                        </p>
+
+                                        <h5 class="mb-2 ct_fs_16">This category divides financial investments into three
+                                            types:
+                                        </h5>
+
+                                        <ol>
+                                            <li>Equity investments – Investment made the company using its own capital.
+                                                It can be further subcategorised into: a) subsidiaries - where the
+                                                company has financial control b) associate companies - where company has
+                                                significant influence but no financial control c) joint ventures - where
+                                                partners have joined financial control b) other investments - company
+                                                has neither financial control nor significant influence eg. insurance
+                                                contracts, credit guarantees.
+
+                                            </li>
+                                            <li>Debt investments – Corporate debt holdings held in the company’s
+                                                portfolio, such as bonds, or commercial loans.
+                                            </li>
+                                            <li>
+                                                Project finance - Long-term financing of projects (e.g., infrastructure
+                                                and industrial projects) by the reporting company as either an equity
+                                                investor (sponsor) or debt investor (financier)
+
+                                            </li>
+                                        </ol>
+
+                                        <h5 class="ct_fs_16 mb-0">To collect emissions data for investments made by the
+                                            company, follow these steps:
+                                        </h5>
+                                        <ol>
+                                            <li>
+                                                Decide which financial activity to include in the data collection (e.g.,
+                                                corporate lending, project finance, equity investments, bond
+                                                underwriting)
+
+                                            </li>
+                                            <li>
+                                                Identify company’s proportional share of investment in the investee or
+                                                total project cost. As the investment portfolios are dynamic, companies
+                                                should identify investments by choosing a fix point in time such as
+                                                year-end.
+
+                                            </li>
+                                            <li>
+                                                Determine the scope of emissions data needed e.g., Scope 1, Scope 2,
+                                                Scope 3 (if significant)
+                                            </li>
+                                            <li>
+                                                Relevant department for collecting the data – Corporate finance /
+                                                Treasury team, Accounts department
+
+                                            </li>
+
+                                        </ol>
+                                        <h5 class="ct_fs_16 mb-0">How to use the tool for entering emissions data
+
+                                        </h5>
+                                        <ol>
+                                            <li>
+                                                Choose the type of investment from the drop-down and then select the
+                                                industry sector that most closely matches the sector in which investment
+                                                has been done
+                                            </li>
+                                            <li>
+                                                Select the calculation method
+                                                <ul class="pl-3" style="list-style: lower-roman;">
+                                                    <li>For Investment specific method - collect the scope1 and scope2
+                                                        emissions data of the investee company for the reporting period
+                                                        and specify the proportional share of equity or project cost to
+                                                        calculate the emissions contribution of the reporting company.
+                                                    </li>
+                                                    <li>For ‘Average data method’ – Input the investee company total
+                                                        revenue (for equity investment or debt investment when the
+                                                        project is in operational phase) or project construction cost if
+                                                        the project is still in construction phase in the reporting
+                                                        period. Specify the proportional share of equity or project cost
+                                                        to calculate the emissions contribution of the reporting
+                                                        company.
+                                                    </li>
+
+                                                </ul>
+
+                                            </li>
+
+
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+
+                            <!-- scope 3 categores stats from here -->
+
+                            <div class="trackingFooter">
+                                <div class="row mt-4 mb-3 mb-0 pb-0 mx-2">
+
+                                    <div class="col-12">
+
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-4" style="gap: 10px;">
+                                                        <label class=" ct_text_wrape">Type of investment</label>
+                                                        <p-dropdown
+                                                            class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                            ngModel [options]="investmentTypeGrid"
+                                                            placeholder="Select type of invesment" optionLabel="type"
+                                                            optionValue="type" name="investment_type"
+                                                            #investment_type="ngModel"
+                                                            (onChange)="onInvestmentTypeChange($event)">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="calenderDiv flex">
+                                                        <div
+                                                            class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                                                            <p-calendar class="w-100" ngModel name="year" year
+                                                                [(ngModel)]="year" styleClass="pcalender" view="year"
+                                                                dateFormat="yy" inputId="yearpicker"
+                                                                placeholder="Select year"
+                                                                [showIcon]="true"></p-calendar>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="mb-4  " style="gap: 10px;">
+                                                        <label class=" ct_text_wrape">Industry Sector</label>
+                                                        <p-dropdown
+                                                            class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                            ngModel [options]="wasteGrid" optionLabel="investment_type"
+                                                            optionValue="investment_type" name="investment_sector"
+                                                            #investment_sector="ngModel"
+                                                            (onChange)="onInvestmentSectorChange($event)">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-6">
+                                                    <div class="mb-4 " style="gap: 10px">
+                                                        <label class="ct_text_wrape">Sub Category</label>
+                                                        <p-dropdown
+                                                            class="ct_select_op_input ct_flex_1 ct_remove_nowrape_850 ct_chev_icon_dark230"
+                                                            ngModel [options]="subFranchiseCategory"
+                                                            optionLabel="broad_categories"
+                                                            optionValue="broad_categoriesId" name="broad_categoriesId"
+                                                            #broad_categoriesId="ngModel">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="calculationRow">
+                                                <div class="col-md-6">
+                                                    <div class="mb-4" style="gap: 10px;">
+                                                        <label class=" ct_text_wrape">Calculation method</label>
+                                                        <p-dropdown
+                                                            class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                            ngModel [options]="calculationGrid"
+                                                            placeholder="Select a method"
+                                                            optionLabel="calculationmethod"
+                                                            optionValue="calculationmethod" name="calculationmethod"
+                                                            #calculationmethod="ngModel"
+                                                            (onChange)="onInvestmentCalculationMethodChange($event)">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="equityInvestmentRow">
+                                                <h6 class="mb-3">Equity investments</h6>
+                                                <div class="row" *ngIf="franchiseMethod">
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+
+                                                            <label class=" ct_text_wrape">Scope1
+                                                                Emissions</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter Scope1 Emissions"
+                                                                    name="scope1_emission" ngModel />
+                                                                <div class="ct_quantity_text">
+                                                                    <p>(tonnes C02e)</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Scope2
+                                                                Emissions</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter Scope2 Emissions"
+                                                                    name="scope2_emission" ngModel />
+                                                                <div class="ct_quantity_text">
+                                                                    <p>(tonnes C02e)</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Share of equity
+                                                                (%)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter Share of equity"
+                                                                    name="share_Equity" ngModel />
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="averageMethod">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Investe company total
+                                                                revenue</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter total revenue"
+                                                                    name="investe_company_revenue" ngModel />
+                                                                <div class="ct_quantity_text">
+                                                                    <p>{{countryCode}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Share of equity
+                                                                (%)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter share of equity"
+                                                                    name="share_Equity" ngModel />
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="debtInvesmentRow">
+                                                <h5 class="mt-2">{{InvestmentHeading}}</h5>
+                                                <div class="row" *ngIf="franchiseMethod">
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Scope1 (in reporting
+                                                                year)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter Scope1 Emissions"
+                                                                    name="scope1_emission" ngModel />
+                                                                <div class="ct_quantity_text">
+                                                                    <p>(tonnes C02e)</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Scope2 (in reporting
+                                                                year)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter Scope2 Emissions"
+                                                                    name="scope2_emission" ngModel />
+                                                                <div class="ct_quantity_text">
+                                                                    <p>(tonnes C02e)</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-4" style="gap: 10px;">
+                                                            <label class=" ct_text_wrape">Share of total project
+                                                                cost (%)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    class="form-control Dashboard-tab text-white"
+                                                                    placeholder="Enter share of total project cost"
+                                                                    name="project_cost" ngModel />
+                                                                <div class="">
+                                                                    <small>*Value of debt investment / total
+                                                                        project cost (debt + equity)</small>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div *ngIf="averageMethod">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-4" style="gap: 10px;">
+
+                                                                <label class=" ct_text_wrape">Project
+                                                                    phase</label>
+                                                                <p-dropdown
+                                                                    class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                                    ngModel [options]="projectPhaseTypes"
+                                                                    optionLabel="projectPhase"
+                                                                    optionValue="projectPhase" name="projectPhase"
+                                                                    #projectPhase="ngModel"
+                                                                    (onChange)="onProjectPhaseChnage($event)">
+                                                                </p-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-4" style="gap: 10px;">
+                                                                <label *ngIf="!RevenueRow"
+                                                                    class=" ct_text_wrape">Project revenue in
+                                                                    the
+                                                                    reporting year</label>
+                                                                <label *ngIf="RevenueRow" class=" ct_text_wrape">Project
+                                                                    Construction
+                                                                    Cost</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text"
+                                                                        class="form-control Dashboard-tab text-white"
+                                                                        placeholder="Enter value"
+                                                                        name="project_construction_cost" ngModel />
+                                                                    <div class="ct_quantity_text">
+                                                                        <p> {{countryCode}}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-4" style="gap: 10px;">
+                                                                <label class=" ct_text_wrape">Share of total
+                                                                    project
+                                                                    cost
+                                                                    (%)</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text"
+                                                                        class="form-control Dashboard-tab text-white"
+                                                                        placeholder="Enter share of project cost"
+                                                                        name="equity_project_cost" ngModel />
+                                                                    <div class="">
+                                                                        <small>*Value of debt investment / total
+                                                                            project
+                                                                            cost (debt + equity)</small>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 mt-4 pt-3 ml-3 text-center">
+                                        <button type="submit" class="px-4 trackingsubmitb">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </form>
+                    </p-tabPanel>
+
+
+
+
+
+
+                    <!-- dhdfjhfjfgk -->
+                    <p-tabPanel header="Status">
+                        <div class="row  border-bottom">
+                            <p class="mb-2 mt-3 ml-4">
+                                {{ categoryName }}
+                            </p>
+                        </div>
+
+                        <div class="ElectricityTable mt-0 ct_overflow_hidden_data_table_500"
+                            style="height: auto !important;">
+                            <p-table [paginator]="true" [rowHover]="true" style="overflow-y: unset;" [rows]="10"
+                                styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
+                                [value]="dataEntriesPending" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+
+
+
+
+                                        <th pSortableColumn="type"
+                                            *ngIf="categoryId != 3 && categoryId != 10 && categoryId != 11 && categoryId != 10 && categoryId != 12 && categoryId != 14">
+
+                                            Investment Type
+                                            <p-sortIcon field="catName"></p-sortIcon>
+                                        </th>
+
+                                        <th pSortableColumn="catName"
+                                            *ngIf="categoryId == 16 || categoryId == 21 || categoryId == 22 || categoryId == 23">
+                                            Industry Sector
+
+                                        </th>
+
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 23">
+                                            Industry Sub sector
+
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 18">
+                                            Processing Activity
+
+                                        </th>
+                                        <th pSortableColumn="catName"
+                                            *ngIf="categoryId == 16 || categoryId ==18 || categoryId == 21 ||categoryId == 22 ||categoryId == 23">
+                                            Calculation Method
+
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId ==23">
+                                            Revenue / Project Cost
+
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId ==23">
+                                            Share equity / Total project%
+
+                                        </th>
+
+                                        <th pSortableColumn="catName" *ngIf="categoryId ==23">
+                                            Project Phase
+
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 23">
+                                            Scope1 (tonnes co2e)
+
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 23">
+                                            Scope2 (tonnes co2e)
+
+
+                                        <th pSortableColumn="year">
+                                            <p-sortIcon field="year"></p-sortIcon>
+                                            Year
+                                            <!-- <p-columnFilter field="year" matchMode="equals" display="menu" [showMenu]="true"
+                                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown [ngModel]="value" [options]="yearOptions"
+                                                        (onChange)="filter($event.value)" placeholder="All" [showClear]="false">
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter> -->
+                                        </th>
+                                        <th pSortableColumn="month"
+                                            *ngIf="categoryId!=8 && categoryId!=14 && categoryId!=15">
+                                            Month
+                                            <p-sortIcon field="month"></p-sortIcon>
+                                        </th>
+                                        <th *ngIf="categoryId==1 || categoryId==5 || categoryId==7 || categoryId==8"
+                                            pTooltip="Reading Value" tooltipPosition="top"
+                                            pSortableColumn="readingValue">
+                                            <p-sortIcon field="readingValue"></p-sortIcon>
+                                            Value
+
+                                        </th>
+                                        <th *ngIf="categoryId==1" pTooltip="Blend Type" tooltipPosition="top"
+                                            pSortableColumn="BlendType">
+                                            <p-sortIcon field="BlendType"></p-sortIcon>
+                                            Blend
+
+                                        </th>
+                                        <!-- <th *ngIf="categoryId==1" style="width: 15%" pTooltip="Blend percent"
+                                            tooltipPosition="top" pSortableColumn="blendPercent">
+                                            <p-sortIcon field="blendPercent"></p-sortIcon>
+                                            %
+        
+                                        </th> -->
+
+
+
+
+
+
+                                        <th *ngIf="categoryId==5" pSortableColumn="sourceName">
+                                            Source <p-sortIcon field="sourceName"></p-sortIcon>
+                                        </th>
+                                        <th>
+                                            <p-sortIcon pSortableColumn="status" field="status"></p-sortIcon>
+                                            Status
+                                            <p-columnFilter field="status" matchMode="equals" display="menu"
+                                                [showMenu]="true" [showMatchModes]="false" [showOperator]="false"
+                                                [showAddButton]="false">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown [ngModel]="value" [options]="statusOptions"
+                                                        (onChange)="filter($event.value)" placeholder="All"
+                                                        [showClear]="false">
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+
+                                        </th>
+                                        <th pSortableColumn="sourceName" pTooltip="tCO2" tooltipPosition="top">
+                                            Emission (tCO2e)
+                                        </th>
+                                        <th>User</th>
+                                        <!-- <th >Details</th> -->
+                                    </tr>
+
+                                </ng-template>
+                                <ng-template pTemplate="body" let-de let-editing="editing" let-ri="rowIndex">
+                                    <tr [pEditableRow]="de">
+
+
+                                        <td *ngIf="categoryId == 23">{{ de.investement_type }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.category }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.sub_category }}</td>
+                                        <td
+                                            *ngIf="categoryId == 16 || categoryId ==18 || categoryId == 21 ||categoryId == 22 ||categoryId == 23">
+                                            {{ de.calculation_method }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.investee_company_total_revenue }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.equity_share }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.project_phase == null ? '-' :
+                                            de.project_phase }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.scope1_emission }}</td>
+                                        <td *ngIf="categoryId == 23">{{ de.scope2_emission }}</td>
+
+
+
+
+
+
+
+
+                                        <td>
+                                            {{ de.year }}
+                                        </td>
+                                        <td *ngIf="categoryId != 8 && categoryId != 14 && categoryId != 15">
+                                            {{ de.month }}
+                                        </td>
+
+
+                                        <td>{{ de.status }}</td>
+                                        <td>{{ de.emission }}</td>
+                                        <td>{{ de.user_name }}</td>
+                                        <!-- <td>
+                                            <div class="view-details">
+                                                <i class="pi pi-eye pt-2 text-white" title="info"
+                                                    [routerLink]="['/tracking-status']"
+                                                    [queryParams]="{data:de.subcategoryID}"></i>
+                                                <a *ngIf="de.fileName" (click)="downloadFile(de.fileName)">
+                                                    <i class="pi pi-download text-white pl-2" title="download"></i></a>
+                                            </div>
+                                        </td> -->
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Settings">
+                        <div class="row text-white border-bottom">
+                            <p class="mb-2 mt-3 ml-4 text-dark">
+                                {{ SubCatAllData.subCatName }}
+                            </p>
+                        </div>
+                        <div class="ElectricityTable mt-0 ct_overflow_hidden_data_table_500"
+                            style="height: auto !important;">
+                            <p-table [paginator]="true" [rowHover]="true" style="overflow-y: unset;" [rows]="10"
+                                styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
+                                [value]="dataEntriesPending" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 8">
+                                            Type of purchase
+                                            <p-sortIcon field="catName"></p-sortIcon>
+                                        </th>
+                                        <!-- <th pSortableColumn="catName" *ngIf="categoryId != 24 && categoryId != 25 && categoryId != 26">
+                                        Category
+                                        <p-sortIcon field="catName"></p-sortIcon>
+                                    </th> -->
+                                        <th pTooltip="Data Points" tooltipPosition="top" pSortableColumn="subcatName"
+                                            *ngIf="categoryId == 1 || categoryId == 2 || categoryId == 3 || categoryId == 4 || categoryId == 5 || categoryId == 6">
+                                            D.P
+                                            <p-sortIcon field="subcatName"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="type"
+                                            *ngIf="categoryId != 3 && categoryId != 10 && categoryId != 11 && categoryId != 10 && categoryId != 12 && categoryId != 14">
+
+                                            Type
+                                            <p-sortIcon field="catName"></p-sortIcon>
+                                        </th>
+
+
+                                        <th pSortableColumn="catName"
+                                            *ngIf="categoryId == 16 || categoryId == 21 || categoryId == 22 || categoryId == 23">
+                                            Sub Category
+                                            <p-sortIcon field="catName"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="catName" *ngIf="categoryId == 18">
+                                            Sub Activity
+                                            <p-sortIcon field="catName"></p-sortIcon>
+                                        </th>
+
+
+
+
+
+
+
+
+
+
+                                        <!-- <th *ngIf="categoryId==1" style="width: 15%" pTooltip="Blend percent"
+                                        tooltipPosition="top" pSortableColumn="blendPercent">
+                                        <p-sortIcon field="blendPercent"></p-sortIcon>
+                                        %
+    
+                                    </th> -->
+
+
+                                        <th pSortableColumn="sourceName" pTooltip="tCO2" tooltipPosition="top">
+                                            Emission Factor
+                                        </th>
+                                        <th pSortableColumn="unit"
+                                            *ngIf="categoryId !=24 && categoryId !=25  && categoryId !=26">
+                                            Unit <p-sortIcon field="unit"></p-sortIcon>
+                                        </th>
+                                        <th>User</th>
+                                        <!-- <th >Details</th> -->
+                                    </tr>
+
+                                </ng-template>
+                                <ng-template pTemplate="body" let-de let-editing="editing" let-ri="rowIndex">
+                                    <tr [pEditableRow]="de">
+
+
+
+
+
+
+                                        <td *ngIf="categoryId == 23">{{ de.investement_type }}</td>
+                                        <td *ngIf="categoryId == 22 || categoryId == 23  ">{{ de.category }}</td>
+
+
+
+                                        <td>{{de.emissionFactorUsed != 'NaN' ? (de.emissionFactorUsed | number :'1.2-2')
+                                            : '-' }}</td>
+
+
+
+                                        <td>{{ de.emission_factor_unit ? de.emission_factor_unit : '-'
+                                            }}</td>
+
+
+                                        <td>{{ de.user_name }}</td>
+
+
+
+                                        <!-- <td>
+                                       
+                                    </td> -->
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+                <div class="view-request mt-3 ct_view_request_btn d-flex justify-content-center"
+                [routerLink]="['/finance-view-approve-groups', groupId]">
+                    View and Approve Request
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+
+</div>

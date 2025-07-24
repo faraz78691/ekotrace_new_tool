@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:wght@200;300;400;500;600&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+
+}
+:root {
+    --darkblue: #213d49;
+    --yellow: #ffd914;
+    --skyblue :#46a5cd;
+    --green :#075101;
+    --grey: #bdbdbd;
+    --orange:#f3722c;
+    --blue:#0068f2;
+    --light_orange :#f8961e;
+    --cyan:#17b4b4;
+  }
+a{
+    text-decoration:none;
+}
+.ct_fw_500{
+    font-weight: 500;
+}
+.ct_dashboard_right {
+    margin-top: 24px;
+    flex: 1;
+}
+.ct_dashboard_main {
+    /* display: flex; */
+    background-color: #fff !important;
+    border-radius: 15px;
+    padding: 15px;
+
+    /* color: #a2afa3; */
+}
+.ct_emission_menu_link ul li{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.ct_emission_menu_link ul li + li{
+    margin-left: 15px;
+}
+.ct_emission_menu_link ul li a {
+    font-size: 14px;
+    font-weight: 600;
+    color:  var(--darkblue) ;
+    border-radius: 5px;
+    padding: 7px 15px;
+    /* width: 180px; */
+    display: block;
+    text-align: center;
+    transition: 0.4s ease all;
+    background-color: #f5f5f5;
+}
+
+.ct_gap_20{
+    gap: 20px;
+}
+.ct_emission_menu_link ul li a.ct_active {
+    background-color: rgba(136, 173, 71, 0.75);
+    /* box-shadow: 0px 4px 4px rgba(0,0,0,0.38); */
+    color: #fff;
+}
+.ct_emission_menu_link ul li a:hover{
+    background-color:  rgba(136, 173, 71, 0.75);
+    /* box-shadow: 0px 4px 4px rgba(0,0,0,0.38); */
+    color: #fff;
+}
+.ct_period_select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #DDDDDD;
+    width: 170px;
+}
+.ct_reduction_title h4{
+    font-size: 24px;
+    font-weight: 500;
+    color: #fff;
+}
+.ct_d_flex_1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.ct_total_emission_card {
+    border-radius: 10px;
+    border: 1px solid #EEEEEE;
+    padding: 25px 15px;
+    background-color: #fff;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.09);
+    height: 100%;
+}
+.ct_reduction_title p{
+    color: #fff;
+}
+.ct_grey_878787{
+    color: #878787;
+}
+button.ct_scope_btn {
+    display: block;
+    background-color: #b4cc97;
+    padding: 5px 10px;
+    width: 100%;
+    border: 1px solid #b4cc97;
+    color: #000;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: 0.4s ease all;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.ct_scope_btn:before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: -1;
+    inset: 0px;
+    transition: 0.4s ease all;
+    transform: scale(0);
+}
+.ct_scope_btn:hover:before{
+    transform: scale(1);
+}
+.ct_scope_btn:hover{
+    color: #075101;
+}
+.ct_total_emission_card h6{
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.ct_info_icon {
+    width: 30px;
+    height: 30px;
+    background-color: #BDBDBD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 100px;
+}
+.ct_info_icon i{
+    font-size: 15px;
+}
+
+.ct_grey_border_1 {
+    border: 1px solid #EEEEEE;
+    padding: 15px 30px;
+    border-radius: 15px;
+    height: 100%;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.09);
+    background-color: transparent;
+}
+.ct_font_24{
+    font-size: 24px;
+}
+.ct_py_padd {
+    padding-block: 24px;
+}
+/* span.apexcharts-legend-text {
+    font-size: 16px !important;
+
+} */
+.ct_grey_brdr_btm1{
+    border-bottom: 2px solid #F0F0F0;
+}
+.ct_view_all_link{
+    color: #367BCC;
+    font-weight: 600;
+}
+
+.ct_short_down{
+    color: #816164;
+}
+.ct_short_up {
+    color: #A2C8BB;
+    top: 6px;
+    position: relative;
+}
+.ct_emission_vender_list h5 {
+    font-weight: 400;
+    font-size: 16px;
+}
+.ct_emission_vender_list p {
+    font-weight: 500;
+    color:#333;
+    font-size: 16px;
+    gap: 6px;
+}
+.ct_emission_tab {
+    background-color: #D4D4D4;
+    border-radius: 10px;
+   display: flex !important;
+
+}
+.ct_emission_tab.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff!important;
+    background-color: rgba(136, 173, 71, 0.75) !important;
+}
+.ct_emission_tab.nav-pills .nav-link:hover{
+    background-color: rgba(136, 173, 71, 0.75) !important;
+    color: #fff!important;
+}
+.ct_emission_tab.nav-pills .nav-link:not(.active):hover{
+    color: #fff!important;
+}
+.ct_emission_tab.nav-pills .nav-link {
+    color: #777777;
+    width: 100%;
+}
+
+.ct_emission_tab li {
+    flex: 1;
+}
+
+select.ct_all_vender_select {
+    background-color: rgba(136, 173, 71, 0.75) ;
+    width: 100%;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #eee;
+}
+select.ct_all_vender_select option{
+    background-color: #fff;
+    color: #333 !important;
+}
+.ct_font_16{
+    font-size: 16px;
+}
+
+.ct_font_12{
+    font-size: 12px;
+}
+.ct_gap_2{
+    gap: 20px;
+}
+
+.ct_gap_10{
+    gap: 10px;
+}
+.ct_new_calender_css_icon button {
+    background-color: var(--darkblue);
+    border-color: var(--darkblue);;
+}
+.ct_new_calender_css_icon button:enabled:hover{
+    background-color: var(--darkblue) !important;
+}
+.ct_new_calender_css_icon input {
+    color: #000 !important;
+}
+#previous_year_donut .apexcharts-legend.apexcharts-align-center.apx-legend-position-right {
+    /* display: flex !important;
+    flex-direction: row !important;
+    align-items: end;
+    top: auto;
+    bottom: -15px;
+    left: 0px !important; */
+    display: none;
+}
+.ct_graph_lable ul{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.ct_graph_lable li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+.ct_graph_lable li + li{
+ margin-left: 10px;
+}
+.ct_graph_lable li span{
+width: 10px;
+height: 10px;
+border-radius: 100px;
+display: block;
+}
+.ct_total_emission_card h2 {
+    font-size: 22px;
+    font-weight: 500;
+}
+.ct_dark_blue_dots{
+    background-color: var(--darkblue);
+}
+.ct_sky_blue_dots{
+    background-color: var(--skyblue);
+}
+.ct_yellow_dots{
+    background-color: var(--yellow);
+}
+ul#pills-tab.ct_emission_tab {
+    display: flex !important;
+}
+.ct_emission_vender_list_item_12 {
+    padding: 8px;
+    background-color: #fff;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.09);
+    margin-bottom: 6px;
+    border-radius: 6px;
+}
+@media (min-width:1200px){
+    .ct_mt_top_68{
+        margin-top: -68px;
+    }
+}
+@media (min-width: 1400px){
+.ct_colo_2{
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+}
+}
+@media screen and (max-width:767px){
+    .ct_emission_tab{
+        flex-direction: column;
+    }
+
+}
+@media screen and (max-width:575px){
+    .ct_emission_menu_link ul li a{
+        width: 100%;
+        text-align: left;
+    }
+    .ct_emission_menu_link ul li {
+        display: block;
+       
+    }
+}

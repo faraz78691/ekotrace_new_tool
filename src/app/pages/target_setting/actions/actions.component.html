@@ -1,0 +1,331 @@
+<div class="containerfluid px-4">
+
+    <div class="row pt-4">
+        <div class="col-sm-12" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <div
+                class="d-flex align-items-center justify-content-between gap-2  card-header card-headerL m-0 ct_header_grey_1202">
+                <h4 class="ct_fw_600  mb-0" style="flex: 1;">Actions</h4>
+                <div class="ct_how_use_tooltip_main ml-auto">
+                    <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                    <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                        <div>
+                         
+                            <h5 class="ct_fs_16 mb-2">Taking actions
+
+                            </h5>
+                            <p class="mb-0 ct_fs_16">The actions taken to reduce carbon emissions have a three-stage lifecycle. This three-stage approach allows for a clear understanding of the status of each action, enabling effective tracking, monitoring, and reporting of progress towards carbon reduction goals. It also helps to identify areas where more planning or action is needed to achieve desired outcomes.
+                            </p>
+                
+                            <ol class="mb-0">
+                                <li>Planned:
+                                <ul class="mb-0" style="list-style: none;">
+                                    <li>- The action is in the planning stage</li>
+                                    <li>- It has been identified as a potential carbon reduction opportunity
+                                    </li>
+                                    <li>- Plans and strategies are being developed to implement the action
+                                    </li>
+                                </ul>
+                
+                                </li>
+                                <li> Progress
+                                    <ul class="mb-0" style="list-style: none;">
+                                        <li> - The action is ongoing and active
+                                        </li>
+                                        <li> - Implementation has started, and progress is being made
+
+                                        </li>
+                                        <li>- Data is being collected to track the effectiveness of the action
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <li> Achieved
+                                    <ul class="mb-0" style="list-style: none;">
+                                        <li> - The action is completed
+
+                                        </li>
+                                        <li> - It has become a permanent part of the organization's carbon reduction measures
+
+                                        </li>
+                                        <li>- The action is now considered a success and is now being reported as part of the organization's overall carbon reduction achievements for the reporting year
+                                        </li>
+                                    </ul>
+
+                                </li>
+                               
+                            </ol>
+                           
+                        </div>
+                       
+                
+                
+                
+                
+                
+                    </div>
+                </div>
+                <div class="form-group has-search text-light mb-0">
+                    <button class="GroupButton ct_assign_package_btn129 p-button  ct_animation_btn_121"
+                        (click)="showAddGroupDialog()">
+                        + Add Actions
+                    </button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ct_box_shadow">
+        <div class="row">
+            <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc"
+                [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+                <div class="row p-2">
+                    <div class="" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'User-headD'
+                            : 'User-headL'
+                    ">
+                        <!-- <p class="ml-3 ct_fw_600">Set Emission Inventory</p> -->
+                    </div>
+                    <!-- <div class="d-flex justify-content-between text-style text-light scope-Div">
+                  
+                    <div class="form-group has-search text-light">
+                        <button class="GroupButton ct_assign_package_btn129 p-button  ct_animation_btn_121" (click)="showAddGroupDialog()">
+                            + Add Actions
+                        </button>
+                    </div>
+                </div> -->
+                </div>
+
+                <p-toast></p-toast>
+                <p-confirmDialog #cd [style]="{width: '60vw'}">
+                    <ng-template pTemplate="footer">
+                        <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                            class="span-color cancel-button"></button>
+                        <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                            class="p-button-raised p-button-danger"></button>
+                    </ng-template>
+                </p-confirmDialog>
+
+
+
+                <div class="ct_action_horizontel_slider">
+                    <div class="ct_action_header_bg_120">
+                        <div class="ct_grid_3_1">
+                            <div class="" style="width: 32.66%">
+                                <h5>Planned <span class="ct_action_dot_11" style="background-color: #ffc543;"></span>
+                                </h5>
+                            </div>
+                            <div class="" style="width: 32.66%">
+                                <h5>In Progress <span class="ct_action_dot_11"
+                                        style="background-color: #ff974b;"></span>
+                                </h5>
+                            </div>
+                            <div class="" style="width: 32.66%">
+                                <h5>Achieved <span class="ct_action_dot_11" style="background-color: #3dd598;"></span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ct_grid_3_1 mt-3">
+
+                        <div style="width: 32.66%">
+                            <div *ngFor="let group of plannedActions" class="mb-3">
+                                <div class="ct_actiion_box_125">
+                                    <h4 class="ct_h4">{{group.name}}</h4>
+                                    <p>CO2 Saving: <strong>{{group.co2_savings_tcoe}}t CO2e</strong></p>
+
+                                    <div class="test">
+                                        <label for="fname" class="text-dark">Status </label>
+                                        <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124"
+                                            required ngModel placeholder="Select" [options]="status" optionLabel="e_act"
+                                            optionValue="e_act" name="status" #group [(ngModel)]="group.status"
+                                            (onChange)="onStatusChange(group.id, group.status)"></p-dropdown>
+                                    </div>
+
+
+                                    <div class="d-flex align-items-center gap-1 justify-content-between mt-3">
+                                        <span class="ct_fw_600" style="color: #aaa;"><i
+                                                class="fa-solid fa-calendar-days mr-2"></i>{{group.time_period | date
+                                            :'yyyy'}}</span>
+                                        <h6 class="mb-0">{{group.owner}}</h6>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width: 32.66%">
+                            <div *ngFor="let group of progressActions" class="mb-3">
+                                <div class="ct_actiion_box_125 ct_actiion_box_125_orange" (click)="onEditAction(group)">
+                                    <h4 class="ct_h4">{{group.name}}</h4>
+                                    <p>CO2 Saving: <strong>{{group.co2_savings_tcoe}}t CO2e</strong></p>
+
+                                    <div class="test">
+                                        <label for="fname" class="text-dark">Status </label>
+                                        <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124"
+                                            required ngModel placeholder="Select" [options]="status" optionLabel="e_act"
+                                            optionValue="e_act" name="status" #group [(ngModel)]="group.status"
+                                            (onChange)="onStatusChange(group.id, group.status)"></p-dropdown>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-1 justify-content-between mt-3">
+                                        <span class="ct_fw_600" style="color: #aaa;"><i
+                                                class="fa-solid fa-calendar-days mr-2"></i>{{group.time_period | date
+                                            :'yyyy'}}</span>
+                                        <h6 class="mb-0">{{group.owner}}</h6>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div style="width: 32.66%">
+                            <div *ngFor="let group of archiveActions" class="mb-3">
+                                <div class="ct_actiion_box_125 ct_actiion_box_125_blue">
+                                    <h4 class="ct_h4">{{group.name}}</h4>
+                                    <p>CO2 Saving: <strong>{{group.co2_savings_tcoe}}t CO2e</strong></p>
+
+                                    <div class="test">
+                                        <label for="fname" class="text-dark">Status </label>
+                                        <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124"
+                                            required ngModel placeholder="Select" [options]="status" optionLabel="e_act"
+                                            optionValue="e_act" name="status" #group [(ngModel)]="group.status"
+                                            (onChange)="onStatusChange(group.id, group.status)"></p-dropdown>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-1 justify-content-between mt-3">
+                                        <span class="ct_fw_600" style="color: #aaa;"><i
+                                                class="fa-solid fa-calendar-days mr-2"></i>{{group.time_period | date
+                                            :'yyyy'}}</span>
+                                        <h6 class="mb-0">{{group.owner}}</h6>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<p-dialog (click)="removeCss()" [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}">
+    <p-header *ngIf="FormEdit === false"> Add Actions </p-header>
+    <p-header *ngIf="FormEdit === true"> Edit Target </p-header>
+
+    <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
+        <form #GroupForm="ngForm" class="col-12" (ngSubmit)="
+            FormEdit === false
+                ? saveOffset(GroupForm)
+                : updateGroup(groupdetails.id, GroupForm.value)
+        ">
+            <div class="mb-5 pb-0 row">
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Name</label>
+                    <input name="name" ngModel id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter  Name" [(ngModel)]="name"
+                        [disabled]="isloading" required />
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Scope Category</label>
+                    <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required ngModel
+                        [options]="scopeList" optionLabel="name" optionValue="name" name="scope_category"
+                        [(ngModel)]="scope_category" #group></p-dropdown>
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Scope name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">CO2 Savings (tCOe)</label>
+                    <input name="co2_savings_tcoe" ngModel id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter CO2e" #groupName
+                        [disabled]="isloading" required [(ngModel)]="co2_savings" />
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Time period</label>
+                    <p-calendar class="w-100 ct_input_dark_text_145 ct_calender_input_38_action_12" ngModel
+                        name="time_period" [showIcon]="true" view="year" placeholder="Select year" dateFormat="yy"
+                        inputId="yearpicker" styleClass="pcalender" [(ngModel)]="time_period"></p-calendar>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Owner</label>
+                    <input name="owner" ngModel id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter owner Name" #groupName
+                        [disabled]="isloading" required [(ngModel)]="owner_name" />
+                    <!-- <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required
+                ngModel placeholder="Select" [options]="emission_activity" 
+                optionLabel="e_act" optionValue="e_act" name="owner" #group></p-dropdown> -->
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Status </label>
+                    <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required ngModel
+                        placeholder="Select" [options]="status" optionLabel="e_act" optionValue="e_act" name="status"
+                        #group [(ngModel)]="status_action"></p-dropdown>
+                </div>
+
+
+            </div>
+            <div style="height: 100px;">
+
+            </div>
+            <div class="mt-3 ct_modal_btns_12">
+                <Button (click)="removeCss()" type="submit" *ngIf="FormEdit === false" [disabled]="
+                    (this.selectedRole !== Roleaccess &&
+                        facilitydata === true) ||
+                    usernameIsExist === true ||
+                    emailIstExist === true
+                "
+                    class="rounded span-color px-3 text-white text-style loading LocButton py-2  px-4 ct_animation_btn_121">
+                    <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                    Save
+                </Button>
+                <Button *ngIf="FormEdit === true" type="submit "
+                    class="rounded span-color px-3 text-white text-style LocButton py-2  px-4 ct_animation_btn_121">
+                    <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                    Update
+                </Button>
+
+                <span type="button" class="text-white font-weight-light ml-3 py-2 px-4 ct_close_btn1231 "
+                    (click)="removeCss()" (click)="onCloseHandled()">
+                    Close
+                </span>
+            </div>
+        </form>
+    </div>
+</p-dialog>

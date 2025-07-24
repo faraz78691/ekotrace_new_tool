@@ -1,0 +1,22 @@
+.ct_quantity_text {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: rgba(136, 173, 71, 0.75);
+    color: #6c757d;
+    width: auto;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 38px;
+    padding-inline: 5px;
+    white-space: nowrap;
+  }
+  .ct_quantity_text p{
+    margin-bottom: 0px;
+    font-size: 14px;
+  }

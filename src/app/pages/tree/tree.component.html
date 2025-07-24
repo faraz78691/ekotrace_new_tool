@@ -1,0 +1,165 @@
+<div class="div ct_seprate_page_div" *ngIf="treeSection">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+
+        <ng-container *ngIf="treeList$ | async as list ">
+            <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 ct_select_2_300" ngModel
+                [options]="list.familyDetails" optionLabel="family_name" placeholder="Choose Template" optionValue="id"
+                name="subCatType" #subCatType="ngModel" [(ngModel)]="selectedTemplateId"
+                (onChange)="onTemplateChange($event)"></p-dropdown>
+            <div class="d-flex align-items-center gap-2">
+                <!-- <button (click)="showBasicDialog()" class="p-button ct_animation_btn_121 mr-2 py-2">Create Org. Tree</button> -->
+                <div class="p-button ct_animation_btn_121 mr-2 py-2" *ngIf="saveButtton"
+                    (click)="OnSave(selectedTemplateId)">Save</div>
+            </div>
+        </ng-container>
+
+    </div>
+    <div class="button-gruop d-flex justify-content-end mb-3" style="gap: 10px;">
+        <button class="btn btn-primary" (click)="zoomViewBox(1.5)"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        <button class="btn btn-primary" (click)="zoomViewBox(0.7)"><i class="fa fa-search-minus" aria-hidden="true"></i></button>
+    </div>
+    <div id="tree"></div>
+</div>
+<div class="div ct_seprate_page_div" *ngIf="!treeSection">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        No tree found
+    </div>
+</div>
+
+
+<p-dialog [(visible)]="displayBasic" [breakpoints]="{'960px': '75vw'}" [closable]="false" [style]="{width: '50vw'}">
+    <p-header>Create Org. Tree </p-header>
+    <!-- <p-header *ngIf="FormEdit === true"> Edit Group </p-header> -->
+
+    <div class="modal-body text-white text-style Dashboard-tab">
+        <form #GroupForm="ngForm" (ngSubmit)="onSubmitORg(GroupForm)" class="col-12">
+            <div class="mb-5 pb-5">
+                <div class="mb-3">
+                    <label for="fname" class="text-dark">Tree name</label>
+                    <input ngModel name="treename" id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter Tree Name" #groupName="ngModel"
+                        required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="fname" class="mt-2 text-dark">Root Name</label>
+                    <input ngModel name="rootName" id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter Root Name" #groupName="ngModel"
+                        required />
+                </div>
+            </div>
+
+            <div class="mt-3 ct_modal_btns_12">
+                <Button type="submit"
+                    class="rounded  py-2 ct_custom_btn121 ct_animation_btn_121 span-color px-3 text-white text-style loading ">
+                    Save
+                </Button>
+                <!-- <Button *ngIf="FormEdit === true" type="submit "
+                class="rounded span-color px-3 text-white text-style">
+                <p-progressSpinner strokeWidth="8" ></p-progressSpinner>
+                Update
+            </Button> -->
+
+                <span type="button" class="text-dark py-2 font-weight-light ml-3 " (click)="displayBasic=false">
+                    Close
+                </span>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<div class="ct_custom_modal_120" style="display: none;" id="cancel2" #cancel2 id="addnodeModal" >
+    <form #nodeForm="ngForm" (ngSubmit)="onNodeAdd(nodeForm)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Node</h5>
+                <button type="button" class="btn-close ct_modal_close_10" (click)="onCancel()" data-dismiss="modal"
+                    aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body mt-4">
+                <span class=" mb-3 d-none" [hidden]='true'>
+                    <label for="float-input">ids</label>
+                    <input id="float-input" pInputText type="text" class="form-control" pInputText name="id"
+                        [(ngModel)]="selectedId">
+
+                </span>
+                <span class=" mb-3 d-block">
+                    <label for="float-input">Node Name</label>
+                    <input id="float-input" pInputText type="text" placeholder="Enter name" class="form-control"
+                        pInputText name="nodeSubtitle" ngModel>
+
+                </span>
+                <span class=" mb-3 d-block">
+                    <label for="float-input">Category</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="nodeType"
+                        placeholder="Select type" ngModel (onChange)="onTypeChange($event)" optionLabel="nodetype"
+                        optionValue="nodetype" name="nodetype" #Type="ngModel"></p-dropdown>
+                    <!-- <p-dropdown></p-dropdown> -->
+                    <!-- <input id="float-input" pInputText type="text"  class="form-control" pInputText name="nodeTitle" ngModel>  -->
+
+                </span>
+                <span class=" mb-3 d-block" *ngIf="facilityTab">
+                    <label for="float-input">Facility Type</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="facilityTypeArray"
+                        placeholder="Select type" ngModel optionLabel="type" optionValue="type" name="facilityType"
+                        #Type="ngModel"></p-dropdown>
+                    <!-- <input id="float-input" pInputText type="text" placeholder="Enter facility type"  class="form-control" pInputText name="facility_type" ngModel>  -->
+
+                </span>
+                <div class="modal-footer border-0 justify-content-center">
+
+                    <button type="button" class="btn ct_animation_btn_121" data-dismiss="modal"
+                        (click)="onCancel()">Close</button>
+                    <button type="submit" class="btn ct_animation_btn_121 ct_custom_btn121 w-auto"
+                        *ngIf="nodeType.length >0">Save changes</button>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+<!-- Edit Node Modal -->
+<div class="ct_custom_modal_120" style="display: none;" id="editNodeModal" #editNodeModal>
+    <form #editNodeForm="ngForm" (ngSubmit)="onNodeEdit(editNodeForm)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Node</h5>
+                <button type="button" class="btn-close ct_modal_close_10" (click)="onEditCancel()" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body mt-4">
+
+                <span class="mb-3 d-block">
+                    <label for="edit-node-name">Node Name</label>
+                    <input id="edit-node-name" type="text" class="form-control"
+                        name="nodeSubtitle" [(ngModel)]="editNodeData.name">
+                </span>
+
+                <!-- <span class="mb-3 d-block" *ngIf="showEditCategory">
+                    <label for="edit-category">Category</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="nodeType"
+                        placeholder="Select type" [(ngModel)]="editNodeData.nodetype"
+                        optionLabel="nodetype" optionValue="nodetype" name="nodetype">
+                    </p-dropdown>
+                </span> -->
+
+                <span class="mb-3 d-block" *ngIf="facilityTab">
+                    <label for="edit-facility">Facility Type</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="facilityTypeArray"
+                        placeholder="Select facility" [(ngModel)]="editNodeData.facility_name"
+                        optionLabel="type" optionValue="type" name="facilityType">
+                    </p-dropdown>
+                </span>
+
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn ct_animation_btn_121" (click)="onEditCancel()">Close</button>
+                    <button type="submit" class="btn ct_animation_btn_121 ct_custom_btn121 w-auto">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

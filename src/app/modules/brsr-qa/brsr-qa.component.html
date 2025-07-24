@@ -1,0 +1,38 @@
+<h1 class="text-white qatext">Question and Answer</h1>
+<div class="container-fluid" [style.display]="qadata">
+  <div class="row mt-2">
+    <p-tabView>
+      <p-tabPanel *ngFor="let brsr of brsrPrinciplesandQA; let i = index" header="{{ brsr.principleName }}">
+        <div class="questions-row">
+          <div class="row px-5">
+            <div class="col-6 py-4 questions-grid" *ngFor="let brsrq of brsr.brsR_Q_As; let j = index">
+              <label for="fyear" [style.min-height.px]="45">{{ j + 1 }}. {{ brsrq.question }}</label>
+              <div>
+                <span class="display-ans"><span class="ans-text">Ans. </span>{{ brsrq.answer }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <div class="uploaddoc">
+    <span class="text-white ml-5">Upload</span>
+
+    <input type="file" class="ml-3 text-white" (change)="onFileSelected($event.target.files)" accept=".docx,.pdf"
+      style="width: 250px" />
+    <i *ngIf="brsrdata.reason != null" class="fa fa-info-circle tooltip-icon ml-1" [pTooltip]="brsrdata.reason"
+      tooltipPosition="top" style="color: #88ad47"></i>
+    <button class="btn btn-success savetButton" (click)="saveDocument()">
+      Submit BRSR
+    </button>
+  </div>
+</div>
+<div class="container-fluid" [style.display]="noqa">
+  <div class="row">
+    <div class="container noQAmessage">
+      No BRSR Questions answer for this tenant!
+    </div>
+  </div>
+</div>

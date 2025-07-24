@@ -1,0 +1,244 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-center"></div>
+    <div class="row d-flex justify-content-center mx-3 my-2">
+      
+    </div>
+    <div class="row pt-2 text-white">
+        <div class="col border rounded Dashboard-tab view-request-col">
+            <form #sendApprovalForm="ngForm">
+                <div class="row mx-2 border-bottom mt-3 pb-3">
+
+                    <div class="row d-flex align-items-center ml-0 gap-3 ct_drop_input_250123">
+
+                        <p-dropdown class="ct_custom_drop_white ct_input_dark_text_14 ct_chev_icon_dark230 " ngModel
+                            [options]="groupsList" optionLabel="name" optionValue="id" [(ngModel)]="selectedGroupId" [ngModelOptions]="{standalone: true}" (onChange)="getEntry()"></p-dropdown>
+                          
+                        <div class=" ml-2 ct_calander_600_height_38">
+                            <p-calendar class="ct_calender_input_1234   ct_calander_input_box_white_bg20" ngModel
+                                name="year" year [(ngModel)]="year" styleClass="pcalender" view="year" dateFormat="yy"
+                                inputId="yearpicker" [showIcon]="true" (ngModelChange)="FilterByYear()"></p-calendar>
+                        </div>
+                    </div>
+
+                    <div class="col text-right pt-0 d-flex justify-content-end pr-0">
+                        <!-- <span class="mr-2 countrequest"></span> -->
+                       
+
+                        <button *ngIf="
+                                loginInfo.role !== Approver &&
+                                issended === false
+                            " (click)="sendEntryForApproval()" class="SendforApproval-button text-white mb-0"
+                            style="border:1px solid  #88AD47;">
+                            Approve Selected
+                        </button>
+                        <button *ngIf="
+                                loginInfo.role === Approver &&
+                                issended === false
+                            " (click)="AcceptAllEntry()" class="SendforApproval-button text-white">
+                            Accept All Entries
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-0 m-0 view-request-div table-responive cd_requst__static12">
+
+                    <p-table class="ct_bottom_table_tr ct_chev_icon_dark230" #dt [(selection)]="selectedEntry"
+                        [globalFilterFields]="['catName']" dataKey="id" [rowsPerPageOptions]="[10, 25, 50]"
+                        [rowHover]="true"
+                        [globalFilterFields]="['catName', 'subcatName', 'year', 'month', 'readingValue', 'unit', 'status']"
+                        [value]="dataEntriesPending" [paginator]="true" [rows]="10" editMode="row">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>
+                                    <p-tableHeaderCheckbox *ngIf="issended === false"></p-tableHeaderCheckbox>
+                                </th>
+                                <th pSortableColumn="type"
+                                    >
+                                    Investment Type
+                                   
+                                </th>
+                              
+                                <th pSortableColumn="catName"
+                                    >
+                                    Industry Sector
+                       
+                                </th>
+                               
+                                <th pSortableColumn="catName" >
+                                    Industry Sub sector
+               
+                                </th>
+                               
+                                <th pSortableColumn="catName"
+                                  >
+                                    Calculation Method
+                                   
+                                </th>
+                                <th pSortableColumn="catName"
+                                    >
+                                    Revenue / Project Cost
+                                  
+                                </th>
+                                <th pSortableColumn="catName"
+                                    >
+                                    Share equity / Total project%
+                                  
+                                </th>
+                              
+                                <th pSortableColumn="catName"
+                                    >
+                                    Project Phase
+                                  
+                                </th>
+                                <th pSortableColumn="catName"
+                                    >
+                                    Scope1 (tonnes co2e)
+                                 
+                                </th>
+                                <th pSortableColumn="catName"
+                                    >
+                                    Scope2 (tonnes co2e)
+                                 
+                              
+                                <th pSortableColumn="year">
+                                    <p-sortIcon field="year"></p-sortIcon>
+                                    Year
+                              
+                                </th>
+                              
+                                <th>
+                                    <p-sortIcon pSortableColumn="status" field="status"></p-sortIcon>
+                                    Status
+                                    <p-columnFilter field="status" matchMode="equals" display="menu"
+                                        [showMenu]="true" [showMatchModes]="false" [showOperator]="false"
+                                        [showAddButton]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value"  [options]="statusOptions"
+                                                (onChange)="filter($event.value)" placeholder="All"
+                                                [showClear]="false">
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+
+                                </th>
+                                <th pSortableColumn="sourceName" pTooltip="tCO2" tooltipPosition="top">
+                                    Emission (tCO2e)
+                                </th>
+                                <th>User</th>
+                                <th>Action</th>
+                                
+                                <!-- <th >Details</th> -->
+                            </tr>
+
+                        </ng-template>
+                        <ng-template pTemplate="body" let-de let-editing="editing" let-ri="rowIndex">
+                            <tr [pEditableRow]="de">
+                                <td>
+                                    <p-tableCheckbox *ngIf="
+                                   de.status === Pending
+                                " [value]="de"></p-tableCheckbox>
+                                    <label class="sendLable" *ngIf="
+                                            de.sendForApproval === true &&
+                                            loginInfo.role === Preparer &&
+                                            de.status === Pending
+                                        ">Sent for Approval</label>
+                                </td>
+                         
+                                <td >{{ de.investement_type }}</td>
+                                <td >{{ de.category }}</td>
+                                <td >{{ de.sub_category }}</td>
+                                <td
+                                    >
+                                    {{ de.calculation_method }}</td>
+                                    <td >{{ de.investee_company_total_revenue }}</td>  
+                                    <td >{{ de.equity_share }}</td>  
+                                    <td >{{ de.project_phase == null ? '-' : de.project_phase }}</td>  
+                                    <td >{{ de.scope1_emission }}</td>  
+                                    <td >{{ de.scope2_emission }}</td>  
+    
+                                <td>
+                                    {{ de.year }}
+                                </td>
+                           
+                              
+                             
+                                <td>{{ de.status }}</td>
+                                <td>{{ de.emission  }}</td>
+                                <td>{{ de.user_name }}</td>
+                                
+                                <td>
+
+                                 
+                                    <div *ngIf="
+                                    de.status === Pending
+                                 " class="d-flex font-pera text-center pl-3 pt-0">
+                                        <button type="button"
+                                            class="btn btn-dark margin ct_view_request_action_btn_green"
+                                            data-bs-toggle="modal" data-bs-target="#viewModal"
+                                            ngbTooltip="Accept / Reject" (click)="onUpdateUserStatus(de)">
+                                            <i class="fa fa-eject" aria-hidden="true"></i>
+                                        </button>
+
+                                        <p-dialog header="Header" [(visible)]="visible" [style]="{width: '50vw'}">
+                                            <ng-template pTemplate="header">
+                                                <span class="text-xl font-bold mx-auto">Reason</span>
+                                            </ng-template>
+
+                                            <label class="py-2">Please enter Reason for reject
+                                                entry</label>
+                                            <div class="pl-5">
+                                                <textarea name="reason" rows="5" class="ct_textarea_full" pInputTextarea
+                                                    [(ngModel)]="de.reason" [ngModelOptions]="{standalone: true}" #inputreason="ngModel" required></textarea>
+                                                <p class="text-danger mb-0" *ngIf="inputreason.errors?.['required']">
+                                                    reason is required
+                                                </p>
+                                            </div>
+
+                                           
+                                        </p-dialog>
+                                    </div>
+                                    <label class="sendLable" *ngIf="
+                                            de.sendForApproval === true &&
+                                            loginInfo.role === Preparer &&
+                                            de.status === Pending
+                                        ">Sent for Approval</label>
+                                </td>
+                              
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade show" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+    [ngStyle]="{'display':display}">
+    <div class="modal-dialog ct_modal_center_120">
+        <div class="modal-content ct_modal_main_div140 ">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Update Status</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePopup"
+                    (click)="onClose2()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <p>Would you like to accept or reject?</p>
+                <button type="button" class="btn btn-primary text-white" id="acceptBtn"
+                    (click)="AcceptSingleEntry()">Approve</button>
+                <button type="button" class="btn btn-danger ml-2 text-white" id="rejectBtn"
+                    (click)="RejectSingleEntry()">Reject</button>
+            </div>
+
+            <!-- Modal Footer -->
+
+        </div>
+    </div>
+</div>

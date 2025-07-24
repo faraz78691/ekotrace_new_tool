@@ -1,0 +1,21 @@
+#chart {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-container {
+  order: 1;
+}
+
+.legend-container {
+  order: 2;
+}
+.ct_progress_active1{
+background-color: #F4FFF4; border-width: 2px; border-color: #075101;
+}
+
+@media screen and (max-width:1199px){
+  .ct_responsive_reverse{
+    flex-direction: column-reverse;
+  }
+}

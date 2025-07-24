@@ -1,0 +1,199 @@
+<div class="container-fluid">
+    <div class="d-flex  justify-content-between pt-3">
+        <div class="d-flex mt-2 pointer" [routerLink]="['/report']">
+            <div class="backicon">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <h3>Waste Report</h3>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <!-- <label class="switch">
+                <input type="checkbox" (change)="onMultpleChange($event)" [(ngModel)]="isMultiple">
+                <span class="slider round"></span>
+            </label> -->
+            <!-- <p-triStateCheckbox [(ngModel)]="isMultiple" inputId="tricheckbox"></p-triStateCheckbox> -->
+            <!-- <label for="tricheckbox" class="ml-2">Multiple</label> -->
+            <p-dropdown  class="ct_grop_select_2_drop_white123 ct_group_select_dark_124 mx-4" required
+            ngModel placeholder="select" [options]="reportType"
+            [(ngModel)]="selectReportType" optionLabel="value" optionValue="value"
+            name="group" #group="ngModel"></p-dropdown>
+        </div>
+     
+    </div>
+
+    <div class="row firstbox">
+        <div class="col">
+            <div class="row mt-4  text-white">
+                <ng-container >
+                    <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">Start Month</label>
+
+                        <p-dropdown class="finput ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145"
+                            [options]="reportmonths" placeholder="Months" name="months" [(ngModel)]="startMonth"
+                            optionLabel="name"></p-dropdown>
+
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">Start Year</label>
+                        <div class="selectyear mx-0">
+                            <p-calendar placeholder="Select Year" #calendarRef
+                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                [(ngModel)]="startYear" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+
+                            <div class="icon-wrapper">
+                                <i class="pi pi-chevron-down" (click)="openCalendar(calendarRef)"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">End Month</label>
+
+                        <p-dropdown class="finput ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145"
+                            [options]="reportmonths" placeholder="Months" name="months" [(ngModel)]="endMonth"
+                            optionLabel="name"></p-dropdown>
+
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">End Year</label>
+                        <div class="selectyear mx-0">
+                            <p-calendar placeholder="Select Year" #calendarRef
+                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                [(ngModel)]="endYear" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+
+                            <div class="icon-wrapper">
+                                <i class="pi pi-chevron-down" (click)="openCalendar(calendarRef)"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+            
+            </div>
+            <div class="row mt-4  text-white">
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Facility</label>
+                    <ng-container >
+                        <div
+                            class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                            <p-multiSelect [options]="facilityData"
+                                [(ngModel)]="selectedMultipleFacility" optionLabel="AssestType" optionValue="id"
+                                styleClass="pcalender" defaultLabel="Select Multiple Data Points" name="facility">
+                            </p-multiSelect>
+                        </div>
+                    </ng-container>
+                    <!-- <ng-template #defaultfacilitydropdown>
+                        <p-dropdown class=" finput ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145"
+                            name="facility" #facility="ngModel" [options]="facilityData"
+                            optionLabel="AssestType" optionValue="id" styleClass="facilitydropdown"
+                            [(ngModel)]="selectedFacilityID" (onChange)="checkFacilityID(selectedFacilityID)">
+                        </p-dropdown>
+                    </ng-template> -->
+                </div>
+
+        
+            </div>
+            <div class="row">
+                <div class="pt-5">
+                    <button (click)="newgenerateReport()"
+                        class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Secondbox" *ngIf="reportData.length >0">
+        <div class="col">
+            <div class="row mt-4 mx-2 text-white">
+                <div class="col d-flex justify-content-between">
+                    <h4>Report</h4>
+                    <button (click)="exportTableToExcel()"
+                        class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">Download
+                        Report</button>
+                </div>
+                <!-- <div *ngIf="CustomReportData && CustomReportData.length > 0"
+                    class="col d-flex justify-content-end pointer">
+                    Download
+                    <i class="pi pi-download pl-2 pt-1 pointer mb-1" aria-hidden="true" id="downloadIcon"
+                        data-toggle="dropdown" aria-haspopup="true" title="download" aria-expanded="false"></i>
+
+                    <div class="dropdown-menu brsr dropdown-menu-right" aria-labelledby="downloadIcon">
+                        <a class="dropdown-item pointer" value="Download PDF" (click)="downloadAsPDF()">
+                            <i class="fas fa-file-pdf" style="color: red"></i>&nbsp;&nbsp; Download as PDF</a>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+       
+                <ng-container >
+                    <div class="col-md-12" *ngIf="reportData.length >0; else emptyList">
+
+                        <p-table class="ct_bottom_table_tr ct_chev_icon_dark230" [paginator]="true" [rowHover]="true"
+                            [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+                            styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
+                            class="ct_bottom_table_tr" #dt [value]="reportData" [rowHover]="true"
+                            styleClass="p-datatable-striped" editMode="row">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>
+                                       Waste Category
+                                    </th>
+                                    <th>
+                                        Waste Sub Category
+                                    </th>
+                                    <th>
+                                        Method
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        Unit
+                                    </th>
+                                    <th>
+                                        Facility
+                                     </th>
+                                     <th>
+                                         Emissons (t CO2e)
+ 
+                                     </th>
+                                     <th *ngIf=" (this.selectReportType == 'Monthly')">
+                                         Month
+                                     </th>
+                                     <th *ngIf="(this.selectReportType == 'Monthly')">
+                                         Year
+                                     </th>
+                                     <th *ngIf="this.selectReportType == 'Consolidated'">
+                                         Time period
+                                     </th>
+                                   
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-de let-editing="editing" let-ri="rowIndex">
+                                <tr [pEditableRow]="de">
+
+                                    <td> {{de.category}}</td>
+                                    <td> {{de.DataPoint1}}</td>
+                                    <td> {{de.DataPoint2}}</td>
+                                    <td> {{de.quantity}}</td>
+                                    <td> {{de.unit}}</td>
+                                    <td> {{de.facility}}</td>
+                                    <td> {{de.Emission}}</td>
+                                    <td *ngIf="(this.selectReportType == 'Monthly')"> {{de.Months}}</td>
+                                    <td *ngIf="(this.selectReportType == 'Monthly')"> {{de.Years}}</td>
+                                    <td *ngIf="(this.selectReportType == 'Consolidated')"> {{startMonth.value + ' '+ startYear.getFullYear().toString() + '-'+ endMonth.value + ' '+ endYear.getFullYear().toString()}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </ng-container>
+             
+                <ng-template #emptyList>
+                    <p class="nodata text-dark">No data available</p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

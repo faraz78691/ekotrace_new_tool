@@ -1,0 +1,355 @@
+<div class="container-fluid px-4" *ngIf="chartOptions" >
+    <div class="row mt-4">
+        <div class="col-xl-12 mb-12">
+            <div class="ct_grey_border_1 ">
+                <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
+                    <div>
+                        <h5 class="ct_font_16">Target</h5>
+                        <!-- <p class="mb-0">FY 2023-2024</p> -->
+                    </div>
+
+                </div>
+                <div id="ct_emission_by_month" *ngIf="chartOptions">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                        [dataLabels]="chartOptions.dataLabels" [yaxis]="chartOptions.yaxis"
+                        [legend]="chartOptions.legend" [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"  [annotations]="chartOptions.annotations"
+                        [xaxis]="chartOptions.xaxis"></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+
+<div class="container-fluid px-4">
+    <!-- <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="pl-4 card-header card-headerL">Set Target</h3>
+        </div>
+    </div> -->
+
+    <div class="row pt-3">
+        <div class="col-md-12  overflow-auto mb-5 ct_custom_flex_basisc"
+            [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+            <div class="row">
+                <div class="" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'User-headD'
+                            : 'User-headL'
+                    ">
+                    <div
+                        class="card-header card-headerL ct_header_grey_1202 d-flex align-items-center justify-content-between">
+                        <h4 class=" ct_fw_600 m-0 my-0" style="flex: 1;">Set Target</h4>
+                        <div class="ct_how_use_tooltip_main ml-auto">
+                            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                                <div>
+                                  
+                        
+                                    <ol class="mb-0">
+                                        <li>There are three types of target setting – Absolute emissions reduction, Physical intensity convergence, Economic Intensity convergence
+                                            <ul style="list-style: lower-roman;" class="mb-0">
+                                                <li>
+                                                    <strong>Absolute contraction:</strong> A one-size-fits-all approach that helps achieve a linear absolute reduction in the GHG emissions in the target year, relative to the base year. Using this method, a company reduces emissions at the same rate year-on-year, irrespective of the company’s performance, size, sector, or base year emissions. As per SBTi, the minimum annual linear reduction for targets in line with the 1.5°C climate commitment is 4.2%. To align a target to a well below 2°C commitment, the required annual linear reduction is 2.5%. Absolute targets are straightforward to measure and communicate, and are therefore most popular. Example target: To reduce absolute scope 1 and scope 2 GHG emissions by 35% by 2030, from 2020 levels.
+                                                </li>
+                                                <li>
+                                                    <strong>Physical Intensity Convergence:</strong> An approach in which the intensity target is defined by a reduction in emissions relative to a specific business metric. For example, production output of the company (tCO₂e per tonne product produced). A physical intensity target is best suited for use within sectors that create a uniform product, such as in steel or cement sectors. Example target for a steel company: To reduce scope 1 and scope 2 GHG emissions per tonne of steel produced 35% by 2030, from a 2017 base year.
+
+                                                </li>
+                                                <li>
+                                                   <strong> Economic Intensity convergence: </strong>An approach that sets a company’s emissions targets using contraction of economic intensity. The target is formulated by considering intensity reduction of a company's emissions relative to the company's economic output (tCO₂e per value added). This method is best suited for use within sectors whose products vary a lot and are difficult to directly compare against each other, such as retail or chemical sectors. Example target for an apparel company like NTO: To reduce scope 3 GHG emissions from purchased goods and services and use of sold products 40% per unit of value added by 2035 from a 2021 base year.
+
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>Other KPI targets  
+                                            <ul style="list-style: lower-roman;" class="mb-0">
+                                                <li>
+                                                    Renewable energy: Indicates targets to increase the amount of renewable energy production or consumption. For example, switching from fossil fuel-based onsite generation to renewables can significantly reduce a company’s direct operational emissions. Eg Company commits to increase annual sourcing of renewable electricity from 7% in 2023 to 100% by 2029.
+
+                                                </li>
+                                                <li>
+                                                    Supplier engagement: Indicates targets to increase the adoption of SBTs among the company’s suppliers or customers. For example, getting the energy-intensive suppliers to set SBTs, and, in effect, reduce the company’s scope 3 emissions. E.g. company further commits that 65% of its supplier spend, by covering purchased goods and services and capital goods, has science-based targets by 2025.
+
+                                                </li>
+                                               
+                                            </ul>
+                                        </li>
+                                       
+                                    </ol>
+                        
+                                    <h5 class="ct_fs_16 mb-0 mt-2">Emissions forecasting
+    
+                                    </h5>
+                                    <ol class="mb-2">
+                                        <li>Emissions are forecasted using current year data and adding the annual emission change % to it. For eg if the scope 1 emissions in 2024 is 50 tCO2e and the annual growth rate of emissions is 5%, next year forecasted emission will be 50*(1+ 5%). 
+
+                                        </li>
+                                        <li>Intensity forecasting – If the target type is ‘physical intensity convergence’, physical intensity is calculated for each year using the following formula.  <br>Forecasted Intensity_i = Emissions_i-1 * (1 + x%) / Output_i-1 * (1 + y%) where
+                                            x% - annual growth rate of emissions, y% - annual growth rate of output
+                                            
+
+                        
+                                        </li>
+                                        <li>To calculate the target emissions, base year emissions and output data is taken and target reduction is applied till the target year
+
+                                        </li>
+                                    </ol>
+                                  
+                                </div>
+                               
+                        
+                        
+                        
+                        
+                        
+                            </div>
+                        </div>
+                        <button class="GroupButton ct_assign_package_btn129 ct_animation_btn_121 w-auto px-3"
+                            (click)="showAddGroupDialog()">
+                            + Add Target
+                        </button>
+                    
+                    </div>
+                </div>
+                <!-- <h3 class="pl-4 card-header card-headerL">Set Target</h3> -->
+                <!-- <div class="d-flex justify-content-between text-style text-light scope-Div">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-control-feedbackD'
+                                    : 'form-control-feedbackL'
+                            ">
+                        </span>
+                        <input type="text" name="search" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-controlD'
+                                    : 'form-controlL'
+                            " class="form-control" placeholder="Search" [(ngModel)]="searchData" />
+                    </div>
+                    <div class="form-group has-search text-light">
+                        <button class="GroupButton ct_assign_package_btn129 ct_animation_btn_121" (click)="showAddGroupDialog()">
+                            + Add Target
+                        </button>
+                    </div>
+                </div> -->
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+
+
+
+
+            <div class="dataTable scrollit mt-4">
+                <table class="table_loc ct_space_table_21 ct_billing_table_bg_120">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Name</th>
+                            <th scope="col">Emission Activity </th>
+                            <th scope="col">Target Type</th>
+                            <th scope="col">Other Target KPI</th>
+                            <th scope="col">Base Year</th>
+                            <th scope="col">Target Year</th>
+                            <th scope="col">Target Emission change %</th>
+                            <th scope="col">Other Target KPI Change%</th>
+                            <th scope="col">User</th>
+                            <th scope="col">View Graph</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr clickable (click)="selectGroup(group,index)" *ngFor="
+                                let group of groupsList;let index = index
+                            " class="col-12 tableRow border-bottom rounded pointer" (click)="UnlockComplete(group.id)"
+                            [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+                            <td class="td text-initial">
+                                {{ group.target_name }}
+                            </td>
+                            <td class="td ">
+                                {{ group.emission_activity }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group.target_type }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group.other_target_kpi }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group?.base_year | date:'yyyy' }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group?.target_year | date:'yyyy' }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group.target_emission_change }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group.other_target_kpichange }}
+
+                            </td>
+                            <td class="td  pb-1">
+                                {{ group.user_name }}
+
+                            </td>
+                            <td class="td  pb-1" (click)="ViewGraph(group.target_emission_change,group.base_year,group.target_year,group.target_type, group.emission_activity )">
+                                Click
+
+                            </td>
+                            <td class="td pb-1" (click)="viewDetails(group)">
+                                <i class="fas fa-edit"></i>
+                            </td>
+                          
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-light" *ngIf="groupdata === false">
+                    <div class="icon">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No group available. Start by add a new group using the
+                        add group button.</label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<p-dialog (click)="removeCss()" [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" 
+    [style]="{width: '50vw'}">
+    <p-header *ngIf="FormEdit === false"> Add New Target </p-header>
+    <p-header *ngIf="FormEdit === true"> Edit Target </p-header>
+
+    <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
+        <form #GroupForm="ngForm" class="col-12" (ngSubmit)="
+            FormEdit === false
+                ? saveOffset(GroupForm)
+                : updateGroup(groupdetails.id, GroupForm)
+        ">
+            <div class="mb-5 pb-0 row">
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Target Name</label>
+                    <input name="target_name" ngModel id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" placeholder="Enter Target Name"
+                        #groupName="ngModel" [disabled]="isloading" required />
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Emission Activity</label>
+                    <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required ngModel
+                        placeholder="Select" [options]="emission_activity" optionLabel="e_act" optionValue="e_act"
+                        name="emission_activity" #group="ngModel"></p-dropdown>
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Target Type</label>
+                    <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required ngModel
+                        placeholder="Select" [options]="target_type" optionLabel="e_act" optionValue="e_act"
+                        name="target_type" #group="ngModel"></p-dropdown>
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Other Target KPI</label>
+                    <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required ngModel
+                        placeholder="Select" [options]="targetKPI" optionLabel="e_act" optionValue="e_act"
+                        name="other_target_kpi" #group="ngModel"></p-dropdown>
+                    <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                        Group name is required
+                    </p>
+                    <p class="text-danger mb-0" *ngIf="
+                    isgroupExist === true && groupName.touched
+                ">
+                        group already exist please use other groupname
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Base Year</label>
+                    <p-calendar class="w-100 ct_input_dark_text_145 ct_calender_input_38_action_12 " ngModel
+                        name="base_year" [showIcon]="true" view="year" placeholder="Select year" dateFormat="yy"
+                        inputId="yearpicker" styleClass="pcalender"></p-calendar>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Target Year</label>
+                    <p-calendar class="w-100 ct_input_dark_text_145 ct_calender_input_38_action_12 " ngModel
+                        name="target_year" [showIcon]="true" view="year" placeholder="Select year" dateFormat="yy"
+                        inputId="yearpicker" styleClass="pcalender"></p-calendar>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Target Emission change %</label>
+                    <input ngModel name="comments" id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white " name="target_emission_change"
+                        placeholder="Enter value in %" #groupName="ngModel" [disabled]="isloading" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fname">Other Target KPI Change%</label>
+                    <input ngModel name="comments" id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white " name="other_target_kpichange"
+                        placeholder="Enter value in %" #groupName="ngModel" [disabled]="isloading" required />
+                </div>
+
+            </div>
+            <div style="height: 80px;"></div>
+
+            <div class="mt-3 ct_modal_btns_12">
+                <Button (click)="removeCss()" type="submit" *ngIf="FormEdit === false" [disabled]="
+                    (this.selectedRole !== Roleaccess &&
+                        facilitydata === true) ||
+                    usernameIsExist === true ||
+                    emailIstExist === true
+                " class="rounded span-color px-3 text-white text-style loading ">
+                    <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                    Save
+                </Button>
+                <Button *ngIf="FormEdit === true" type="submit " class="rounded span-color px-3 text-white text-style ">
+                    <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                    Update
+                </Button>
+
+                <span type="button" class="text-white font-weight-light ml-3 " (click)="removeCss()"
+                    (click)="onCloseHandled()">
+                    Close
+                </span>
+            </div>
+        </form>
+    </div>
+</p-dialog>

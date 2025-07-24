@@ -1,0 +1,250 @@
+<div class="bg relative" [class.disabled]="isLoading">
+    <div class="test pt-0">
+        <img src="assets/img/bgimg.png" class="imgbg" />
+    </div>
+
+    <div class="container absolute">
+        <div class="row">
+            <div class="col text-center mt-1">
+                <img src="assets/img/Group 39.png" style="justify-items: center" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col pt-1">
+                <h2 class="text-center">Company Registration</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col pt-3">
+                <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Company Name</label>
+                            <input type="text" name="companyName" class="form-control text-white mt-0 mb-1"
+                                style="background-color: transparent" #companyName="ngModel"
+                                [(ngModel)]="companyData.companyName" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['companyName'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger mb-0">
+                                Company Name is required field.
+                            </p>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Email</label>
+                            <input type="text" class="form-control text-white mb-1" name="email" #email="ngModel"
+                                style="background-color: transparent" [(ngModel)]="companyData.email" (change)="
+                                    CheckUserExist(companyData.email, 'email')
+                                " required email />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['email'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger mb-0">
+                                email is required field.
+                            </p>
+                            <p class="text-danger mb-0" *ngIf="emailIstExist === true && email.touched">
+                                user already exist for this email please use
+                                other
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Password</label>
+                            <input type="password" minlength="8"
+                                pattern="^(?=.*[@$!%*?&])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$"
+                                class="form-control text-white mb-1" name="Password"
+                                style="background-color: transparent" #Password="ngModel"
+                                [(ngModel)]="companyData.password" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['Password'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger mb-0">
+                                password is required field.
+                            </p>
+                            <p *ngIf="
+                                    Password.touched &&
+                                    Password.errors &&
+                                    Password.errors.pattern
+                                " class="text-danger">
+                                Password must contain at least one special
+                                character, one lowercase letter, one uppercase
+                                letter, and one digit
+                            </p>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Confirm Password</label>
+                            <input type="password" ngValidateEqual="Password" class="form-control text-white mb-1"
+                                name="confirmpassword" style="background-color: transparent" #confirmpassword="ngModel"
+                                [(ngModel)]="companyData.confirmpassword" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls[
+                                        'confirmpassword'
+                                    ].hasError('required')
+                                " class="text-danger mb-0">
+                                confirm password is required field.
+                            </p>
+                            <p *ngIf="confirmpassword.hasError('notEqual')" class="text-danger">
+                                Passwords Don't Match
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Phone Number</label>
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-3 pr-1">
+                                        <select class="text-white" name="countryCode" [(ngModel)]="
+                                                companyData.countryCode
+                                            " required>
+                                            <option value="">
+                                                Select Country Code
+                                            </option>
+                                            <option *ngFor="
+                                                    let countryCode of countryCodes
+                                                " [ngValue]="countryCode.dialCode">
+                                                {{ countryCode.name }}
+                                                {{ countryCode.dialCode }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-9 pl-0">
+                                        <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                            name="phonenumber" class="form-control text-white mt-0 phone-number mb-1"
+                                            style="
+                                                background-color: transparent;
+                                            " maxlength="10" #phonenumber="ngModel" [(ngModel)]="
+                                                companyData.phoneNumber
+                                            " required />
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['phonenumber'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger mb-0">
+                                Phone Number is required field.
+                            </p>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Username</label>
+                            <input type="text" class="form-control text-white mb-1" name="username" #username="ngModel"
+                                style="background-color: transparent" [(ngModel)]="companyData.userName" (change)="
+                                    CheckUserExist(
+                                        companyData.userName,
+                                        'username'
+                                    )
+                                " required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['username'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger">
+                                Username is required field.
+                            </p>
+                            <p class="text-danger mb-0" *ngIf="
+                                    usernameIsExist === true && username.touched
+                                ">
+                                user name already taken please use other
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white select-label mb-0">Licence type</label>
+                            <select class="text-white mb-1" name="licenseType" [(ngModel)]="selectedValue"
+                                #licenseType="ngModel" required>
+                                <option class="text-white" *ngFor="let type of licenseTypes" [ngValue]="type.code">
+                                    {{ type.name }}
+                                </option>
+                            </select>
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['licenseType'].invalid &&
+                                    userForm.controls['licenseType'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger">
+                                licenseType is required
+                            </p>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Amount</label>
+                            <input class="form-control text-white mb-1"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="amount" #amount="ngModel"
+                                style="background-color: transparent" [(ngModel)]="companyData.amount" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls['amount'].hasError(
+                                        'required'
+                                    )
+                                " class="text-danger mb-0">
+                                Amount is required field.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">License Expired</label>
+                            <input type="date" [min]="minDate" name="licenseExpired"
+                                class="form-control text-white mb-1" style="background-color: transparent"
+                                #licenseExpired="ngModel" [(ngModel)]="companyData.licenseExpired" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls[
+                                        'licenseExpired'
+                                    ].hasError('required')
+                                " class="text-danger mb-0">
+                                license Expired is required field.
+                            </p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-white mb-0">Number of User</label>
+                            <input type="text" class="form-control text-white mb-1"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="numberOfUserAllowed"
+                                style="background-color: transparent" #numberOfUserAllowed="ngModel"
+                                [(ngModel)]="companyData.numberOfUserAllowed" required />
+                            <p *ngIf="
+                                    userForm.submitted &&
+                                    userForm.controls[
+                                        'numberOfUserAllowed'
+                                    ].hasError('required')
+                                " class="text-danger mb-0">
+                                Number Of User is required field.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-0">
+                        <div class="col-12 pt-4 mb-0 d-flex justify-content-center">
+                            <button class="text-white btn pt-0 mb-0" type="submit">
+                                <span class="fa fa-spinner fa-spin mr-2" *ngIf="showLoader"></span>
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

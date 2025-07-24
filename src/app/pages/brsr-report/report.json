@@ -1,0 +1,1034 @@
+[
+    {
+        "Theme": "Energy",
+        "Disclosures": "1.  Total fuel consumption within the organization from renewable sources",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 1\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Energy",
+        "Disclosures": "2.  Total electricity consumed",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 1\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Energy",
+        "Disclosures": "3.  Total energy consumption within the organization",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 1\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Emissions",
+        "Disclosures": "4.  Total direct (Scope 1) GHG emissions",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6- 6\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Emissions",
+        "Disclosures": "5.  Total location-based energy indirect (Scope 2) GHG emissions",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6- 6\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Emissions",
+        "Disclosures": "6.  Total market-based energy indirect (Scope 2) GHG emissions",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6- 6\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Emissions",
+        "Disclosures": "7.  Total GHG Emissions (Scope 1 and Scope 2)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6- 6\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "8.  Total water withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "9.  Surface water withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "10.   Groundwater  withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "11.   Third-party water withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "12.   Seawater withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "13.   Produced water withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "14.   Other type of water withdrawal from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "15.   Total water withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "16.   Surface water withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "17. Groundwater withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "18. Third-party water withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "19. Seawater withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "20. Produced water withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "21. Other type of water withdrawal from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "22. Total water discharge to all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "23. Water discharge to surface water (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "24. Water discharge to surface water without treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "25. Water discharge to surface water with primary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "26. Water discharge to surface water with secondary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "27. Water discharge to surface water with tertiary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "28. Water discharge to groundwater (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "29. Water discharge to groundwater without treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "30. Water discharge to groundwater with primary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "31. Water discharge to groundwater with secondary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "32. Water discharge to groundwater with tertiary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "33. Water discharge to seawater (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "34. Water discharge to seawater without treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "35. Water discharge to seawater with primary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "36. Water discharge to seawater with secondary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "37. Water discharge to seawater with tertiary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "38. Water discharge to third- party water (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "39. Water discharge to third- party water without treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "40. Water discharge to third- party water with primary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "41. Water discharge to third- party water with secondary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "42. Water discharge to third- party water with tertiary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "43. Water discharge to others (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "44. Water discharge to others without treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "45. Water discharge to others with primary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "46. Water discharge to others with secondary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "47. Water discharge to others with tertiary treatment (all areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "48. Total untreated water discharge to all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "49. Total treated water discharge to all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "50. Total water discharge to areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "51. Water discharge to surface water (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "52. Water discharge to surface water without treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "53. Water discharge to surface water with primary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "54. Water discharge to surface water with secondary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "55. Water discharge to surface water with tertiary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "56. Water discharge to groundwater (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "57. Water discharge to groundwater without treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "58. Water discharge to groundwater with primary",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "59. Water discharge to groundwater with secondary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "60. Water discharge to groundwater with tertiary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "61. Water discharge to seawater (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "62. Water discharge to seawater without treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "63. Water discharge to seawater with primary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "64. Water discharge to seawater with secondary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "65. Water discharge to seawater with tertiary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "66. Water discharge to third- party water (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "67. Water discharge to third- party water without treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "68. Water discharge to third- party water with primary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "69. Water discharge to third- party water with secondary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6  - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "70.  Water discharge to third- party water with tertiary treatment (water stress areas)",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "71.  Total untreated water discharge to all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "72.  Total treated water discharge to all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "73. Total water consumption from all areas",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nEssential",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "7 4.  Total water consumption from all areas with water stress",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Water",
+        "Disclosures": "75.  Total water recycled",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 6 - 3\nLeadership",
+        "ReportType": "Environment",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "1.  Total number of employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "2.  Total number of male employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "3.  Total number of female employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "4.  Total number of permanent employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "5.  Total number of permanent male employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "6.  Total number of permanent female employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "7.  Total number of temporary employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "8.  Total number of temporary male employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "9.  Total number of temporary female employees",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "10. Employee turnover rate",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "11. Total number of workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "12. Total number of male workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "13. Total number of female workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "14. Total number of other workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "15. Total number of permanent workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "16. Total number of permanent male workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL\nDISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "17. Total number of permanent female workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "18. Total number of permanent other workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "19. Total number of temporary workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "20. Total number of temporary male workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "21. Total number of temporary female workers who have left the organization",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "22. Total number of temporary other workers who have left the",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "23. Total number of workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "24. Total number of male workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 1 8a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "25. Total number of female workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "26. Total number of permanent workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "27. Total number of male permanent workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "28. Total number of female permanent workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 1 8a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "29. Total number of temporary workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "30. Total number of male temporary workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL\nDISCLOSURES IV  - 18a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "31. Total number of female tempoary workers",
+        "Value": 0,
+        "Standards": "BRSR GENERAL\nDISCLOSURES IV  - 1 8a",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Human Resource Development",
+        "Disclosures": "32. Worker turnover rate",
+        "Value": 0,
+        "Standards": "BRSR GENERAL DISCLOSURES- IV. 20",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "33. Total number of fatalities as a result of work- related injury for all",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "34. Total number of high- consequence work-\nrelated injuries for all",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "35. Total number of recordable work-related injuries for all employees",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3  - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "36. Rate of recordable work- related injuries {TIR) for all employees",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "37. Total number of fatalities as a result of work- related injury for all workers",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "38. Total number of high- consequence work- related injuries for all",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "39. Total number of recordable work-related injuries for all workers",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Occupational Health and Safety",
+        "Disclosures": "40. Rate of recordable work- related injuries (TIR) for all workers",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 11\nEssential, 3 Leadership",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "41. Percentage of total employees who received",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "42. Percentage of male employees who received",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "43. Percentage of female employees who received",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "44. Percentage of workers receiving regular",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "45. Percentage of male workers receiving regular",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "46. Percentage of female workers receiving regular",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "47. Percentage of male employees that have",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "48. Percentage of female employees that have",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "49. Percentage of male workers that have received training on skill upgradation",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Training and Education",
+        "Disclosures": "50. Percentage of female workers that have received training on skill upgradation",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 3 - 9\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Diversity and Equal Opportunity",
+        "Disclosures": "51. Ratio of basic salary and remuneration of women to men using average pay gap",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 5 - 3\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Diversity and Equal Opportunity",
+        "Disclosures": "52. Ratio of basic salary and remuneration of women to men using median pay gap",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 5 - 3\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Product\/Service Accountability",
+        "Disclosures": "53. Total number of product recalls",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 9 - 4\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    },
+    {
+        "Theme": "Product\/Service Accountability",
+        "Disclosures": "54. Total number of identified leaks, thefts, or losses of customer data",
+        "Value": 0,
+        "Standards": "BRSR PRINCIPLE 9  - 4\nEssential",
+        "ReportType": "Social",
+        "switchEnabled": false
+    }
+]

@@ -1,0 +1,152 @@
+:host {
+    display: block;
+}
+
+.bg {
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.titleimg {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.brand-image {
+    float: left;
+    line-height: 0.8;
+    margin: -1px 8px 0 6px;
+    opacity: 0.8;
+    --pf-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23) !important;
+}
+
+.img-circle {
+    --pf-box-shadow: 0 3px 6px #00000029, 0 3px 6px #0000003b !important;
+}
+
+.form-inline {
+    justify-content: center;
+}
+
+.brand-name {
+    padding-left: 70px;
+}
+
+.brand-link {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headtextD {
+    margin-top: 10px;
+    font-weight: 500;
+    color: #fff;
+
+}
+
+.headtextL {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #333;
+
+}
+
+
+// <---On Dark Theme ----->
+
+.ondarkThemeButton {
+    color: #fff;
+    background-color: #555555;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+
+}
+.et_logo_1{
+    height: 33px;
+    padding-left: 0px !important;
+    width: 200px;
+    object-fit: contain;
+}
+
+.ondarklightbutton {
+    padding: 3px;
+    padding-left: 15px;
+    cursor: pointer;
+
+}
+
+.ondarkdarkbutton {
+    background-color: #242529;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    padding-right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+// <---On Ligt Theme ----->
+
+.onlightThemeButton {
+    color: #1d1e1f;
+    background-color: #d2d0d0;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.onlightdarkbutton {
+
+    background-color: #fafafa;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    padding-right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+
+
+}
+
+.onlightlightbutton {
+    padding: 3px;
+    padding-left: 15px;
+    cursor: pointer;
+
+}
+
+.padminSidebar {
+    font-size: 15px !important;
+}
+
+.Ldarkbutton {
+    position: absolute !important;
+    bottom: 0% !important;
+    width: 90% !important;
+    // position: fixed !important;
+}
+
+// ::-webkit-scrollbar {
+//     display: none;
+// }
+
+
+.ct_custom_nav_width{
+    width: 180px;
+}

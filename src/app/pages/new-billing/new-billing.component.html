@@ -1,0 +1,247 @@
+<div class="container-fluid">
+    <div class="row pt-4">
+        <div class="col-sm-6" [ngClass]="
+                this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+            ">
+            <h3 class="pl-4">Billing</h3>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-between mx-3 pt-3">
+        <div class="col-7 myCol overflow-auto mb-5"
+            [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'">
+            <div class="row p-2">
+                <div class="" [ngClass]="
+                        this.updatedtheme === 'dark'
+                            ? 'User-headD'
+                            : 'User-headL'
+                    ">
+                    <p class="ml-3 ct_fw_600">PackageList</p>
+                </div>
+                <div class="d-flex justify-content-between text-style text-light scope-Div">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-control-feedbackD'
+                                    : 'form-control-feedbackL'
+                            ">
+                        </span>
+                        <input type="text" name="search" [ngClass]="
+                                this.updatedtheme === 'dark'
+                                    ? 'form-controlD'
+                                    : 'form-controlL'
+                            " class="form-control" placeholder="Search" [(ngModel)]="searchData" />
+                    </div>
+                    <div class="form-group has-search text-light">
+                        <button class="GroupButton w-auto px-3 ct_assign_package_btn129 ct_animation_btn_121"
+                            (click)="showAddGroupDialog()">
+                            Assign Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p-toast></p-toast>
+            <p-confirmDialog #cd [style]="{width: '60vw'}">
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"
+                        class="span-color cancel-button"></button>
+                    <button pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"
+                        class="p-button-raised p-button-danger"></button>
+                </ng-template>
+            </p-confirmDialog>
+
+            <p-dialog (click)="removeCss()" [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" [closable]="false"
+                [style]="{width: '50vw'}">
+                <p-header *ngIf="FormEdit === false"> Assign Package </p-header>
+                <p-header *ngIf="FormEdit === true"> Edit Package </p-header>
+
+                <div class="modal-body text-white text-style Dashboard-tab">
+                    <form #GroupForm="ngForm" class="col-12" (ngSubmit)="
+                            FormEdit === false
+                                ? saveGroup(GroupForm.value)
+                                : updateGroup(groupdetails.id, GroupForm.value)
+                        ">
+                        <div class="mb-5 pb-5">
+
+                            <!-- <p class="text-danger mb-0" *ngIf="GroupForm.submitted && groupName.errors?.['required']">
+                                Group name is required
+                            </p> -->
+                            <!-- <p class="text-danger mb-0" *ngIf="
+                                    isgroupExist === true && groupName.touched
+                                ">
+                                group already exist please use other groupname
+                            </p> -->
+
+                            <div class="mb-3">
+                                <label for="fname" class="mt-2 w-100"> Package</label>
+
+
+                                <p-dropdown class="ct_grop_select_2_drop_white123  ct_group_select_dark_124" required
+                                    ngModel placeholder="Select Package" [options]="packageList" [(ngModel)]="packageID"
+                                    optionLabel="package_name" optionValue="id" name="package_name"
+                                    #group="ngModel"></p-dropdown>
+                                <p *ngIf="GroupForm.submitted && group.errors?.['required']" class="text-danger mb-0">
+                                    Group By is required
+                                </p>
+                            </div>
+                            <div>
+                                <label for="fname" class="mt-2 w-100">Facility</label>
+
+
+                                <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" [options]="facilityList"
+                                    [(ngModel)]="selectedFacility" [ngModelOptions]="{standalone: true}"
+                                    defaultLabel="Select Facility" optionLabel="AssestName" optionValue="ID">
+                                </p-multiSelect>
+                                <p *ngIf="GroupForm.submitted && group.errors?.['required']" class="text-danger mb-0">
+                                    Group By is required
+                                </p>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="mt-3 ct_modal_btns_12">
+                            <Button (click)="removeCss()" type="submit" *ngIf="FormEdit === false" [disabled]="
+                                    (this.selectedRole !== Roleaccess &&
+                                        facilitydata === true) ||
+                                    usernameIsExist === true ||
+                                    emailIstExist === true
+                                " class="rounded span-color px-3 text-white text-style loading ct_animation_btn_121 ">
+                                <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                                Save
+                            </Button>
+                            <Button *ngIf="FormEdit === true" type="submit "
+                                class="rounded span-color px-3 text-white text-style ct_animation_btn_121">
+                                <p-progressSpinner strokeWidth="8" *ngIf="isloading === true"></p-progressSpinner>
+                                Update
+                            </Button>
+
+                            <span type="button" class="text-white font-weight-light ml-3 " (click)="removeCss()"
+                                (click)="onCloseHandled()">
+                                Close
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </p-dialog>
+
+
+
+            <div class="dataTable scrollit">
+                <table class="table_loc ct_billing_table_bg_120">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th class="text-center">Packages</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr clickable (click)="selectGroup(group,index)" *ngFor="
+                                let group of packageList;let index = index
+                            " class="col-12 tableRow border-bottom rounded pointer" (click)="UnlockComplete(group.id)"
+                            [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+                            <td class="col-4 td text-initial">
+                                {{ group.package_name }}
+                            </td>
+                            <td class="col-4 td text-center pb-1">
+                                <!-- {{ group.groupBy }} -->Package
+
+                            </td>
+                            <td class="col-4 td text-right">
+                                <a style="
+                                        cursor: pointer;
+                                        color: #88ad47;
+                                        font-size: 16px;
+                                    "><i class="fa-solid fa-eye"></i> view</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-light" *ngIf="groupdata === false">
+                    <div class="icon">
+                        <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                    </div>
+                    <label class="text-center label">No group available. Start by add a new group using the
+                        add group button.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5" [ngClass]="this.updatedtheme === 'dark' ? 'User-tabD' : 'User-tabL'" style="height: 350px">
+            <h5 class="pl-3 mt-3">Package Details</h5>
+            <div class="row font-UserProfile mt-4" *ngIf="groupdata === true">
+                <table class="ct_billing_border_0_none table">
+                    <tr>
+                        <td>
+                            <p class="mb-0">Package Name :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.package_name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Created Date :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ groupdetails.created_at | date: 'dd/MM/yyyy' }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mb-0">Facilities :</p>
+                        </td>
+                        <td>
+                            <p class="mb-0" *ngFor="let gm of groupdetails.packageusers">
+                                {{ gm.AssestName }}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- <div class="col-5 ml-3">
+                    <p>Package Name :</p>
+                   
+                    <p>Created Date :</p>
+                    <p>Facilities :</p>
+
+                </div>
+                <div class="col-6">
+                    <p>{{ groupdetails.package_name }}</p>
+
+                  
+                    <p>{{ groupdetails.created_at | date: 'dd/MM/yyyy' }}</p>
+                    <hr />
+                    <p *ngFor="let gm of groupdetails.packageusers">
+                        {{ gm.AssestName }}
+                    </p>
+                   
+                </div> -->
+            </div>
+            <!-- <div class="d-flex text-light text-style font-pera mb-2" *ngIf="groupdata === true">
+                <div class="ct_edit_btn_white_text">
+                    <i *ngIf="userdetails.isDisabledEdit !== true"
+                        class="LocButtonEdit pi pi-user-edit pointer d-flex text-white"
+                        (click)="showEditGroupDialog(groupdetails)">
+                        <p class="pl-2">Edit</p>
+                    </i>
+                </div>
+                <div class="form-group has-search text-light pointer ct_edit_btn_white_text">
+                    <i (click)="deleteGroup($event, groupdetails.id)"
+                        class="deleteButton pi pi-trash pointer d-flex text-white">
+                        <p class="pl-2">Delete</p>
+                    </i>
+                </div>
+            </div> -->
+            <div class="text-light noData" *ngIf="groupdata === false">
+                <div class="icon mt-3">
+                    <i class="fa fa-info-circle" style="font-size: 20px" aria-hidden="true"></i>
+                </div>
+                <label class="text-center label">No groups available. Start by adding a new group using the
+                    add group button.</label>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,186 @@
+/* src/app/app.component.css */
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .left {
+    flex: 1;
+  }
+  
+  .right {
+    flex: 1;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 20px;
+   // border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .question-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+   // border: 1px solid #ccc;
+    //border-radius: 4px;
+  }
+  
+  .question h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .answer p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .user-input input[type="text"],
+  .user-input input[type="file"],
+  .user-input button {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .container-fluid{
+    background-color: #454149;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right:15px;
+    width: 95%;
+    height: 100%;
+    padding-top: 20px;
+    margin-top:15px;
+    box-shadow: 0px 0px 14px -5px #fff;
+  }
+  .myScroll{
+    ::-webkit-scrollbar{
+        width: 10px;
+        background: #88AD47 !important;
+    }
+}
+
+
+  .container{
+    background-color: #454149;
+    //border-radius: 10px;
+    margin-left: 35px;
+    margin-right:15px;
+    width: 90%;
+    height: 200px;
+    margin-top:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    height: 400px;
+    overflow-y: auto;
+   
+  }
+  .container::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+  }
+  
+  .container::-webkit-scrollbar-track {
+    background-color: #f5f5f5; /* Set the background color of the track (the area behind the thumb) */
+    border-radius: 5px; /* Set border radius for the track */
+  }
+  
+  .container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Set the color of the thumb (the draggable part) */
+    border-radius: 5px; /* Set border radius for the thumb */
+  }
+ 
+  .uploadButton{
+    
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    padding-right: 15px;
+    margin-left: 230px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 130px;
+    color: #fff;
+    border: none;
+    border-right: none;
+    border-bottom: none;
+  
+  }
+  
+  .savetButton{
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    padding-right: 15px;
+    margin-left: 180px;
+    margin-top: 30px;
+    width: 130px;
+    border-top: none;
+    border-left: none;
+    margin-bottom: 40px;
+    color: #fff;
+    border: none;
+    background-color: #88AD47;
+  }
+  
+
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  .qatext{
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  li {
+    margin-bottom: 20px;
+    //border: 1px solid #ccc;
+    border-bottom: #ccc;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .noQAmessage{
+    color: #88AD47;
+    text-align: center;
+  }
+
+  .display-ans{
+    color: #ccc;
+    font-weight: 300;
+    font-size: 15px;
+  }
+  .ans-text{
+  color: #fff;
+  font-weight: 600;
+  }
+
+  .questions-row{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 320px;
+  }
+  .questions-grid{
+    font-size: 14px;
+    min-height: 100px;
+    border-bottom: 1px solid #5a5858;
+    border-right: 1px solid #5a5858 ;
+    display: grid;
+    align-items: end; 
+  }
+  ::-webkit-scrollbar {
+    width: 10px !important;
+    background-color: white;
+  }
+  

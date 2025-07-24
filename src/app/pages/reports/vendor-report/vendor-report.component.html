@@ -1,0 +1,158 @@
+<div class="container-fluid">
+    <div class="d-flex  justify-content-between pt-3">
+        <div class="d-flex mt-2 pointer" [routerLink]="['/report']">
+            <div class="backicon">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <h3>Vendor Report</h3>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <!-- <label class="switch">
+                <input type="checkbox" (change)="onMultpleChange($event)" [(ngModel)]="isMultiple">
+                <span class="slider round"></span>
+            </label> -->
+            <!-- <p-triStateCheckbox [(ngModel)]="isMultiple" inputId="tricheckbox"></p-triStateCheckbox> -->
+            <!-- <label for="tricheckbox" class="ml-2">Multiple</label> -->
+            <p-dropdown  class="ct_grop_select_2_drop_white123 ct_group_select_dark_124 mx-4" required
+            ngModel placeholder="select" [options]="reportType"
+            [(ngModel)]="selectReportType" optionLabel="value" optionValue="value"
+            name="group" #group="ngModel"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="row firstbox">
+        <div class="col">
+            <div class="row mt-4  text-white">
+                <div class="col-md-6 mb-3">
+                    <label for="fname" class="text-dark">Vendors</label>
+                    <ng-container >
+                        <div
+                            class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                            <p-multiSelect [options]="vendorList"
+                                [(ngModel)]="selectedMultipleVendors" optionLabel="name" optionValue="name"
+                                styleClass="pcalender" defaultLabel="Select Multiple Data Points" name="facility">
+                            </p-multiSelect>
+                        </div>
+                    </ng-container>
+                    <!-- <ng-template #defaultfacilitydropdown>
+                        <p-dropdown class=" finput ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145"
+                            name="facility" #facility="ngModel" [options]="facilityData"
+                            optionLabel="AssestType" optionValue="id" styleClass="facilitydropdown"
+                            [(ngModel)]="selectedFacilityID" (onChange)="checkFacilityID(selectedFacilityID)">
+                        </p-dropdown>
+                    </ng-template> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="pt-5">
+                    <button (click)="newgenerateReport()"
+                        class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Secondbox" *ngIf="reportData.length >0">
+        <div class="col">
+            <div class="row mt-4 mx-2 text-white">
+                <div class="col d-flex justify-content-between">
+                    <h4>Report</h4>
+                    <button (click)="exportTableToExcel()"
+                        class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">Download
+                        Report</button>
+                </div>
+                <!-- <div *ngIf="CustomReportData && CustomReportData.length > 0"
+                    class="col d-flex justify-content-end pointer">
+                    Download
+                    <i class="pi pi-download pl-2 pt-1 pointer mb-1" aria-hidden="true" id="downloadIcon"
+                        data-toggle="dropdown" aria-haspopup="true" title="download" aria-expanded="false"></i>
+
+                    <div class="dropdown-menu brsr dropdown-menu-right" aria-labelledby="downloadIcon">
+                        <a class="dropdown-item pointer" value="Download PDF" (click)="downloadAsPDF()">
+                            <i class="fas fa-file-pdf" style="color: red"></i>&nbsp;&nbsp; Download as PDF</a>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+       
+                <ng-container >
+                    <div class="col-md-12" *ngIf="reportData.length >0; else emptyList">
+
+                        <p-table class="ct_bottom_table_tr ct_chev_icon_dark230" [paginator]="true" [rowHover]="true"
+                            [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+                            styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
+                            class="ct_bottom_table_tr" #dt [value]="reportData" [rowHover]="true"
+                            styleClass="p-datatable-striped" editMode="row">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>
+                                        Vendor 
+                                    </th>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        Product / Service
+                                    </th>
+                                    <th>
+                                        Code
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        Unit
+                                    </th>
+                                    <th>
+                                        Facility
+                                    </th>
+                                  
+                                    <th *ngIf="this.selectReportType == 'Monthly'">
+                                        Month
+                                    </th>
+                                    <th *ngIf="this.selectReportType == 'Monthly'">
+                                        Year
+                                    </th>
+                                    <th>
+                                        Emisions (t c02e)
+                                    </th>
+                                    <th  *ngIf="this.selectReportType == 'Consolidated'">
+                                        Vendor EF
+                                    </th>
+                                    <th  *ngIf="this.selectReportType == 'Consolidated'">
+                                        Vendor EF Unit
+                                    </th>
+                                   
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-de let-editing="editing" let-ri="rowIndex">
+                                <tr [pEditableRow]="de">
+
+                                    <td> {{de.Supplier}}</td>
+                                    <td> {{de.Cateogry}}</td>
+                                    <td> {{de.Sub_category}}</td>
+                                    <td> {{de.productcode}}</td>
+                                    <td> {{de.Quantity}}</td>
+                                    <td> {{de.UNIT}}</td>
+                                    <td> {{de.UNIT}}</td>
+                                    <td *ngIf="this.selectReportType == 'Monthly'" > {{de.Months}}</td>
+                                    <td *ngIf="this.selectReportType == 'Monthly'" > {{de.Years}}</td>
+                                    <td> {{de.emission}}</td>
+                                    <td *ngIf="this.selectReportType == 'Consolidated'"> {{de.Supplier_EF}}</td>
+                                    <td *ngIf="this.selectReportType == 'Consolidated'"> {{de.Supplier_Unit}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </ng-container>
+             
+                <ng-template #emptyList>
+                    <p class="nodata text-dark">No data available</p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

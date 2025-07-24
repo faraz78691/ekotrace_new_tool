@@ -1,0 +1,217 @@
+<section class="mt-2">
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ct_vendor_dash_top_bar">
+                    <div class="ct_vendor_dah_small_card">
+                        <p class=" text-center">Total Suppliers
+                        </p>
+                        <h4 class="text-center ct_fw_600 mb-0">{{allVendorReport?.vendorCount}}
+                        </h4>
+                    </div>
+                    <div class="ct_vendor_dah_small_card">
+                        <p class=" text-center">Procurement Emissions (tCO2e)
+                        </p>
+                        <h4 class="text-center ct_fw_600 mb-0">{{+allVendorReport?.vendorEmission / 1000 | number :'1.3-3'}}
+                        </h4>
+                    </div>
+
+                    <!-- <div class="ct_vendor_dah_small_card">
+                        <p class=" text-center">Procurement Expense
+                        </p>
+                        <h4 class="text-center ct_fw_600 mb-0">10m INR
+                        </h4>
+                    </div>
+
+                    <div class="ct_vendor_dah_small_card">
+                        <p class=" text-center">Emissions to Expense Ratio
+
+                        </p>
+                        <h4 class="text-center ct_fw_600 mb-0">12.2 u
+
+                        </h4>
+                    </div> -->
+
+                    <div class="ct_vendor_dah_small_card">
+                        <p class=" text-center">Contribution To Total Emissions
+
+                        </p>
+                        <h4 class="text-center ct_fw_600 mb-0">{{allVendorReport?.contribution  || 0  | number:'1.2-2'}} %
+
+                        </h4>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex align-items-center justify-content-between gap-3   mt-2 ct_flex_column_767 flex-wrap" style="gap: 20px;">
+            <h4 class="ct_fs_24 ct_fw_600 mb-0">Supplier Ranking
+            </h4>
+            <div class="d-flex align-items-center gap-3  ct_gap_10 flex-wrap ct_flex_column_767">
+                <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Product
+                    </label>
+                    <!-- <p-dropdown
+                        class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
+                        ngModel placeholder="Select" [options]="flightsTravelTypes" optionLabel="flightType"  [(ngModel)]="selectedProduct"
+                        optionValue="flightType" styleClass="facilitydropdown" #country="ngModel" required   (onChange)="onFacilityChange(selectedProduct)">
+                    </p-dropdown> -->
+                    <p-multiSelect class="ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 en_select_last_right_0"
+                    [options]="flightsTravelTypes" [(ngModel)]="selectedProduct" optionLabel="flightType"
+                    optionValue="flightType" defaultLabel="Select"
+                    (onChange)="onProductChange(selectedProduct)">
+                </p-multiSelect>
+                </div>
+                <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Sort by
+                    </label>
+                    <!-- <select name="" id="" class="form-control">
+                        <option value="">Rank high to Low</option>
+                        <option value="">Rank by Emisissions
+                        </option>
+                        <option value="">Rank by Emissions to Expense Ratio
+                        </option>
+                    </select> -->
+                    <p-dropdown
+                        class="finput ct_input_white_bg13 ct_res_100_767 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
+                        ngModel placeholder="Select" [options]="shortBy" optionLabel="shortBy" optionValue="shortBy" [showClear]="true"       (onChange)="onSortChange($event)"
+                        styleClass="facilitydropdown" #country="ngModel" required>
+                    </p-dropdown>
+                </div>
+                <!-- <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Rank by
+                    </label>
+
+                    <p-dropdown
+                        class="finput ct_input_white_bg13 ct_res_100_767 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
+                        ngModel placeholder="Select" [options]="rankBy" optionLabel="shortBy" optionValue="shortBy"
+                        styleClass="facilitydropdown" #country="ngModel" required>
+                    </p-dropdown>
+                </div> -->
+                <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Show
+                    </label>
+                    <p-dropdown
+                        class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
+                        ngModel placeholder="Select" [options]="Show" optionLabel="Show" optionValue="Show"
+                        styleClass="facilitydropdown" #country="ngModel" required>
+                    </p-dropdown>
+                </div>
+                <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Facilities
+                    </label>
+                    <p-multiSelect class="ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 en_select_last_right_0"
+                        [options]="dashboardData" [(ngModel)]="selectedFacility" optionLabel="AssestType"
+                        optionValue="ID" defaultLabel="Select"
+                        (onChange)="onFacilityChange(selectedFacility)">
+                    </p-multiSelect>
+                    <!-- <p-dropdown
+                        class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
+                        ngModel placeholder="Select" [options]="dashboardData" optionLabel="AssestType" optionValue="ID"  [(ngModel)]="selectedFacility"  (ngModelChange)="onFacilityChange($event)"
+                        styleClass="facilitydropdown"  required>
+                    </p-dropdown> -->
+                </div>
+            </div>
+
+        </div>
+        <div class="row pt-4">
+            <div class="col-lg-3 mb-4 mb-lg-0">
+                <div class="ct_vendor_dash_left">
+                    <div class="ct_supplier_emission mb-4">
+                        <h4 class="ct_fs_24 ct_fw_600">Supplier Emissions by Location
+                        </h4>
+                        <div id="By_employee_location" *ngIf="pieChart">
+                            <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"
+                                [legend]="pieChart.legend" [responsive]="pieChart.responsive"
+                                [colors]="pieChart.colors"></apx-chart>
+                        </div>
+                        <!-- <p>in tC02e</p> -->
+                    </div>
+                    <div class="ct_supplier_emission mb-4">
+                        <h4 class="ct_fs_24 ct_fw_600">Supplier Emissions by Product
+                        </h4>
+                        <div id="By_employee_location" *ngIf="pieChart2">
+                            <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
+                                [legend]="pieChart2.legend" [responsive]="pieChart2.responsive"
+                                [colors]="pieChart2.colors"></apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 mb-4 mb-lg-0">
+                <div class="row">
+                    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-4" *ngFor="let items of vendorData; index as i">
+                        <div class="ct_vendor_card_45_bg">
+                            <div class="ct_vender_card_head_bg">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0 ct_fw_600 ">#{{i +1}}</h6>
+                                    <p class="mb-0 ">{{items.supplier}}</p>
+                                    <p class="ct_red_text2 mb-0">{{items.scorecard}}</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-2">
+                                    <p class="mb-0 ct_fs_14"></p>
+                                    <p class="mb-0 ct_fs_14">Scorecard</p>
+                                </div>
+
+                            </div>
+                            <!-- <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div> -->
+
+                            <div class="ct_grid_sec_2 mt-3">
+                                <div class="d-flex align-items-center ct_gap_10 justify-content-between  ">
+                                    <p class="ct_fs_14 ct_fw_600 mb-0">Total Emissions</p>
+                                
+                                    <p class="ct_fs_14 mb-0">{{+(items.totalEmission) /1000 | number:'1.3-3'}} (tCO2e)</p>
+                                </div>
+<!--                              
+                                <div class="d-flex align-items-center ct_gap_10 justify-content-between  ">
+                                    <p class="ct_fs_14 mb-0">Emissions to Expense Ratio</p>
+                                    <p class="ct_fs_14 mb-0">{{items.perVendoremiToExpRatio | number:'1.4-4'}}</p>
+                                </div> -->
+                              
+                            </div>
+                            <div class="pt-3 mt-3 ct_border_top_1_grey">
+                                <div class="d-flex align-items-center justify-content-between ct_gap_10 mb-2">
+                                    <p class="mb-0 ct_fs_14 ct_fw_600">SBTI Target Status</p>
+                                    <p class="mb-0 ct_fs_14">{{items.target_status}}</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between ct_gap_10">
+                                    <p class="mb-0 ct_fs_14 ct_fw_600">Emissions Calculation Method</p>
+                                    <p class="mb-0 ct_fs_14" *ngIf="items.units.includes('INR') && items.units.length >1">Quantity / Spend based</p>
+                              
+                                    <p class="mb-0 ct_fs_14" *ngIf="items.units =='INR'">Spend based</p>
+                                    <p class="mb-0 ct_fs_14" *ngIf="!items.units.includes('INR')">Quantity</p>
+                                </div>
+                            </div>
+
+                            <!-- <table class="table">
+                                <tr>
+                                    <td>Total Emissions</td>
+                                    <td>443</td>
+                                    <td>tCo2e</td>
+                                    <td>2,717%</td>
+                                </tr>
+                                <tr>
+                                    <td>Emissions to Expense Ratio</td>
+                                    <td>0.000</td>
+                                    <td>tCo2e/USD</td>
+                                    <td>77.09%</td>
+                                </tr>
+                            </table> -->
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

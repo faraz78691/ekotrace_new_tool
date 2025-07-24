@@ -1,0 +1,79 @@
+<app-header style="padding: 0px; border-bottom: 0px; height: 80px " class="ct_remove_side_bar_10
+"></app-header>
+
+<div class="content-wrapper mt-5 pt-5">
+
+    <section>
+        <div class="container-fluid px-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ct_setting_menu_links">
+                        <ul>
+                            <li>
+                                <a routerLink="dashboard"><i class="fa-solid fa-gauge-high mr-2"></i>Dashbaord</a>
+                            </li>
+                            <li>
+                                <a routerLink=""><i class="fa-solid fa-gauge-high mr-2"></i>Tracking</a>
+                            </li>
+                            <li>
+                                <a routerLink=""><i class="fa-solid fa-chart-column mr-2"></i>Reports</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ct_setting_box_bg_12">
+                        <div class="container-fluid pt-3">
+                            <div class="">
+                                <div class="col-sm-6 pb-3" [ngClass]="
+                                        this.updatedtheme === 'dark' ? 'headlinetextD' : 'headlinetextL'
+                                    ">
+                                    <h3 class="pl-3">Hazardous Non-Hazardous Waste Type</h3>
+                                </div>
+                        
+                                <br />
+                                <div class="row" [ngClass]="this.updatedtheme === 'dark' ? 'main-boxD' : 'main-boxL'">
+                                    <div class="col-6">
+                                      
+                    
+                                        <div class="ct_company_profile_input">
+                                            <label for="industryType" class="mt-3 mb-2">Hazardous</label>
+                                            <div class="">
+                                                <p-multiSelect class="ct_select_2_full_width12 ct_input_dark_text_145" placeholder="Please select" [options]="wasteGrid" [(ngModel)]="hazadrous" [ngModelOptions]="{standalone: true}"   optionValue="type"
+                                                optionLabel="type" display="chip"
+                                                name="sub_category"></p-multiSelect>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="ct_company_profile_input">
+                                            <label for="secondaryIndustryType" class="mt-3 mb-2 w-100">Non Hazardous</label>
+                                            <p-multiSelect class="ct_select_2_full_width12 ct_input_dark_text_145" placeholder="Please select" [options]="wasteGrid" [(ngModel)]="non_hazadrous" [ngModelOptions]="{standalone: true}"   optionValue="type"
+                                                optionLabel="type" display="chip"
+                                                name="sub_category"></p-multiSelect>
+                                        </div>
+                        
+                                       
+                        
+                                        <div class="row mt-5">
+                                            <button  type="submit" class="px-3 ct_animation_btn_121" (click)="saveChanges()">
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </div>
+                        
+                                   
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
