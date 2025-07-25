@@ -7,11 +7,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
-
+import { FileUploadModule } from "primeng/fileupload";
+declare var $: any;
 @Component({
   selector: 'app-refrigerants',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule],
   templateUrl: './refrigerants.component.html',
   styleUrls: ['./refrigerants.component.scss']
 })
@@ -26,8 +27,11 @@ export class RefrigerantsComponent {
   isSubmitting = false;
   year: string;
   months: string;
-
+  templateLinks: string;
+  selectedFile: any;
+  uploadButton: boolean;
   constructor(private facilityService: FacilityService,private notification: NotificationService,private appService: AppService) {
+    this.templateLinks = 'assets/Refrigerant_Template.xlsx'
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -72,20 +76,7 @@ export class RefrigerantsComponent {
                       'Success'
                   );
                  this.isSubmitting = false;
-                  // this.resetForm();
-                  // // this.getStationaryFuelType(this.SubCatAllData
-                  // //     .manageDataPointSubCategorySeedID);
-                  // this.ALLEntries();
-                  // this.getUnit(this.SubCatAllData
-                  //     .manageDataPointSubCategorySeedID);
-                  // //this.GetAssignedDataPoint(this.facilityID);
-                  // // this.trackingService.getrefdataentry(this.SubCatAllData.id, this.loginInfo.tenantID).subscribe({
-                  // //     next: (response) => {
-                  // //         this.commonDE = response;
-                  // //     }
-                  // // });
-
-                  // this.activeindex = 0;
+            
               } else {
                   this.notification.showError(
                       response.message,
@@ -116,4 +107,22 @@ export class RefrigerantsComponent {
       }
     })
   };
+
+  onFileSelected(event: any) {
+
+    const selectedFile = event[0];
+
+    if (selectedFile) {
+        //   this.uploadFiles(files); previous one 
+        this.selectedFile = event[0];
+        $(".browse-button input:file").change(function () {
+            $("input[name='attachment']").each(function () {
+                var fileName = $(this).val().split('/').pop().split('\\').pop();
+                $(".filename").val(fileName);
+                $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
+            });
+        });
+        this.uploadButton = true
+    }
+};
 }

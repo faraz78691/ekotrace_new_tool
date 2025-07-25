@@ -1,6 +1,3 @@
-
-
-
 <div class="row text-white border-bottom">
     <div class="d-flex align-items-center justify-content-between w-100">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
@@ -134,101 +131,124 @@
 <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
 
     <div class="trackingContent">
-        
-            <div class="row mt-4 mx-2" *ngIf="subCategoryID == 9" >
-                <div class="col-lg-4"
-               >
+
+        <div class="row mt-4 mx-2" *ngIf="subCategoryID == 9">
+            <div class="col-lg-4">
                 <label for="fname">Reading Value</label>
                 <div class="position-relative">
-                    <input required ngModel name="readingvalue" #readingvalue="ngModel"
-                        placeholder="Enter value" 
-                        readingvalue id="search-input" type="text"
-                        class="form-control Dashboard-tab text-white" />
-                    <p-dropdown
-                        class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
-                        ngModel [options]="units" optionLabel="UnitName"
-                        optionValue="UnitName"  name="unitSet"
-                        #unitSet="ngModel"></p-dropdown>
+                    <input required ngModel name="readingvalueLocation" #readingvalueLocation="ngModel" placeholder="Enter value"
+                        readingvalue id="search-input" type="text" class="form-control Dashboard-tab text-white" />
+                    <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"
+                        [options]="units" optionLabel="UnitName" optionValue="UnitName" ></p-dropdown>
                 </div>
-                <!-- <p class="validation" *ngIf="
-                    dataEntry.readingValue < 0 &&
-                    dataEntryForm.submitted
-                ">
-                    Data entry should be greater than 0
-                </p> -->
-    
-                <p class="validation"
-                    *ngIf="readingvalue.errors?.['required'] && dataEntryForm.submitted">
+                <p class="validation" *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted">
                     Reading value required.
                 </p>
             </div>
-    
-            <div 
-                class="col-lg-4">
+
+            <div class="col-lg-4">
                 <label for="fname">Grid</label>
-                <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " 
-                    [options]="regionType" optionLabel="RegionName" optionValue="RegionID"
-                    ></p-dropdown>
+                <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " [options]="regionType"
+                    optionLabel="RegionName" optionValue="RegionID" [(ngModel)]="regionId" [ngModelOptions]="{standalone: true}"></p-dropdown>
             </div>
-    
-    
-    
-    
+
+
+
+
+        </div>
+
+        <ng-container *ngIf="subCategoryID ==1002">
+            <div class="row mt-4 mx-2">
+                <div class="col-lg-4">
+                    <label for="fname">Type</label>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"  [options]="marketTypes" optionLabel="Type"
+                        optionValue="id" [(ngModel)]="marketTypeId" [ngModelOptions]="{standalone: true}"
+                        (onChange)="marktetTypeChange($event)"></p-dropdown>
+                </div>
             </div>
-       
-            <ng-container *ngIf="subCategoryID ==1002">
+            <ng-container *ngIf="renewableSelected">
                 <div class="row mt-4 mx-2">
-                    <div class="col-lg-4" >
-                        <label for="fname">Type</label>
-                        <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"  [options]="" optionLabel="TypeName"
-                            optionValue="ID" 
-                            ></p-dropdown>
+                    <div class="col-lg-4">
+                        <label for="fname">Reading Value</label>
+                        <div class=" position-relative">
+                            <input required ngModel name="readingValueREnew" #readingValueREnew="ngModel"
+                                placeholder="Enter value" readingvalue id="search-input" type="text"
+                                class="form-control Dashboard-tab text-white" />
+                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" 
+                                [options]="units" optionLabel="UnitName" optionValue="UnitName" [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"
+                               ></p-dropdown>
+                        </div>
+
+                        <p class="validation" *ngIf="readingValueREnew.errors?.['required'] && dataEntryForm.submitted">
+                            Reading value required.
+                        </p>
                     </div>
-                </div>
-                <div class="row mt-4 mx-2" >
-                    <div class="col-lg-4"
-                   >
-                    <label for="fname">Reading Value</label>
-                    <div class=" position-relative">
-                        <input required ngModel name="readingvalue" #readingvalue="ngModel"
-                            placeholder="Enter value" 
-                            readingvalue id="search-input" type="text"
-                            class="form-control Dashboard-tab text-white" />
-                        <p-dropdown
-                            class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
-                            ngModel [options]="" optionLabel="UnitName"
-                            optionValue="UnitName"  name="unitSet"
-                            #unitSet="ngModel"></p-dropdown>
+
+                    <div class="col-lg-4">
+                        <label for="fname">Source</label>
+                        <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="ElectricitySource"
+                            optionLabel="sourceName" optionValue="sourceName" [(ngModel)]="sourceName"
+                            [ngModelOptions]="{standalone: true}"></p-dropdown>
                     </div>
-                    <!-- <p class="validation" *ngIf="
-                        dataEntry.readingValue < 0 &&
-                        dataEntryForm.submitted
-                    ">
-                        Data entry should be greater than 0
-                    </p> -->
-        
-                    <p class="validation"
-                        *ngIf="readingvalue.errors?.['required'] && dataEntryForm.submitted">
-                        Reading value required.
-                    </p>
+
                 </div>
-        
-                <div 
-                    class="col-lg-4">
-                    <label for="fname">Grid</label>
-                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " 
-                        [options]="" optionLabel="RegionName" optionValue="RegionID"
-                        
-                          [disabled]></p-dropdown>
-                </div>
-        
-        
-        
-        
-                </div>
+
+
             </ng-container>
-        
-        
+            <ng-container *ngIf="supplierSelected">
+                <div class="row mt-4 mx-2" >
+                    <div  class="col-lg-4">
+                        <label for="fname">Supplier specific Emission Factor</label>
+                        <div class=" position-relative">
+                            <input required ngModel name="emission_factorS" #emission_factorS="ngModel"
+                                placeholder="Enter value" readingvalue id="search-input" type="number"
+                                class="form-control Dashboard-tab text-white" />
+                            <div class="ct_quantity_text">
+                                <p>kg CO2e/{{unitSelected}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4" >
+                        <label for="fname">Value</label>
+                        <div class=" position-relative">
+                            <input required ngModel name="readingSupplierValue" #readingSupplierValue="ngModel" placeholder="Enter value"
+                                 readingvalue id="search-input" type="number"
+                                class="form-control Dashboard-tab text-white" />
+                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" 
+                                [options]="units" optionLabel="UnitName" optionValue="UnitName"
+                                [(ngModel)]="unitSelected" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+                        </div>
+                
+                        <p class="validation" *ngIf="readingSupplierValue.errors?.['required'] && dataEntryForm.submitted">
+                            Reading value required.
+                        </p>
+                    </div>
+                  
+
+                </div>
+
+            </ng-container>
+
+
+        </ng-container>
+        <div class="col-8 mt-4 mx-2">
+            <label for="fname ">Attachments</label>
+            <!-- <p-toast></p-toast> -->
+            <div class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40">
+                <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf" chooseLabel="Please select a File"
+                    (onSelect)="
+            onFileSelected($event.files)
+        "></p-fileUpload>
+            </div>
+        </div>
+
+
+
+
+
+
+
         <div class="col-12 mt-5 pt-3 ml-3 text-center">
             <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
         </div>

@@ -12,6 +12,9 @@ import * as XLSX from 'xlsx';
 import { DownloadFileService } from '@services/download-file.service';
 import { VehicleType } from '@/models/VehicleType';
 import { VehicleDEmode } from '@/models/VehicleDEmode';
+import { environment } from 'environments/environment';
+declare var $: any;
+
 @Component({
   selector: 'app-company-owned-vehicles',
   standalone: true,
@@ -20,6 +23,7 @@ import { VehicleDEmode } from '@/models/VehicleDEmode';
   styleUrls: ['./company-owned-vehicles.component.scss']
 })
 export class CompanyOwnedVehiclesComponent {
+APIURL: string = environment.baseUrl;
   facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
@@ -40,30 +44,20 @@ export class CompanyOwnedVehiclesComponent {
   ModeType: VehicleDEmode[] = [];
   currency: any;
   vehicleModalFleet: any[] = [];
+    uploadButton: boolean;
   constructor(private facilityService: FacilityService,private downloadFileService: DownloadFileService, private notification: NotificationService,private appService: AppService) {
+   
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
+      console.log("sub category",this.subCategoryID);
     
       this.year = this.facilityService.yearSignal();
       this.months = this.facilityService.monthSignal();
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
-      
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
-       
       };
-
-    //   for (let i = 1; i <= 1; i++) {
-    //     this.rowsCompany.push({
-    //         id: i,
-    //         vehicleType: '',
-    //         noOfVehicles: null,
-    //         tripsPerVehicle: null,
-    //         modeOfEntry: 'Average distance per trip',
-    //         value: null,
-    //         unit: 'Km'
-    //     })
-    // }
+      this.downloadCompanyExcelUrl = this.APIURL + `/download-excel-vehicle-fleet-by-facility-category-id?facility_id=${this.facilityID}&categoryID=${this.subCategoryID == 10 ? '1' : '2'} `;
     this.rowsCompany = [{
         vehicleType: null,
         noOfVehicles: null,
@@ -73,6 +67,7 @@ export class CompanyOwnedVehiclesComponent {
         unit: 'Km'
     }]
     this.getVehicleType(this.subCategoryID);
+    this.getCurrencyUnit()
     });
     this.ModeType =
     [
@@ -95,7 +90,7 @@ export class CompanyOwnedVehiclesComponent {
 
 
   ngOnInit(): void {
-    console.log(this.subCategoryID);
+    this.downloadCompanyExcelUrl = this.APIURL + `/download-excel-vehicle-fleet-by-facility-category-id?facility_id=${this.facilityID}&categoryID=${this.subCategoryID == 10 ? '1' : '2'} `;
     this.rowsCompany = [{
         vehicleType: null,
         noOfVehicles: null,
@@ -105,6 +100,7 @@ export class CompanyOwnedVehiclesComponent {
         unit: 'Km'
     }]
     this.getVehicleType(this.subCategoryID);
+    this.getCurrencyUnit()
     // this.getUnit(this.subCategoryID);
   };
 
@@ -391,6 +387,38 @@ getVehcileFleet(facilityId: number, type: number) {
 };
 
 
+onFileSelected(event: any) {
+
+    const selectedFile = event[0];
+
+    if (selectedFile) {
+        //   this.uploadFiles(files); previous one 
+        this.selectedFile = event[0];
+        $(".browse-button input:file").change(function () {
+            $("input[name='attachment']").each(function () {
+                var fileName = $(this).val().split('/').pop().split('\\').pop();
+                $(".filename").val(fileName);
+                $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
+            });
+        });
+        this.uploadButton = true
+    }
+};
+
+getCurrencyUnit() {
+  
+    const formdata = new URLSearchParams();
+    formdata.set('facilities', this.facilityID.toString());
+    this.appService.postAPI('/getcurrencyByfacilities', formdata).subscribe({
+        next: (response:any) => {
+            // // // console.log(response);
+            if (response.success == true) {
+                this.currency = response.categories;
+            };
+       
+        }
+    })
+};
 
 
 }

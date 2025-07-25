@@ -7,11 +7,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
-
+import { FileUploadModule } from "primeng/fileupload";
+declare var $: any;
 @Component({
   selector: 'app-fire-entinguisher',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule],
   templateUrl: './fire-entinguisher.component.html',
   styleUrls: ['./fire-entinguisher.component.scss']
 })
@@ -26,8 +27,12 @@ export class FireEntinguisherComponent {
   isSubmitting = false;
   year: string;
   months: string;
+  selectedFile: any;
+  uploadButton: boolean;
+  templateLinks: string;
 
   constructor(private facilityService: FacilityService,private notification: NotificationService,private appService: AppService) {
+  this.templateLinks = 'assets/FireExtinguisher_Template.xlsx'
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -54,9 +59,9 @@ export class FireEntinguisherComponent {
             formData.set('months', this.months);
             formData.set('year', this.year);
             formData.set('SubCategorySeedID', this.subCategoryID.toString());
-            // if (this.selectedFile) {
-            //     formData.set('file', this.selectedFile, this.selectedFile.name);
-            // }
+            if (this.selectedFile) {
+                formData.set('file', this.selectedFile, this.selectedFile.name);
+            }
       this.appService.postAPI('/Addfireextinguisher', formData).subscribe({
           next: (response:any) => {
 
@@ -66,20 +71,6 @@ export class FireEntinguisherComponent {
                       'Success'
                   );
                  this.isSubmitting = false;
-                  // this.resetForm();
-                  // // this.getStationaryFuelType(this.SubCatAllData
-                  // //     .manageDataPointSubCategorySeedID);
-                  // this.ALLEntries();
-                  // this.getUnit(this.SubCatAllData
-                  //     .manageDataPointSubCategorySeedID);
-                  // //this.GetAssignedDataPoint(this.facilityID);
-                  // // this.trackingService.getrefdataentry(this.SubCatAllData.id, this.loginInfo.tenantID).subscribe({
-                  // //     next: (response) => {
-                  // //         this.commonDE = response;
-                  // //     }
-                  // // });
-
-                  // this.activeindex = 0;
               } else {
                   this.notification.showError(
                       response.message,
@@ -99,4 +90,22 @@ export class FireEntinguisherComponent {
       });
     }
   };
+
+  onFileSelected(event: any) {
+
+    const selectedFile = event[0];
+
+    if (selectedFile) {
+        //   this.uploadFiles(files); previous one 
+        this.selectedFile = event[0];
+        $(".browse-button input:file").change(function () {
+            $("input[name='attachment']").each(function () {
+                var fileName = $(this).val().split('/').pop().split('\\').pop();
+                $(".filename").val(fileName);
+                $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
+            });
+        });
+        this.uploadButton = true
+    }
+};
 }

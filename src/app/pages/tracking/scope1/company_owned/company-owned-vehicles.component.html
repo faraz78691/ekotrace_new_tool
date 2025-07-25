@@ -4,7 +4,7 @@
 <div class="row text-white border-bottom">
     <div class="d-flex align-items-center justify-content-between w-100">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-            Company-owned vehicles
+           {{subCategoryID == 10 ? 'Passenger Vehicle' : 'Delivery Vehicle'}}
         </p>
         <div  class="ml-auto">
             <button class=" mr-2 et_tab_btn" [ngClass]="{'active': singleCompanyTab}"
@@ -374,6 +374,16 @@
                 </table>
             </div>
         </ng-container>
+        <div class="col-8 mt-4">
+            <label for="fname ">Attachments</label>
+            <!-- <p-toast></p-toast> -->
+            <div class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40">
+                <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf" chooseLabel="Please select a File"
+                    (onSelect)="
+            onFileSelected($event.files)
+        "></p-fileUpload>
+            </div>
+        </div>
     </div>
     <div class="col-12 mt-5 pt-3 ml-3 text-center">
         <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>

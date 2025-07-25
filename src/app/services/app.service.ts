@@ -13,6 +13,9 @@ import { DatePipe } from '@angular/common';
     providedIn: 'root'
 })
 export class AppService {
+    getElectricitySource() {
+      throw new Error('Method not implemented.');
+    }
     public user: any = null;
     public invalidLogin: boolean = false;
     public showLoader: boolean = true;

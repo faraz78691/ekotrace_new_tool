@@ -4,7 +4,7 @@
 <div class="row text-white border-bottom">
     <div class="d-flex align-items-center justify-content-between w-100">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-            Stationary combustion
+            Refrigerants
         </p>
         <div class="ct_how_use_tooltip_main">
             <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
@@ -159,7 +159,31 @@
                     Reading value required.
                 </p>
             </div>
-           
+         
+                <div class="col-4 mt-4">
+                    <label for="fname ">Template</label>
+
+                    <div class="">
+                       
+
+                        <button class="px-4 trackingsubmitb w-100 ct_h_40"><a class="text-white" [href]="templateLinks"
+                                download>Click here to download</a></button>
+                    </div>
+                </div>
+                <div class="col-5 mt-4"
+                   >
+                    <label for="fname ">Attachments</label>
+                  
+                    <div class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40">
+                        <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
+                            chooseLabel="Please select a File" (onSelect)="
+                        onFileSelected($event.files)
+                    "></p-fileUpload>
+                    </div>
+                </div>
+             
+            
+            
 
 
 
