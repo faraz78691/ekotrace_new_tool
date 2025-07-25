@@ -1,0 +1,512 @@
+<div class="row text-white border-bottom">
+      <div class="d-flex align-items-center justify-content-between w-100">
+            <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+                  Purchased Goods and Services
+            </p>
+            <div class="d-flex align-items-center ml-auto" style="gap:10px">
+                  <div>
+                        <button class="btn ct_scoope_1_tab ct_view_request_btn px-4 trackingsubmitb" type="button"
+                              (click)="bulkUploadPG()"> {{singlePGSTab ? 'Bulk Upload' :
+                                                'Single Upload'}}</button>
+
+                  </div>
+
+            </div>
+            <div class="ct_how_use_tooltip_main">
+                  <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                  <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                        <div>
+                              <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
+                                    stationary sources owned or controlled by an organization. These
+                                    sources include equipment and systems that are fixed in place, such
+                                    as boilers, furnaces, turbines, and other types of heating and
+                                    power-generating equipment.
+                              </p>
+                              <ol>
+                                    <li>Liquid fuels: Emissions resulting from the combustion of liquid
+                                          fuels in stationary sources are a significant part of an
+                                          organization’s overall carbon footprint due to the widespread
+                                          use of liquid fuels such as gasoline, diesel, fuel oil,
+                                          kerosene, and others.
+                                    </li>
+                                    <li>Solid fuels: These fuels typically include coal, peat, and other
+                                          solid materials used for heating, power generation, or
+                                          industrial processes.
+                                    </li>
+                                    <li>Gaseous fuels: These fuels are typically in a gaseous state at
+                                          normal atmospheric conditions and include natural gas, propane,
+                                          butane, and other similar gases used for heating, power
+                                          generation, and transportation.
+                                    </li>
+                                    <li>Biofuels: Biofuels are derived from renewable biomass sources
+                                          such as plant matter, agricultural residues, or waste materials.
+                                    </li>
+                                    <li>Biomass: Biomass refers to organic materials derived from plants
+                                          or animals that can be used as fuel. This includes wood,
+                                          agricultural residues, animal waste, and dedicated energy crops.
+                                    </li>
+                                    <li>Biogas: Biogas is a renewable energy source produced through the
+                                          anaerobic digestion or fermentation of organic materials such as
+                                          agricultural residues, food waste, sewage sludge, or energy
+                                          crops.
+                                    </li>
+                              </ol>
+
+                              <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
+                                    emissions in a company, follow these steps:
+                              </h5>
+                              <ol>
+                                    <li>Identify stationary combustion sources - Determine which
+                                          equipment and facilities generate emissions, such as: Boilers,
+                                          Furnaces, Generators, Heaters, Chillers
+                                    </li>
+                                    <li>Collect fuel consumption data:
+                                          Fuel Purchase Records - Collect data from fuel purchase receipts
+                                          and invoices.
+                                          Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
+                                          and equipment.
+                                          Meter Readings - Use meter readings for equipment that consumes
+                                          liquid fuels.
+                                          Operational Records - Document hours of operation for
+                                          fuel-consuming equipment
+                                    </li>
+                                    <li>Relevant departments for collecting the data - Production
+                                          department, Operational department
+                                    </li>
+                              </ol>
+                              <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                                    emissions
+                              </h5>
+                              <ol>
+                                    <li>Select the months and year for which you want to enter the
+                                          emissions data. If you select multiple months, same data will be
+                                          replicated for the months selected.
+                                    </li>
+                                    <li>Once submitted, data is sent for approval. Manager of facility
+                                          or the admin has approval rights. Only the approved data is
+                                          included in emissions calculations. You can check the approval
+                                          status in ‘Status’ tab
+                                    </li>
+                                    <li>User can attach the bills, invoices as attachment for record
+                                          purpose.
+                                    </li>
+                              </ol>
+
+                              <h5 class="ct_fs_16 ">Guidance on input fields</h5>
+                              <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
+                                    blend% of biofuel (bioethanol / biodiesel). Final emission factor is
+                                    the weighted average of emission factor for 100% mineral petrol /
+                                    diesel and biofuel. Average blend type assumes 7% blend perc.
+                              </p>
+                              <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
+                                    Gross CV of the fuel is entered, it overwrites the average CV.
+                              </p>
+
+                        </div>
+
+
+                        <p class="ct_fs_16 ">Emissions occur directly from the leakage or
+                              discharge of the extinguishing agents. The fire extinguishers must
+                              be owned or controlled by the organization. Common agents include
+                              halons, HFCs, and other fluorinated gases.
+                        </p>
+                        <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
+                              extinguishers owned by company, follow these steps:
+                        </h5>
+                        <ol>
+                              <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
+                                    halon).
+                              </li>
+                              <li>Location of each fire extinguisher within the facility.
+                              </li>
+                              <li>Relevant departments for collecting the data - Environment,
+                                    Health and Safety/ Facilities Management department
+                              </li>
+                        </ol>
+                        <p>You can download the ‘Fire Extinguisher
+
+
+
+
+
+
+
+
+
+                  </div>
+            </div>
+      </div>
+</div>
+<form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+      <div class="trackingFooter">
+            <div class="row " *ngIf="singlePGSTab && !progressPSGTab">
+                  <div class="col-md-6 mt-3">
+                        <div class="mb-4" style="gap: 10px;">
+                              <label class=" ct_text_wrape">Product Code Conv.</label>
+                              <div class="position-relative">
+                                    <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                          (onChange)="onProductHSNChange($event)" ngModel [(ngModel)]="productHSNSelect"
+                                          [options]="purchaseHSNCode" optionLabel="code" optionValue="id" name="HSNCode"
+                                          appendTo="body">
+                                    </p-dropdown>
+
+                              </div>
+                        </div>
+                  </div>
+                  <div class="col-md-6 mt-3">
+                        <div class="mb-4" style="gap: 10px;">
+                              <label class=" ct_text_wrape">Is Entry annual ?</label>
+                              <div class="position-relative">
+                                    <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                          (onChange)="onAnnualChange($event)" [options]="annualEntry" ngModel
+                                          optionLabel="name" optionValue="value" [(ngModel)]="isAnnual"
+                                          [ngModelOptions]="{standalone: true}" placeholder="Please select">
+                                    </p-dropdown>
+
+                              </div>
+                        </div>
+                  </div>
+                  <div class="col-md-12 table-responsive" style="height: 50vh;">
+                        <table class="table ct_home_office_table" style="height:357px">
+                              <thead class="thead-dark">
+                                    <tr>
+                                          <th scope="col">S.No.</th>
+                                          <th scope="col">Purchase type</th>
+                                          <th scope="col">Product/Service</th>
+
+                                          <th *ngIf="annualMonths" scope="col">Month of purchase</th>
+                                          <th scope="col">Quantity</th>
+                                          <th scope="col">Unit</th>
+                                          <th scope="col">Vendor</th>
+                                          <th scope="col">Vendor Specific EF</th>
+                                          <th scope="col">EF unit</th>
+                                    </tr>
+                              </thead>
+                              <tbody #commuteTable>
+                                    <tr *ngFor="let row of rowsPurchased">
+                                          <td scope="row">{{ row.id }}</td>
+
+                                          <td>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [(ngModel)]="row.productService"
+                                                      [ngModelOptions]="{standalone: true}"
+                                                      [options]="purchaseProductTypes"
+                                                      (onChange)="onProductStandardChange($event , row)"
+                                                      optionLabel="typesofpurchasename" optionValue="id"
+                                                      placeholder="Select type" appendTo="body">
+                                                </p-dropdown>
+                                          </td>
+                                          <td>
+                                                <button type="button"
+                                                      *ngIf="!row.productType && row.multiLevelItems.length === 0"
+                                                      class="placeholder form-control" style="    white-space: nowrap;">
+                                                      Choose product type
+                                                </button>
+                                                <ngx-dropdown-treeview *ngIf="row.multiLevelItems.length >0"
+                                                      class="ct_custom_dropdown_123" [(ngModel)]="row.productType"
+                                                      [ngModelOptions]="{standalone: true}"
+                                                      [items]="row.multiLevelItems"
+                                                      (selectedChange)="onSelectedChange($event, row)">
+                                                </ngx-dropdown-treeview>
+                                          </td>
+
+                                          <td *ngIf="annualMonths">
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      ngModel [options]="months" optionLabel="name"
+                                                      [(ngModel)]="row.months" optionValue="value"
+                                                      name="months_{{row.id}}">
+                                                </p-dropdown>
+
+                                          </td>
+                                          <td>
+                                                <input type="number" class="form-control"
+                                                      style="width:200px;height:38px" placeholder="Enter quantity"
+                                                      name="quantity_{{row.id}}" [(ngModel)]="row.quantity">
+                                          </td>
+                                          <td>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="purchaseGoodsUnitsGrid" optionLabel="units"
+                                                      [(ngModel)]="row.selectedUnit" (ngModelChange)="onUnitChange(row)"
+                                                      optionValue="units" name="unit_{{row.id}}" appendTo="body">
+                                                </p-dropdown>
+
+                                          </td>
+                                          <td>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="vendorList" optionLabel="name"
+                                                      [(ngModel)]="row.vendorName" name="vendor_{{row.id}}"
+                                                      placeholder="Select vendor" appendTo="body">
+                                                </p-dropdown>
+                                          </td>
+                                          <td>
+                                                <input type="number" class="form-control"
+                                                      style="width:200px;height:38px" [(ngModel)]="row.vendorspecificEF"
+                                                      name="vendorSpecific_{{row.id}}" placeholder="Enter specific EF">
+                                          </td>
+                                          <td>
+                                                <input disabled type="text" class="form-control"
+                                                      style="width:200px;height:38px" name="vendorspecificEF_{{row.id}}"
+                                                      [(ngModel)]="row.vendorspecificEFUnit">
+                                          </td>
+                                    </tr>
+
+
+                              </tbody>
+                              <p class="ml-2 trackingsubmitb" (click)="addPurchaseRows()">+</p>
+                        </table>
+                  </div>
+            </div>
+            <div class="row " *ngIf="!singlePGSTab && !progressPSGTab">
+                  <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between ct_gap_10 flex-wrap py-3">
+                              <div class="mb-0" style="gap: 10px;">
+                                    <label class="ct_text_wrape">Product Code Conv.</label>
+                                    <div class="position-relative">
+                                          <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                (onChange)="onProductHSNChange2($event)" ngModel
+                                                [(ngModel)]="productHSNSelect" [options]="purchaseHSNCode"
+                                                optionLabel="code" optionValue="id" name="HSNCode">
+                                          </p-dropdown>
+
+                                    </div>
+                              </div>
+
+                              <div class="d-flex align-items-center" style="gap:10px">
+                                    <button
+                                          class="btn ct_scoope_1_tab ct_view_request_btn px-4 trackingsubmitb  et_light_blue_123"
+                                          (click)="openProgresstab()" type="button">AI Match
+                                          Status</button>
+                                    <button *ngIf="!singlePGSTab" type="button"
+                                          class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb"
+                                          (click)="submitUnmatchWithAI()">
+                                          Run AI Match</button>
+
+                              </div>
+                              <div class="d-flex align-items-center ct_gap_10 flex-wrap">
+                                    <div>
+                                          <div
+                                                class="d-flex justify-content-end border rounded ct_upload_btn1 en_py_5_btn_new_455">
+                                                <p-fileUpload #fileUpload mode="basic" accept=".xlsx, .xls" class=""
+                                                      chooseLabel="Upload data file" (onSelect)="onPurchaseGoodsUpload($event.files,fileUpload)
+                                                        "></p-fileUpload>
+                                          </div>
+                                          <!-- <input type="file" class="form-control"  (change)="onPurchaseGoodsUpload($event)" accept=".xlsx, .xls"  id="ct_product_upload_file" > -->
+                                    </div>
+                                    <a (click)="downloadPurchaseGoodsExcel()" download
+                                          class="px-4 trackingsubmitb en_py_5_btn_new_455"><i
+                                                class="fa-solid fa-download mr-2"></i>Download Template</a>
+
+                              </div>
+                        </div>
+
+                  </div>
+                  <div class="col-md-12 table-responsive mt-2" style="height: 50vh;">
+                        <table class="table ct_home_office_table">
+                              <thead class="thead-dark">
+                                    <tr>
+                                          <th scope="col">S.No.</th>
+                                          <th scope="col">Product Category</th>
+                                          <th scope="col">Product Description</th>
+                                          <th scope="col">Product Type</th>
+                                          <th scope="col">Product Name</th>
+                                          <th scope="col">Purchase date</th>
+
+                                          <!-- <th *ngIf="annualMonths" scope="col">Month of purchase</th> -->
+                                          <th scope="col" style="width : 6rem; white-space:normal">Value/
+                                                Quantity</th>
+                                          <th scope="col">Unit</th>
+                                          <th scope="col">Vendor</th>
+                                          <th scope="col">Vendor Specific EF</th>
+                                          <th scope="col">Status</th>
+                                          <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                              </thead>
+                              <tbody #commuteTable>
+
+                                    <tr *ngFor="let product of newExcelData; let i = index">
+                                          <td>{{ i + 1 }}</td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product['Product Category']"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span
+                                                            *ngIf="!product.isEditing">{{ product['Product Category'] }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product['Product Description']"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span
+                                                            *ngIf="!product.isEditing">{{ product['Product Description'] }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product.productResult.typesofpurchasename"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span *ngIf="!product.isEditing">{{
+                                                                    product.productResult?.typesofpurchasename }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product.code"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span *ngIf="!product.isEditing">{{
+                                                                    product.productResult?.product }} {{ product.code
+                                                                    }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Purchase Date']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Purchase Date']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Value / Quantity']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span
+                                                      *ngIf="!product.isEditing">{{ product['Value / Quantity'] }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Unit']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Unit']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Vendor']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Vendor']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+
+                                                <span *ngIf="product['Vendor Specific EF'] !==''">{{
+                                                                product['Vendor Specific EF']}}&nbsp;
+                                                      {{product['Vendor Specific Unit'] }}</span>
+                                                <span *ngIf="product['Vendor Specific EF'] ===''"></span>
+                                          </td>
+                                          <td>
+
+                                                <span [ngClass]="{'redColor':!product.is_find}">{{product.is_find
+                                                                ? (product.productResult?.other_category_flag === '1' ?
+                                                                'Matched/Other Cat' : 'Matched') : 'Unmatched' }}</span>
+                                          </td>
+
+
+                                          <td class="d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn btn-sm btn-primary mr-1"
+                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag)"
+                                                      data-toggle="modal" data-target="#exampleModal">
+                                                      <i class="fa-solid fa-sync-alt"></i>
+                                                </button>
+                                                <button *ngIf="!product.is_find" type="button"
+                                                      class="btn btn-sm btn-danger mr-1"
+                                                      (click)="deletePSG(product['S. No.'])">
+                                                      <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                                <!-- <button class="btn btn-sm btn-success"> Add Vendor</button> -->
+                                          </td>
+                                    </tr>
+
+
+
+                              </tbody>
+
+                        </table>
+                  </div>
+            </div>
+            <div class="row " *ngIf="progressPSGTab">
+
+                  <div class="col-md-12 table-responsive mt-2" style="height: 50vh;">
+                        <table class="table ct_home_office_table">
+                              <thead class="thead-dark">
+                                    <tr>
+                                          <th scope="col">S.No.</th>
+                                          <th scope="col">File name</th>
+                                          <th scope="col">Date</th>
+                                          <th scope="col">No of items</th>
+                                          <th scope="col">Approx time</th>
+                                          <th scope="col">Status</th>
+
+
+                                          <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                              </thead>
+                              <tbody #commuteTable>
+                                    <tr *ngFor="let product of psg_ai_progress_data; let i = index">
+                                          <td scope="row">{{i + 1}}</td>
+
+                                          <td>{{product.filename}}</td>
+                                          <td>{{product.created_at | date: 'dd-MM-yyyy'}}</td>
+                                          <td>{{product.matched_no_of_rows}}/{{product.no_of_rows}}</td>
+                                          <td>{{getApproxTime(product.no_of_rows)}}</td>
+                                          <td>{{product.status ? 'Completed' : 'Pending'}}</td>
+                                          <td class="d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn btn-sm btn-primary mr-1"
+                                                      [disabled]="product.status ? false : true"
+                                                      (click)="loadAIMatchData(product.id)">
+                                                      Load Data
+                                                </button>
+
+                                          </td>
+
+
+
+                                    </tr>
+
+
+
+
+                              </tbody>
+
+                        </table>
+                  </div>
+                  <button type="button" class="px-2 trackingsubmitb" style="margin: 20px;" (click)="refreshPSGStatus()">
+                        Refresh Status
+                  </button>
+            </div>
+            <ng-container *ngIf="!progressPSGTab">
+
+                  <div class="col-12 mt-2 d-flex gap-3 align-items-end">
+                        <div class="col-4 mt-2">
+                              <label for="fname ">Attachments</label>
+                              <p-toast></p-toast>
+                              <div class="d-flex justify-content-end border rounded ct_upload_btn1 et_btn_h_38_900">
+                                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
+                                          chooseLabel="Please select a File"
+                                          (onSelect)="onFileSelected($event.files)"></p-fileUpload>
+                              </div>
+                        </div>
+                        <!-- <button type="submit" class="px-4 trackingsubmitb">
+                              Submit
+                        </button> -->
+                        <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+                  </div>
+
+            </ng-container>
+      </div>
+      <!-- <div class="col-12 mt-5 pt-3 ml-3 text-center">
+            <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+      </div> -->
+</form>

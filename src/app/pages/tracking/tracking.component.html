@@ -1,6 +1,6 @@
 <div class="container-fluid px-0 mt-4">
     <div class="row mb-0 pt-0">
-   
+
     </div>
     <div class="row pt-2 ml-0 mx-0 px-0">
         <div class="col-lg-3  mb-4  px-2">
@@ -46,15 +46,15 @@
                                                     class="selectmonth col card justify-content-center ct_month_select_clr ct_multi_input_38 ct_month_light_green">
                                                     <p-multiSelect [options]="months" placeholder="Months" name="months"
                                                         [(ngModel)]="selectMonths" styleClass="pcalender"
-                                                        optionLabel="name" (onChange)="onMonthsChange($event)"></p-multiSelect>
+                                                        optionLabel="name"
+                                                        (onChange)="onMonthsChange($event)"></p-multiSelect>
                                                 </div>
                                                 <div
                                                     class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
                                                     <p-calendar class="w-100" ngModel name="year" year
                                                         [(ngModel)]="year" styleClass="pcalender" view="year"
                                                         dateFormat="yy" inputId="yearpicker"
-                                                        (ngModelChange)="onYearChange()"
-                                                        [showIcon]="true"></p-calendar>
+                                                        (ngModelChange)="onYearChange()" [showIcon]="true"></p-calendar>
                                                 </div>
                                             </div>
                                             <!-- <div class="searchWidthDP form-group has-search ct_calander_input ">
@@ -169,8 +169,7 @@
                                                     <p-calendar class="w-100" ngModel name="year" year
                                                         [(ngModel)]="year" styleClass="pcalender" view="year"
                                                         dateFormat="yy" inputId="yearpicker"
-                                                        (ngModelChange)="onYearChange()"
-                                                        [showIcon]="true"></p-calendar>
+                                                        (ngModelChange)="onYearChange()" [showIcon]="true"></p-calendar>
                                                 </div>
                                             </div>
                                             <!-- <div class="searchWidthDP form-group has-search ct_calander_input ">
@@ -285,15 +284,12 @@
                                                                             </div>
                                                                         </div>
                                                                         <p-accordion>
-
-
                                                                             <p-accordionTab
                                                                                 class="ct_business_drop_12_main position-relative"
                                                                                 header="Business Travel"
                                                                                 *ngIf="head.manageDataPointCategorySeedID ==13"
                                                                                 clickable (click)="
-                                                                                ToggleClick(
-                                                                                    )
+                                                                                ToggleClick();
                                                                             " pTooltip="{{ child.subCatName }}">
                                                                                 <div
                                                                                     class="iicon ct_business_icon_info12">
@@ -305,22 +301,28 @@
 
                                                                                 <ul class="ct_dropdwon_item"
                                                                                     [class.ct_open_modal]="isVisited == true">
-                                                                                    <li (click)="setActive(24)">Flight
+                                                                                    <li
+                                                                                        (click)="setActive(24,  child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Flight
                                                                                     </li>
-                                                                                    <li (click)="setActive(25)">Hotel
+                                                                                    <li
+                                                                                        (click)="setActive(25,  child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Hotel
                                                                                         Stay
                                                                                     </li>
-                                                                                    <li (click)="setActive(26)">Other
+                                                                                    <li
+                                                                                        (click)="setActive(26,  child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Other
                                                                                         Modes
                                                                                         of Transport
                                                                                     </li>
                                                                                 </ul>
                                                                             </p-accordionTab>
                                                                         </p-accordion>
-
                                                                     </div>
-
-
                                                                 </ng-container>
                                                             </ng-container>
                                                         </ng-container>
@@ -349,8 +351,7 @@
                                                     <p-calendar class="w-100" ngModel name="year" year
                                                         [(ngModel)]="year" styleClass="pcalender" view="year"
                                                         dateFormat="yy" inputId="yearpicker"
-                                                        (ngModelChange)="onYearChange()"
-                                                        [showIcon]="true"></p-calendar>
+                                                        (ngModelChange)="onYearChange()" [showIcon]="true"></p-calendar>
                                                 </div>
                                             </div>
                                             <!-- <div class="searchWidthDP form-group has-search ct_calander_input ">
@@ -406,12 +407,21 @@
 
                                                                                 <ul class="ct_dropdwon_item"
                                                                                     [class.ct_open_modal]="isVisited == true">
-                                                                                    <li (click)="setActive(24)">Flight
+                                                                                    <li
+                                                                                        (click)="setActive(24, child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Flight
                                                                                     </li>
-                                                                                    <li (click)="setActive(25)">Hotel
+                                                                                    <li
+                                                                                        (click)="setActive(25, child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Hotel
                                                                                         Stay
                                                                                     </li>
-                                                                                    <li (click)="setActive(26)">Other
+                                                                                    <li
+                                                                                        (click)="setActive(26, child,
+                                                                                    head.manageDataPointCategorySeedID, head.catName)">
+                                                                                        Other
                                                                                         Modes
                                                                                         of Transport
                                                                                     </li>
@@ -474,11 +484,13 @@
                         </p-tabPanel>
 
                         <p-tabPanel header="Status">
-                          <app-status-table [categoryId]="categoryId" [data]="dataEntriesPending" [businessId]="businessId"></app-status-table>
+                            <app-status-table [categoryId]="categoryId" [data]="dataEntriesPending"
+                                [businessId]="businessId"></app-status-table>
                         </p-tabPanel>
 
                         <p-tabPanel header="Settings">
-                            <app-settings-table [categoryId]="categoryId" [data]="dataEntriesPending" [businessId]="businessId"></app-settings-table>
+                            <app-settings-table [categoryId]="categoryId" [data]="dataEntriesPending"
+                                [businessId]="businessId"></app-settings-table>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
@@ -490,7 +502,7 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="true">
     <p style="color: white"> </p>
 </ngx-spinner>
-    <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
 
 
