@@ -1,1 +1,292 @@
-<p>upstream-transportation works!</p>
+<div class="row text-white border-bottom">
+      <div class="d-flex align-items-center justify-content-between w-100">
+            <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+                  Upstream Transportation and Distribution
+            </p>
+            <div class="ct_how_use_tooltip_main">
+                  <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                  <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                        <div>
+                              <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
+                                    stationary sources owned or controlled by an organization. These
+                                    sources include equipment and systems that are fixed in place, such
+                                    as boilers, furnaces, turbines, and other types of heating and
+                                    power-generating equipment.
+                              </p>
+                              <ol>
+                                    <li>Liquid fuels: Emissions resulting from the combustion of liquid
+                                          fuels in stationary sources are a significant part of an
+                                          organization’s overall carbon footprint due to the widespread
+                                          use of liquid fuels such as gasoline, diesel, fuel oil,
+                                          kerosene, and others.
+                                    </li>
+                                    <li>Solid fuels: These fuels typically include coal, peat, and other
+                                          solid materials used for heating, power generation, or
+                                          industrial processes.
+                                    </li>
+                                    <li>Gaseous fuels: These fuels are typically in a gaseous state at
+                                          normal atmospheric conditions and include natural gas, propane,
+                                          butane, and other similar gases used for heating, power
+                                          generation, and transportation.
+                                    </li>
+                                    <li>Biofuels: Biofuels are derived from renewable biomass sources
+                                          such as plant matter, agricultural residues, or waste materials.
+                                    </li>
+                                    <li>Biomass: Biomass refers to organic materials derived from plants
+                                          or animals that can be used as fuel. This includes wood,
+                                          agricultural residues, animal waste, and dedicated energy crops.
+                                    </li>
+                                    <li>Biogas: Biogas is a renewable energy source produced through the
+                                          anaerobic digestion or fermentation of organic materials such as
+                                          agricultural residues, food waste, sewage sludge, or energy
+                                          crops.
+                                    </li>
+                              </ol>
+
+                              <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
+                                    emissions in a company, follow these steps:
+                              </h5>
+                              <ol>
+                                    <li>Identify stationary combustion sources - Determine which
+                                          equipment and facilities generate emissions, such as: Boilers,
+                                          Furnaces, Generators, Heaters, Chillers
+                                    </li>
+                                    <li>Collect fuel consumption data:
+                                          Fuel Purchase Records - Collect data from fuel purchase receipts
+                                          and invoices.
+                                          Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
+                                          and equipment.
+                                          Meter Readings - Use meter readings for equipment that consumes
+                                          liquid fuels.
+                                          Operational Records - Document hours of operation for
+                                          fuel-consuming equipment
+                                    </li>
+                                    <li>Relevant departments for collecting the data - Production
+                                          department, Operational department
+                                    </li>
+                              </ol>
+                              <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                                    emissions
+                              </h5>
+                              <ol>
+                                    <li>Select the months and year for which you want to enter the
+                                          emissions data. If you select multiple months, same data will be
+                                          replicated for the months selected.
+                                    </li>
+                                    <li>Once submitted, data is sent for approval. Manager of facility
+                                          or the admin has approval rights. Only the approved data is
+                                          included in emissions calculations. You can check the approval
+                                          status in ‘Status’ tab
+                                    </li>
+                                    <li>User can attach the bills, invoices as attachment for record
+                                          purpose.
+                                    </li>
+                              </ol>
+
+                              <h5 class="ct_fs_16 ">Guidance on input fields</h5>
+                              <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
+                                    blend% of biofuel (bioethanol / biodiesel). Final emission factor is
+                                    the weighted average of emission factor for 100% mineral petrol /
+                                    diesel and biofuel. Average blend type assumes 7% blend perc.
+                              </p>
+                              <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
+                                    Gross CV of the fuel is entered, it overwrites the average CV.
+                              </p>
+
+                        </div>
+
+
+                        <p class="ct_fs_16 ">Emissions occur directly from the leakage or
+                              discharge of the extinguishing agents. The fire extinguishers must
+                              be owned or controlled by the organization. Common agents include
+                              halons, HFCs, and other fluorinated gases.
+                        </p>
+                        <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
+                              extinguishers owned by company, follow these steps:
+                        </h5>
+                        <ol>
+                              <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
+                                    halon).
+                              </li>
+                              <li>Location of each fire extinguisher within the facility.
+                              </li>
+                              <li>Relevant departments for collecting the data - Environment,
+                                    Health and Safety/ Facilities Management department
+                              </li>
+                        </ol>
+                        <p>You can download the ‘Fire Extinguisher
+                  </div>
+            </div>
+      </div>
+</div>
+<form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+      <div class="trackingFooter">
+            <div class="row mt-4 mb-3  pb-4 mx-2">
+                  <label for="">VEHICLES</label>
+                  <p-inputSwitch [(ngModel)]="vehcilestransporationchecked"
+                        [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+                  <label class="ml-3" for="">STORAGE FACILITY</label>
+                  <p-inputSwitch [(ngModel)]="storageTransporationChecked"
+                        [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+                  <div class="col-12">
+                        <div class="mt-4" *ngIf="vehcilestransporationchecked">
+                              <h5 class="mb-4">VEHICLES</h5>
+                              <div class="row">
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Vehicle types</label>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="VehicleGrid" optionLabel="vehicle_type"
+                                                      optionValue="id" name="vehicle_type"
+                                                      (onChange)="onVehicleTypeChange($event)"
+                                                      [(ngModel)]="upstreamVehicletypeId"
+                                                      [ngModelOptions]="{standalone: true}">
+                                                </p-dropdown>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <div class="mb-4  " style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Mass of Products
+                                                      Transported</label>
+                                                <div class="position-relative">
+                                                      <input type="number" placeholder="Enter Mass of Products"
+                                                            class="form-control Dashboard-tab text-white"
+                                                            name="mass_of_products" required ngModel
+                                                            #mass_of_products="ngModel" />
+                                                      <!-- <p-dropdown
+                                                                    class="ct_select_op_input ct_position_small_quantity"
+                                                                    ngModel [options]="upstreamMassUnitsGrid"
+                                                                    optionLabel="units" optionValue="units"
+                                                                    name="mass_unit" #upfacilityUnits="ngModel">
+                                                                </p-dropdown> -->
+                                                      <div class="ct_quantity_text">
+                                                            <p>tonnes</p>
+                                                      </div>
+                                                      <!-- <p class="validation"
+                                                                *ngIf="mass_of_products.invalid && dataEntryForm.submitted">
+                                                                Mass of products value required
+                                                            </p> -->
+                                                </div>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <div class="mb-4 " style="gap: 10px;">
+                                                <label class="ct_text_wrape">Sub Category</label>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="subVehicleCategory" optionLabel="vehicle_type"
+                                                      optionValue="vehicle_type"
+                                                      (onChange)="onSubCategoryVehicleChange($event)"
+                                                      [(ngModel)]="subVehicleCategoryValue"
+                                                      [ngModelOptions]="{standalone: true}">
+                                                </p-dropdown>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Distance Travelled by
+                                                      Product</label>
+
+                                                <div class="position-relative">
+
+                                                      <input type="number" class="form-control Dashboard-tab text-white"
+                                                            placeholder="Enter Distance" name="distanceInKms" required
+                                                            ngModel #distanceInKms="ngModel" />
+                                                      <!-- <p-dropdown
+                                                                    class="ct_select_op_input ct_position_small_quantity"
+                                                                    ngModel [options]="distanceTravelled"
+                                                                    optionLabel="unit" optionValue="unit"
+                                                                    name="distance_unit" #upfacilityUnits="ngModel">
+                                                                </p-dropdown> -->
+                                                      <div class="ct_quantity_text">
+                                                            <p>km</p>
+                                                      </div>
+                                                      <!-- <p class="validation"
+                                                                *ngIf="distanceInKms.invalid && dataEntryForm.submitted">
+                                                                Distance Travelled by
+                                                                Product value required
+                                                            </p> -->
+
+                                                </div>
+
+
+                                          </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">No. of Vehicles</label>
+                                                <div class="position-relative">
+                                                      <input type="number" class="form-control Dashboard-tab text-white"
+                                                            name="noOfVehicles" required ngModel #noOfVehicles="ngModel"
+                                                            placeholder="Enter no of vehicles" />
+                                                      <!-- <p class="validation"
+                                                                *ngIf="noOfVehicles.invalid && dataEntryForm.submitted">
+                                                                No. of Vehicles value required
+                                                            </p> -->
+                                                </div>
+
+
+                                          </div>
+                                    </div>
+
+                              </div>
+
+                        </div>
+                        <div class="mt-4" *ngIf="storageTransporationChecked">
+                              <h5 class="mb-4">STORAGE FACILITY</h5>
+                              <div class="row">
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Storage Facility
+                                                      Type</label>
+                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="storageGrid" [(ngModel)]="storage_type"
+                                                      [ngModelOptions]="{standalone: true}" optionLabel="storagef_type"
+                                                      optionValue="storagef_type">
+                                                </p-dropdown>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <div class="mb-4  " style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Area Occupied</label>
+                                                <div class="position-relative">
+                                                      <input type="number" class="form-control Dashboard-tab text-white"
+                                                            placeholder="Enter Area Occupied" name="area_occupied"
+                                                            ngModel />
+
+                                                      <!-- <p-dropdown
+                                                                    class="ct_select_op_input ct_position_small_quantity"
+                                                                    ngModel [options]="facilityUnits"
+                                                                    optionLabel="energyTypes" optionValue="energyTypes"
+                                                                    name="area_unit" #upfacilityUnits="ngModel">
+                                                                </p-dropdown> -->
+                                                      <div class="ct_quantity_text">
+                                                            <p>m<sup>2</sup></p>
+                                                      </div>
+
+
+                                                </div>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">No. of Days of
+                                                      Storage</label>
+                                                <div class="position-relative">
+                                                      <input type="number" placeholder="Enter No. of Days of Storage"
+                                                            class="form-control Dashboard-tab text-white"
+                                                            name="averageNoOfDays" ngModel />
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+
+                        </div>
+                  </div>
+                  <div class="col-12 mt-2 pt-3 ml-3 text-center">
+                        <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+                  </div>
+            </div>
+      </div>
+</form>

@@ -66,6 +66,55 @@ body {
     ;
 }
 
+ .ct_quantity_text {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: rgba(136, 173, 71, 0.75);
+    color: #6c757d;
+    width: auto;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 38px;
+    padding-inline: 5px;
+    white-space: nowrap;
+  }
+  .ct_quantity_text p{
+    margin-bottom: 0px;
+    font-size: 14px;
+  }
+
+  .ct_home_office_table th{
+    padding-block: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: rgba(136, 173, 71, 0.75) !important;
+}
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+.ct_home_office_table th:first-child {
+    border-radius: 5px 0px 0px 0px;
+}
+.table .thead-dark th {
+    border-color: #dee2e6;
+}
+
+.et_plusadd_455{
+  height: 28px !important;
+  padding: 0px !important;
+  width: 28px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
 // ::-webkit-scrollbar {
 //     width: 0px !important;
 //     background: transparent;
