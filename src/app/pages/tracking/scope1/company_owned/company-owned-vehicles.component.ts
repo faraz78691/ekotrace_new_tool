@@ -354,6 +354,9 @@ export class CompanyOwnedVehiclesComponent {
                         // this.toastr.warning(response.message);
                         this.VehicleType = [];
                     }
+                },
+                error: (err) => {
+                    this.VehicleType = [];
                 }
             })
         }

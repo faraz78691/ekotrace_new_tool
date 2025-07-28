@@ -100,8 +100,10 @@ export class HeatSteamComponent {
 
 
   EntrySave(dataEntryForm: NgForm) {
-    console.log(dataEntryForm.value);
     if (dataEntryForm.invalid) {
+      Object.values(dataEntryForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
       return;
     }
     this.isSubmitting = true;

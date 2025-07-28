@@ -90,8 +90,8 @@
                     </p-dropdown>
                 </div>
 
-
-                <p class="validation" *ngIf="myControl.errors?.['required']  && dataEntryForm.submitted">
+                <p class="validation"
+                    *ngIf="myControl.errors?.['required']  && dataEntryForm.submitted && myControl.touched">
                     Reading value required.
                 </p>
             </div>
@@ -106,21 +106,9 @@
             "></p-fileUpload>
                 </div>
             </div>
-
-
-
-
-
-
-
-
         </div>
         <div class="col-12 mt-5 pt-3 ml-3 text-center">
             <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
         </div>
-
-
-
-
     </div>
 </form>

@@ -82,7 +82,8 @@
                         [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}" [options]="units"
                         optionLabel="UnitName" optionValue="UnitName"></p-dropdown>
                 </div>
-                <p class="validation" *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted">
+                <p class="validation"
+                    *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted && readingvalueLocation.touched">
                     Reading value required.
                 </p>
             </div>
@@ -93,10 +94,6 @@
                     optionLabel="RegionName" optionValue="RegionID" [(ngModel)]="regionId"
                     [ngModelOptions]="{standalone: true}"></p-dropdown>
             </div>
-
-
-
-
         </div>
 
         <ng-container *ngIf="subCategoryID ==1002">
@@ -121,7 +118,8 @@
                                 [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"></p-dropdown>
                         </div>
 
-                        <p class="validation" *ngIf="readingValueREnew.errors?.['required'] && dataEntryForm.submitted">
+                        <p class="validation"
+                            *ngIf="readingValueREnew.errors?.['required'] && dataEntryForm.submitted && readingValueREnew.touched">
                             Reading value required.
                         </p>
                     </div>
@@ -163,7 +161,7 @@
                         </div>
 
                         <p class="validation"
-                            *ngIf="readingSupplierValue.errors?.['required'] && dataEntryForm.submitted">
+                            *ngIf="readingSupplierValue.errors?.['required'] && dataEntryForm.submitted && readingSupplierValue.touched">
                             Reading value required.
                         </p>
                     </div>
