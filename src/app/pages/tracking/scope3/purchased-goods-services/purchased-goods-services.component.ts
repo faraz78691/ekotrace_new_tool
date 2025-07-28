@@ -79,6 +79,20 @@ export class PurchasedGoodsServicesComponent {
   uploadButton = false;
   superAdminID: number;
   allPRoducts: any;
+  monthsTable: any[] = [
+    { name: 'Jan', value: 'Jan' },
+    { name: 'Feb', value: 'Feb' },
+    { name: 'Mar', value: 'Mar' },
+    { name: 'Apr', value: 'Apr' },
+    { name: 'May', value: 'May' },
+    { name: 'June', value: 'Jun' },
+    { name: 'July', value: 'Jul' },
+    { name: 'Aug', value: 'Aug' },
+    { name: 'Sep', value: 'Sep' },
+    { name: 'Oct', value: 'Oct' },
+    { name: 'Nov', value: 'Nov' },
+    { name: 'Dec', value: 'Dec' }
+];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService) {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
