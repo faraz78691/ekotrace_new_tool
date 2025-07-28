@@ -108,17 +108,7 @@ export class TrackingService {
             year
         );
     }
-    public checkEntry(month, year, subCatId): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/checkEntry/' +
-            month +
-            '/' +
-            year +
-            '/' +
-            subCatId
-        );
-    }
+
     public UpdateEntry(Entries: DataEntry[]) {
         return this.http.put(
             environment.baseUrl + 'Tracking/UpdateDataEntries',

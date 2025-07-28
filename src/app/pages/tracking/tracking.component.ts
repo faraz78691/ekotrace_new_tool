@@ -71,6 +71,7 @@ export class TrackingComponent {
     activeID: any
 
     async SubCatData(child: any, categoryID: number, catName: string, businessId?: number) {
+        console.log(categoryID);
         this.activeID = child.manageDataPointSubCategorySeedID
         const year = this.trackingService.getYear(this.year);
         this.categoryId = categoryID;
@@ -101,18 +102,13 @@ export class TrackingComponent {
 
 
     onYearChange() {
-
         this.dataEntry.month = this.trackingService.getMonthName(this.month);
         const year = this.trackingService.getYear(this.year);
 
         this.facilityService.yearSignal.set(year.toString());
-        this.checkEntry(
-            this.dataEntry.month,
-            this.dataEntry.year,
-            this.SubCatAllData.id
-        );
+    
 
-        this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
+        // this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
     }
 
     onTabChange(event: any) {
@@ -1957,23 +1953,7 @@ export class TrackingComponent {
     };
 
 
-    //checkEntry function for checking if an entry exists for a specific month, year, and subcategory.
-    checkEntry(month, year, subcatID) {
-        this.trackingService.checkEntry(month, year, subcatID).subscribe({
-            next: (response) => {
-
-                if (response == environment.NoEntry) {
-                    this.entryExist = false;
-                    this.dataEntry = new DataEntry();
-                } else {
-                    this.entryExist = true;
-
-                    this.dataEntry = response;
-                    this.dataEntry = new DataEntry();
-                }
-            }
-        });
-    };
+  
 
 
 
