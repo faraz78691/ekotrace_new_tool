@@ -68,9 +68,10 @@ export class TrackingComponent {
 
     dynamicComponent: any = null;
 
+    activeID: any
 
     async SubCatData(child: any, categoryID: number, catName: string, businessId?: number) {
-
+        this.activeID = child.manageDataPointSubCategorySeedID
         const year = this.trackingService.getYear(this.year);
         this.categoryId = categoryID;
         this.ALLEntries();
@@ -94,7 +95,7 @@ export class TrackingComponent {
     onMonthsChange(event: any) {
         const monthString = JSON.stringify(this.selectMonths.map(m => m.value));
         this.facilityService.monthSignal.set(monthString);
-        
+
     };
 
 
@@ -103,14 +104,14 @@ export class TrackingComponent {
 
         this.dataEntry.month = this.trackingService.getMonthName(this.month);
         const year = this.trackingService.getYear(this.year);
-      
+
         this.facilityService.yearSignal.set(year.toString());
         this.checkEntry(
             this.dataEntry.month,
             this.dataEntry.year,
             this.SubCatAllData.id
         );
-       
+
         this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
     }
 
@@ -3455,7 +3456,6 @@ export class TrackingComponent {
 
 
     setActive(index: number, child: any, categoryID: number, catName: string): void {
-
         this.categoryId = 13;
         this.businessId = index;
         this.ALLEntries();

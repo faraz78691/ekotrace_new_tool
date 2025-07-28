@@ -1,7 +1,14 @@
-<div class="row text-white border-bottom">
-    <div class="d-flex align-items-center justify-content-between w-100">
+<div class="row text-white">
+    <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-            Stationary combustion
+            {{
+       subCategoryID === 1 ? "Liquid Fuels" :
+       subCategoryID === 2 ? "Solid Fuels" :
+         subCategoryID === 3 ? "Gaseous Fuels" :
+        subCategoryID === 4 ? "Biofuels" :
+        subCategoryID === 5 ? "Biomass" : 
+         subCategoryID === 6 ? "Biogas" : ""
+  }}
         </p>
         <div class="ct_how_use_tooltip_main">
             <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
@@ -92,38 +99,7 @@
                     <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
                         Gross CV of the fuel is entered, it overwrites the average CV.
                     </p>
-
                 </div>
-
-
-                <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                    discharge of the extinguishing agents. The fire extinguishers must
-                    be owned or controlled by the organization. Common agents include
-                    halons, HFCs, and other fluorinated gases.
-                </p>
-                <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                    extinguishers owned by company, follow these steps:
-                </h5>
-                <ol>
-                    <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                        halon).
-                    </li>
-                    <li>Location of each fire extinguisher within the facility.
-                    </li>
-                    <li>Relevant departments for collecting the data - Environment,
-                        Health and Safety/ Facilities Management department
-                    </li>
-                </ol>
-                <p>You can download the ‘Fire Extinguisher
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -183,8 +159,7 @@
                                     " tooltipPosition="top" style="color: #88ad47"></i>
                     <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 
                                 " [options]="blendType" optionLabel="typeName" optionValue="typeName"
-                         [(ngModel)]="selectedBlend"
-                        [ngModelOptions]="{standalone: true}"></p-dropdown>
+                        [(ngModel)]="selectedBlend" [ngModelOptions]="{standalone: true}"></p-dropdown>
                 </div>
 
                 <div class="col-lg-6 mt-4" *ngIf="selectedBlend == 'Perc. Blend'">
@@ -217,9 +192,5 @@
         <div class="col-12 mt-5 pt-3 ml-3 text-center">
             <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
         </div>
-
-
-
-
     </div>
 </form>

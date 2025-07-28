@@ -1,5 +1,5 @@
-<div class="row text-white border-bottom">
-    <div class="d-flex align-items-center justify-content-between w-100">
+<div class="row text-white">
+    <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
             {{subCategoryID == 9 ? 'Location Based' : 'Market Based'}}
         </p>
@@ -7,123 +7,62 @@
             <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
-                    <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
-                        stationary sources owned or controlled by an organization. These
-                        sources include equipment and systems that are fixed in place, such
-                        as boilers, furnaces, turbines, and other types of heating and
-                        power-generating equipment.
+                    <p class="ct_fs_16 mb-1"> Emissions associated with the generation of
+                        purchased electricity used by a company. These emissions are
+                        indirect, as they occur outside of the company's direct operations,
+                        but are still related to its activities.
                     </p>
                     <ol>
-                        <li>Liquid fuels: Emissions resulting from the combustion of liquid
-                            fuels in stationary sources are a significant part of an
-                            organization’s overall carbon footprint due to the widespread
-                            use of liquid fuels such as gasoline, diesel, fuel oil,
-                            kerosene, and others.
+                        <li>
+                            <span class="ct_fw_600">Market-based:</span> This method
+                            considers specific purchasing decisions including contracts for
+                            renewable energy credits (RECs) or guarantees of origin (GOs),
+                            which allow organizations to report lower emissions if they
+                            purchase electricity from renewable sources.
+
                         </li>
-                        <li>Solid fuels: These fuels typically include coal, peat, and other
-                            solid materials used for heating, power generation, or
-                            industrial processes.
-                        </li>
-                        <li>Gaseous fuels: These fuels are typically in a gaseous state at
-                            normal atmospheric conditions and include natural gas, propane,
-                            butane, and other similar gases used for heating, power
-                            generation, and transportation.
-                        </li>
-                        <li>Biofuels: Biofuels are derived from renewable biomass sources
-                            such as plant matter, agricultural residues, or waste materials.
-                        </li>
-                        <li>Biomass: Biomass refers to organic materials derived from plants
-                            or animals that can be used as fuel. This includes wood,
-                            agricultural residues, animal waste, and dedicated energy crops.
-                        </li>
-                        <li>Biogas: Biogas is a renewable energy source produced through the
-                            anaerobic digestion or fermentation of organic materials such as
-                            agricultural residues, food waste, sewage sludge, or energy
-                            crops.
+                        <li>
+                            <span class="ct_fw_600">Location based:</span> This method
+                            calculates emissions based on the average emissions intensity of
+                            the grid where the electricity is consumed.
+
                         </li>
                     </ol>
-
-                    <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
-                        emissions in a company, follow these steps:
+                    <h5 class="mb-0 ct_fs_16">To collect emissions data for electricity
+                        purchased by the company, follow these steps:
                     </h5>
                     <ol>
-                        <li>Identify stationary combustion sources - Determine which
-                            equipment and facilities generate emissions, such as: Boilers,
-                            Furnaces, Generators, Heaters, Chillers
+                        <li>Utility Bills and Invoices- Obtain electricity bills from
+                            utility providers or invoices that detail the amount of
+                            electricity consumed during the reporting period.
                         </li>
-                        <li>Collect fuel consumption data:
-                            Fuel Purchase Records - Collect data from fuel purchase receipts
-                            and invoices.
-                            Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
-                            and equipment.
-                            Meter Readings - Use meter readings for equipment that consumes
-                            liquid fuels.
-                            Operational Records - Document hours of operation for
-                            fuel-consuming equipment
+                        <li>Meter Readings - Monitor and record meter readings regularly to
+                            track electricity consumption accurately.
                         </li>
-                        <li>Relevant departments for collecting the data - Production
-                            department, Operational department
+                        <li>Relevant departments for collecting the data - Energy Management
+                            or Facilities Management Department
                         </li>
                     </ol>
-                    <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                    <h5 class="ct_fs_16 mb-0">How to use the tool for entering data
                         emissions
                     </h5>
                     <ol>
                         <li>Select the months and year for which you want to enter the
-                            emissions data. If you select multiple months, same data will be
-                            replicated for the months selected.
+                            electricity data. If you select multiple months, same data will
+                            be replicated for the months selected.
                         </li>
-                        <li>Once submitted, data is sent for approval. Manager of facility
-                            or the admin has approval rights. Only the approved data is
-                            included in emissions calculations. You can check the approval
-                            status in ‘Status’ tab
+                        <li>For ‘Location based’ electricity, user can either select country
+                            average for the grid factor or state-based grid factors
+                            where-ever the data is available
                         </li>
-                        <li>User can attach the bills, invoices as attachment for record
-                            purpose.
+                        <li>
+                            For ‘Market based electricity’, RECs data is used to calculate
+                            avoided emissions.
                         </li>
                     </ol>
 
-                    <h5 class="ct_fs_16 ">Guidance on input fields</h5>
-                    <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
-                        blend% of biofuel (bioethanol / biodiesel). Final emission factor is
-                        the weighted average of emission factor for 100% mineral petrol /
-                        diesel and biofuel. Average blend type assumes 7% blend perc.
-                    </p>
-                    <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
-                        Gross CV of the fuel is entered, it overwrites the average CV.
-                    </p>
 
                 </div>
-
-
-                <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                    discharge of the extinguishing agents. The fire extinguishers must
-                    be owned or controlled by the organization. Common agents include
-                    halons, HFCs, and other fluorinated gases.
-                </p>
-                <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                    extinguishers owned by company, follow these steps:
-                </h5>
-                <ol>
-                    <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                        halon).
-                    </li>
-                    <li>Location of each fire extinguisher within the facility.
-                    </li>
-                    <li>Relevant departments for collecting the data - Environment,
-                        Health and Safety/ Facilities Management department
-                    </li>
-                </ol>
-                <p>You can download the ‘Fire Extinguisher
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -136,10 +75,12 @@
             <div class="col-lg-4">
                 <label for="fname">Reading Value</label>
                 <div class="position-relative">
-                    <input required ngModel name="readingvalueLocation" #readingvalueLocation="ngModel" placeholder="Enter value"
-                        readingvalue id="search-input" type="text" class="form-control Dashboard-tab text-white" />
-                    <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"
-                        [options]="units" optionLabel="UnitName" optionValue="UnitName" ></p-dropdown>
+                    <input required ngModel name="readingvalueLocation" #readingvalueLocation="ngModel"
+                        placeholder="Enter value" readingvalue id="search-input" type="text"
+                        class="form-control Dashboard-tab text-white" />
+                    <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
+                        [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}" [options]="units"
+                        optionLabel="UnitName" optionValue="UnitName"></p-dropdown>
                 </div>
                 <p class="validation" *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted">
                     Reading value required.
@@ -149,7 +90,8 @@
             <div class="col-lg-4">
                 <label for="fname">Grid</label>
                 <p-dropdown class="ct_select_op_input ct_chev_icon_dark230 " [options]="regionType"
-                    optionLabel="RegionName" optionValue="RegionID" [(ngModel)]="regionId" [ngModelOptions]="{standalone: true}"></p-dropdown>
+                    optionLabel="RegionName" optionValue="RegionID" [(ngModel)]="regionId"
+                    [ngModelOptions]="{standalone: true}"></p-dropdown>
             </div>
 
 
@@ -161,9 +103,9 @@
             <div class="row mt-4 mx-2">
                 <div class="col-lg-4">
                     <label for="fname">Type</label>
-                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"  [options]="marketTypes" optionLabel="Type"
-                        optionValue="id" [(ngModel)]="marketTypeId" [ngModelOptions]="{standalone: true}"
-                        (onChange)="marktetTypeChange($event)"></p-dropdown>
+                    <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="marketTypes"
+                        optionLabel="Type" optionValue="id" [(ngModel)]="marketTypeId"
+                        [ngModelOptions]="{standalone: true}" (onChange)="marktetTypeChange($event)"></p-dropdown>
                 </div>
             </div>
             <ng-container *ngIf="renewableSelected">
@@ -174,9 +116,9 @@
                             <input required ngModel name="readingValueREnew" #readingValueREnew="ngModel"
                                 placeholder="Enter value" readingvalue id="search-input" type="text"
                                 class="form-control Dashboard-tab text-white" />
-                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" 
-                                [options]="units" optionLabel="UnitName" optionValue="UnitName" [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"
-                               ></p-dropdown>
+                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
+                                [options]="units" optionLabel="UnitName" optionValue="UnitName"
+                                [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"></p-dropdown>
                         </div>
 
                         <p class="validation" *ngIf="readingValueREnew.errors?.['required'] && dataEntryForm.submitted">
@@ -196,8 +138,8 @@
 
             </ng-container>
             <ng-container *ngIf="supplierSelected">
-                <div class="row mt-4 mx-2" >
-                    <div  class="col-lg-4">
+                <div class="row mt-4 mx-2">
+                    <div class="col-lg-4">
                         <label for="fname">Supplier specific Emission Factor</label>
                         <div class=" position-relative">
                             <input required ngModel name="emission_factorS" #emission_factorS="ngModel"
@@ -209,22 +151,23 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-4" >
+                    <div class="col-lg-4">
                         <label for="fname">Value</label>
                         <div class=" position-relative">
-                            <input required ngModel name="readingSupplierValue" #readingSupplierValue="ngModel" placeholder="Enter value"
-                                 readingvalue id="search-input" type="number"
+                            <input required ngModel name="readingSupplierValue" #readingSupplierValue="ngModel"
+                                placeholder="Enter value" readingvalue id="search-input" type="number"
                                 class="form-control Dashboard-tab text-white" />
-                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity" 
+                            <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                                 [options]="units" optionLabel="UnitName" optionValue="UnitName"
-                                [(ngModel)]="unitSelected" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+                                [(ngModel)]="unitSelected" [ngModelOptions]="{standalone: true}"></p-dropdown>
                         </div>
-                
-                        <p class="validation" *ngIf="readingSupplierValue.errors?.['required'] && dataEntryForm.submitted">
+
+                        <p class="validation"
+                            *ngIf="readingSupplierValue.errors?.['required'] && dataEntryForm.submitted">
                             Reading value required.
                         </p>
                     </div>
-                  
+
 
                 </div>
 

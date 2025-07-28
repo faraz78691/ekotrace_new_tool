@@ -1,239 +1,177 @@
-<div class="row text-white border-bottom">
-      <div class="d-flex align-items-center justify-content-between w-100">
-            <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-                End of Life Treatment
-            </p>
-            <div class="ct_how_use_tooltip_main">
-                  <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
-                  <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
-                        <div>
-                              <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
-                                    stationary sources owned or controlled by an organization. These
-                                    sources include equipment and systems that are fixed in place, such
-                                    as boilers, furnaces, turbines, and other types of heating and
-                                    power-generating equipment.
-                              </p>
-                              <ol>
-                                    <li>Liquid fuels: Emissions resulting from the combustion of liquid
-                                          fuels in stationary sources are a significant part of an
-                                          organization’s overall carbon footprint due to the widespread
-                                          use of liquid fuels such as gasoline, diesel, fuel oil,
-                                          kerosene, and others.
-                                    </li>
-                                    <li>Solid fuels: These fuels typically include coal, peat, and other
-                                          solid materials used for heating, power generation, or
-                                          industrial processes.
-                                    </li>
-                                    <li>Gaseous fuels: These fuels are typically in a gaseous state at
-                                          normal atmospheric conditions and include natural gas, propane,
-                                          butane, and other similar gases used for heating, power
-                                          generation, and transportation.
-                                    </li>
-                                    <li>Biofuels: Biofuels are derived from renewable biomass sources
-                                          such as plant matter, agricultural residues, or waste materials.
-                                    </li>
-                                    <li>Biomass: Biomass refers to organic materials derived from plants
-                                          or animals that can be used as fuel. This includes wood,
-                                          agricultural residues, animal waste, and dedicated energy crops.
-                                    </li>
-                                    <li>Biogas: Biogas is a renewable energy source produced through the
-                                          anaerobic digestion or fermentation of organic materials such as
-                                          agricultural residues, food waste, sewage sludge, or energy
-                                          crops.
-                                    </li>
-                              </ol>
+<div class="row text-white">
+    <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
+        <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+            End-of-Life Treatment of Sold Products
+        </p>
+        <div class="ct_how_use_tooltip_main">
+            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+            <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
 
-                              <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
-                                    emissions in a company, follow these steps:
-                              </h5>
-                              <ol>
-                                    <li>Identify stationary combustion sources - Determine which
-                                          equipment and facilities generate emissions, such as: Boilers,
-                                          Furnaces, Generators, Heaters, Chillers
-                                    </li>
-                                    <li>Collect fuel consumption data:
-                                          Fuel Purchase Records - Collect data from fuel purchase receipts
-                                          and invoices.
-                                          Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
-                                          and equipment.
-                                          Meter Readings - Use meter readings for equipment that consumes
-                                          liquid fuels.
-                                          Operational Records - Document hours of operation for
-                                          fuel-consuming equipment
-                                    </li>
-                                    <li>Relevant departments for collecting the data - Production
-                                          department, Operational department
-                                    </li>
-                              </ol>
-                              <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
-                                    emissions
-                              </h5>
-                              <ol>
-                                    <li>Select the months and year for which you want to enter the
-                                          emissions data. If you select multiple months, same data will be
-                                          replicated for the months selected.
-                                    </li>
-                                    <li>Once submitted, data is sent for approval. Manager of facility
-                                          or the admin has approval rights. Only the approved data is
-                                          included in emissions calculations. You can check the approval
-                                          status in ‘Status’ tab
-                                    </li>
-                                    <li>User can attach the bills, invoices as attachment for record
-                                          purpose.
-                                    </li>
-                              </ol>
+                <div>
+                    <h5 class="mb-2 ct_fs_16">End-of-Life Treatment of Sold Products
+                    </h5>
+                    <p>Emissions from the disposal and treatment of products sold by the
+                        company at the end of their life. This includes recycling,
+                        landfilling, incineration, and other waste treatment processes.
+                    </p>
+                    <p>
+                        The emissions from downstream end-of-life treatment of sold products
+                        follows the calculation methods in category ‘waste generated in
+                        operations’, with the difference that instead of collecting data on
+                        total mass of waste generated in operations, companies should
+                        collect data on total mass of sold products (and packaging) from the
+                        point of sale by the reporting company through the end of life after
+                        use by consumers.
 
-                              <h5 class="ct_fs_16 ">Guidance on input fields</h5>
-                              <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
-                                    blend% of biofuel (bioethanol / biodiesel). Final emission factor is
-                                    the weighted average of emission factor for 100% mineral petrol /
-                                    diesel and biofuel. Average blend type assumes 7% blend perc.
-                              </p>
-                              <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
-                                    Gross CV of the fuel is entered, it overwrites the average CV.
-                              </p>
+                    </p>
 
-                        </div>
+                    <h5 class="mb-2 ct_fs_16">To collect emissions data for End-of-life
+                        (EoL) treatment of the products sold by company, follow these steps:
+                    </h5>
+                    <ol>
+                        <li>List all product categories that the company sells and determine
+                            which are relevant for EoL analysis.
+                        </li>
+                        <li>Determine the various EoL scenarios for each product category,
+                            such as recycling, incineration, landfilling, or composting.
+                        </li>
+                        <li>Gather data on the volume or weight of products that have
+                            reached the end of their life for each scenario.
+                        </li>
+                    </ol>
 
+                    <h5 class="ct_fs_16 mb-0">How to use the tool for entering data
+                        emissions
 
-                        <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                              discharge of the extinguishing agents. The fire extinguishers must
-                              be owned or controlled by the organization. Common agents include
-                              halons, HFCs, and other fluorinated gases.
-                        </p>
-                        <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                              extinguishers owned by company, follow these steps:
-                        </h5>
-                        <ol>
-                              <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                                    halon).
-                              </li>
-                              <li>Location of each fire extinguisher within the facility.
-                              </li>
-                              <li>Relevant departments for collecting the data - Environment,
-                                    Health and Safety/ Facilities Management department
-                              </li>
-                        </ol>
-                        <p>You can download the ‘Fire Extinguisher
-                  </div>
+                    </h5>
+                    <ol>
+                        <li>Select the type of waste generated and the product from dropdown
+                            list
+
+                        </li>
+                        <li>Enter the amount of total waste generated from sold goods. In
+                            many cases, total waste will be equal to the total products sold
+                            in reporting year. However, if the product is actually consumed
+                            (e.g., food and drink) the total waste is likely to be lower,
+                            and in other cases, such as products combusted to generate
+                            energy, could even be zero
+
+                        </li>
+                        <li>Enter the percentage of waste going to Landfill, Combustion,
+                            Recycling and Composting.
+                        </li>
+
+                    </ol>
+                </div>
             </div>
-      </div>
+        </div>
+    </div>
 </div>
 <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
 
-     <div class="trackingFooter" >
-                                    <div class="row mt-4 mb-3 mb-5 pb-5 mx-2">
+    <div class="trackingFooter">
+        <div class="row mt-4 mb-3 mb-5 pb-5 mx-2">
 
-                                        <div class="col-12">
-                                            <div class=" mt-0">
-
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-4" style="gap: 10px;">
-                                                            <label class=" ct_text_wrape">Waste type</label>
-                                                            <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"
-                                                                 [options]="wasteGrid" optionLabel="type"
-                                                                optionValue="id" [(ngModel)]="waterWasteId" [ngModelOptions]="{standalone: true}"
-                                                                (onChange)="onWasteTypeChange($event)">
-                                                            </p-dropdown>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-4" style="gap: 10px;">
-                                                            <label class=" ct_text_wrape">Product category</label>
-                                                            <p-dropdown class="ct_select_op_input ct_chev_icon_dark230"
-                                                                 [options]="wasteSubTypes" optionLabel="type"
-                                                                optionValue="type" [(ngModel)]="wasteSubCategory" [ngModelOptions]="{standalone: true}">
-                                                            </p-dropdown>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
+            <div class="col-12">
+                <div class=" mt-0">
 
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-4" style="gap: 10px;">
-                                                            <label class=" ct_text_wrape">Total waste generated from
-                                                                sold goods</label>
-                                                            <div class="position-relative">
-                                                                <input type="number" placeholder="Enter water generated"
-                                                                    name="total_waste" ngModel
-                                                                    class="form-control  text-white" />
-                                                                <!-- <p-dropdown
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4" style="gap: 10px;">
+                                <label class=" ct_text_wrape">Waste type</label>
+                                <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="wasteGrid"
+                                    optionLabel="type" optionValue="id" [(ngModel)]="waterWasteId"
+                                    [ngModelOptions]="{standalone: true}" (onChange)="onWasteTypeChange($event)">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4" style="gap: 10px;">
+                                <label class=" ct_text_wrape">Product category</label>
+                                <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="wasteSubTypes"
+                                    optionLabel="type" optionValue="type" [(ngModel)]="wasteSubCategory"
+                                    [ngModelOptions]="{standalone: true}">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4" style="gap: 10px;">
+                                <label class=" ct_text_wrape">Total waste generated from
+                                    sold goods</label>
+                                <div class="position-relative">
+                                    <input type="number" placeholder="Enter water generated" name="total_waste" ngModel
+                                        class="form-control  text-white" />
+                                    <!-- <p-dropdown
                                                                     class="ct_select_op_input ct_position_small_quantity"
                                                                     ngModel [options]="wasteUnitsGrid" [disabled]="true"
                                                                     optionLabel="units" optionValue="units"
                                                                     name="wasteUnits" #wasteUnits="ngModel">
                                                                 </p-dropdown> -->
-                                                                <div class="ct_quantity_text">
-                                                                    <p>tonnes</p>
-                                                                </div>
-                                                                <!-- <div class="ct_quantity_text">
+                                    <div class="ct_quantity_text">
+                                        <p>tonnes</p>
+                                    </div>
+                                    <!-- <div class="ct_quantity_text">
                                                             </div> -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                                </div>
+                    </div>
 
-                                                <div class="row ct_home_office_table border-0">
-                                                    <table class="table w-50 table-bordered">
-                                                        <thead class="thead-dark">
-                                                            <tr>
+                    <div class="row ct_home_office_table border-0">
+                        <table class="table w-50 table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
 
-                                                                <th scope="col">Type</th>
-                                                                <th scope="col">% of waste going to</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">% of waste going to</th>
 
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
 
-                                                                <td>Landfill</td>
-                                                                <td><input type="number"
-                                                                        class="form-control ct_fit-content"
-                                                                        name="landfill" ngModel
-                                                                        placeholder="Enter waste">
-                                                                </td>
+                                    <td>Landfill</td>
+                                    <td><input type="number" class="form-control ct_fit-content" name="landfill" ngModel
+                                            placeholder="Enter waste">
+                                    </td>
 
-                                                            </tr>
-                                                            <tr>
+                                </tr>
+                                <tr>
 
-                                                                <td>Combustion</td>
-                                                                <td><input type="number"
-                                                                        class="form-control ct_fit-content"
-                                                                        name="combustion" ngModel
-                                                                        placeholder="Enter waste">
-                                                                </td>
+                                    <td>Combustion</td>
+                                    <td><input type="number" class="form-control ct_fit-content" name="combustion"
+                                            ngModel placeholder="Enter waste">
+                                    </td>
 
-                                                            </tr>
-                                                            <tr>
+                                </tr>
+                                <tr>
 
-                                                                <td>Recycling</td>
-                                                                <td><input type="number"
-                                                                        class="form-control ct_fit-content"
-                                                                        name="recycling" ngModel
-                                                                        placeholder="Enter waste">
-                                                                </td>
+                                    <td>Recycling</td>
+                                    <td><input type="number" class="form-control ct_fit-content" name="recycling"
+                                            ngModel placeholder="Enter waste">
+                                    </td>
 
-                                                            </tr>
-                                                            <tr>
+                                </tr>
+                                <tr>
 
-                                                                <td>Composing</td>
-                                                                <td><input type="number"
-                                                                        class="form-control ct_fit-content"
-                                                                        name="composing" ngModel
-                                                                        placeholder="Enter waste">
-                                                                </td>
+                                    <td>Composing</td>
+                                    <td><input type="number" class="form-control ct_fit-content" name="composing"
+                                            ngModel placeholder="Enter waste">
+                                    </td>
 
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                                                <!-- <div>
+                    <!-- <div>
                                                 <h5>% of waste going to</h5>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -289,12 +227,12 @@
 
 
 
-                                            </div>
+                </div>
 
-                                        </div>
-                                        <div class="col-12 mt-4 pt-3 ml-3 text-center">
-                                                <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
-                                        </div>
-                                    </div>
-                                </div>
+            </div>
+            <div class="col-12 mt-4 pt-3 ml-3 text-center">
+                <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+            </div>
+        </div>
+    </div>
 </form>

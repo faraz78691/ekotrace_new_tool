@@ -1,8 +1,5 @@
-
-
-
-<div class="row text-white border-bottom">
-    <div class="d-flex align-items-center justify-content-between w-100">
+<div class="row text-white">
+    <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
             Refrigerants
         </p>
@@ -10,64 +7,44 @@
             <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
-                    <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
-                        stationary sources owned or controlled by an organization. These
-                        sources include equipment and systems that are fixed in place, such
-                        as boilers, furnaces, turbines, and other types of heating and
-                        power-generating equipment.
-                    </p>
-                    <ol>
-                        <li>Liquid fuels: Emissions resulting from the combustion of liquid
-                            fuels in stationary sources are a significant part of an
-                            organization’s overall carbon footprint due to the widespread
-                            use of liquid fuels such as gasoline, diesel, fuel oil,
-                            kerosene, and others.
-                        </li>
-                        <li>Solid fuels: These fuels typically include coal, peat, and other
-                            solid materials used for heating, power generation, or
-                            industrial processes.
-                        </li>
-                        <li>Gaseous fuels: These fuels are typically in a gaseous state at
-                            normal atmospheric conditions and include natural gas, propane,
-                            butane, and other similar gases used for heating, power
-                            generation, and transportation.
-                        </li>
-                        <li>Biofuels: Biofuels are derived from renewable biomass sources
-                            such as plant matter, agricultural residues, or waste materials.
-                        </li>
-                        <li>Biomass: Biomass refers to organic materials derived from plants
-                            or animals that can be used as fuel. This includes wood,
-                            agricultural residues, animal waste, and dedicated energy crops.
-                        </li>
-                        <li>Biogas: Biogas is a renewable energy source produced through the
-                            anaerobic digestion or fermentation of organic materials such as
-                            agricultural residues, food waste, sewage sludge, or energy
-                            crops.
-                        </li>
-                    </ol>
+                    <p class="ct_fs_16"> Emissions from the use and leakage of refrigerants
+                        from equipment owned or controlled by an organization. These
+                        emissions are significant because many refrigerants have a high
+                        global warming potential (GWP), meaning they can trap much more heat
+                        in the atmosphere than carbon dioxide (CO2). Common agents include
+                        HVAC systems, refrigeration units, and vehicle air conditioning
+                        systems.
 
-                    <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
-                        emissions in a company, follow these steps:
+                    </p>
+                    <h5 class="ct_fs_16  mb-0">To collect refrigerants data for emissions in
+                        a company, follow these steps:
                     </h5>
                     <ol>
-                        <li>Identify stationary combustion sources - Determine which
-                            equipment and facilities generate emissions, such as: Boilers,
-                            Furnaces, Generators, Heaters, Chillers
+                        <li>Inventory of Equipment - List all the equipment that uses
+                            refrigerants (e.g., HVAC systems, refrigeration units).
                         </li>
-                        <li>Collect fuel consumption data:
-                            Fuel Purchase Records - Collect data from fuel purchase receipts
-                            and invoices.
-                            Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
-                            and equipment.
-                            Meter Readings - Use meter readings for equipment that consumes
-                            liquid fuels.
-                            Operational Records - Document hours of operation for
-                            fuel-consuming equipment
+                        <li>Type of Refrigerant Used - Collect information on the specific
+                            types of refrigerants used in each piece of equipment.
                         </li>
-                        <li>Relevant departments for collecting the data - Production
-                            department, Operational department
+                        <li>Quantity of Refrigerant - Amount of refrigerant in each piece of
+                            equipment and total quantities used, including any additions or
+                            top-ups.
+                        </li>
+                        <li>Leakage and Emissions Data - Records of refrigerant leaks,
+                            repairs, and the quantity of refrigerants emitted during
+                            maintenance or due to leaks.
+                        </li>
+                        <li>Purchase and Disposal Records - Data on the purchase of new
+                            refrigerants and the disposal of old or unused refrigerants
+                        </li>
+                        <li>Relevant departments for collecting the data - Environment,
+                            Health, and Safety/ Facilities Management department
                         </li>
                     </ol>
+                    <p>
+                        You can download the ‘Refrigerants Template’ to understand the
+                        breakdown of refrigerants usage.
+                    </p>
                     <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
                         emissions
                     </h5>
@@ -85,48 +62,7 @@
                             purpose.
                         </li>
                     </ol>
-
-                    <h5 class="ct_fs_16 ">Guidance on input fields</h5>
-                    <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
-                        blend% of biofuel (bioethanol / biodiesel). Final emission factor is
-                        the weighted average of emission factor for 100% mineral petrol /
-                        diesel and biofuel. Average blend type assumes 7% blend perc.
-                    </p>
-                    <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
-                        Gross CV of the fuel is entered, it overwrites the average CV.
-                    </p>
-
                 </div>
-
-
-                <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                    discharge of the extinguishing agents. The fire extinguishers must
-                    be owned or controlled by the organization. Common agents include
-                    halons, HFCs, and other fluorinated gases.
-                </p>
-                <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                    extinguishers owned by company, follow these steps:
-                </h5>
-                <ol>
-                    <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                        halon).
-                    </li>
-                    <li>Location of each fire extinguisher within the facility.
-                    </li>
-                    <li>Relevant departments for collecting the data - Environment,
-                        Health and Safety/ Facilities Management department
-                    </li>
-                </ol>
-                <p>You can download the ‘Fire Extinguisher
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -145,45 +81,41 @@
             <div class="col-lg-5">
                 <label for="fname">Amount of refrigerant used</label>
                 <div class=" position-relative">
-                    <input required ngModel name="refAmount" #refAmount="ngModel"
-                        placeholder="Enter value"
-                        refAmount id="search-input" type="text"
-                        class="form-control Dashboard-tab text-white" />
-                        <div class="ct_quantity_text">
-                            <p>kg</p>
-                        </div>
+                    <input required ngModel name="refAmount" #refAmount="ngModel" placeholder="Enter value" refAmount
+                        id="search-input" type="text" class="form-control Dashboard-tab text-white" />
+                    <div class="ct_quantity_text">
+                        <p>kg</p>
+                    </div>
                 </div>
-        
-                <p class="validation"
-                    *ngIf="refAmount.errors?.['required'] && dataEntryForm.submitted">
+
+                <p class="validation" *ngIf="refAmount.errors?.['required'] && dataEntryForm.submitted">
                     Reading value required.
                 </p>
             </div>
-         
-                <div class="col-4 mt-4">
-                    <label for="fname ">Template</label>
 
-                    <div class="">
-                       
+            <div class="col-4 mt-4">
+                <label for="fname ">Template</label>
 
-                        <button class="px-4 trackingsubmitb w-100 ct_h_40"><a class="text-white" [href]="templateLinks"
-                                download>Click here to download</a></button>
-                    </div>
+                <div class="">
+
+
+                    <button class="px-4 trackingsubmitb w-100 ct_h_40"><a class="text-white" [href]="templateLinks"
+                            download>Click here to download</a></button>
                 </div>
-                <div class="col-5 mt-4"
-                   >
-                    <label for="fname ">Attachments</label>
-                  
-                    <div class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40">
-                        <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
-                            chooseLabel="Please select a File" (onSelect)="
+            </div>
+            <div class="col-5 mt-4">
+                <label for="fname ">Attachments</label>
+
+                <div class="d-flex justify-content-end border rounded ct_upload_btn1 ct_h_40">
+                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf" chooseLabel="Please select a File"
+                        (onSelect)="
                         onFileSelected($event.files)
                     "></p-fileUpload>
-                    </div>
                 </div>
-             
-            
-            
+            </div>
+
+
+
 
 
 

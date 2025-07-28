@@ -1,5 +1,5 @@
-<div class="row text-white border-bottom">
-      <div class="d-flex align-items-center justify-content-between w-100">
+<div class="row text-white">
+      <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
             <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
                   Purchased Goods and Services
             </p>
@@ -15,124 +15,211 @@
             <div class="ct_how_use_tooltip_main">
                   <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
                   <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
-                        <div>
-                              <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
-                                    stationary sources owned or controlled by an organization. These
-                                    sources include equipment and systems that are fixed in place, such
-                                    as boilers, furnaces, turbines, and other types of heating and
-                                    power-generating equipment.
+                        <div *ngIf="singlePGSTab">
+                              <p class="ct_fs_16 mb-2">
+                                    This category includes all upstream (i.e., cradle-to-gate) emissions
+                                    from the production of products purchased or acquired by the
+                                    reporting company in the reporting year. Products include both goods
+                                    (tangible products) and services (intangible products).
                               </p>
-                              <ol>
-                                    <li>Liquid fuels: Emissions resulting from the combustion of liquid
-                                          fuels in stationary sources are a significant part of an
-                                          organization’s overall carbon footprint due to the widespread
-                                          use of liquid fuels such as gasoline, diesel, fuel oil,
-                                          kerosene, and others.
-                                    </li>
-                                    <li>Solid fuels: These fuels typically include coal, peat, and other
-                                          solid materials used for heating, power generation, or
-                                          industrial processes.
-                                    </li>
-                                    <li>Gaseous fuels: These fuels are typically in a gaseous state at
-                                          normal atmospheric conditions and include natural gas, propane,
-                                          butane, and other similar gases used for heating, power
-                                          generation, and transportation.
-                                    </li>
-                                    <li>Biofuels: Biofuels are derived from renewable biomass sources
-                                          such as plant matter, agricultural residues, or waste materials.
-                                    </li>
-                                    <li>Biomass: Biomass refers to organic materials derived from plants
-                                          or animals that can be used as fuel. This includes wood,
-                                          agricultural residues, animal waste, and dedicated energy crops.
-                                    </li>
-                                    <li>Biogas: Biogas is a renewable energy source produced through the
-                                          anaerobic digestion or fermentation of organic materials such as
-                                          agricultural residues, food waste, sewage sludge, or energy
-                                          crops.
-                                    </li>
-                              </ol>
 
-                              <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
-                                    emissions in a company, follow these steps:
+                              <h5 class="mb-0 ct_fs_16">Purchased goods can be further classified
+                                    into:
+
                               </h5>
                               <ol>
-                                    <li>Identify stationary combustion sources - Determine which
-                                          equipment and facilities generate emissions, such as: Boilers,
-                                          Furnaces, Generators, Heaters, Chillers
+                                    <li>Standard goods – Typically have shorter lifespan. They are
+                                          directly related to making the final goods (such as intermediate
+                                          goods) or are non-product related inputs (such as office
+                                          supplies or mfg. spare parts). The emissions are mainly
+                                          associated with production, transportation, and disposal. E.g.
+                                          building material, electronics, metal, plastic
+
+
                                     </li>
-                                    <li>Collect fuel consumption data:
-                                          Fuel Purchase Records - Collect data from fuel purchase receipts
-                                          and invoices.
-                                          Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
-                                          and equipment.
-                                          Meter Readings - Use meter readings for equipment that consumes
-                                          liquid fuels.
-                                          Operational Records - Document hours of operation for
-                                          fuel-consuming equipment
+                                    <li>Capital goods – These are final products that have a longer
+                                          lifespan (e.g. buildings, machinery, vehicles) and are used to
+                                          produce goods, provide service, or sell merchandise. The
+                                          emissions are primarily associated with production, use and
+                                          maintenance.
                                     </li>
-                                    <li>Relevant departments for collecting the data - Production
-                                          department, Operational department
+
+                              </ol>
+                              <h5 class="ct_fs_16 mb-0">To collect emissions data for purchase goods
+                                    and services used by the company, follow these steps:
+
+                              </h5>
+                              <ol>
+                                    <li>Identify list of all purchased items: Create a comprehensive
+                                          inventory of all goods and services procured by the company.
+
+                                    </li>
+                                    <li>Categorize purchases: Group items into categories (e.g., raw
+                                          materials, components, office supplies, professional services)
+                                          or based on their product code.
+
+
+                                    </li>
+                                    <li>
+                                          Try to collect the purchased amount data as much as possible in
+                                          quantity, this gives more accurate emissions results than spend
+                                          based data.
+
+                                    </li>
+                                    <li>Supplier Identification: Identify key suppliers for each
+                                          category and map out their supply chains.
+                                    </li>
+                                    <li>Data Requests: Request specific emissions data from suppliers,
+                                          including energy consumption, raw material usage, and
+                                          transportation details.
+                                    </li>
+                                    <li>Relevant department for collecting the data: Procurement /
+                                          Supply chain department, Finance/Accounting Department,
+                                          Logistics Department
                                     </li>
                               </ol>
-                              <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
-                                    emissions
+                              <h5 class="ct_fs_16 mb-0">How to use the tool for entering emissions
+                                    data
+
                               </h5>
                               <ol>
                                     <li>Select the months and year for which you want to enter the
                                           emissions data. If you select multiple months, same data will be
                                           replicated for the months selected.
                                     </li>
+                                    <li>Select the product type either based on category or product code
+                                          (HSN, ISIC, SAC etc). For entering the data in bulk, download
+                                          the attached template and fill in the details.
+                                    </li>
+                                    <li>In the vendor section, add the details of the supplier and the
+                                          specific emissions factors in KgCO2e/unit, if available.
+                                    </li>
                                     <li>Once submitted, data is sent for approval. Manager of facility
                                           or the admin has approval rights. Only the approved data is
                                           included in emissions calculations. You can check the approval
                                           status in ‘Status’ tab
                                     </li>
-                                    <li>User can attach the bills, invoices as attachment for record
-                                          purpose.
-                                    </li>
                               </ol>
 
-                              <h5 class="ct_fs_16 ">Guidance on input fields</h5>
-                              <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
-                                    blend% of biofuel (bioethanol / biodiesel). Final emission factor is
-                                    the weighted average of emission factor for 100% mineral petrol /
-                                    diesel and biofuel. Average blend type assumes 7% blend perc.
+                        </div>
+                        <div *ngIf="!singlePGSTab">
+                              <p class="ct_fs_16 mb-2">
+                                    <span class="ct_fw_600">Bulk upload - </span> Use the Bulk Upload
+                                    option to quickly
+                                    enter multiple records
+
                               </p>
-                              <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
-                                    Gross CV of the fuel is entered, it overwrites the average CV.
+
+                              <p class="mb-0 ct_fs_16">Steps to To enter data in bulk:
+                              </p>
+                              <ol>
+                                    <li>Download the bulk upload template from the tool.</li>
+                                    <li>Fill in the required fields: product category, description,
+                                          purchase date, quantity, vendor details, and vendor emission
+                                          factors (if available).
+                                    </li>
+                                    <li>
+                                          Click on <span class="ct_fw_600">‘Select file to upload’</span>
+                                          and choose the completed template.
+
+                                    </li>
+
+                              </ol>
+                              <p class="ct_fs_16 mb-0">There are three possible outcomes when the
+                                    tool maps <span class="ct_fw_600">product categories</span> to
+                                    <span class="ct_fw_600">product descriptions:</span>
+                              </p>
+                              <ul class="pl-3">
+                                    <li><span class="ct_fw_600">Matched</span> – Category is correctly
+                                          linked to the
+                                          description
+
+
+                                    </li>
+                                    <li>
+                                          <span class="ct_fw_600">Unmatched</span> – No category is
+                                          assigned
+
+                                    </li>
+                                    <li>
+                                          <span class="ct_fw_600">Matched / other category</span>– Scope 3
+                                          category, other
+                                          than purchased goods & services and capital goods is assigned
+                                          (e.g., business travel)
+
+
+                                    </li>
+
+                              </ul>
+                              <p class="mb-2">Only the <span class="ct_fw_600">matched</span> items go
+                                    for emission
+                                    calculations.
+                              </p>
+                              <p class="mb-2">
+                                    Tool uses fuzzy search logic to match the entries with database
+                                    categories. In case of <span class="ct_fw_600">unmatched</span>
+                                    entries or <span class="ct_fw_600">matched</span>
+                                    entries where the user is unsatisfied with the match (as the match
+                                    is not always 100% accurate), they can do manual matching by
+                                    clicking on the blue ‘action’ button. If there is no match found in
+                                    the database, the status of the matched item can be changed to
+                                    unmatched.
+
+                              </p>
+                              <p class="mb-2">
+                                    For <span class="ct_fw_600">matched/other category</span> entries,
+                                    if the user wants
+                                    to include it
+                                    in the purchased goods & services category, they can change the
+                                    status to <span class="ct_fw_600">matched</span> which makes it a
+                                    part of the matched
+                                    list used for
+                                    emission calculations.
+
+                              </p>
+                              <p class="mb-2">
+                                    In case of <span class="ct_fw_600">unmatched</span> entries, users
+                                    can
+                                    use the <span class="ct_fw_600">AI
+                                          Search</span> to
+                                    automatically assign correct categories. Steps for AI Run:
+
+                              </p>
+
+                              <ol>
+                                    <li>Tap on the <span class="ct_fw_600">‘Run AI Match’</span> button.
+
+                                    </li>
+                                    <li>A new window will open where the AI will begin matching product
+                                          categories to the descriptions.
+
+                                    </li>
+                                    <li>Monitor the AI match progress; click the <span
+                                                class="ct_fw_600">‘Refresh’</span>
+                                          button to check the latest status.
+
+                                    </li>
+                                    <li>Once the batch process is complete, tap <span class="ct_fw_600">‘Upload
+                                                Data’</span> to import the matched data into the existing
+                                          list.
+
+                                    </li>
+                                    <li>
+                                          The AI Run window is <span class="ct_fw_600">user-specific</span> —only the
+                                          initiating user can
+                                          access and operate it.
+
+                                    </li>
+                              </ol>
+                              <p class="mb-2">The final list of <span class="ct_fw_600">matched</span>
+                                    entries (the
+                                    matched items
+                                    from manual
+                                    match plus the ones mapped with AI) will used for emission
+                                    calculation.
                               </p>
 
                         </div>
-
-
-                        <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                              discharge of the extinguishing agents. The fire extinguishers must
-                              be owned or controlled by the organization. Common agents include
-                              halons, HFCs, and other fluorinated gases.
-                        </p>
-                        <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                              extinguishers owned by company, follow these steps:
-                        </h5>
-                        <ol>
-                              <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                                    halon).
-                              </li>
-                              <li>Location of each fire extinguisher within the facility.
-                              </li>
-                              <li>Relevant departments for collecting the data - Environment,
-                                    Health and Safety/ Facilities Management department
-                              </li>
-                        </ol>
-                        <p>You can download the ‘Fire Extinguisher
-
-
-
-
-
-
-
-
-
                   </div>
             </div>
       </div>
@@ -514,36 +601,38 @@
 
 <p-dialog [(visible)]="visible2" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}">
 
-    <p-header> Match Product </p-header>
-    <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
-        <form class="col-12">
-            <div class="mb-5 pb-0 row">
-                <div class="col-md-12 mb-">
+      <p-header> Match Product </p-header>
+      <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
+            <form class="col-12">
+                  <div class="mb-5 pb-0 row">
+                        <div class="col-md-12 mb-">
 
-                    <p-dropdown class="finput ct_input_white_bg13 ct_city_name_select_2_search       custom_dropdown"
-                        ngModel name="country" placeholder="Select Product" [options]="allPRoducts" [filter]="true"
-                        filterBy="product" [(ngModel)]="psg_product" [ngModelOptions]="{standalone: true}"
-                        optionLabel="product" styleClass="facilitydropdown" #country="ngModel" required
-                        (onChange)="onAllProductChange()">
-                    </p-dropdown>
-                </div>
+                              <p-dropdown
+                                    class="finput ct_input_white_bg13 ct_city_name_select_2_search       custom_dropdown"
+                                    ngModel name="country" placeholder="Select Product" [options]="allPRoducts"
+                                    [filter]="true" filterBy="product" [(ngModel)]="psg_product"
+                                    [ngModelOptions]="{standalone: true}" optionLabel="product"
+                                    styleClass="facilitydropdown" #country="ngModel" required
+                                    (onChange)="onAllProductChange()">
+                              </p-dropdown>
+                        </div>
 
 
 
 
 
+                  </div>
+                  <div style="height: 280px;"></div>
+
+
+            </form>
+
+            <p-header> OR </p-header>
+            <div class="d-flex gap-3 align-items-center justify-content-center">
+                  <button type="button" class="px-4 trackingsubmitb mr-3" (click)="changeStatus()">Change Status to
+                        Unmatch</button>
+                  <button *ngIf="hideMatchButon" type="button" class="px-4 btn-warning trackingsubmitb"
+                        (click)="changeStatustoMatch()">Change Status to Match</button>
             </div>
-            <div style="height: 280px;"></div>
-
-
-        </form>
-
-        <p-header> OR </p-header>
-       <div class="d-flex gap-3 align-items-center justify-content-center">
-        <button type="button" class="px-4 trackingsubmitb mr-3" (click)="changeStatus()">Change Status to
-            Unmatch</button>
-        <button *ngIf="hideMatchButon" type="button" class="px-4 btn-warning trackingsubmitb"
-            (click)="changeStatustoMatch()">Change Status to Match</button>
-       </div>
-    </div>
+      </div>
 </p-dialog>
