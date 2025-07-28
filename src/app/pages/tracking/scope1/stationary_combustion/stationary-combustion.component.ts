@@ -17,6 +17,7 @@ declare var $: any;
   styleUrls: ['./stationary-combustion.component.scss']
 })
 export class StationaryCombustionComponent {
+  @ViewChild('dataEntryForm', { static: false }) dataEntryForm: any;
   facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
@@ -103,7 +104,7 @@ export class StationaryCombustionComponent {
               'Success'
             );
             this.isSubmitting = false;
-
+            this.dataEntryForm.reset();
           } else {
             this.notification.showError(
               response.message,

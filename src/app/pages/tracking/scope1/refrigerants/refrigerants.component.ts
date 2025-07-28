@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubmitButtonComponent } from '@/shared/submit-button/submit-button.component';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -17,6 +17,7 @@ declare var $: any;
   styleUrls: ['./refrigerants.component.scss']
 })
 export class RefrigerantsComponent {
+  @ViewChild('dataEntryForm', { static: false }) dataEntryForm: any;
   facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
@@ -30,7 +31,7 @@ export class RefrigerantsComponent {
   templateLinks: string;
   selectedFile: any;
   uploadButton: boolean;
-  constructor(private facilityService: FacilityService,private notification: NotificationService,private appService: AppService) {
+  constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.templateLinks = 'assets/Refrigerant_Template.xlsx'
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
@@ -39,7 +40,7 @@ export class RefrigerantsComponent {
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
-       
+
       }
     });
   };
@@ -53,7 +54,7 @@ export class RefrigerantsComponent {
     if (dataEntryForm.valid) {
       this.isSubmitting = true;
       let formData = new FormData();
-    
+
 
       formData.set('subCategoryTypeId', (this.fuelId).toString());
       formData.set('SubCategorySeedID', this.subCategoryID.toString());
@@ -68,31 +69,31 @@ export class RefrigerantsComponent {
       //     formData.set('file', this.selectedFile, this.selectedFile.name);
       // }
       this.appService.postAPI('/Addrefrigerant', formData).subscribe({
-          next: (response:any) => {
+        next: (response: any) => {
 
-              if (response.success == true) {
-                  this.notification.showSuccess(
-                      'Data entry added successfully',
-                      'Success'
-                  );
-                 this.isSubmitting = false;
-            
-              } else {
-                  this.notification.showError(
-                      response.message,
-                      'Error'
-                  );
-                  this.isSubmitting = false;
-              }
-          },
-          error: (err) => {
-              this.notification.showError(
-                  'Data entry added failed.',
-                  'Error'
-              );
-              console.error('errrrrrr>>>>>>', err);
-          },
-          complete: () => { }
+          if (response.success == true) {
+            this.notification.showSuccess(
+              'Data entry added successfully',
+              'Success'
+            );
+            this.isSubmitting = false;
+            this.dataEntryForm.reset();
+          } else {
+            this.notification.showError(
+              response.message,
+              'Error'
+            );
+            this.isSubmitting = false;
+          }
+        },
+        error: (err) => {
+          this.notification.showError(
+            'Data entry added failed.',
+            'Error'
+          );
+          console.error('errrrrrr>>>>>>', err);
+        },
+        complete: () => { }
       });
     }
   };
@@ -113,16 +114,16 @@ export class RefrigerantsComponent {
     const selectedFile = event[0];
 
     if (selectedFile) {
-        //   this.uploadFiles(files); previous one 
-        this.selectedFile = event[0];
-        $(".browse-button input:file").change(function () {
-            $("input[name='attachment']").each(function () {
-                var fileName = $(this).val().split('/').pop().split('\\').pop();
-                $(".filename").val(fileName);
-                $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
-            });
+      //   this.uploadFiles(files); previous one 
+      this.selectedFile = event[0];
+      $(".browse-button input:file").change(function () {
+        $("input[name='attachment']").each(function () {
+          var fileName = $(this).val().split('/').pop().split('\\').pop();
+          $(".filename").val(fileName);
+          $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
         });
-        this.uploadButton = true
+      });
+      this.uploadButton = true
     }
-};
+  };
 }

@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubmitButtonComponent } from "@/shared/submit-button/submit-button.component";
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,8 @@ import { TabViewModule } from 'primeng/tabview';
   styleUrls: ['./downstream-leased.component.scss']
 })
 export class DownstreamLeasedComponent {
-facilityID: number;
+  @ViewChild('dataEntryForm', { static: false }) dataEntryForm: any;
+  facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
   subCategoryID: number = 1;
@@ -165,6 +166,7 @@ facilityID: number;
             response.message,
             'Success'
           );
+          this.dataEntryForm.reset();
 
         } else {
           this.notification.showError(

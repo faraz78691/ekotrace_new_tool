@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubmitButtonComponent } from '@/shared/submit-button/submit-button.component';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -17,7 +17,7 @@ declare var $: any;
   styleUrls: ['./heat-steam.component.scss']
 })
 export class HeatSteamComponent {
-
+  @ViewChild('dataEntryForm', { static: false }) dataEntryForm: any;
   facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
@@ -125,6 +125,7 @@ export class HeatSteamComponent {
             'Data entry added successfully',
             'Success'
           );
+          this.dataEntryForm.reset();
 
         } else {
           this.notification.showError(
