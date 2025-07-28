@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubmitButtonComponent } from '@/shared/submit-button/submit-button.component';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -18,6 +18,7 @@ declare var $: any;
   styleUrls: ['./electricity.component.scss']
 })
 export class ElectricityComponent {
+  @ViewChild('dataEntryForm', { static: false }) dataEntryForm: any;
   facilityID: number;
   facilityCountryCode: string;
   isHowtoUse = false;
@@ -90,7 +91,7 @@ export class ElectricityComponent {
   }
 
   EntrySave(dataEntryForm: NgForm) {
-    if(dataEntryForm.invalid){
+    if (dataEntryForm.invalid) {
       return;
     }
     let url;
@@ -102,16 +103,16 @@ export class ElectricityComponent {
 
 
 
-  var formData = new FormData();
- if(this.subCategoryID == 9){
-  formData.set('RegionID', this.regionId.toString());
-  formData.set('readingValue', dataEntryForm.value.readingvalueLocation.toString());
- }else{
-  formData.set('typeID', this.marketTypeId);
-  formData.set('sourceName',this.renewableSelected ? this.sourceName : '');
-  formData.set('emission_factor', dataEntryForm.value.emission_factorS);
-  formData.set('readingValue',this.renewableSelected ? dataEntryForm.value.readingValueREnew.toString() :  dataEntryForm.value.readingSupplierValue.toString());
- }
+    var formData = new FormData();
+    if (this.subCategoryID == 9) {
+      formData.set('RegionID', this.regionId.toString());
+      formData.set('readingValue', dataEntryForm.value.readingvalueLocation.toString());
+    } else {
+      formData.set('typeID', this.marketTypeId);
+      formData.set('sourceName', this.renewableSelected ? this.sourceName : '');
+      formData.set('emission_factor', dataEntryForm.value.emission_factorS);
+      formData.set('readingValue', this.renewableSelected ? dataEntryForm.value.readingValueREnew.toString() : dataEntryForm.value.readingSupplierValue.toString());
+    }
 
     formData.set('unit', this.selectedUnit);
     formData.set('facilities', this.facilityID.toString());
@@ -124,14 +125,11 @@ export class ElectricityComponent {
     this.appService.postAPI(url, formData).subscribe({
       next: (response: any) => {
         if (response.success == true) {
-
-
-
-
           this.notification.showSuccess(
             'Data entry added successfully',
             'Success'
           );
+          this.dataEntryForm.reset();
 
         } else {
           this.notification.showError(
@@ -191,7 +189,7 @@ export class ElectricityComponent {
         if (Response) {
 
           this.units = Response.categories;
-         
+
 
 
         }
