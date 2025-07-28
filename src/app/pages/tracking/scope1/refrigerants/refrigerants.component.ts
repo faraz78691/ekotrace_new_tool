@@ -42,6 +42,7 @@ export class RefrigerantsComponent {
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
 
       }
+      this.getsubCategoryType(this.subCategoryID);
     });
   };
 
@@ -99,9 +100,9 @@ export class RefrigerantsComponent {
   };
 
   getsubCategoryType(subCatID: number) {
-    this.appService.getApi(`/GhgSubcategoryTypesByCategoryId?category_id=${subCatID}`).subscribe({
+    this.appService.getApi(`/GetSubCategoryTypes/${subCatID}?facilityId=${this.facilityID}&year=${this.year}`).subscribe({
       next: (response: any) => {
-        this.fuelType = response.data;
+        this.fuelType = response.categories;
       },
       error: (err) => {
 
