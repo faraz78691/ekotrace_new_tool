@@ -60,7 +60,7 @@
                     <div class="modal-body text-white text-style Dashboard-tab">
                         <form #GroupForm="ngForm" class="col-12" (ngSubmit)="
                             FormEdit === false
-                                ? saveGroup(GroupForm.value)
+                                ? saveGroup(GroupForm)
                                 : updateGroup(groupdetails.id, GroupForm.value)
                         ">
                             <div class="mb-5 pb-5">
@@ -70,11 +70,11 @@
                                         class="form-control Dashboard-tab text-white" placeholder="Group Name"
                                         #groupName="ngModel" [(ngModel)]="groupdetails.groupname" [disabled]="isloading"
                                         required />
-                                    <p class="text-danger mb-0"
+                                    <p class="validation"
                                         *ngIf="GroupForm.submitted && groupName.errors?.['required']">
                                         Group name is required
                                     </p>
-                                    <p class="text-danger mb-0" *ngIf="
+                                    <p class="validation" *ngIf="
                                     isgroupExist === true && groupName.touched
                                 ">
                                         group already exist please use other groupname
@@ -86,44 +86,27 @@
 
                                     <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124" required
                                         ngModel placeholder="select" [options]="Groupby"
-                                        [(ngModel)]="groupdetails.groupBy" optionLabel="name" optionValue="name"
+                                        [(ngModel)]="groupByValue" optionLabel="name" optionValue="value"
                                         name="group" #group="ngModel"></p-dropdown>
                                     <p *ngIf="GroupForm.submitted && group.errors?.['required']"
                                         class="text-danger mb-0">
                                         Group By is required
                                     </p>
-                                    <div class="" *ngIf="groupdetails.groupBy === 'State'">
-
-
-                                        <div class="row mt-4" *ngIf="groupdetails.groupBy === 'State'">
-                                            <div class="col-lg-4" *ngFor="let state of stateData">
-                                                <p-checkbox name="groupname" [value]="state.id" [inputId]="state.id"
-                                                    [(ngModel)]="selectedState" label="{{ state.name }}"></p-checkbox>
-                                            </div>
-                                        </div>
-                                    </div>
+                               
                                 </div>
-                                <div class="row mt-4" *ngIf="groupdetails.groupBy === 'Country'">
-                                    <div class="col-lg-4" *ngFor="
-                                        let country of countryData;
-                                        let i = index
-                                    ">
-                                        <p-checkbox name="groupname_{{ i }}" [value]="country.id" [inputId]="country.id"
-                                            label="{{ country.name }}" [(ngModel)]="selectedCountry"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="row mt-4" *ngIf="groupdetails.groupBy === 'Facility'">
+                               
+                                <div class="row mt-4" *ngIf="groupByValue === 'Facility'">
                                     <div class="col-lg-4" *ngFor="let facility of facilityList">
                                         <p-checkbox name="groupname" [value]="facility.id" [inputId]="facility.id"
-                                            label="{{ facility.AssestType }}" [(ngModel)]="selectedFaciltiy"></p-checkbox>
+                                            label="{{ facility.AssestType }}" [(ngModel)]="selectedFaciltiy" ></p-checkbox>
                                     </div>
                                 </div>
-                                <div class="row mt-4" *ngIf="groupdetails.groupBy === 'Sub Group'">
-                                    <ng-container *ngFor="let facility of subGroupsList">
-                                        <div class="col-lg-4  test"*ngIf="facility.is_main_group == 0" >
+                                <div class="row mt-4" *ngIf="groupByValue === 'Subgroup'  ">
+                                    <ng-container *ngFor="let group of subGroupsList">
+                                        <div class="col-lg-4  test"*ngIf="group.is_main_group == 0" >
                                            
-                                                <p-checkbox name="groupname" [value]="facility.id" [inputId]="facility.id"
-                                                    label="{{ facility.name }}" [(ngModel)]="selectedFaciltiy"></p-checkbox>
+                                                <p-checkbox name="groupname" [value]="group.id" [inputId]="group.id"
+                                                    label="{{ group.name }}" [(ngModel)]="selectedGroupId"></p-checkbox>
                                             
                                         </div>
 

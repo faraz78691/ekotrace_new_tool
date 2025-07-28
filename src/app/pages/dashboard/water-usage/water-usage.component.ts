@@ -192,15 +192,16 @@ export class WaterUsageComponent {
     let tenantId = this.loginInfo.tenantID;
     const formData = new URLSearchParams();
     formData.set('tenantID', tenantId.toString())
+    formData.set('superAdminId', this.loginInfo.super_admin_id.toString())
     this.dashboardService.getdashboardfacilities(formData.toString()).subscribe((result: any) => {
 
       if (result.success == true) {
         this.dashboardData = result.categories;
-        if (this.facilityService.selectedfacilitiesSignal() == 0) {
+        if (!this.facilityService.dashboardfacilitiesSignal()) {
           this.selectedFacility = result.categories[0].ID;
 
         } else {
-          this.selectedFacility = this.facilityService.selectedfacilitiesSignal();
+          this.selectedFacility = this.facilityService.dashboardfacilitiesSignal();
         }
         this.Waterwithdrawnby_source(this.selectedFacility);
         this.dashboardWaterDischargedbydestination(this.selectedFacility);
@@ -562,7 +563,7 @@ export class WaterUsageComponent {
   };
 
   onFacilityChange(event: any) {
-    this.facilityService.facilitySelected(this.selectedFacility)
+    this.facilityService.setDashboardFacility(this.selectedFacility)
     this.Waterwithdrawnby_source(this.selectedFacility);
     this.dashboardWaterDischargedbydestination(this.selectedFacility);
     this.dashboardWaterTreated_nonTreated(this.selectedFacility);

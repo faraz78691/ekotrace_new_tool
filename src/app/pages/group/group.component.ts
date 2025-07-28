@@ -21,6 +21,7 @@ import {Country} from '@pages/admin-dashboard/customer';
 import { Observable, catchError, observable, of, tap, throwError } from 'rxjs';
 interface groupby {
     name: string;
+    value: string;
 }
 
 @Component({
@@ -29,7 +30,7 @@ interface groupby {
     styleUrls: ['./group.component.scss']
 })
 export class GroupComponent {
-     source$ = of(1, 2, 3);
+    
     @ViewChild('GroupForm', {static: false}) GroupForm: NgForm;
     groupList$ = new Observable();
     public companyDetails: CompanyDetails;
@@ -60,7 +61,7 @@ export class GroupComponent {
     groupdata: boolean;
     rootUrl: string;
     uploadedImageUrl: string;
-    Groupby: groupby[];
+
     countryData: Location[] = [];
     stateData: Location[] = [];
     selectedValue: string;
@@ -72,13 +73,15 @@ export class GroupComponent {
     selectedFaciltiy: any;
     selectedSubGroup: any;
     selectedState: any;
-    GroupByValue: string;
+    groupByValue: string;
     countryUnique: string[];
     stateUnique: string[];
     unlock: string = '';
     ischecked = true;
     selectedRowIndex = 0;  
     filledgroup: any;
+    selectedGroupId: any;
+    Groupby: groupby[];
     constructor(
         private companyService: CompanyService,
         private UserService: UserService,
@@ -90,11 +93,6 @@ export class GroupComponent {
         private themeservice: ThemeService
     ) {
 
-        this.source$
-  .pipe(
-    tap(value =>  console.log(`1: ${value}`))
-  )
-  .subscribe(value =>  console.log(`Final value: ${value}`));
         this.admininfo = new UserInfo();
         this.userdetails = new UserInfo();
         this.groupdetails = new Group();
@@ -106,10 +104,12 @@ export class GroupComponent {
         
         this.Groupby = [
             {
-                name: 'Facility'
+                name: 'Facility',
+                value: 'Facility'
             },
             {
-                name: 'Sub Group'
+                name: 'Sub Group',
+                value: 'Subgroup'
             }
         ];
     }
@@ -136,9 +136,7 @@ export class GroupComponent {
         // this.groupList$ = this.GroupService.newGetGroups(tenantID).pipe()
     }
     //checks upadated theme
-    ngDoCheck() {
-        this.updatedtheme = this.themeservice.getValue('theme');
-    }
+   
 
      newGetAllGroups(tenantID:any) {
 
@@ -165,72 +163,38 @@ export class GroupComponent {
                 // return of([]);
             })
         );
-    
-        // this.GroupService.newGetGroups(formData.toString()).subscribe({
-        //     next: (response) => {
-        //         // console.log(response);
-        //         if(response.success == true)
-        //         {
-        //             this.groupsList = response.categories;
-        //             if (this.groupsList.length > 0) {
-        //                 this.groupdetails = this.groupsList[0];
-        //                 this.groupdata = true;
-        //             } else {
-        //                 this.groupdata = false;
-        //             }
-        //             localStorage.setItem('GroupCount', String(this.groupsList.length));
-        //             this.unlock = this.groupdetails.id.toString();
-        //         }
-              
-        //     },
-        //     error: (err) => {
-        //         console.error('errrrrrr>>>>>>', err);
-        //     },
-        //     complete: () => console.info('Group Added')
-        // });
+
     }
 
     //method to add new group
     saveGroup(data: NgForm) {
-       
+       if(data.invalid){
+        return
+       }
+       if(this.groupByValue == 'Facility'){
+           if(this.selectedFaciltiy == undefined || this.selectedFaciltiy.length == 0){
+               this.notification.showInfo('Please select facility', '');
+               return
+           }
+       }
+       if(this.groupByValue == 'Subgroup'){
+           if(this.selectedGroupId == undefined || this.selectedGroupId.length == 0){
+               this.notification.showInfo('Please select subgroup', '');
+               return
+           }
+       }
+      
         if(this.loginInfo.role == 'Super Admin'){
             this.groupdetails.groupMappings = [];
-            if (this.groupdetails.groupBy === 'Country') {
-                this.selectedCountry.forEach((val) => {
-                    this.groupMappingDetails = new GroupMapping();
-                    this.groupMappingDetails.stateId = 0;
-                    this.groupMappingDetails.groupId = 0;
-                    this.groupMappingDetails.facilityId = 0;
-                    this.groupMappingDetails.countryId = val;
-                    this.groupdetails.groupMappings.push(this.groupMappingDetails);
-                });
-            } else if (this.groupdetails.groupBy === 'State') {
-                this.selectedState.forEach((val) => {
-                    this.groupMappingDetails = new GroupMapping();
-                    this.groupMappingDetails.stateId = val;
-                    this.groupMappingDetails.countryId = 0;
-                    this.groupMappingDetails.groupId = 0;
-                    this.groupMappingDetails.facilityId = 0;
-                    this.groupdetails.groupMappings.push(this.groupMappingDetails);
-                });
-            } else {
-                this.selectedFaciltiy.forEach((val) => {
-                    this.groupMappingDetails = new GroupMapping();
-                    this.groupMappingDetails.stateId = 0;
-                    this.groupMappingDetails.countryId = 0;
-                    this.groupMappingDetails.groupId = 0;
-                    this.groupMappingDetails.facilityId = val;
-                    this.groupdetails.groupMappings.push(this.groupMappingDetails);
-                });
-    
+         
             this.groupdetails.tenantID = this.loginInfo.tenantID;
             let formData = new URLSearchParams();
-            formData.set('groupname',this.groupdetails.groupname);
+            formData.set('groupname',data.value.groupName);
             formData.set('tenantID',  this.groupdetails.tenantID.toString());
-            formData.set('facility',this.selectedFaciltiy);
-            if(this.groupdetails.groupBy === 'Facility'){
+            formData.set('facility',this.groupByValue == 'Facility' ? this.selectedFaciltiy : this.selectedGroupId);
+            if(this.groupByValue === 'Facility'){
                 formData.set('group_by', '1');
-            }else if (this.groupdetails.groupBy === 'Sub Group'){
+            }else if (this.groupByValue === 'Subgroup'){
                 formData.set('group_by', '2');
             }
          
@@ -244,19 +208,12 @@ export class GroupComponent {
                             'Group Added successfully',
                             'Success'
                         );
-                        this.newGetAllGroups(this.groupdetails.tenantID);
                     }
-                    return
+                    this.selectedFaciltiy = [];
+                    this.selectedGroupId = [];
                     this.newGetAllGroups(this.groupdetails.tenantID);
                     this.visible = false;
-                    if (localStorage.getItem('FacilityGroupCount') != null) {
-                        let fgcount = localStorage.getItem('FacilityGroupCount');
-                        let newcount = Number(fgcount) + 1;
-                        localStorage.setItem(
-                            'FacilityGroupCount',
-                            String(newcount)
-                        );
-                    }
+                    this.groupdetails.groupname = '';
                  
                 },
                 error: (err) => {
@@ -265,7 +222,7 @@ export class GroupComponent {
                 },
                 complete: () => console.info('Group Added')
             });
-        }
+        
 
         }else{
          
@@ -285,6 +242,8 @@ export class GroupComponent {
         formData.set('groupname',this.groupdetails.groupname);
         // formData.set('tenantID',  this.groupdetails.tenantID.toString());
         formData.set('facility',this.selectedFaciltiy);
+
+        return
         this.GroupService.newEditGroup(formData.toString()).subscribe({
             next: (response) => {
                
@@ -304,7 +263,7 @@ export class GroupComponent {
         });
     }
 
-    //retrieves all facilities for a given tenant
+
     GetAllFacility() {
         let tenantId = this.loginInfo.tenantID;
         this.facilitydata = false;
@@ -324,20 +283,20 @@ export class GroupComponent {
             this.subGroupsList = response.categories;
         });
     }
-    //handles the closing of a dialog
+  
     onCloseHandled() {
         this.visible = false;
         this.isloading = false;
-        let tenantID = this.loginInfo.tenantID;
-        this.newGetAllGroups(tenantID);
+  
     }
-    //display a dialog for editing a group
+ 
     showEditGroupDialog(groupdetails) {
         this.visible = true;
         this.FormEdit = true;
-
+        this.selectedGroupId = [];
+        this.selectedFaciltiy = [];
         this.filledgroup = groupdetails as GroupMapping;
-
+        this.groupByValue = this.filledgroup.groupBy;
         if (this.filledgroup.groupBy === 'Country') {
             this.selectedCountry = [];
             this.filledgroup.groupMappings.forEach((element) => {
@@ -350,16 +309,24 @@ export class GroupComponent {
             });
         } else if (this.filledgroup.groupBy === 'Facility') {
             this.selectedFaciltiy = [];
-            this.filledgroup.groupMappings.forEach((element) => {
-                this.selectedFaciltiy.push(element.facilityId);
+            this.filledgroup.facilities.forEach((element) => {
+                this.selectedFaciltiy.push(element.id);
             });
+        }else {
+            this.selectedGroupId = [];
+            this.filledgroup.groups.forEach((element) => {
+                this.selectedGroupId.push(element.ID);
+            });
+           
         }
     }
-    //display a dialog for add a group.
+  
     showAddGroupDialog() {
         this.visible = true;
         this.groupdetails = new Group();
         this.FormEdit = false;
+        this.selectedGroupId = [];
+        this.selectedFaciltiy = [];
         this.resetForm();
     }
     //sets the selected group details

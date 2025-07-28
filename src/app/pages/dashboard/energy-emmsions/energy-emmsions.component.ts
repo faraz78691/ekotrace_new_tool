@@ -187,16 +187,17 @@ export class EnergyEmmsionsComponent {
     let tenantId = this.loginInfo.tenantID;
     const formData = new URLSearchParams();
     formData.set('tenantID', tenantId.toString())
+    formData.set('superAdminId', this.loginInfo.super_admin_id.toString())
     this.dashboardService.getdashboardfacilities(formData.toString()).subscribe((result: any) => {
 
       if (result.success == true) {
         this.dashboardData = result.categories;
  
-        if (this.facilityService.selectedfacilitiesSignal() == 0) {
-          this.selectedFacility = this.dashboardData[0].ID;
-          
+        if (!this.facilityService.dashboardfacilitiesSignal()) {
+          this.selectedFacility = result.categories[0].ID;
+
         } else {
-          this.selectedFacility = this.facilityService.selectedfacilitiesSignal();
+          this.selectedFacility = this.facilityService.dashboardfacilitiesSignal();
         }
 
         this.emssionByTravel(this.selectedFacility);
@@ -501,7 +502,7 @@ export class EnergyEmmsionsComponent {
   onFacilityChange(event: any) {
     // // console.log(event.target.value)
     // // console.log(this.selectedFacility);
-    this.facilityService.facilitySelected(this.selectedFacility)
+    this.facilityService.setDashboardFacility(this.selectedFacility)
     this.emssionByTravel(this.selectedFacility)
     this.totalEmissionByMonth(this.selectedFacility)
     this.BygroundTravel(this.selectedFacility)

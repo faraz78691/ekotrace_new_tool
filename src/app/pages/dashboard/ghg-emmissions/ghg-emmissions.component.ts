@@ -150,16 +150,17 @@ export class GhgEmmissionsComponent implements OnDestroy {
 
 
     formData.set('tenantID', tenantId.toString())
+    formData.set('superAdminId', this.loginInfo.super_admin_id.toString())
     this.dashboardFacilities$ = this.dashboardService.getdashboardfacilities(formData.toString()).pipe(
       tap(response => {
 
         // this.selectedFacility = response.categories[0].ID;
         if (response.success == true) {
-          if (this.facilityService.selectedfacilitiesSignal() == 0) {
+          if (!this.facilityService.dashboardfacilitiesSignal()) {
             this.selectedFacility = response.categories[0].ID;
 
           } else {
-            this.selectedFacility = this.facilityService.selectedfacilitiesSignal();
+            this.selectedFacility = this.facilityService.dashboardfacilitiesSignal();
           }
 
           this.makeCombinedApiCall(this.selectedFacility);
@@ -574,9 +575,8 @@ export class GhgEmmissionsComponent implements OnDestroy {
 
 
   onFacilityChange(event: any) {
-
-    this.facilityService.facilitySelected(this.selectedFacility)
-    this.makeCombinedApiCall(this.selectedFacility)
+    this.facilityService.setDashboardFacility(this.selectedFacility)
+    this.makeCombinedApiCall(this.selectedFacility);
 
   };
 

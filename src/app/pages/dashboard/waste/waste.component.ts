@@ -111,13 +111,14 @@ export class WasteComponent {
     let tenantId = this.loginInfo.tenantID;
     const formData = new URLSearchParams();
     formData.set('tenantID', tenantId.toString())
+    formData.set('superAdminId', this.loginInfo.super_admin_id.toString())
     this.dashboardFacilities$ = this.dashboardService.getdashboardfacilities(formData.toString()).pipe(
       tap(response => {
-        if(this.facilityService.selectedfacilitiesSignal() == 0){
+        if (!this.facilityService.dashboardfacilitiesSignal()) {
           this.selectedFacility = response.categories[0].ID;
 
-        }else{
-          this.selectedFacility = this.facilityService.selectedfacilitiesSignal();
+        } else {
+          this.selectedFacility = this.facilityService.dashboardfacilitiesSignal();
         }
         this.makeCombinedApiCall(this.selectedFacility)
       })
@@ -579,7 +580,7 @@ export class WasteComponent {
 
 
   onFacilityChange(event: any) {
-       this.facilityService.facilitySelected(this.selectedFacility)
+    this.facilityService.setDashboardFacility(this.selectedFacility)
     this.makeCombinedApiCall(this.selectedFacility)
     // // console.log(event.target.value)
     // // console.log(this.selectedFacility);

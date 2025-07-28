@@ -79,12 +79,14 @@ export class AppService {
         localStorage.removeItem('LoginInfo');
         localStorage.removeItem('accessToken');
         sessionStorage.removeItem('SelectedfacilityID');
+
         this.user = null;
         this.facilityService.facilitiesSignal.set([]);
         this.facilityService.selectedfacilitiesSignal.set(0);
         this.facilityService.selectedGroupSignal.set(0);
         this.facilityService.headerTracking.set(false);
         this.facilityService.selectedGroupSignal.set(null);
+        this.facilityService.dashboardfacilitiesSignal.set(null);
         this.router.navigate(['/login']);
     }
     public getUserRole(): string {

@@ -19,6 +19,7 @@ import { filter } from 'rxjs';
 export class FacilityService {
     facilitiesSignal = signal<facilities[]>([]);
     selectedfacilitiesSignal = signal<number>(0);
+    dashboardfacilitiesSignal = signal<any>(null);
     selectedGroupSignal = signal<number | null>(null);
     groupsCountrySignal = signal<string | null>('');
     countryCodeSignal = signal<string | null>(null);
@@ -105,6 +106,9 @@ export class FacilityService {
 
     facilitySelected(id: number) {
         this.selectedfacilitiesSignal.set(id)
+    };
+    setDashboardFacility(id: number) {
+        this.dashboardfacilitiesSignal.set(id)
     };
     setGroupId(id: number | null) {
         this.selectedGroupSignal.set(id)
