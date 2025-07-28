@@ -586,7 +586,8 @@ border-left: 4px solid rgb(103, 159, 84);
   list-style: none;
   position: relative;
   padding-left: 0px;
-  background-color: rgb(238 238 238 / 94%);
+  background-color: #fff;
+  // background-color: rgb(238 238 238 / 94%);
   // padding: 10px;
   width: 100%;
   left: 0px;
@@ -745,8 +746,13 @@ background-color: #fff!important;
 //   fill: #fff !important;
 // }
 div#DPRow.active {
-  background-color: #e9ecef !important;
+  background-color: #d5dbe0 !important;
 }
+
+li.active_2{
+   background-color: #d5dbe0 !important;
+}
+
 .ct_status_tble_230_space.p-datatable .p-datatable-tbody > tr > td {
   padding-block: 10px !important;
   white-space: nowrap;

@@ -1,1 +1,59 @@
-<p>fuel-energy works!</p>
+<div class="row text-white">
+      <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
+            <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
+                  Fuel and Energy-related Activities
+            </p>
+            <div class="ct_how_use_tooltip_main">
+                  <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+                  <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                        <div>
+
+                              <h5 class="mb-2 ct_fs_16">Fuel and Energy-related activities
+                              </h5>
+                              <p>Emissions related to the production (cradle to gate) of fuels and
+                                    energy purchased and consumed by the company in the reporting year.
+                                    It excludes emissions from the combustion of fuels and electricity
+                                    consumed by the company as they are already included in scope 1 or
+                                    scope 2.
+                              </p>
+                              <h5 class="ct_fs_16 mb-2">How to use the tool for entering data
+                                    emissions
+
+                              </h5>
+                              <p>Emissions data for this section is taken from Scope1 - Stationary
+                                    Combustion and Scope 2 - Electricity and Heat & Steam categories.
+                                    Cradle to Gate emission factors are then used for fuel data and
+                                    transmission loss factor for the electricity data to calculate
+                                    emissions for this category
+
+                              </p>
+
+
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+<form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
+
+      <div class="trackingFooter">
+            <div class="row p-2">
+
+                  <div class="col-md-12">
+                        <div class="mb-4 mt-4">
+                              <div>
+                                    <p>Emisisons data for this section is taken from Scope1 - Stationary
+                                          Combustion and Scope 2 - Electricity and Heat & Steam
+                                          categories. Craddle to Gate emission factors are then used to
+                                          compute Scope3.</p>
+                                    <!-- <p>
+                                                    <a class="trackingsubmitb" href="assets/template.xlsx"
+                                                        download="">Click here to
+                                                        download template</a>
+                                                </p> -->
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</form>

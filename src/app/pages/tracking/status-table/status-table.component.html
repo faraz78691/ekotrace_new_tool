@@ -1,15 +1,13 @@
-<p-table
-  [value]="data"
-  [paginator]="true"
-  [rows]="10"
-  [rowHover]="true"
-  dataKey="id"
-  styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
->
+<p class="mb-2 pb-2 mt-3 text-dark border-bottom">
+  {{ data ?  data[0].catName : 'Fuel and Energy-related Activities'}}
+</p>
+<p-table [value]="data" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
+  styleClass="statusTable ct_status_tble_230_space ct_status_table_main">
   <ng-template pTemplate="header">
     <tr>
       <th *ngFor="let col of columns">{{ col.header }}</th>
       <th>Year</th>
+      <th>Month</th>
       <th>Status</th>
       <th>Emission (tCO2e)</th>
       <th>User</th>
@@ -33,6 +31,7 @@
       </td>
 
       <td>{{ row.year }}</td>
+      <td>{{ row.month }}</td>
       <td>{{ row.status }}</td>
       <td>{{ row.emission }}</td>
       <td>{{ row.user_name }}</td>

@@ -17,22 +17,21 @@ export class StatusTableComponent {
   columns: any[] = [];
 
   ngOnInit() {
-    
     this.columns = this.getColumnsByCategory(this.categoryId);
   };
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['categoryId'] && !changes['categoryId'].firstChange) {
       this.columns = this.getColumnsByCategory(this.categoryId);
-    
+
     }
     if (changes['data'] && !changes['data'].firstChange) {
       this.data = changes['data'].currentValue;
-    
+
     }
     if (changes['businessId'] && !changes['businessId'].firstChange) {
       this.columns = this.getColumnsByCategory(this.categoryId, this.businessId);
-      
+
     }
   }
 
@@ -50,7 +49,7 @@ export class StatusTableComponent {
         ]
       case 2:
         return [
-       
+
           { field: 'TypeName', header: 'Refrigerant Type' },
           { field: 'refAmount', header: 'Refrigerant Amount' },
           { field: 'unit', header: 'Unit' },
@@ -176,32 +175,28 @@ export class StatusTableComponent {
         switch (businessId) {
           case 24:
             return [
-              { field: 'vehicle_type_name', header: 'Flight Mode' },
-              { field: 'sub_category', header: 'Flight Type' },
-              { field: 'sub_category', header: 'Flight Class' },
-              { field: 'sub_category', header: 'No of Trips/Passengers' },
-              { field: 'sub_category', header: 'Distance Travelled' },
-              { field: 'sub_category', header: 'Return Flight' },
-              { field: 'sub_category', header: 'Cost Centre' },
-              { field: 'unit', header: 'Month' },
+              { field: 'flight_calc_mode', header: 'Flight Mode' },
+              { field: 'flight_Type', header: 'Flight Type' },
+              { field: 'flight_Class', header: 'Flight Class' },
+              { field: 'no_of_passengers', header: 'No of Trips/Passengers' },
+              { field: 'avg_distance', header: 'Distance Travelled' },
+              { field: 'return_Flight', header: 'Return Flight' },
             ];
 
           case 25:
             return [
-              { field: 'vehicle_type_name', header: 'Country of Stay' },
-              { field: 'sub_category', header: 'Type of Hotel' },
-              { field: 'capacity', header: 'No of Rooms' },
-              { field: 'range', header: 'No of Nights per Room' },
-              { field: 'unit', header: 'Month' },
+              { field: 'country_of_stay', header: 'Country of Stay' },
+              { field: 'type_of_hotel', header: 'Type of Hotel' },
+              { field: 'no_of_occupied_rooms', header: 'No of Rooms' },
+              { field: 'no_of_nights_per_room', header: 'No of Nights per Room' },
             ];
 
           case 26:
             return [
-              { field: 'vehicle_type_name', header: 'Mode of Transport' },
-              { field: 'sub_category', header: 'No of Trips' },
-              { field: 'capacity', header: 'No of Passengers' },
-              { field: 'range', header: 'Distance Travelled (km)' },
-              { field: 'unit', header: 'Month' },
+              { field: 'mode_of_trasport', header: 'Mode of Transport' },
+              { field: 'no_of_trips', header: 'No of Trips' },
+              { field: 'no_of_passengers', header: 'No of Passengers' },
+              { field: 'distance_travelled', header: 'Distance Travelled (km)' },
             ];
 
           default:

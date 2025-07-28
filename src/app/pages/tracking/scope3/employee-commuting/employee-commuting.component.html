@@ -1,231 +1,173 @@
-<div class="row text-white border-bottom">
-      <div class="d-flex align-items-center justify-content-between w-100">
+<div class="row text-white">
+      <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
             <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-                    Employee Commuting
+                  Employee Commuting
             </p>
             <div class="ct_how_use_tooltip_main">
                   <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
                   <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                         <div>
-                              <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
-                                    stationary sources owned or controlled by an organization. These
-                                    sources include equipment and systems that are fixed in place, such
-                                    as boilers, furnaces, turbines, and other types of heating and
-                                    power-generating equipment.
+                              <p>Emissions from the transportation of employees between their homes
+                                    and workplaces. This includes emissions from personal vehicles,
+                                    public transportation, etc.
                               </p>
+                              <h5 class="mb-2 ct_fs_16">To collect emissions data for employee commute
+                                    used by the company, follow these steps:
+                              </h5>
+
                               <ol>
-                                    <li>Liquid fuels: Emissions resulting from the combustion of liquid
-                                          fuels in stationary sources are a significant part of an
-                                          organization’s overall carbon footprint due to the widespread
-                                          use of liquid fuels such as gasoline, diesel, fuel oil,
-                                          kerosene, and others.
+                                    <li>Determine which employees and types of commutes are included.
                                     </li>
-                                    <li>Solid fuels: These fuels typically include coal, peat, and other
-                                          solid materials used for heating, power generation, or
-                                          industrial processes.
-                                    </li>
-                                    <li>Gaseous fuels: These fuels are typically in a gaseous state at
-                                          normal atmospheric conditions and include natural gas, propane,
-                                          butane, and other similar gases used for heating, power
-                                          generation, and transportation.
-                                    </li>
-                                    <li>Biofuels: Biofuels are derived from renewable biomass sources
-                                          such as plant matter, agricultural residues, or waste materials.
-                                    </li>
-                                    <li>Biomass: Biomass refers to organic materials derived from plants
-                                          or animals that can be used as fuel. This includes wood,
-                                          agricultural residues, animal waste, and dedicated energy crops.
-                                    </li>
-                                    <li>Biogas: Biogas is a renewable energy source produced through the
-                                          anaerobic digestion or fermentation of organic materials such as
-                                          agricultural residues, food waste, sewage sludge, or energy
-                                          crops.
+                                    <li>Collect information on commute patterns, such as:
+                                          <ul class="pl-3" style="list-style: lower-roman;">
+                                                <li>Mode of transportation (car, bike, public transit,
+                                                      walking, etc.)
+                                                </li>
+                                                <li>Average distance of daily commute (one-way)
+                                                </li>
+                                                <li>Frequency of commute (days per week)</li>
+                                          </ul>
                                     </li>
                               </ol>
 
-                              <h5 class="ct_fs_16 mb-0">To collect stationary combustion data for
-                                    emissions in a company, follow these steps:
-                              </h5>
-                              <ol>
-                                    <li>Identify stationary combustion sources - Determine which
-                                          equipment and facilities generate emissions, such as: Boilers,
-                                          Furnaces, Generators, Heaters, Chillers
-                                    </li>
-                                    <li>Collect fuel consumption data:
-                                          Fuel Purchase Records - Collect data from fuel purchase receipts
-                                          and invoices.
-                                          Usage Logs - Maintain logs of fuel usage in vehicles, machinery,
-                                          and equipment.
-                                          Meter Readings - Use meter readings for equipment that consumes
-                                          liquid fuels.
-                                          Operational Records - Document hours of operation for
-                                          fuel-consuming equipment
-                                    </li>
-                                    <li>Relevant departments for collecting the data - Production
-                                          department, Operational department
-                                    </li>
-                              </ol>
-                              <h5 class="ct_fs_16  mb-0">How to use the tool for entering data
+                              <h5 class="ct_fs_16 mb-0">How to use the tool for entering data
                                     emissions
+
                               </h5>
                               <ol>
-                                    <li>Select the months and year for which you want to enter the
-                                          emissions data. If you select multiple months, same data will be
-                                          replicated for the months selected.
-                                    </li>
-                                    <li>Once submitted, data is sent for approval. Manager of facility
-                                          or the admin has approval rights. Only the approved data is
-                                          included in emissions calculations. You can check the approval
-                                          status in ‘Status’ tab
-                                    </li>
-                                    <li>User can attach the bills, invoices as attachment for record
-                                          purpose.
-                                    </li>
-                              </ol>
+                                    <li>Select the year for which you want to enter the commute data.
+                                          Note – the data is only entered once for the entire year.
 
-                              <h5 class="ct_fs_16 ">Guidance on input fields</h5>
-                              <p class="mb-1"><span class="ct_fw_600">Blend type –</span> This is the
-                                    blend% of biofuel (bioethanol / biodiesel). Final emission factor is
-                                    the weighted average of emission factor for 100% mineral petrol /
-                                    diesel and biofuel. Average blend type assumes 7% blend perc.
-                              </p>
-                              <p class="mb-0"><span class="ct_fw_600">Calorific Value –</span> If
-                                    Gross CV of the fuel is entered, it overwrites the average CV.
-                              </p>
+
+                                    </li>
+                                    <li>Enter the total number of employees commuting to office and
+                                          number of working days during the month. This data is used to
+                                          calculate the total commutes for the year - no of employees x no
+                                          of months x working days per month x 2 commutes per day
+
+
+                                    </li>
+                                    <li>
+                                          In the table, enter percentage details of the total commutes to
+                                          office against the type of transport. Also, enter the average
+                                          commute distance in km (one-way).
+
+
+                                    </li>
+
+                              </ol>
 
                         </div>
-
-
-                        <p class="ct_fs_16 ">Emissions occur directly from the leakage or
-                              discharge of the extinguishing agents. The fire extinguishers must
-                              be owned or controlled by the organization. Common agents include
-                              halons, HFCs, and other fluorinated gases.
-                        </p>
-                        <h5 class="ct_fs_16  mb-0">To collect emissions data for fire
-                              extinguishers owned by company, follow these steps:
-                        </h5>
-                        <ol>
-                              <li>Number and types of fire extinguishers (e.g., CO₂, dry chemical,
-                                    halon).
-                              </li>
-                              <li>Location of each fire extinguisher within the facility.
-                              </li>
-                              <li>Relevant departments for collecting the data - Environment,
-                                    Health and Safety/ Facilities Management department
-                              </li>
-                        </ol>
-                        <p>You can download the ‘Fire Extinguisher
                   </div>
             </div>
       </div>
 </div>
 <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
- <div class="trackingFooter" >
-                                    <div class="row mt-4 mb-3 mb-0 pb-3 mx-2">
+      <div class="trackingFooter">
+            <div class="row mt-4 mb-3 mb-0 pb-3 mx-2">
 
-                                        <div class="col-12">
-                                            <div class=" mt-0">
+                  <div class="col-12">
+                        <div class=" mt-0">
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-4" style="gap: 10px;">
-                                                            <label class=" ct_text_wrape">Total no of
-                                                                employees</label>
-                                                            <div class="position-relative">
-                                                                <input type="number" name="noofemployees" ngModel
-                                                                    placeholder="Enter no of employees"
-                                                                    class="form-control Dashboard-tab text-white" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-4" style="gap: 10px;">
-                                                            <label class=" ct_text_wrape">Total working days in
-                                                                month</label>
-                                                            <div class="position-relative">
-                                                                <input type="number" placeholder="Enter days"
-                                                                    name="workingdays" ngModel
-                                                                    class="form-control Dashboard-tab text-white" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                              <div class="row">
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Total no of
+                                                      employees</label>
+                                                <div class="position-relative">
+                                                      <input type="number" name="noofemployees" ngModel
+                                                            placeholder="Enter no of employees"
+                                                            class="form-control Dashboard-tab text-white" />
 
                                                 </div>
-
-                                                <div class="row ">
-                                                    <div class="col-md-12 ">
-                                                        <table class="table ct_home_office_table">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th scope="col">S.No.</th>
-                                                                    <th scope="col">Type of transport</th>
-                                                                    <th scope="col">Sub categories</th>
-                                                                    <th scope="col">% of all employees commute</th>
-                                                                    <th scope="col">Avg commute distance (one-way
-                                                                        trip)
-                                                                        km</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody #commuteTable>
-                                                                <tr *ngFor="let row of rows">
-                                                                    <td scope="row">{{ row.id }}</td>
-                                                                    <td>
-                                                                        <p-dropdown
-                                                                            class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
-                                                                            [(ngModel)]="row.vehicleType1"
-                                                                            [options]="VehicleGrid"
-                                                                            optionLabel="category" optionValue="id"
-                                                                            name="vehicle_type_{{row.id}}"
-                                                                            placeholder="Select type"
-                                                                            (onChange)="onEmpTypeChange($event , row)" >
-                                                                        </p-dropdown>
-                                                                    </td>
-                                                                    <td>
-                                                                        <p-dropdown
-                                                                            class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
-                                                                            [(ngModel)]="row.vehicleType2"
-                                                                            [options]="row.subVehicleCategory"
-                                                                            optionLabel="subcategory" optionValue="id"
-                                                                            name="vehicle_type_{{row.id}}"
-                                                                            placeholder="Select type">
-                                                                        </p-dropdown>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div style="position: relative;">
-                                                                          <input type="number"
-                                                                                 class="form-control"
-                                                                                 name="employeescommute_{{row.id}}"
-                                                                                 [(ngModel)]="row.employeesCommute"
-                                                                                 placeholder="Enter value"
-                                                                                 style="padding-right: 25px;" />
-                                                                          <span style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
-                                                                        </div>
-                                                                      </td>
-                                                                    <td>
-                                                                        <input type="number" class="form-control"
-                                                                            name="avgcommute_{{row.id}}"
-                                                                            [(ngModel)]="row.avgCommute" placeholder="Enter km value">
-                                                                    </td>
-                                                                </tr>
-
-
-                                                            </tbody>
-                                                            <p class="p-3" (click)="addCommutes()">+</p>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-12 mt-1 pt-3 ml-3 text-center">
-                                            <button type="submit" class="px-4 trackingsubmitb">
-                                                Submit
-                                            </button>
-                                        </div>
+                                          </div>
                                     </div>
-                                </div>
-     
+                                    <div class="col-md-6">
+                                          <div class="mb-4" style="gap: 10px;">
+                                                <label class=" ct_text_wrape">Total working days in
+                                                      month</label>
+                                                <div class="position-relative">
+                                                      <input type="number" placeholder="Enter days" name="workingdays"
+                                                            ngModel class="form-control Dashboard-tab text-white" />
+
+                                                </div>
+                                          </div>
+                                    </div>
+
+                              </div>
+
+                              <div class="row ">
+                                    <div class="col-md-12 ">
+                                          <table class="table ct_home_office_table">
+                                                <thead class="thead-dark">
+                                                      <tr>
+                                                            <th scope="col">S.No.</th>
+                                                            <th scope="col">Type of transport</th>
+                                                            <th scope="col">Sub categories</th>
+                                                            <th scope="col">% of all employees commute</th>
+                                                            <th scope="col">Avg commute distance (one-way
+                                                                  trip)
+                                                                  km</th>
+                                                      </tr>
+                                                </thead>
+                                                <tbody #commuteTable>
+                                                      <tr *ngFor="let row of rows">
+                                                            <td scope="row">{{ row.id }}</td>
+                                                            <td>
+                                                                  <p-dropdown
+                                                                        class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                                        [(ngModel)]="row.vehicleType1"
+                                                                        [options]="VehicleGrid" optionLabel="category"
+                                                                        optionValue="id" name="vehicle_type_{{row.id}}"
+                                                                        placeholder="Select type"
+                                                                        (onChange)="onEmpTypeChange($event , row)">
+                                                                  </p-dropdown>
+                                                            </td>
+                                                            <td>
+                                                                  <p-dropdown
+                                                                        class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                                        [(ngModel)]="row.vehicleType2"
+                                                                        [options]="row.subVehicleCategory"
+                                                                        optionLabel="subcategory" optionValue="id"
+                                                                        name="vehicle_type_{{row.id}}"
+                                                                        placeholder="Select type">
+                                                                  </p-dropdown>
+                                                            </td>
+                                                            <td>
+                                                                  <div style="position: relative;">
+                                                                        <input type="number" class="form-control"
+                                                                              name="employeescommute_{{row.id}}"
+                                                                              [(ngModel)]="row.employeesCommute"
+                                                                              placeholder="Enter value"
+                                                                              style="padding-right: 25px;" />
+                                                                        <span
+                                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <td>
+                                                                  <input type="number" class="form-control"
+                                                                        name="avgcommute_{{row.id}}"
+                                                                        [(ngModel)]="row.avgCommute"
+                                                                        placeholder="Enter km value">
+                                                            </td>
+                                                      </tr>
+
+
+                                                </tbody>
+                                                <p class="p-3" (click)="addCommutes()">+</p>
+                                          </table>
+                                    </div>
+                              </div>
+
+                        </div>
+
+                  </div>
+                  <div class="col-12 mt-1 pt-3 ml-3 text-center">
+                        <button type="submit" class="px-4 trackingsubmitb">
+                              Submit
+                        </button>
+                  </div>
+            </div>
+      </div>
+
 </form>

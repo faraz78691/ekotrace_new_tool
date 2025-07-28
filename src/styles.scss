@@ -1086,7 +1086,7 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
 .accordianclass {
     height: auto !important;
     overflow-y: auto;
-    background-color: #f5f5f5;
+    background-color: rgb(245, 245, 245);
 }
 
 .p-icon {
@@ -1102,6 +1102,10 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
 .main-header.navbar.navbar-expand.navbar-light {
     position: sticky;
     top: 0px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #dee2e6!important;
 }
 
 // New Css S
@@ -2752,4 +2756,15 @@ h1.bft-edit-form-title {
 
   .et_header_drop_down_560 .p-overlay {
     left: -22px !important;
+}
+
+.p-tabview .p-tabview-panels {
+    margin-top: 15px !important;
+    background-color: #fff !important;
+    color: #333 !important;
+    padding: 0px !important;
+}
+
+label{
+    color: #333 !important; 
 }
