@@ -41,6 +41,46 @@ export class WasteGeneratedComponent {
   recycle: boolean = false;
   recycleMethod: any[] = [];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+            this.recycleMethod =
+            [
+
+                {
+                    "id": 1,
+                    "template": "Open Loop"
+                },
+                {
+                    "id": 2,
+                    "template": "Close Loop"
+                }
+
+            ];
+         this.waterWasteMethod =
+            [
+                {
+                    "id": 'reuse',
+                    "water_type": "Reuse"
+                },
+                {
+                    "id": 'recycling',
+                    "water_type": "Recycling"
+                },
+                {
+                    "id": 'incineration',
+                    "water_type": "Incineration"
+                },
+                {
+                    "id": 'composting',
+                    "water_type": "Composting"
+                },
+                {
+                    "id": 'landfill',
+                    "water_type": "Landfill"
+                },
+                {
+                    "id": 'anaerobic_digestion',
+                    "water_type": "Anaerobic digestion"
+                }
+            ];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -53,14 +93,14 @@ export class WasteGeneratedComponent {
     });
   };
 
+  ngOnInit(): void {
+
+    this.getEndWasteType();
+
+  };
+
   EntrySave(form: NgForm) {
-    if (this.selectMonths.length == 0) {
-      this.notification.showInfo(
-        'Select month',
-        ''
-      );
-      return
-    }
+  
     if (form.value.waste_quantity == null || form.value.waste_quantity == '') {
       this.notification.showInfo(
         'Enter waste quantity',
@@ -68,9 +108,8 @@ export class WasteGeneratedComponent {
       );
       return
     }
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth)
-
+   
+this.isSubmitting = true;
     let formData = new URLSearchParams();
     if (this.wasteMethod == 'recycling') {
       formData.set('product', this.waterWasteProduct);
@@ -80,8 +119,8 @@ export class WasteGeneratedComponent {
       formData.set('unit', 'tonnes');
       formData.set('waste_loop', this.recycleSelectedMethod);
       formData.set('id', this.waterWasteId.toString());
-      formData.set('months', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('months', this.months);
+      formData.set('year', this.year);
       formData.set('facility_id', this.facilityID.toString());
     } else {
       formData.set('product', this.waterWasteProduct);
@@ -90,8 +129,8 @@ export class WasteGeneratedComponent {
       formData.set('method', this.wasteMethod);
       formData.set('unit', 'tonnes');
       formData.set('id', this.waterWasteId.toString());
-      formData.set('months', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('months', this.months);
+      formData.set('year', this.year);
       formData.set('facility_id', this.facilityID.toString());
     }
 
@@ -117,10 +156,12 @@ export class WasteGeneratedComponent {
           // this.wasteMethod = this.waterWasteMethod[0].id
 
         }
+        this.isSubmitting = false;
         // this.ALLEntries();
         // this.recycle = false;
       },
       error: (err) => {
+        this.isSubmitting = false;
         this.notification.showError(
           'Data entry added failed.',
           'Error'
@@ -132,7 +173,22 @@ export class WasteGeneratedComponent {
       },
       complete: () => { }
     })
-  }
+  };
+
+      getEndWasteType() {
+        this.appService.getApi('/getendoflife_waste_type?facility_id=' + this.facilityID).subscribe({
+            next: (response: any) => {
+            
+                if (response.success == true) {
+                    this.wasteGrid = response.categories;
+                    this.waterWasteId = this.wasteGrid[0].id
+                    this.waterWasteProduct = this.wasteGrid[0].type;
+                    this.getWasteSubCategory(this.waterWasteId);
+                    // this.franchiseCategoryValue = this.franchiseGrid[0].categories
+                }
+            }
+        })
+    };
 
 
   onWasteTypeChange(event: any) {
@@ -149,7 +205,7 @@ export class WasteGeneratedComponent {
     let formData = new URLSearchParams();
 
     formData.set('type', typeId);
-    formData.set('year', this.year.getFullYear().toString());
+    formData.set('year', this.year.toString());
     this.appService.postAPI('/getendoflife_waste_type_subcategory', formData).subscribe({
       next: (response: any) => {
 

@@ -42,6 +42,21 @@ export class UpstreamTransportationComponent {
   isSubmitting = false;
   months: string;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+       this.storageGrid =
+            [{
+                "id": 1,
+                "storagef_type": "Distribution Centre"
+            },
+            {
+                "id": 2,
+                "storagef_type": "Dry Warehouse"
+            },
+            {
+                "id": 3,
+                "storagef_type": "Refrigerated Warehouse"
+            }
+
+            ]
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -52,15 +67,15 @@ export class UpstreamTransportationComponent {
 
       }
     });
+  };
+
+  ngOnInit(): void {
+    this.getVehicleTypes();
+   
   }
 
   EntrySave(form: NgForm) {
 
-    this.dataEntry.month = this.selectMonths.map((month) => month.value)
-      .join(','); //this.getMonthName();
-    this.dataEntry.year = this.year.getFullYear().toString(); //this.getYear();
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth);
     let formData = new URLSearchParams();
 
     if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true) {
@@ -76,16 +91,16 @@ export class UpstreamTransportationComponent {
       formData.set('area_occupied', form.value.area_occupied);
       formData.set('averageNoOfDays', form.value.averageNoOfDays);
       formData.set('facility_id', this.facilityID);
-      formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
     } else if (this.storageTransporationChecked === true) {
       formData.set('storagef_type', this.storage_type);
       formData.set('area_occupied', form.value.area_occupied);
       formData.set('averageNoOfDays', form.value.averageNoOfDays);
       formData.set('area_occupied_unit', 'm2');
       formData.set('facility_id', this.facilityID);
-      formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
     } else if (this.vehcilestransporationchecked == true) {
       formData.set('vehicle_type', this.upstreamVehicletypeId);
       formData.set('sub_category', this.subVehicleCategoryValue);
@@ -95,8 +110,8 @@ export class UpstreamTransportationComponent {
       formData.set('mass_of_products', form.value.mass_of_products);
       formData.set('distanceInKms', form.value.distanceInKms);
       formData.set('facility_id', this.facilityID);
-      formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
     }
 
 
@@ -109,18 +124,15 @@ export class UpstreamTransportationComponent {
             'Success'
           );
           this.dataEntryForm.reset();
-          // this.getVehicleTypes()
-          // this.getSubVehicleCategory(1);
-          // this.getStatusData(this.activeCategoryIndex)
+
         } else {
           this.notification.showError(
             response.message,
             'Error'
           );
-          // this.dataEntryForm.reset();
-          // this.getSubVehicleCategory(1)
+         
         }
-        // this.ALLEntries();
+      
       },
       error: (err) => {
         this.notification.showError(
@@ -132,6 +144,21 @@ export class UpstreamTransportationComponent {
       complete: () => { }
     });
   }
+
+      getVehicleTypes() {
+        this.appService.getApi(`/vehicleCategories`).subscribe({
+            next: (response:any) => {
+
+                if (response.success == true) {
+                    this.VehicleGrid = response.categories;
+                    this.upstreamVehicletypeId = this.VehicleGrid[0].id;
+                    this.getSubVehicleCategory(this.upstreamVehicletypeId);
+
+
+                }
+            }
+        })
+    };
 
   onVehicleTypeChange(event: any) {
     const selectedIndex = event.value;

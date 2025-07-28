@@ -218,11 +218,10 @@ export class StatusTableComponent {
         ];
       case 15:
         return [
-          { field: '', header: 'Type of Home Office' },
-          { field: 'productcategory_name', header: 'Employee wfh' },
-          { field: 'readingvalue', header: 'Days/ week wfh' },
-          { field: 'readingvalue', header: 'Months wfh' },
-          { field: 'readingvalue', header: 'Working Days' },
+          { field: 'typeof_homeoffice_name', header: 'Type of Home Office' },
+          { field: 'noofemployees', header: 'Employee wfh' },
+          { field: 'noofdays', header: 'Days/ week wfh' },
+          { field: 'noofmonths', header: 'Months wfh' },
           { field: 'unit', header: 'Month' },
         ];
 

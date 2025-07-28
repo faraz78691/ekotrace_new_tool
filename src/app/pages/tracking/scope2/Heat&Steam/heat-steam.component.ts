@@ -100,13 +100,14 @@ export class HeatSteamComponent {
 
 
   EntrySave(dataEntryForm: NgForm) {
+    console.log(dataEntryForm.value);
     if (dataEntryForm.invalid) {
       return;
     }
     this.isSubmitting = true;
     var formData = new FormData();
     formData.set('typeID', this.heatTypeId.toString());
-    formData.set('readingValue', dataEntryForm.value.readingValue.toString());
+    formData.set('readingValue', dataEntryForm.value.readingvalue.toString());
     formData.set('unit', this.unit);
     formData.set('facilities', this.facilityID.toString());
     formData.set('months', this.months);

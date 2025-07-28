@@ -7,22 +7,30 @@ import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabViewModule } from 'primeng/tabview';
-import { TreeviewItem, TreeviewModule } from '@treeview/ngx-treeview';
+import { DefaultTreeviewI18n, OrderDownlineTreeviewEventParser, TreeviewConfig, TreeviewEventParser, TreeviewI18n, TreeviewItem, TreeviewModule } from '@treeview/ngx-treeview';
 import { LoginInfo } from '@/models/loginInfo';
 import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as XLSX from 'xlsx';
 import { DownloadFileService } from '@services/download-file.service';
 import { ToastModule } from 'primeng/toast';
+import { environment } from 'environments/environment';
+import { DialogModule } from "primeng/dialog";
 declare var $: any;
 @Component({
   selector: 'app-purchased-goods-services',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, TreeviewModule, FileUploadModule, ToastModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, TreeviewModule, FileUploadModule, ToastModule, DialogModule],
+  providers: [
+    { provide: TreeviewEventParser, useClass: OrderDownlineTreeviewEventParser },
+    { provide: TreeviewI18n, useClass: DefaultTreeviewI18n },
+    { provide: TreeviewConfig, useValue: TreeviewConfig.create({ hasFilter: true }) } // ✅ Add this
+  ],
   templateUrl: './purchased-goods-services.component.html',
   styleUrls: ['./purchased-goods-services.component.scss']
 })
 export class PurchasedGoodsServicesComponent {
+APIURL: string = environment.baseUrl;
   @ViewChild('dataEntryForm', { static: false }) dataEntryForm: NgForm;
   @ViewChild('fileUpload') fileUpload!: FileUpload;
   facilityID: number;
@@ -63,11 +71,14 @@ export class PurchasedGoodsServicesComponent {
   productID: any;
   visible2 = false;
   hideMatchButon: boolean = false;
+   psg_product: any;
   productsExcelData = [
     { category: 'Sports Teams and Clubs', expiryDate: '25-10-2025', quantity: 50, currency: 'INR', brand: 'Samsung', price: 2.00, status: 'Matched', isEditing: false },
     { category: 'Electronics', expiryDate: '30-12-2025', quantity: 100, currency: 'USD', brand: 'Sony', price: 5.00, status: 'Unmatched', isEditing: false }
   ];
   uploadButton = false;
+  superAdminID: number;
+  allPRoducts: any;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService) {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
@@ -81,64 +92,194 @@ export class PurchasedGoodsServicesComponent {
     });
   };
 
+  ngOnInit(): void {
+    if (localStorage.getItem('LoginInfo') != null) {
+      let userInfo = localStorage.getItem('LoginInfo');
+      let jsonObj = JSON.parse(userInfo); // string to "any" object first
+      this.loginInfo = jsonObj as LoginInfo;
+
+      let tenantID = this.loginInfo.tenantID;
+      this.superAdminID = this.loginInfo.super_admin_id;
+    }
+    // this.loginInfo = this.facilityService.getLoginInfo();
+    // this.getsubCategoryType(this.subCategoryID);
+    // this.getUnit(this.subCategoryID);
+    this.GetHSN();
+    this.GetVendors();
+
+    this.getPurchaseGoodsCurrency()
+   this.downloadExcelUrl = this.APIURL + `/get-excelsheet?facility_id=${this.facilityID}&tenantID=${this.loginInfo.super_admin_id}`;
+    // this.currency = this.facilityService.getCurrency();
+  };
+
 
   EntrySave(dataEntryForm: NgForm) {
 
-    if (dataEntryForm.valid) {
-      this.isSubmitting = true;
-      let formData = new FormData();
-      formData.set('NumberOfExtinguisher', dataEntryForm.value.ExtinguisherNo.toString());
-      formData.set('unit', 'KG');
-      formData.set('quantityOfCO2makeup', dataEntryForm.value.coo.toString());
-      formData.set('fireExtinguisherID', '');
-      formData.set('facilities', this.facilityID.toString());
-      formData.set('months', this.months);
-      formData.set('year', this.year);
-      formData.set('SubCategorySeedID', this.subCategoryID.toString());
-      // if (this.selectedFile) {
-      //     formData.set('file', this.selectedFile, this.selectedFile.name);
-      // }
-      this.appService.postAPI('/Addfireextinguisher', formData).subscribe({
-        next: (response: any) => {
+  
+            if (this.singlePGSTab) {
 
-          if (response.success == true) {
-            this.notification.showSuccess(
-              'Data entry added successfully',
-              'Success'
-            );
-            this.isSubmitting = false;
-            // this.resetForm();
-            // // this.getStationaryFuelType(this.SubCatAllData
-            // //     .manageDataPointSubCategorySeedID);
-            // this.ALLEntries();
-            // this.getUnit(this.SubCatAllData
-            //     .manageDataPointSubCategorySeedID);
-            // //this.GetAssignedDataPoint(this.facilityID);
-            // // this.trackingService.getrefdataentry(this.SubCatAllData.id, this.loginInfo.tenantID).subscribe({
-            // //     next: (response) => {
-            // //         this.commonDE = response;
-            // //     }
-            // // });
+                const filledRows = this.rowsPurchased.filter(row =>
 
-            // this.activeindex = 0;
-          } else {
-            this.notification.showError(
-              response.message,
-              'Error'
-            );
-            this.isSubmitting = false;
-          }
-        },
-        error: (err) => {
-          this.notification.showError(
-            'Data entry added failed.',
-            'Error'
-          );
-          console.error('errrrrrr>>>>>>', err);
-        },
-        complete: () => { }
-      });
-    }
+                    row.productType == null
+                );
+
+                if (filledRows.length > 0) {
+                    this.notification.showInfo(
+                        "Please select product service code",
+                        'Warning'
+                    );
+                    return;
+                }
+                if (this.isAnnual == undefined || this.isAnnual == null) {
+                    this.notification.showInfo(
+                        "Please select annual entry",
+                        'Warning'
+                    );
+                    return;
+                }
+     
+
+                // Prepare the payload
+                const payload = this.rowsPurchased.map(row => ({
+                    month: row.months,
+                    typeofpurchase: row.productService,
+                    valuequantity: row.quantity,
+                    unit: row.selectedUnit,
+                    vendorId: row.vendorName?.id,
+                    vendor: row.vendorName?.name,
+                    vendorunit: row.vendorspecificEFUnit,
+                    vendorspecificEF: row.vendorspecificEF,
+                    product_category: row.productType
+                }));
+
+                var purchaseTableStringfy = JSON.stringify(payload)
+
+                var formData = new FormData();
+                // formData.set('month', monthString);
+                formData.set('year', this.year);
+                formData.set('productcodestandard', this.productHSNSelect);
+                formData.set('is_annual', this.isAnnual);
+                formData.set('facilities', this.facilityID.toString());
+                formData.set('jsonData', purchaseTableStringfy);
+                formData.set('month', this.months);
+                if (this.selectedFile) {
+                    formData.set('file', this.selectedFile, this.selectedFile.name);
+                }
+
+                this.appService.postAPI('/purchaseGoods', formData).subscribe({
+                    next: (response: any) => {
+
+                        if (response.success == true) {
+                            this.notification.showSuccess(
+                                response.message,
+                                'Success'
+                            );
+                            // this.rowsPurchased.forEach(levels => {
+                            //     levels.productType = null
+                            //     this.deselectAllItems(levels.multiLevelItems)
+                            // })
+
+
+                            // this.rowsPurchased = [{
+                            //     id: 1,
+                            //     multiLevelItems: [],
+                            //     productService: null,
+                            //     productType: null,
+                            //     subVehicleCategory: [],  
+                            //     months: '',
+                            //     quantity: '',
+                            //     selectedUnit: '',
+                            //     vendorName: '',
+                            //     vendorspecificEF: '',
+                            //     vendorspecificEFUnit: `kgCO2e/${this.currency}` 
+                            // }];
+
+                            // this.GetHSN();
+                        } else {
+                            this.notification.showError(
+                                response.message,
+                                'Error'
+                            );
+
+                        }
+                    },
+                    error: (err) => {
+                        this.notification.showError(
+                            'Data entry added failed.',
+                            'Warning'
+                        );
+                        console.error('errrrrrr>>>>>>', err);
+                    },
+                    complete: () => { }
+                });
+            } else {
+
+                const payload = this.newExcelData.filter(row => row.is_find == true && (row.productResult.other_category_flag == '0' || row.productResult.other_category_flag == '')).map(row => ({
+                    month: '',
+                    typeofpurchase: row.productResult.typeofpurchase,
+                    valuequantity: row['Value / Quantity'],
+                    unit: row['Unit'],
+                    vendorId: '',
+                    vendor: row['Vendor'],
+                    vendorunit: row['Vendor Specific Unit'],
+                    vendorspecificEF: row['Vendor Specific EF'],
+                    product_category: row.productResult?.id,
+                    product_description: row['Product / Service Description'],
+                    purchase_date: row['Purchase Date'],
+                    productcode: row.code,
+                    is_find: row.is_find,
+                    product_name: row.productResult?.product
+                }))
+
+
+                var purchaseTableStringfy = JSON.stringify(payload);
+                var formData = new FormData();
+
+                formData.set('productcodestandard', this.productHSNSelect);
+                formData.set('facilities', this.facilityID.toString());
+                formData.set('jsonData', purchaseTableStringfy);
+                formData.set('is_annual', '0');
+                formData.set('tenant_id', this.loginInfo.tenantID.toString());
+                formData.set('super_tenant_id', this.superAdminID.toString());
+
+
+                if (this.selectedFile) {
+                    formData.set('file', this.selectedFile, this.selectedFile.name);
+                }
+                this.appService.postAPI('/bulk-purchase-goods-upload', formData).subscribe({
+                    next: (response : any) => {
+
+                        if (response.success == true) {
+                            this.notification.showSuccess(
+                                response.message,
+                                'Success'
+                            );
+                            this.newExcelData = [];
+                            this.GetHSN();
+                            this.resetForm();
+                         
+
+                        } else {
+                            this.notification.showError(
+                                response.message,
+                                'Error'
+                            );
+
+                        }
+                    },
+                    error: (err) => {
+                        this.notification.showError(
+                            'Data entry added failed.',
+                            'Error'
+                        );
+                        console.error('errrrrrr>>>>>>', err);
+                    },
+                    complete: () => { }
+                });
+            }
+
+
+        
   };
 
   bulkUploadPG() {
@@ -192,7 +333,7 @@ export class PurchasedGoodsServicesComponent {
     formData.set('product_code_id', this.productHSNSelect);
     formData.set('typeofpurchase', standardType);
     formData.set('country_id', this.facilityCountryCode);
-    // formData.set('year', this.year.getFullYear().toString());
+    formData.set('year', this.year.toString());
 
     this.appService.postAPI('/purchaseGoodsAllcategories', formData.toString()).subscribe({
       next: (response: any) => {
@@ -336,7 +477,7 @@ export class PurchasedGoodsServicesComponent {
           // this.deselectAllItems(this.rowsPurchased)
 
           this.resetForm();
-          this.ALLEntries();
+
 
         } else {
           this.notification.showError(
@@ -360,7 +501,7 @@ export class PurchasedGoodsServicesComponent {
   };
 
   triggerAIProcess() {
-    this.appService.getApi('/trigger-call').subscribe({
+    this.appService.getApi2('/trigger-call').subscribe({
       next: (Response) => {
         if (Response) {
 
@@ -396,111 +537,7 @@ export class PurchasedGoodsServicesComponent {
     this.selectedFile = null;
   }
 
-  ALLEntries() {
 
-    if (this.categoryId == 25 || this.categoryId == 26 || this.categoryId == 24) {
-      const categoryID = 13
-      const formData = new URLSearchParams();
-      this.convertedYear = this.appService.getYear(this.year);
-      formData.set('year', this.convertedYear.toString())
-      formData.set('facilities', this.facilityID.toString())
-      formData.set('categoryID', categoryID.toString())
-
-
-      this.appService
-        .postAPI('/GetpendingDataEnteries', (formData))
-        .subscribe({
-          next: (response: any) => {
-            if (response.success === false) {
-              this.dataEntriesPending = null;
-            } else {
-              if (this.categoryId == 24) {
-                this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'flight_travel');
-              } else if (this.categoryId == 25) {
-                this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'hotel_stay');
-              } else if (this.categoryId == 26) {
-
-                this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'other_modes_of_transport');
-              } else {
-
-                this.dataEntriesPending = response.categories;
-              }
-            }
-          },
-          error: (err) => {
-            this.notification.showError(
-              'Get data Point failed.',
-              'Error'
-            );
-            console.error('errrrrrr>>>>>>', err);
-          }
-        });
-      return
-    }
-
-    if (this.facilityID == 0) {
-      this.notification.showInfo(
-        'Select Facility',
-        ''
-      );
-      return
-    }
-    if (this.categoryId == 9) {
-      const formData = new URLSearchParams();
-      this.convertedYear = this.appService.getYear(this.year);
-      formData.set('year', this.convertedYear.toString())
-      formData.set('facilities', this.facilityID.toString())
-      formData.set('categoryID', this.categoryId.toString())
-      this.appService
-        .postAPI('/GetpendingDataEnteriesFuelType', formData)
-        .subscribe({
-          next: (response: any) => {
-            if (response.success === false) {
-              this.dataEntriesPending = null;
-            } else {
-              const filterEntries = response.categories.filter((items => items.Scope3GHGEmission !== '0.000'));
-              this.dataEntriesPending = filterEntries;
-            }
-          },
-          error: (err) => {
-            this.notification.showError('Operation failed', 'Error');
-          }
-        });
-      return
-    }
-
-
-    const formData = new URLSearchParams();
-    this.convertedYear = this.appService.getYear(this.year);
-    formData.set('year', this.convertedYear.toString())
-    formData.set('facilities', this.facilityID.toString())
-    formData.set('categoryID', this.categoryId.toString())
-
-
-    this.appService
-      .postAPI('/GetpendingDataEnteries', formData)
-      .subscribe({
-        next: (response: any) => {
-          if (response.success === false) {
-            this.dataEntriesPending = null;
-          } else {
-            if (this.categoryId == 24) {
-              this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'flight_travel');
-            } else if (this.categoryId == 25) {
-              this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'hotel_stay');
-            } else if (this.categoryId == 26) {
-
-              this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'other_modes_of_transport');
-            } else {
-              this.dataEntriesPending = response.categories;
-            }
-          }
-        },
-        error: (err) => {
-          this.notification.showError('Operation failed', 'Error');
-        }
-      });
-  };
 
   onPurchaseGoodsUpload(event: any, fileUpload: any) {
 
@@ -624,6 +661,7 @@ export class PurchasedGoodsServicesComponent {
   };
 
   toggleEdit(index: number, id: any, productmatch: any, finder: any) {
+    this.getALlProducts();
 
     this.productID = id;
     this.visible2 = true;
@@ -711,4 +749,182 @@ export class PurchasedGoodsServicesComponent {
       this.uploadButton = true
     }
   };
+
+  GetVendors() {
+
+    this.appService.getApi(`/getVendorlist/${this.loginInfo.super_admin_id}`).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.vendorList = response.categories;
+        }
+      },
+      error: (err) => {
+        console.error('errrrrrr>>>>>>', err);
+      },
+      complete: () => { }
+    });
+  };
+
+  getPurchaseGoodsCurrency() {
+    this.purchaseGoodsUnitsGrid = [];
+    const formdata = new URLSearchParams();
+    formdata.set('facilities', this.facilityID.toString());
+    this.appService.postAPI('/getcurrencyByfacilities', formdata).subscribe({
+      next: (response: any) => {
+        // // // console.log(response);
+        if (response.success == true) {
+          this.currency = response.categories;
+          console.log(this.currency);
+          this.purchaseGoodsUnitsGrid.push({ id: 1, units: this.currency })
+          const concatUnits =
+            [
+              {
+                "id": 2,
+                "units": "kg"
+              },
+              {
+                "id": 3,
+                "units": "tonnes"
+              },
+              {
+                "id": 4,
+                "units": "litres"
+              }
+            ]
+
+          this.purchaseGoodsUnitsGrid = this.purchaseGoodsUnitsGrid.concat(concatUnits);
+        };
+        this.rowsPurchased = [{
+          id: 1,
+          multiLevelItems: [],
+          productService: null,
+          productType: null,
+          subVehicleCategory: [],  // Add any other nested dropdown arrays here if needed
+          months: '',
+          quantity: '',
+          selectedUnit: '',
+          vendorName: '',
+          vendorspecificEF: '',
+          vendorspecificEFUnit: `kgCO2e/${this.currency}` // Make sure to initialize this as well
+        }];
+      }
+    })
+  };
+
+      getALlProducts() {
+        const formData = new URLSearchParams();
+        formData.set('country_code', this.facilityCountryCode);
+        formData.set('year', this.year.toString());
+        this.appService.postAPI('/get-all-purchase-categories-ef', formData).subscribe({
+            next: (response: any) => {
+
+                if (response.success == true) {
+                    this.allPRoducts = response.data;
+
+                } else {
+                    this.allPRoducts = [];
+                }
+            }
+        })
+    };
+    onAllProductChange() {
+
+
+        this.newExcelData = this.newExcelData.map(item => {
+            if (item['S. No.'] === this.productID) {
+                // Determine the correct code value based on productHSNSelect
+                let selectedCode;
+                if (this.productHSNSelect === 1) {
+                    selectedCode = this.psg_product.HSN_code;
+                } else if (this.productHSNSelect === 2) {
+                    selectedCode = this.psg_product.NAIC_code;
+                } else {
+                    selectedCode = this.psg_product.ISIC_code;
+                }
+
+                return {
+                    ...item,
+                    code: selectedCode,
+                    is_find: true, // Assign the selected code
+                    productResult: {
+                        ...item.productResult, // Spread the existing productResult
+                        id: this.psg_product.id,
+                        typeofpurchase: this.psg_product.typeofpurchase,
+                        product: this.psg_product.product,
+                        typesofpurchasename: this.psg_product.typesofpurchasename,
+                        HSN_code: this.psg_product.HSN_code,
+                        NAIC_code: this.psg_product.NAIC_code,
+                        ISIC_code: this.psg_product.ISIC_code
+                    }
+                };
+            }
+            return item;
+        });
+
+
+        setTimeout(() => {
+            this.visible2 = false;
+        }, 100);
+    };
+
+       changeStatus() {
+
+        this.newExcelData = this.newExcelData.map(item => {
+            if (item['S. No.'] === this.productID) {
+                // Determine the correct code value based on productHSNSelect
+                let selectedCode;
+
+                return {
+                    ...item,
+                    code: '',
+                    is_find: false,
+                    productResult: {
+                        ...item.productResult, // Spread the existing productResult
+                        id: '',
+                        typeofpurchase: '',
+                        product: '',
+                        typesofpurchasename: '',
+                        HSN_code: '',
+                        NAIC_code: '',
+                        ISIC_code: ''
+                    }
+                };
+            }
+            return item;
+        });
+
+
+        setTimeout(() => {
+            this.visible2 = false;
+        }, 100);
+    };
+
+    changeStatustoMatch() {
+
+        this.newExcelData = this.newExcelData.map(item => {
+            if (item['S. No.'] === this.productID) {
+                // Determine the correct code value based on productHSNSelect
+                let selectedCode;
+
+                return {
+                    ...item,
+                    code: '',
+                    is_find: true,
+                    productResult: {
+                        ...item.productResult,
+                        other_category_flag: '0'
+
+                    }
+                };
+            }
+            return item;
+        });
+
+
+        setTimeout(() => {
+            this.visible2 = false;
+            this.hideMatchButon = false;
+        }, 100);
+    };
 }

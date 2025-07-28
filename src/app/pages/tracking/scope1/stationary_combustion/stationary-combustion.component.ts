@@ -21,10 +21,12 @@ export class StationaryCombustionComponent {
   facilityCountryCode: string;
   isHowtoUse = false;
   subCategoryID: number = 1;
+  isSubmitting = false;
+  year: string;
+  months: string;
   fuelType: [] = [];
   units: any[] = [];
   fuelId: number = 0;
-  isSubmitting = false;
   unit: any;
   blendType =
     [
@@ -45,8 +47,7 @@ export class StationaryCombustionComponent {
   uploadButton = false;
   selectedBlend: any;
   blendPercent: any = 20;
-  year: string;
-  months: string;
+
   selectedFile: File;
 
 
@@ -81,7 +82,7 @@ export class StationaryCombustionComponent {
       }
       formData.set('subCategoryTypeId', (this.fuelId).toString());
       formData.set('SubCategorySeedID', (this.subCategoryID).toString());
-      if(this.subCategoryID == 1 && (this.fuelId == 1 || this.fuelId == 2)){
+      if (this.subCategoryID == 1 && (this.fuelId == 1 || this.fuelId == 2)) {
         formData.set('blendType', this.selectedBlend);
       }
       formData.set('calorificValue', dataEntryForm.value.calorificValue ? dataEntryForm.value.calorificValue : '');

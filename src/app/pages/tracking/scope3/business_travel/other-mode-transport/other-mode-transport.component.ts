@@ -40,7 +40,35 @@ export class OtherModeTransportComponent {
   carMode = false;
   autoMode = false;
   mode_name = '';
+      monthsTable: any[] = [
+        { name: 'Jan', value: 'Jan' },
+        { name: 'Feb', value: 'Feb' },
+        { name: 'Mar', value: 'Mar' },
+        { name: 'Apr', value: 'Apr' },
+        { name: 'May', value: 'May' },
+        { name: 'June', value: 'Jun' },
+        { name: 'July', value: 'Jul' },
+        { name: 'Aug', value: 'Aug' },
+        { name: 'Sep', value: 'Sep' },
+        { name: 'Oct', value: 'Oct' },
+        { name: 'Nov', value: 'Nov' },
+        { name: 'Dec', value: 'Dec' }
+    ];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+    this.rowsOtherTransport = [{
+        id: 1,
+        trasnportMode: null,
+        modeType: [],
+        selectedMode: null,
+        carFuel_type: [],
+        selectedFuelType: null,
+        no_of_passengers: null,
+        distance_travel_per_trip: null,
+        isDisabled: false,
+        noOfTrips: null,
+        month: this.monthsTable,
+        selectedMonths: null
+    }];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -50,13 +78,14 @@ export class OtherModeTransportComponent {
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
 
       }
+      this.getOtherModesVechile();
+      
     });
   };
 
   EntrySave(form: NgForm) {
 
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth)
+   this.isSubmitting = true;
     let formData = new FormData();
 
     const payloadsOtherModes = this.rowsOtherTransport.map(row => ({
@@ -73,7 +102,7 @@ export class OtherModeTransportComponent {
     }));
     formData.set('jsonData', JSON.stringify(payloadsOtherModes));
 
-    formData.set('year', this.dataEntry.year);
+    formData.set('year', this.year);
     formData.set('facilities', this.facilityID.toString());
     if (this.selectedFile) {
       formData.set('file', this.selectedFile, this.selectedFile.name);
@@ -102,7 +131,7 @@ export class OtherModeTransportComponent {
             distance_travel_per_trip: null,
             isDisabled: false,
             noOfTrips: null,
-            month: this.months,
+            month: this.monthsTable,
             selectedMonths: null,
           }];;
 
@@ -116,8 +145,10 @@ export class OtherModeTransportComponent {
           this.ModeSelected = false;
 
         }
+        this.isSubmitting = false;
       },
       error: (err) => {
+        this.isSubmitting = false;
         this.notification.showError(
           'Data entry added failed.',
           'Error'
@@ -212,7 +243,7 @@ export class OtherModeTransportComponent {
       distance_travel_per_trip: null,
       isDisabled: false,
       noOfTrips: '',
-      month: this.months,
+      month: this.monthsTable,
       selectedMonths: null,
       batch: 1,
     });
@@ -235,4 +266,15 @@ export class OtherModeTransportComponent {
       this.uploadButton = true
     }
   };
+
+     getOtherModesVechile() {
+        const formdata = new URLSearchParams();
+        formdata.set('facility_id', this.facilityID.toString());
+        this.appService.postAPI('/Othermodes_of_transport_type_name', formdata).subscribe({
+            next: (response: any) => {
+                this.ModesTravelGrid = response.data;
+
+            }
+        })
+    };
 }

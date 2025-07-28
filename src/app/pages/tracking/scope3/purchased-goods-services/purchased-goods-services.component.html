@@ -510,3 +510,40 @@
             <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
       </div> -->
 </form>
+
+
+<p-dialog [(visible)]="visible2" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}">
+
+    <p-header> Match Product </p-header>
+    <div class="modal-body text-white text-style Dashboard-tab ct_vertically_scroll">
+        <form class="col-12">
+            <div class="mb-5 pb-0 row">
+                <div class="col-md-12 mb-">
+
+                    <p-dropdown class="finput ct_input_white_bg13 ct_city_name_select_2_search       custom_dropdown"
+                        ngModel name="country" placeholder="Select Product" [options]="allPRoducts" [filter]="true"
+                        filterBy="product" [(ngModel)]="psg_product" [ngModelOptions]="{standalone: true}"
+                        optionLabel="product" styleClass="facilitydropdown" #country="ngModel" required
+                        (onChange)="onAllProductChange()">
+                    </p-dropdown>
+                </div>
+
+
+
+
+
+            </div>
+            <div style="height: 280px;"></div>
+
+
+        </form>
+
+        <p-header> OR </p-header>
+       <div class="d-flex gap-3 align-items-center justify-content-center">
+        <button type="button" class="px-4 trackingsubmitb mr-3" (click)="changeStatus()">Change Status to
+            Unmatch</button>
+        <button *ngIf="hideMatchButon" type="button" class="px-4 btn-warning trackingsubmitb"
+            (click)="changeStatustoMatch()">Change Status to Match</button>
+       </div>
+    </div>
+</p-dialog>

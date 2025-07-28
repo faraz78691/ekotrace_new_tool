@@ -31,7 +31,20 @@ export class FlightComponent {
   fuelId: number = 0;
   isSubmitting = false;
   year: any;
-  months: string;
+    monthsTable: any[] = [
+        { name: 'Jan', value: 'Jan' },
+        { name: 'Feb', value: 'Feb' },
+        { name: 'Mar', value: 'Mar' },
+        { name: 'Apr', value: 'Apr' },
+        { name: 'May', value: 'May' },
+        { name: 'June', value: 'Jun' },
+        { name: 'July', value: 'Jul' },
+        { name: 'Aug', value: 'Aug' },
+        { name: 'Sep', value: 'Sep' },
+        { name: 'Oct', value: 'Oct' },
+        { name: 'Nov', value: 'Nov' },
+        { name: 'Dec', value: 'Dec' }
+    ];
   dataEntry: DataEntry = new DataEntry();
   selectedFile: File;
   rowsFlightTravel: any[] = [];
@@ -41,7 +54,7 @@ export class FlightComponent {
   flightDisplay3 = 'none'
   flightsTravelTypes: any[] = [];
   airportGrid: any[] = [];
-  wasteGrid: any[] = [];
+  flightTypeGrid: any[] = [];
   flightClassGrid: any[] = [];
   annualEntry: any[] = [
     { name: 'Yes', value: 1 },
@@ -50,7 +63,25 @@ export class FlightComponent {
   productHSNSelect: any;
   busineessGrid: any[] = [];
   uploadButton: boolean = false;
+  months: string;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+        this.flightsTravelTypes =
+            [
+
+                {
+                    "id": 1,
+                    "flightType": "Generic"
+                },
+                {
+                    "id": 2,
+                    "flightType": "To/From"
+                },
+                // {
+                //     "id": 3,
+                //     "flightType": "Distance"
+                // }
+
+            ];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -58,21 +89,48 @@ export class FlightComponent {
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
-
       }
+        this.rowsFlightTravel = [{
+            id: 1,
+            flightMode: '',
+            flightType: null,
+            flightClass: null,
+            returnFlight: null,
+            noOfTrips: null,
+            costCentre: '',
+            to: null,
+            from: null,
+            via: null,
+            flight_class: null,
+            no_of_passengers: null,
+            return_flight: null,
+            reference_id: null,
+            cost_centre: null,
+            batch: 1,
+            month: this.monthsTable,
+            selectedMonths: null
+        }];
+            this.flightClassGrid =
+            [
+                {
+                    "id": 1,
+                    "classs": "Economy"
+                },
+                {
+                    "id": 2,
+                    "classs": "Business"
+                },
+                {
+                    "id": 3,
+                    "classs": "First Class"
+                }
+            ]
+        this.getFlightType();
     });
   };
 
   EntrySave(form: NgForm) {
-    // if (this.selectMonths.length == 0) {
-    //     this.notification.showInfo(
-    //         'Select month',
-    //         ''
-    //     );
-    //     return
-    // }
-
-
+   
     if (form.value.flightMode == 'Generic') {
       if (form.value.no_of_trips === '' || form.value.no_of_trips === null) {
         this.notification.showInfo(
@@ -82,8 +140,7 @@ export class FlightComponent {
         return;
       }
     }
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth)
+   this.isSubmitting = true;
     let formData = new FormData();
 
     if (form.value.flightMode == 'Generic') {
@@ -101,7 +158,7 @@ export class FlightComponent {
       formData.set('flight_calc_mode', form.value.flightMode);
       formData.set('jsonData', JSON.stringify(payloadsFlight));
       // formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('year', this.year);
       formData.set('facilities', this.facilityID.toString());
       if (this.selectedFile) {
         formData.set('file', this.selectedFile, this.selectedFile.name);
@@ -124,7 +181,7 @@ export class FlightComponent {
       formData.set('flight_calc_mode', form.value.flightMode);
       formData.set('jsonData', JSON.stringify(payloadsFlight));
       // formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('year', this.year);
       formData.set('facilities', this.facilityID.toString());
       if (this.selectedFile) {
         formData.set('file', this.selectedFile, this.selectedFile.name);
@@ -150,8 +207,8 @@ export class FlightComponent {
       formData.set('reference_id', form.value.reference_id);
       formData.set('cost_centre', form.value.businessunits);
       formData.set('batch', '1');
-      formData.set('month', monthString);
-      formData.set('year', this.dataEntry.year);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
       formData.set('facilities', this.facilityID.toString());
       if (this.selectedFile) {
         formData.set('file', this.selectedFile, this.selectedFile.name);
@@ -205,8 +262,10 @@ export class FlightComponent {
 
 
         }
+        this.isSubmitting = false;
       },
       error: (err) => {
+        this.isSubmitting = false;  
         this.notification.showError(
           "EF not found for this facility",
           ''
@@ -244,7 +303,7 @@ export class FlightComponent {
       reference_id: null,
       cost_centre: null,
       batch: 1,
-      month: this.months,
+      month: this.monthsTable,
       selectedMonths: null
 
     }];
@@ -265,7 +324,7 @@ export class FlightComponent {
   }
 
   getAirportCodes() {
-    this.appService.getApi('getflightairportcode').subscribe({
+    this.appService.getApi('/getflightairportcode').subscribe({
       next: (response: any) => {
         if (response.success == true) {
 
@@ -325,10 +384,22 @@ export class FlightComponent {
       reference_id: null,
       cost_centre: null,
       batch: 1,
-      month: this.months,
+      month: this.monthsTable,
       selectedMonths: null,
     });
   };
+
+    getFlightType() {
+        this.appService.getApi('/flight_types').subscribe({
+            next: (response) => {
+
+                if (response.success == true) {
+                    this.flightTypeGrid = response.batchIds;
+                    // this.franchiseCategoryValue = this.franchiseGrid[0].categories
+                }
+            }
+        })
+    };
 
   onFileSelected(event: any) {
 

@@ -94,6 +94,7 @@ export class TrackingComponent {
     onMonthsChange(event: any) {
         const monthString = JSON.stringify(this.selectMonths.map(m => m.value));
         this.facilityService.monthSignal.set(monthString);
+        
     };
 
 
@@ -102,15 +103,23 @@ export class TrackingComponent {
 
         this.dataEntry.month = this.trackingService.getMonthName(this.month);
         const year = this.trackingService.getYear(this.year);
-        console.log(year);
+      
         this.facilityService.yearSignal.set(year.toString());
         this.checkEntry(
             this.dataEntry.month,
             this.dataEntry.year,
             this.SubCatAllData.id
         );
-        // this.ALLEntries();
+       
         this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
+    }
+
+    onTabChange(event: any) {
+        const index = event.index;
+
+        if (index != 0) { // index of Status tab
+            this.ALLEntries(); // your API logic
+        }
     }
 
 

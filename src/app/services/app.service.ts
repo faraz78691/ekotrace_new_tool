@@ -63,12 +63,16 @@ export class AppService {
         );
     }
 
-    postAPI<T, U>(url: string, data: U): Observable<T> {
+    postAPI<T, U>(url: string, data: U): Observable<T | any> {
         return this.http.post<T>(environment.baseUrl + url, data)
     };
 
-    getApi<T>(url: string): Observable<T> {
+    getApi<T>(url: string): Observable<T | any> {
         return this.http.get<T>(environment.baseUrl + url);
+    };
+
+    getApi2<T>(url: string): Observable<T> {
+        return this.http.get<T>(environment.baseUrl2 + url);
     };
 
     public logout() {

@@ -156,7 +156,7 @@
                                           <td>
                                                 <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                       [(ngModel)]="row.flightType" [ngModelOptions]="{standalone: true}"
-                                                      [options]="wasteGrid" optionLabel="flight_type"
+                                                      [options]="flightTypeGrid" optionLabel="flight_type"
                                                       optionValue="flight_type" placeholder="Select type"
                                                       appendTo="body">
                                                 </p-dropdown>
@@ -238,8 +238,8 @@
 
 
                                           <td>
-                                                <p-dropdown
-                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230 et_select_min_w_600_43"
+                                                <p-dropdown 
+                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230 et_select_min_w_600_43 w-200"
                                                       ngModel [options]="airportGrid" [(ngModel)]="row.from"
                                                       [ngModelOptions]="{standalone: true}" optionLabel="airport_desc"
                                                       optionValue="airport_code" placeholder="Select from"

@@ -7,11 +7,12 @@ import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
 import { DataEntry } from '@/models/DataEntry';
+import { SubmitButtonComponent } from "@/shared/submit-button/submit-button.component";
 
 @Component({
   selector: 'app-water-suply-treatment',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule],
+  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule, SubmitButtonComponent],
   templateUrl: './water-suply-treatment.component.html',
   styleUrls: ['./water-suply-treatment.component.scss']
 })
@@ -32,6 +33,21 @@ export class WaterSuplyTreatmentComponent {
   dataEntry: DataEntry = new DataEntry();
   waterUsageLevel: any[] = [];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+    this.waterUsageLevel =
+      [{
+        "id": 1,
+        "unitType": "Primary"
+      },
+      {
+        "id": 2,
+        "unitType": "Secondary"
+      },
+      {
+        "id": 3,
+        "unitType": "Tertiary"
+      }
+
+      ];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -44,13 +60,7 @@ export class WaterSuplyTreatmentComponent {
   };
 
   EntrySave(form: NgForm) {
-    if (this.selectMonths.length == 0) {
-      this.notification.showInfo(
-        'Select month',
-        ''
-      );
-      return
-    }
+   
 
     if (form.value.water_supply <= form.value.water_treatment) {
       this.notification.showInfo(
@@ -74,7 +84,7 @@ export class WaterSuplyTreatmentComponent {
       );
       return
     }
-
+this.isSubmitting = true;
 
     if (this.waterSupplyUnit == 'kilo litres') {
       var allUnits = 1
@@ -82,8 +92,7 @@ export class WaterSuplyTreatmentComponent {
     if (this.waterSupplyUnit == 'cubic m') {
       var allUnits = 2
     }
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth)
+  
     var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty };
@@ -121,8 +130,8 @@ export class WaterSuplyTreatmentComponent {
     formData.set('water_discharge_only', water_DischargeonlyStringfy);
     formData.set('water_discharge', waterDischargeStringfy);
     formData.set('facilities', this.facilityID.toString());
-    formData.set('month', monthString);
-    formData.set('year', this.dataEntry.year);
+    formData.set('month', this.months);
+    formData.set('year', this.year);
     formData.set('batch', '1');
 
 
@@ -146,9 +155,11 @@ export class WaterSuplyTreatmentComponent {
           this.waterSupplyUnit = 'kilo litres'
 
         }
+        this.isSubmitting = false;
         // this.ALLEntries();
       },
       error: (err) => {
+        this.isSubmitting = false;
         this.waterSupplyUnit = 'kilo litres'
         this.notification.showError(
           'Data entry added failed.',

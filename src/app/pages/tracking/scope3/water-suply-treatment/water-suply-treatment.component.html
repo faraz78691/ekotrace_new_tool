@@ -318,7 +318,7 @@
                                                                         placeholder="Choose Level"
                                                                         optionValue="unitType"
                                                                         name="surface_levelTreatment"
-                                                                        #wasteUnits="ngModel">
+                                                                        #wasteUnits="ngModel" appendTo="body"> 
                                                                   </p-dropdown></td>
                                                             <td>
 
@@ -338,7 +338,7 @@
                                                                         placeholder="Choose Level"
                                                                         optionValue="unitType"
                                                                         name="ground_levelTreatment"
-                                                                        #wasteUnits="ngModel">
+                                                                        #wasteUnits="ngModel" appendTo="body">
                                                                   </p-dropdown></td>
 
                                                       </tr>
@@ -358,7 +358,7 @@
                                                                         placeholder="Choose Level"
                                                                         optionValue="unitType"
                                                                         name="seawater_levelTreatment"
-                                                                        #wasteUnits="ngModel">
+                                                                        #wasteUnits="ngModel" appendTo="body">
                                                                   </p-dropdown></td>
 
                                                       </tr>
@@ -368,7 +368,7 @@
 
                                                             <td><input type="number" class="form-control"
                                                                         name="third_withTreatment" ngModel
-                                                                        placeholder="Enter required value">
+                                                                        placeholder="Enter required value" >
                                                             </td>
 
                                                             <td><p-dropdown
@@ -378,7 +378,7 @@
                                                                         placeholder="Choose Level"
                                                                         optionValue="unitType"
                                                                         name="third_levelTreatment"
-                                                                        #wasteUnits="ngModel">
+                                                                        #wasteUnits="ngModel" appendTo="body">
                                                                   </p-dropdown></td>
                                                       </tr>
                                                       <tr>
@@ -397,13 +397,13 @@
                                                                         placeholder="Choose Level"
                                                                         optionValue="unitType"
                                                                         name="others_levelTreatment"
-                                                                        #wasteUnits="ngModel">
+                                                                        #wasteUnits="ngModel" appendTo="body">
                                                                   </p-dropdown></td>
                                                       </tr>
 
                                                 </tbody>
                                           </table>
-                                          <div style="height:130px"></div>
+                                      
                                     </div>
 
                               </div>
@@ -411,9 +411,7 @@
 
                   </div>
                   <div class="col-12 mt-4 pt-3 ml-3 text-center">
-                        <button type="submit" class="px-4 trackingsubmitb">
-                              Submit
-                        </button>
+                           <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
                   </div>
             </div>
       </div>

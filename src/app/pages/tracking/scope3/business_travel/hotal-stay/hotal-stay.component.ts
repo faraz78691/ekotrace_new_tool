@@ -36,10 +36,53 @@ export class HotalStayComponent {
   selectedFile: File;
   uploadButton: boolean = false
   rowsHotelStay: any[] = [];
-  hotelTypeGrid: any[] = [];
   public countriesList: any = countries;
   dataEntry: DataEntry = new DataEntry();
+  monthsTable: any[] = [
+        { name: 'Jan', value: 'Jan' },
+        { name: 'Feb', value: 'Feb' },
+        { name: 'Mar', value: 'Mar' },
+        { name: 'Apr', value: 'Apr' },
+        { name: 'May', value: 'May' },
+        { name: 'June', value: 'Jun' },
+        { name: 'July', value: 'Jul' },
+        { name: 'Aug', value: 'Aug' },
+        { name: 'Sep', value: 'Sep' },
+        { name: 'Oct', value: 'Oct' },
+        { name: 'Nov', value: 'Nov' },
+        { name: 'Dec', value: 'Dec' }
+    ];
+  hotelTypeGrid =
+            [
+                {
+                    "id": 'star_2',
+                    "hoteltype": "2 star"
+                },
+                {
+                    "id": 'star_3',
+                    "hoteltype": "3 star"
+                },
+                {
+                    "id": 'star_4',
+                    "hoteltype": "4 star"
+                },
+                {
+                    "id": 'star_5',
+                    "hoteltype": "5 star"
+                }
+
+            ]
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+        this.rowsHotelStay = [{
+            id: 1,
+            country_stay: [],
+            type_of_hotel: 'star_2',
+            no_of_occupied_rooms: null,
+            no_of_nights: null,
+            selectedCountry: null,
+            month: this.monthsTable,
+            selectedMonths: null,
+        }];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -54,8 +97,7 @@ export class HotalStayComponent {
 
   EntrySave(form: NgForm) {
 
-    var spliteedMonth = this.dataEntry.month.split(",");
-    var monthString = JSON.stringify(spliteedMonth);
+   
 
     let hasNullValue = this.rowsHotelStay.some(row =>
       row.selectedCountry == null ||
@@ -72,6 +114,7 @@ export class HotalStayComponent {
       );
       return; // stop further execution
     }
+    this.isSubmitting = true;
     let formData = new FormData();
     const payloadsHotelStay = this.rowsHotelStay.map(row => ({
 
@@ -85,7 +128,7 @@ export class HotalStayComponent {
     }));
 
 
-    formData.set('year', this.dataEntry.year);
+    formData.set('year', this.year);
     formData.set('facilities', this.facilityID.toString());
     formData.set('jsonData', JSON.stringify(payloadsHotelStay));
     if (this.selectedFile) {
@@ -111,7 +154,7 @@ export class HotalStayComponent {
             no_of_occupied_rooms: null,
             no_of_nights: null,
             selectedCountry: null,
-            month: this.months,
+            month: this.monthsTable,
             selectedMonths: null
           }];
 
@@ -122,11 +165,11 @@ export class HotalStayComponent {
             'Error'
           );
           this.dataEntryForm.reset();
-
-
         }
+        this.isSubmitting = false;
       },
       error: (err) => {
+        this.isSubmitting = false;
         this.notification.showError(
           'Data entry added failed.',
           ''
@@ -152,7 +195,7 @@ export class HotalStayComponent {
       type_of_hotel: 'star_2',
       no_of_occupied_rooms: null,
       no_of_nights: null,
-      month: this.months,
+      month: this.monthsTable,
       selectedMonths: null,
     });
   };
