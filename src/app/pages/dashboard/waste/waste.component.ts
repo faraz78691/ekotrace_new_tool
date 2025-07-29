@@ -34,7 +34,6 @@ export class WasteComponent {
   public loginInfo: LoginInfo;
   selectedFacility:any;
   combinedSubscription: Subscription;
-  ;
   year: Date;
   scopeWiseSeries: any[] = [];
   progress1: any = '';
@@ -70,10 +69,7 @@ export class WasteComponent {
     private facilityService: FacilityService,
     private trackingService: TrackingService,
     private dashboardService: DashboardService) {
-    this.year = new Date();
-
-
-
+   
     this.pieChart = {
       series: [44, 55, 13, 43, 22],
       chart: {
@@ -103,9 +99,16 @@ export class WasteComponent {
   };
 
   ngOnInit() {
+    const storedYear = sessionStorage.getItem('selected_year');
+    if (storedYear) {
+      // Create a new Date object using the stored year
+      this.year = new Date(Number(storedYear), 0); // January of the stored year
+    }else{
+      this.year = new Date();
+    }
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
-      let jsonObj = JSON.parse(userInfo); // string to "any" object first
+      let jsonObj = JSON.parse(userInfo); 
       this.loginInfo = jsonObj as LoginInfo;
     }
     let tenantId = this.loginInfo.tenantID;
@@ -580,6 +583,7 @@ export class WasteComponent {
 
 
   onFacilityChange(event: any) {
+    sessionStorage.setItem('selected_year', this.year.getFullYear().toString());
     this.facilityService.setDashboardFacility(this.selectedFacility)
     this.makeCombinedApiCall(this.selectedFacility)
     // // console.log(event.target.value)

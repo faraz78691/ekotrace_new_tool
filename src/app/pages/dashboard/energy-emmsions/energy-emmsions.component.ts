@@ -130,10 +130,7 @@ export class EnergyEmmsionsComponent {
     private facilityService: FacilityService,
     private trackingService: TrackingService,
     private dashboardService: DashboardService) {
-    this.year = new Date();
-
-
-
+   
     this.donotOptions3 = {
       series: [21, 21, 13, 30],
       chart: {
@@ -172,9 +169,16 @@ export class EnergyEmmsionsComponent {
 
 
 
-  };
+  }
 
   ngOnInit() {
+    const storedYear = sessionStorage.getItem('selected_year');
+    if (storedYear) {
+      // Create a new Date object using the stored year
+      this.year = new Date(Number(storedYear), 0); // January of the stored year
+    }else{
+      this.year = new Date();
+    }
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
       let jsonObj = JSON.parse(userInfo); // string to "any" object first
@@ -502,11 +506,12 @@ export class EnergyEmmsionsComponent {
   onFacilityChange(event: any) {
     // // console.log(event.target.value)
     // // console.log(this.selectedFacility);
+    sessionStorage.setItem('selected_year', this.year.getFullYear().toString());
     this.facilityService.setDashboardFacility(this.selectedFacility)
     this.emssionByTravel(this.selectedFacility)
     this.totalEmissionByMonth(this.selectedFacility)
     this.BygroundTravel(this.selectedFacility)
     this.emssionByActivity(this.selectedFacility)
-  };
+  }
 }
 

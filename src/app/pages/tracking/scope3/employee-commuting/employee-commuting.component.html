@@ -77,9 +77,10 @@
                                                 <div class="position-relative">
                                                       <input type="number" name="noofemployees" ngModel
                                                             placeholder="Enter no of employees"
-                                                            class="form-control Dashboard-tab text-white" />
+                                                            class="form-control Dashboard-tab text-white" required #noofemployees="ngModel" />
 
                                                 </div>
+                                                <p  *ngIf="noofemployees.errors?.['required'] && dataEntryForm.submitted && noofemployees.touched" class="validation">No of employees is required</p>
                                           </div>
                                     </div>
                                     <div class="col-md-6">
@@ -88,9 +89,10 @@
                                                       month</label>
                                                 <div class="position-relative">
                                                       <input type="number" placeholder="Enter days" name="workingdays"
-                                                            ngModel class="form-control Dashboard-tab text-white" />
+                                                            ngModel class="form-control Dashboard-tab text-white" required #workingdays="ngModel" />
 
                                                 </div>
+                                                <p *ngIf="workingdays.errors?.['required'] && dataEntryForm.submitted && workingdays.touched" class="validation">Working days is required</p>
                                           </div>
                                     </div>
 

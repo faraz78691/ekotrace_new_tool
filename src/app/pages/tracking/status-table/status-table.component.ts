@@ -13,12 +13,13 @@ export class StatusTableComponent {
   @Input() data: any[] = [];
   @Input() categoryId: number;
   @Input() businessId: number | null = null;
+  @Input() category_name: number | string = '';
 
   columns: any[] = [];
 
   ngOnInit() {
     this.columns = this.getColumnsByCategory(this.categoryId);
-  };
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['categoryId'] && !changes['categoryId'].firstChange) {
@@ -27,6 +28,10 @@ export class StatusTableComponent {
     }
     if (changes['data'] && !changes['data'].firstChange) {
       this.data = changes['data'].currentValue;
+
+    }
+    if (changes['category_name'] && !changes['category_name'].firstChange) {
+      this.category_name = changes['category_name'].currentValue;
 
     }
     if (changes['businessId'] && !changes['businessId'].firstChange) {

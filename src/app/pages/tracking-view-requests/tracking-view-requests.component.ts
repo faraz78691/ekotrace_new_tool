@@ -39,13 +39,13 @@ export class TrackingViewRequestsComponent {
     facilityID;
     flag;
     modeShow = false;
- 
+
     dataEntriesPending: PendingDataEntries[] = [];
     selectedEntry: PendingDataEntries[] = [];
     selectedScEntry: StationaryCombustionDE;
     selectedObjectEntry: selectedObjectEntry;
     selectedSendEntry: any[] = [];
- 
+
     sendEntries: DataEntry[] = [];
     sendSCEntries: StationaryCombustionDE[] = [];
     sendApprovalEntries: any[] = [];
@@ -56,15 +56,15 @@ export class TrackingViewRequestsComponent {
     Admin = environment.Admin;
     SuperAdmin = environment.SuperAdmin;
     Manager = environment.Manager;
-  
+
     Pending = environment.pending;
     Rejected = environment.rejected;
     Approved = environment.approved;
- 
+
     visible: boolean = false;
     reason: string;
-    issended: boolean=false;
-    year: Date;
+    issended: boolean = false;
+    year: any;
     convertedYear: string;
     filteredStatus: any;
     months: months;
@@ -77,30 +77,38 @@ export class TrackingViewRequestsComponent {
     AllCategory: ManageDataPointCategory[] = [];
     BusinessEntires: any[] = [];
     dataEntry: any;
-    display = 'none'
-    display2 = 'none'
+    display = 'none';
+    display2 = 'none';
     Modes: any[] = [];
     selectMode: number = 1;
     action = 'approve';
     computedFacilities = computed(() => {
-        return this.facilityService.selectedfacilitiesSignal()
-    })
+        return this.facilityService.selectedfacilitiesSignal();
+    });
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private trackingService: TrackingService,
         private notification: NotificationService,
-        private toastr: ToastrService,private appService: AppService,
-        private facilityService: FacilityService
+        private toastr: ToastrService, private appService: AppService,
+        private facilityService: FacilityService,
     ) {
+        const storedYear = sessionStorage.getItem('selected_year');
+        if (storedYear) {
+          // Create a new Date object using the stored year
+          this.year = new Date(Number(storedYear), 0); // January of the stored year
+        }else{
+          this.year = new Date();
+        }
         effect(() => {
-
+            // this.year = this.facilityService.yearSignal();
             if (this.computedFacilities() != 0) {
                 this.facilityID = this.computedFacilities();
                 this.ALLEntries(this.facilityID);
-               
+
             }
         });
+
         this.Modes =
             [
 
@@ -119,7 +127,7 @@ export class TrackingViewRequestsComponent {
 
             ];
         this.reason = '';
-        this.year = new Date();
+      
         this.months = new months();
         this.globalFilterValue = '';
         this.AllCategory = [];
@@ -139,10 +147,10 @@ export class TrackingViewRequestsComponent {
         { label: 'Rejected', value: 'rejected' }
     ];
     buttonOptions: any[] = [
-      
-        { label: 'Approve selected -Pending ', value: 'approve' },
-        { label: 'Reject selected - Pending', value: 'reject' },
-        { label: 'Delete selected - Approved', value: 'delete' },
+
+        { label: "Approve selected 'Pending' ", value: 'approve' },
+        { label: "Reject selected 'Pending' ", value: 'reject' },
+        { label: "Delete selected 'Approved' ", value: 'delete' },
     ];
     ngOnInit() {
         if (localStorage.getItem('LoginInfo') != null) {
@@ -156,6 +164,8 @@ export class TrackingViewRequestsComponent {
 
             });
         }
+
+      
 
     };
 
@@ -174,7 +184,7 @@ export class TrackingViewRequestsComponent {
     };
 
     deleteAllPopUp() {
-        
+
         this.display2 = 'block';
     }
 
@@ -185,16 +195,16 @@ export class TrackingViewRequestsComponent {
     };
 
     sendEntires(type: any) {
-       
+
         let url = '';
-        if(type == 'delete'){
+        if (type == 'delete') {
             url = '/deleteAllEntry'
-        }else if(type == 'approve'){ 
+        } else if (type == 'approve') {
             url = '/UpdateelecEntry'
-        }else if(type == 'reject'){
+        } else if (type == 'reject') {
             url = '/rejectAllEntry'
         }
-       
+
         if (this.loginInfo.role == 'Auditor') {
             this.notification.showWarning('You are not Authorized', 'Warning');
             return
@@ -215,11 +225,11 @@ export class TrackingViewRequestsComponent {
             this.sendSCEntries = [];
             let status = '';
             this.selectedEntry.forEach((element) => {
-                if(type == 'delete'){
+                if (type == 'delete') {
                     status = 'Approved';
-                }else if(type == 'approve'){
+                } else if (type == 'approve') {
                     status = 'Pending';
-                }else if(type == 'reject'){
+                } else if (type == 'reject') {
                     status = 'Pending';
                 }
                 if (element.status === status) {
@@ -238,11 +248,11 @@ export class TrackingViewRequestsComponent {
             this.sendApprovalEntries = [];
             let status = '';
             this.selectedEntry.forEach((element) => {
-                if(type == 'delete'){
+                if (type == 'delete') {
                     status = 'Approved';
-                }else if(type == 'approve'){
+                } else if (type == 'approve') {
                     status = 'Pending';
-                }else if(type == 'reject'){
+                } else if (type == 'reject') {
                     status = 'Pending';
                 }
                 if (element.status === status) {
@@ -278,7 +288,7 @@ export class TrackingViewRequestsComponent {
                     this.sendApprovalEntries = [];
                     this.selectedEntry = [];
                     this.allSelected = false;
-                }else{
+                } else {
                     this.notification.showError(
                         response.message,
                         ''
@@ -309,11 +319,11 @@ export class TrackingViewRequestsComponent {
     ALLEntries(facilityID: number) {
         this.modeShow = false;
         this.months = new months();
-        this.convertedYear = this.trackingService.getYear(this.year);
+        // this.convertedYear = this.trackingService.getYear(this.year);
         const formData = new URLSearchParams();
-        formData.set('year', this.convertedYear)
-        formData.set('facilities', facilityID.toString())
-        formData.set('categoryID', this.selectedCategory)
+        formData.set('year', this.year.getFullYear().toString());
+        formData.set('facilities', facilityID.toString());
+        formData.set('categoryID', this.selectedCategory);
         if (this.selectedCategory != 13) {
             this.trackingService
                 .newgetSCpendingDataEntries(formData)
@@ -335,7 +345,7 @@ export class TrackingViewRequestsComponent {
                     }
                 });
         }
-   
+
         if (this.selectedCategory == 13) {
             this.modeShow = true;
             this.trackingService
@@ -368,11 +378,11 @@ export class TrackingViewRequestsComponent {
                     }
                 });
         }
-    
+
     };
-    
-   
-   
+
+
+
     AcceptSingleEntry() {
         if (this.loginInfo.role == 'Preparer') {
             this.notification.showWarning(
@@ -419,7 +429,7 @@ export class TrackingViewRequestsComponent {
                         this.ALLEntries(this.facilityID);
                         this.onClose2();
                         this.sendApprovalEntries = [];
-                       
+
 
                         this.selectedEntry = [];
                     } else {
@@ -501,8 +511,11 @@ export class TrackingViewRequestsComponent {
     };
 
 
-   
+
     FilterByYear() {
+        const year2 = this.trackingService.getYear(this.year);
+        this.facilityService.yearSignal.set(year2.toString());
+        sessionStorage.setItem('selected_year', year2.toString());
         this.ALLEntries(this.facilityID);
 
     }
@@ -514,7 +527,7 @@ export class TrackingViewRequestsComponent {
                 // console.log(response);
                 this.AllCategory = response;
                 this.selectedCategory = this.AllCategory[0].id;
-              
+
                 if (this.loginInfo.role == environment.Preparer || this.loginInfo.role == environment.Manager) {
                     // this.ALLEntries(this.loginInfo.facilityID);
                     this.ALLEntries(this.facilityID);
@@ -528,7 +541,7 @@ export class TrackingViewRequestsComponent {
     getEntry() {
         this.ALLEntries(this.facilityID);
     }
-   
+
 
 
     getModesEntry() {
@@ -546,52 +559,52 @@ export class TrackingViewRequestsComponent {
     };
 
 
-    sendAction(action:string) {
+    sendAction(action: string) {
         console.log(action);
-      if(action == 'approve'){
-        this.sendEntires(action);
-      }else if (action == 'reject'){
-        this.sendEntires(action);
-      }else{
-        this.display2 = 'block';
-      }
+        if (action == 'approve') {
+            this.sendEntires(action);
+        } else if (action == 'reject') {
+            this.sendEntires(action);
+        } else {
+            this.display2 = 'block';
+        }
     };
 
 
-   
+
 
     toggleSelectAll(event: any) {
         this.allSelected = event.target.checked;
-      
+
         if (this.allSelected) {
-          if (this.action === 'approve') {
-            this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
-          } else if(this.action === 'reject') {
-            this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
-          }else if(this.action == 'delete'){
-            this.selectedEntry =  this.dataEntriesPending.filter(item => item.status === 'Approved');
-          }
-        } else {
-          this.selectedEntry = [];
-        }
-      
-       
-      };
-
-
-      changeHandler() {
-        if(this.allSelected){
             if (this.action === 'approve') {
                 this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
-            } else if(this.action === 'reject') {
-              this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
-            }else if(this.action == 'delete'){
-              this.selectedEntry =  this.dataEntriesPending.filter(item => item.status === 'Approved');
+            } else if (this.action === 'reject') {
+                this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
+            } else if (this.action == 'delete') {
+                this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Approved');
+            }
+        } else {
+            this.selectedEntry = [];
+        }
+
+
+    };
+
+
+    changeHandler() {
+        if (this.allSelected) {
+            if (this.action === 'approve') {
+                this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
+            } else if (this.action === 'reject') {
+                this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Pending');
+            } else if (this.action == 'delete') {
+                this.selectedEntry = this.dataEntriesPending.filter(item => item.status === 'Approved');
             }
         }
-       
-      };
-      
+
+    };
+
 
 
 

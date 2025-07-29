@@ -135,14 +135,17 @@ export class BusinessTravelComponent {
     private facilityService: FacilityService,
     private trackingService: TrackingService,
     private dashboardService: DashboardService) {
-    this.year = new Date();
-
-
    
-
   };
 
   ngOnInit() {
+    const storedYear = sessionStorage.getItem('selected_year');
+    if (storedYear) {
+      // Create a new Date object using the stored year
+      this.year = new Date(Number(storedYear), 0); // January of the stored year
+    }else{
+      this.year = new Date();
+    }
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
       let jsonObj = JSON.parse(userInfo); // string to "any" object first
@@ -566,12 +569,13 @@ export class BusinessTravelComponent {
   onFacilityChange(event: any) {
     // // console.log(event.target.value)
     // // console.log(this.selectedFacility);
+    sessionStorage.setItem('selected_year', this.year.getFullYear().toString());
     this.facilityService.setDashboardFacility(this.selectedFacility)
     this.emssionByTravel(this.selectedFacility)
     this.totalEmissionByMonth(this.selectedFacility)
     this.emssionByTypeANDClass(this.selectedFacility)
     this.BygroundTravel(this.selectedFacility)
     this.costCentre(this.selectedFacility)
-  };
+  }
 
 }

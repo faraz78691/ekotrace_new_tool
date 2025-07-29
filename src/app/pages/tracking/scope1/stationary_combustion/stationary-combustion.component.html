@@ -172,6 +172,10 @@
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
+                    <p class="validation"
+                    *ngIf="(blendPercent == null || blendPercent == '' || blendPercent == undefined) && dataEntryForm.submitted">
+                    Blend percent required.
+                </p>
                 </div>
 
             </ng-container>

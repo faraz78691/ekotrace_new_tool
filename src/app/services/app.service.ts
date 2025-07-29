@@ -79,6 +79,7 @@ export class AppService {
         localStorage.removeItem('LoginInfo');
         localStorage.removeItem('accessToken');
         sessionStorage.removeItem('SelectedfacilityID');
+        sessionStorage.removeItem('selected_year');
 
         this.user = null;
         this.facilityService.facilitiesSignal.set([]);

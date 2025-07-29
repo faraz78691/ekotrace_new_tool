@@ -74,61 +74,61 @@ export class StationaryCombustionComponent {
 
 
   EntrySave(dataEntryForm: NgForm) {
-    console.log(dataEntryForm.value);
-    if (dataEntryForm.valid) {
-      this.isSubmitting = true;
-      let formData = new FormData();
-      if (this.selectedBlend == 'Perc. Blend') {
-        formData.set('blendPercent', this.blendPercent.toString());
-      }
-      formData.set('subCategoryTypeId', (this.fuelId).toString());
-      formData.set('SubCategorySeedID', (this.subCategoryID).toString());
-      if (this.subCategoryID == 1 && (this.fuelId == 1 || this.fuelId == 2)) {
-        formData.set('blendType', this.selectedBlend);
-      }
-      formData.set('calorificValue', dataEntryForm.value.calorificValue ? dataEntryForm.value.calorificValue : '');
-      formData.set('unit', this.unit);
-      formData.set('readingValue', dataEntryForm.value.readingvalue.toString());
-      formData.set('months', this.months);
-      formData.set('year', this.year);
-      formData.set('facility_id', this.facilityID.toString());
-      if (this.selectedFile) {
-        formData.set('file', this.selectedFile, this.selectedFile.name);
-      }
-      this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
-        next: (response: any) => {
-
-          if (response.success == true) {
-            this.notification.showSuccess(
-              'Data entry added successfully',
-              'Success'
-            );
-            this.isSubmitting = false;
-            this.dataEntryForm.reset();
-          } else {
-            this.notification.showError(
-              response.message,
-              'Error'
-            );
-            this.isSubmitting = false;
-          }
-        },
-        error: (err) => {
-          this.notification.showError(
-            'Data entry added failed.',
-            'Error'
-          );
-          console.error('errrrrrr>>>>>>', err);
-        },
-        complete: () => { }
-      });
-    } else {
+    if (!dataEntryForm.valid) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
       });
       return;
     }
-  };
+  
+    if (this.selectedBlend === 'Perc. Blend' && !this.blendPercent) {
+      return;
+    }
+  
+    this.isSubmitting = true;
+    const formData = new FormData();
+  
+    if (this.selectedBlend === 'Perc. Blend') {
+      formData.set('blendPercent', this.blendPercent.toString());
+    }
+  
+    formData.set('subCategoryTypeId', this.fuelId.toString());
+    formData.set('SubCategorySeedID', this.subCategoryID.toString());
+  
+    if (this.subCategoryID === 1 && (this.fuelId === 1 || this.fuelId === 2)) {
+      formData.set('blendType', this.selectedBlend);
+    }
+  
+    formData.set('calorificValue', dataEntryForm.value.calorificValue || '');
+    formData.set('unit', this.unit);
+    formData.set('readingValue', (dataEntryForm.value.readingvalue || '').toString());
+    formData.set('months', this.months);
+    formData.set('year', this.year);
+    formData.set('facility_id', this.facilityID.toString());
+  
+    if (this.selectedFile) {
+      formData.set('file', this.selectedFile, this.selectedFile.name);
+    }
+  
+    this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
+      next: (response: any) => {
+        if (response.success === true) {
+          this.notification.showSuccess('Data entry added successfully', 'Success');
+          this.isSubmitting = false;
+          dataEntryForm.reset();
+        } else {
+          this.notification.showError(response.message, 'Error');
+          this.isSubmitting = false;
+        }
+      },
+      error: (err) => {
+        this.notification.showError('Data entry failed.', 'Error');
+        this.isSubmitting = false;
+        console.error('Error while submitting form:', err);
+      }
+    });
+  }
+  
 
 
   getsubCategoryType(subCatID: number) {
@@ -138,12 +138,12 @@ export class StationaryCombustionComponent {
       },
       error: (err) => {
 
-      }
-    })
-  };
+      },
+    });
+  }
 
   getUnit(subcatId) {
-    this.appService.getApi('/GetUnits/' + subcatId).subscribe({
+    this.appService.getApi(`/GetUnits/${subcatId}`).subscribe({
       next: (Response) => {
         if (Response) {
           this.units = Response['categories'];
@@ -152,9 +152,9 @@ export class StationaryCombustionComponent {
         else {
           this.units = [];
         }
-      }
-    })
-  };
+      },
+    });
+  }
 
   onFileSelected(event: any) {
 

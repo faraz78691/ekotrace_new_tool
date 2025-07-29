@@ -2,20 +2,7 @@
     <div class="col-xl-9">
 
         <div class="ct_reduction_graph_main mt-1 pt-2">
-            <!-- <div class="ct_d_flex_1">
-                <div class="ct_reduction_title">
-                    <h4>Reduction over time</h4>
-                    <p class="mb-0">FY - 2023-24</p>
-                </div>
-                <div>
-                    <p class="mb-1 ct_fw_500 text-white">Period Type</p>
-                    <select class="ct_period_select">
-                        <option value="">Monthly</option>
-                        <option value="">Yearly</option>
-                    </select>
-                </div>
-            </div> -->
-
+       
             <div class="mt-3">
                 <div class="ct_grey_border_1">
                     <div class="ct_d_flex_1 ct_grey_brdr_btm1 pb-3 mb-3">
@@ -40,13 +27,7 @@
                         <h4 class="text-dark ct_fs_24 ">Top 5 Contributors of Total Emissions</h4>
                         <!-- <p class="mb-0 text-dark">FY - 2023-24</p> -->
                     </div>
-                    <!-- <div>
-                        <p class="mb-1 ct_fw_500 text-white">Type</p>
-                        <select class="ct_period_select">
-                            <option value="">Sub Scope</option>
-                            <option value="">Sub Scope</option>
-                        </select>
-                    </div> -->
+                 
                 </div>
                 <div class="row mt-3">
                     <div class="ct_colo_2 col-md-6 mb-3" *ngFor="let fItems of topFIveE">
@@ -103,13 +84,7 @@
                         </p-dropdown>
                       </ng-container>
                       
-                    <!-- <select class="ct_all_vender_select" [(ngModel)]="selectedFacility"
-                        (change)="onFacilityChange($event)">
-                        <option value="" *ngFor="let items of dashboardData.categories" [value]="items.ID">
-                            <div class="d-flex justify-content-end pt-1 ml-1">
-                                <i class="fa fa-users"></i>
-                            </div>  {{items.AssestType}}</option>
-                    </select> -->
+                 
                   
                     <div class="mt-4">
                         <p class="mb-1 ct_fw_500">Calendar Year</p>
@@ -117,10 +92,7 @@
                             view="year" dateFormat="yy" inputId="yearpicker" (ngModelChange)="onFacilityChange($event)"
                             [disabledDates]="disabledDates" yearRange="5" styleClass="pcalender" [maxDate]="maxYear"
                             [showIcon]="true"></p-calendar>
-                        <!-- <select class="ct_period_select w-100">
-                            <option value="">2023-2024</option>
-                            <option value="">2023-2024</option>
-                        </select> -->
+                       
                     </div>
                 </div>
             </div>

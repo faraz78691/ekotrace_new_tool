@@ -29,7 +29,7 @@
                     <div class="col text-right pt-0 d-flex justify-content-end pr-0 gap-3">
                         <!-- <span class="mr-2 countrequest"></span> -->
                        
-                        <p-dropdown class="ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 mr-3"
+                        <p-dropdown class="ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 mr-3 et_dropdown_li_left_w_g_b"
                         [options]="buttonOptions" [(ngModel)]="action" [ngModelOptions]="{standalone: true}"
                         optionLabel="label" optionValue="value"  (onChange)="changeHandler()"></p-dropdown>
                    
@@ -42,7 +42,7 @@
 
                 <div class="p-0 m-0 view-request-div table-responive cd_requst__static12">
 
-                    <p-table class="ct_bottom_table_tr ct_chev_icon_dark230" #dt [(selection)]="selectedEntry" [scrollable]="true" 
+                    <p-table class="ct_bottom_table_tr et_table_spacing_12 ct_chev_icon_dark230" #dt [(selection)]="selectedEntry" [scrollable]="true" 
                         [globalFilterFields]="['catName']" dataKey="id" [rowsPerPageOptions]="[10, 25, 50]" 
                         [rowHover]="true"
                         [globalFilterFields]="['catName', 'subcatName', 'year', 'month', 'readingValue', 'unit', 'status']"

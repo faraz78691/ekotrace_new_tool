@@ -121,7 +121,7 @@ export class GhgEmmissionsComponent implements OnDestroy {
     private facilityService: FacilityService,
     private trackingService: TrackingService,
     private dashboardService: DashboardService) {
-    this.year = new Date();
+  
 
     this.loginInfo = new LoginInfo();
 
@@ -129,16 +129,23 @@ export class GhgEmmissionsComponent implements OnDestroy {
 
   ngOnInit() {
     const currentYear = new Date().getFullYear();
+    const storedYear = sessionStorage.getItem('selected_year');
+    if (storedYear) {
+      // Create a new Date object using the stored year
+      this.year = new Date(Number(storedYear), 0); // January of the stored year
+    }else{
+      this.year = new Date();
+    }
     // Set the max date to the last day of the current year
     this.maxYear = new Date(currentYear, 11, 31);
 
 
 
-    if (localStorage.getItem('LoginInfo') != null) {
-      let userInfo = localStorage.getItem('LoginInfo');
-      let jsonObj = JSON.parse(userInfo); // string to "any" object first
+    if (localStorage.getItem('LoginInfo') !== null) {
+      const userInfo = localStorage.getItem('LoginInfo');
+      const jsonObj = JSON.parse(userInfo); // string to "any" object first
       this.loginInfo = jsonObj as LoginInfo;
-    };
+    }
     const formData = new URLSearchParams();
     let tenantId = 0
     if (this.loginInfo.role == 'Auditor') {
@@ -575,6 +582,7 @@ export class GhgEmmissionsComponent implements OnDestroy {
 
 
   onFacilityChange(event: any) {
+    sessionStorage.setItem('selected_year', this.year.getFullYear().toString());
     this.facilityService.setDashboardFacility(this.selectedFacility)
     this.makeCombinedApiCall(this.selectedFacility);
 
