@@ -122,6 +122,11 @@ export class StationaryCombustionComponent {
         },
         complete: () => { }
       });
+    } else {
+      Object.values(dataEntryForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
     }
   };
 

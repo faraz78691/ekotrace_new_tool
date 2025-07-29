@@ -92,6 +92,9 @@ export class ElectricityComponent {
 
   EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.invalid) {
+      Object.values(dataEntryForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
       return;
     }
     let url;

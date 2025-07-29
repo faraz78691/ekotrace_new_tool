@@ -61,7 +61,8 @@
                 <label for="fname">No. of Extinguisher</label>
                 <input required ngModel name="ExtinguisherNo" #ExtinguisherNo="ngModel" ExtinguisherNo id="search-input"
                     type="text" placeholder="Enter no of extinguisher" class="form-control Dashboard-tab text-white" />
-                <p class="validation" *ngIf="ExtinguisherNo.errors?.['required']  && dataEntryForm.submitted">
+                <p class="validation"
+                    *ngIf="ExtinguisherNo.errors?.['required']  && dataEntryForm.submitted && ExtinguisherNo.touched">
                     No. of Extinguisher value required.
                 </p>
             </div>
@@ -71,7 +72,7 @@
                 <div class="position-relative">
                     <input required ngModel name="coo" #coo="ngModel" placeholder="Enter value" id="search-input"
                         type="number" class="form-control Dashboard-tab text-white" />
-                    <p class="validation" *ngIf="coo.errors?.['required']  && dataEntryForm.submitted">
+                    <p class="validation" *ngIf="coo.errors?.['required']  && dataEntryForm.submitted && coo.touched">
                         Amount required.
                     </p>
 

@@ -129,7 +129,8 @@
                 </div>
 
 
-                <p class="validation" *ngIf="myControl.errors?.['required']  && dataEntryForm.submitted">
+                <p class="validation"
+                    *ngIf="myControl.errors?.['required'] && dataEntryForm.submitted && myControl.touched">
                     Reading value required.
                 </p>
             </div>
