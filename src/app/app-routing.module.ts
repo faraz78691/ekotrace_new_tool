@@ -622,11 +622,7 @@ const routes: Routes = [
             }
         ]
     },
-    // {
-    //     path: 'tracking',
-    //     loadChildren: () => import('./pages/tracking/tracking.module').then(m => m.TrackingModule)
-    //   },
-
+   
     {
         path: 'login',
         component: LoginComponent,

@@ -58,19 +58,9 @@ import { ToastModule } from 'primeng/toast';
 import { BillingComponent } from './pages/billing/billing.component';
 import { CustomerService } from '@pages/admin-dashboard/customerservice';
 import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { AccordionModule } from 'primeng/accordion';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { DropdownModule } from 'primeng/dropdown';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { FileUploadModule } from 'primeng/fileupload';
 
-import { TabViewModule } from 'primeng/tabview';
+
+
 import { TrackingViewRequestsComponent } from './pages/tracking-view-requests/tracking-view-requests.component';
 import { ReportComponent } from './pages/reports/report/report.component';
 import { CustomReportComponent } from './pages/reports/custom-report/custom-report.component';
@@ -78,24 +68,21 @@ import { ReportStatusComponent } from './pages/reports/report-status/report-stat
 import { EnergyCustomReportComponent } from './pages/reports/energy-custom-report/energy-custom-report.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { BrsrReportComponent } from './pages/brsr-report/brsr-report.component';
-import { CalendarModule } from 'primeng/calendar';
+
 import { ImageModule } from 'primeng/image';
 import { GroupComponent } from '@pages/group/group.component';
-import { CarouselModule } from 'primeng/carousel';
+
 import { WaterCustomReportComponent } from './pages/reports/water-custom-report/water-custom-report.component';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { MessagesModule } from 'primeng/messages';
+
 import { BrsrQaComponent } from './modules/brsr-qa/brsr-qa.component';
 import { ReportDocComponent } from './pages/report-doc/report-doc.component';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
-import { ScrollerModule } from 'primeng/scroller';
+
 import { FireExtinguisherComponent } from './pages/fire-extinguisher/fire-extinguisher.component';
 import { VehicleComponent } from './pages/vehicle/vehicle.component';
 import { ElectricityComponent } from './pages/electricity/electricity.component';
 import { HeatandSteamComponent } from './pages/heatand-steam/heatand-steam.component';
 
-import { NgApexchartsModule } from 'ng-apexcharts';
+
 import { GhgEmmissionsComponent } from './pages/dashboard/ghg-emmissions/ghg-emmissions.component';
 import { EnergyEmmsionsComponent } from './pages/dashboard/energy-emmsions/energy-emmsions.component';
 import { BusinessTravelComponent } from './pages/dashboard/business-travel/business-travel.component';

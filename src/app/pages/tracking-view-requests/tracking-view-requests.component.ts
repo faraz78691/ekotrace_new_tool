@@ -82,6 +82,8 @@ export class TrackingViewRequestsComponent {
     Modes: any[] = [];
     selectMode: number = 1;
     action = 'approve';
+    indexPage = 0
+    rows = 10
     computedFacilities = computed(() => {
         return this.facilityService.selectedfacilitiesSignal();
     });
@@ -186,6 +188,11 @@ export class TrackingViewRequestsComponent {
     deleteAllPopUp() {
 
         this.display2 = 'block';
+    };
+
+    onPageChange(event) {
+        this.indexPage = event.first;
+        this.rows = event.rows;
     }
 
     onClose2() {
@@ -330,7 +337,7 @@ export class TrackingViewRequestsComponent {
                 .subscribe({
                     next: (response) => {
                         if (response.success === false) {
-                            this.dataEntriesPending = null;
+                            this.dataEntriesPending = [];
                         } else {
                             this.dataEntriesPending = response.categories;
                         }
@@ -353,7 +360,7 @@ export class TrackingViewRequestsComponent {
                 .subscribe({
                     next: (response) => {
                         if (response.success === false) {
-                            this.dataEntriesPending = null;
+                            this.dataEntriesPending = [];
                         } else {
                             this.BusinessEntires = response.categories
                             if (this.selectMode == 1) {

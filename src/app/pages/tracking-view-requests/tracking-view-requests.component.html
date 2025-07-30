@@ -46,7 +46,7 @@
                         [globalFilterFields]="['catName']" dataKey="id" [rowsPerPageOptions]="[10, 25, 50]" 
                         [rowHover]="true"
                         [globalFilterFields]="['catName', 'subcatName', 'year', 'month', 'readingValue', 'unit', 'status']"
-                        [value]="dataEntriesPending" [paginator]="true" [rows]="10" editMode="row">
+                        [value]="dataEntriesPending" [paginator]="true" [rows]="rows" editMode="row" [first]="indexPage" (onPage)="onPageChange($event)">
 
                         <ng-template pTemplate="header">
                             <tr>
