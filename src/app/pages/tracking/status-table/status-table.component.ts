@@ -186,6 +186,7 @@ export class StatusTableComponent {
               { field: 'no_of_passengers', header: 'No of Trips/Passengers' },
               { field: 'avg_distance', header: 'Distance Travelled' },
               { field: 'return_Flight', header: 'Return Flight' },
+              { field: 'month', header: 'Month' },
             ];
 
           case 25:
@@ -194,6 +195,7 @@ export class StatusTableComponent {
               { field: 'type_of_hotel', header: 'Type of Hotel' },
               { field: 'no_of_occupied_rooms', header: 'No of Rooms' },
               { field: 'no_of_nights_per_room', header: 'No of Nights per Room' },
+              { field: 'month', header: 'Month' },
             ];
 
           case 26:
@@ -202,6 +204,7 @@ export class StatusTableComponent {
               { field: 'no_of_trips', header: 'No of Trips' },
               { field: 'no_of_passengers', header: 'No of Passengers' },
               { field: 'distance_travelled', header: 'Distance Travelled (km)' },
+              { field: 'month', header: 'Month' },
             ];
 
           default:
@@ -222,7 +225,7 @@ export class StatusTableComponent {
           { field: 'noofemployees', header: 'Employee wfh' },
           { field: 'noofdays', header: 'Days/ week wfh' },
           { field: 'noofmonths', header: 'Months wfh' },
-          { field: 'unit', header: 'Month' },
+          { field: 'unit', header: 'Unit' },
         ];
 
       case 16:

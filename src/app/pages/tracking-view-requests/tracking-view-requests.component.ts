@@ -33,7 +33,7 @@ import { stat } from 'fs';
 })
 
 export class TrackingViewRequestsComponent {
-    @ViewChild('dt1') dt!: Table;
+    @ViewChild('dt') dt!: Table;
     allSelected: boolean = false;
     status: ViewrequestTable[];
     facilityID;
@@ -97,10 +97,10 @@ export class TrackingViewRequestsComponent {
     ) {
         const storedYear = sessionStorage.getItem('selected_year');
         if (storedYear) {
-          // Create a new Date object using the stored year
-          this.year = new Date(Number(storedYear), 0); // January of the stored year
-        }else{
-          this.year = new Date();
+            // Create a new Date object using the stored year
+            this.year = new Date(Number(storedYear), 0); // January of the stored year
+        } else {
+            this.year = new Date();
         }
         effect(() => {
             // this.year = this.facilityService.yearSignal();
@@ -129,7 +129,7 @@ export class TrackingViewRequestsComponent {
 
             ];
         this.reason = '';
-      
+
         this.months = new months();
         this.globalFilterValue = '';
         this.AllCategory = [];
@@ -167,7 +167,7 @@ export class TrackingViewRequestsComponent {
             });
         }
 
-      
+
 
     };
 
@@ -341,7 +341,9 @@ export class TrackingViewRequestsComponent {
                         } else {
                             this.dataEntriesPending = response.categories;
                         }
-
+                        setTimeout(() => {
+                            this.dt.first = this.indexPage
+                        });
                     },
                     error: (err) => {
                         this.notification.showError(
