@@ -435,7 +435,7 @@ export class PurchasedGoodsServicesComponent {
       next: (response: any) => {
 
         if (response.success == true) {
-          this.psg_ai_progress_data = response.data;
+          this.psg_ai_progress_data = (response.data).sort((a, b) => b.id - a.id);
         } else {
           this.psg_ai_progress_data = [];
           this.notification.showWarning(response.message, '');
@@ -738,7 +738,9 @@ export class PurchasedGoodsServicesComponent {
       next: (response: any) => {
 
         if (response.success == true) {
-          this.psg_ai_progress_data = response.data;
+          this.psg_ai_progress_data = (response.data).sort((a, b) => b.id - a.id);
+          console.log(this.psg_ai_progress_data);
+
         } else {
           this.psg_ai_progress_data = [];
           this.notification.showWarning(response.message, '');

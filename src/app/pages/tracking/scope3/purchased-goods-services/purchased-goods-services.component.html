@@ -359,15 +359,12 @@
                                     </div>
                               </div>
 
-                              <div class="d-flex align-items-center" style="gap:10px">
+                              <div class="d-flex align-items-center ml-auto" style="gap:10px">
                                     <button
                                           class="btn ct_scoope_1_tab ct_view_request_btn px-4 trackingsubmitb  et_light_blue_123"
                                           (click)="openProgresstab()" type="button">AI Match
                                           Status</button>
-                                    <button *ngIf="!singlePGSTab" type="button"
-                                          class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb"
-                                          (click)="submitUnmatchWithAI()">
-                                          Run AI Match</button>
+                                  
 
                               </div>
                               <div class="d-flex align-items-center ct_gap_10 flex-wrap">
@@ -388,7 +385,7 @@
                         </div>
 
                   </div>
-                  <div class="col-md-12 table-responsive mt-2" style="height: 50vh;">
+                  <div class="col-md-12 table-responsive mt-2" style="height: 46vh;">
                         <table class="table ct_home_office_table">
                               <thead class="thead-dark">
                                     <tr>
@@ -585,10 +582,14 @@
                                           (onSelect)="onFileSelected($event.files)"></p-fileUpload>
                               </div>
                         </div>
+                        <button *ngIf="!singlePGSTab" type="button"
+                        class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
+                        (click)="submitUnmatchWithAI()">
+                        Run AI Match</button>
                         <!-- <button type="submit" class="px-4 trackingsubmitb">
                               Submit
                         </button> -->
-                        <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
+                        <app-submit-button [isLoading]="isSubmitting" text="Submit" class="ml-auto"></app-submit-button>
                   </div>
 
             </ng-container>
