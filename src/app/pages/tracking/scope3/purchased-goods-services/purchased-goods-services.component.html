@@ -227,7 +227,7 @@
 <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
 
       <div class="trackingFooter">
-            <div class="row " *ngIf="singlePGSTab && !progressPSGTab">
+            <div class="row" *ngIf="singlePGSTab">
                   <div class="col-md-6 mt-3">
                         <div class="mb-4" style="gap: 10px;">
                               <label class=" ct_text_wrape">Product Code Conv.</label>
@@ -343,8 +343,28 @@
                               <p class="ml-2 trackingsubmitb" (click)="addPurchaseRows()">+</p>
                         </table>
                   </div>
+
+                  <div class="col-12 mt-2 d-flex gap-3 align-items-end">
+                        <div class="col-4 mt-2">
+                              <label for="fname ">Attachments</label>
+                              <p-toast></p-toast>
+                              <div class="d-flex justify-content-end border rounded ct_upload_btn1 et_btn_h_38_900">
+                                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
+                                          chooseLabel="Please select a File"
+                                          (onSelect)="onFileSelected($event.files)"></p-fileUpload>
+                              </div>
+                        </div>
+                        <button *ngIf="!singlePGSTab" type="button"
+                        class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
+                        (click)="submitUnmatchWithAI()">
+                        Run AI Match</button>
+                        <!-- <button type="submit" class="px-4 trackingsubmitb">
+                              Submit
+                        </button> -->
+                        <app-submit-button [isLoading]="isSubmitting" text="Submit" class="mx-auto"></app-submit-button>
+                  </div>
             </div>
-            <div class="row " *ngIf="!singlePGSTab && !progressPSGTab">
+            <div class="row " *ngIf="excelUploadTable">
                   <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between ct_gap_10 flex-wrap py-3">
                               <div class="mb-0" style="gap: 10px;">
@@ -402,7 +422,13 @@
                                           <th scope="col">Unit</th>
                                           <th scope="col">Vendor</th>
                                           <th scope="col">Vendor Specific EF</th>
-                                          <th scope="col">Status</th>
+                                          <th scope="col" class="dropdown">Status <i class="fa fa-filter" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu ct_custom_drop_678" aria-labelledby="dropdownMenuButton">
+                                          <a class="dropdown-item" href="#">All</a>
+                                          <a class="dropdown-item" href="#">Match</a>
+                                          <a class="dropdown-item" href="#">Unmatch</a>
+                                          </div>
+                                          </th>
                                           <th scope="col" class="text-center">Action</th>
                                     </tr>
                               </thead>
@@ -519,7 +545,233 @@
 
                         </table>
                   </div>
+
+                  <div class="col-12 mt-2 d-flex gap-3 align-items-end">
+                        <div class="col-4 mt-2">
+                              <label for="fname ">Attachments</label>
+                              <p-toast></p-toast>
+                              <div class="d-flex justify-content-end border rounded ct_upload_btn1 et_btn_h_38_900">
+                                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
+                                          chooseLabel="Please select a File"
+                                          (onSelect)="onFileSelected($event.files)"></p-fileUpload>
+                              </div>
+                        </div>
+                        <button *ngIf="!singlePGSTab" type="button"
+                        class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
+                        (click)="submitUnmatchWithAI()">
+                        Run AI Match</button>
+                        <!-- <button type="submit" class="px-4 trackingsubmitb">
+                              Submit
+                        </button> -->
+                        <app-submit-button [isLoading]="isSubmitting" text="Submit" class="mx-auto"></app-submit-button>
+                  </div>
             </div>
+
+            <div class="row " *ngIf="loadAITable">
+                  AI table AI
+                  <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between ct_gap_10 flex-wrap py-3">
+                              <div class="mb-0" style="gap: 10px;">
+                                    <label class="ct_text_wrape">Product Code Conv.</label>
+                                    <div class="position-relative">
+                                          <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                (onChange)="onProductHSNChange2($event)" ngModel
+                                                [(ngModel)]="productHSNSelect" [options]="purchaseHSNCode"
+                                                optionLabel="code" optionValue="id" name="HSNCode">
+                                          </p-dropdown>
+
+                                    </div>
+                              </div>
+
+                              <div class="d-flex align-items-center ml-auto" style="gap:10px">
+                                    <button
+                                          class="btn ct_scoope_1_tab ct_view_request_btn px-4 trackingsubmitb  et_light_blue_123"
+                                          (click)="openProgresstab()" type="button">AI Match
+                                          Status</button>
+                                  
+
+                              </div>
+                              <div class="d-flex align-items-center ct_gap_10 flex-wrap">
+                                    <div>
+                                          <div
+                                                class="d-flex justify-content-end border rounded ct_upload_btn1 en_py_5_btn_new_455">
+                                                <p-fileUpload #fileUpload mode="basic" accept=".xlsx, .xls" class=""
+                                                      chooseLabel="Upload data file" (onSelect)="onPurchaseGoodsUpload($event.files,fileUpload)
+                                                        "></p-fileUpload>
+                                          </div>
+                                          <!-- <input type="file" class="form-control"  (change)="onPurchaseGoodsUpload($event)" accept=".xlsx, .xls"  id="ct_product_upload_file" > -->
+                                    </div>
+                                    <a (click)="downloadPurchaseGoodsExcel()" download
+                                          class="px-4 trackingsubmitb en_py_5_btn_new_455"><i
+                                                class="fa-solid fa-download mr-2"></i>Download Template</a>
+
+                              </div>
+                        </div>
+
+                  </div>
+                  <div class="col-md-12 table-responsive mt-2" style="height: 46vh;" (scroll)="onTableScroll($event)">
+                        <table class="table ct_home_office_table">
+                              <thead class="thead-dark">
+                                    <tr>
+                                          <th scope="col">S.No.</th>
+                                          <th scope="col">Product Category</th>
+                                          <th scope="col">Product Description</th>
+                                          <th scope="col">Product Type</th>
+                                          <th scope="col">Product Name</th>
+                                          <th scope="col">Purchase date</th>
+
+                                          <!-- <th *ngIf="annualMonths" scope="col">Month of purchase</th> -->
+                                          <th scope="col" style="width : 6rem; white-space:normal">Value/
+                                                Quantity</th>
+                                          <th scope="col">Unit</th>
+                                          <th scope="col">Vendor</th>
+                                          <th scope="col">Vendor Specific EF</th>
+                                          <th scope="col" class="dropdown">Status <i class="fa fa-filter" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div class="dropdown-menu ct_custom_drop_678" aria-labelledby="dropdownMenuButton">
+                                          <a class="dropdown-item" href="#">All</a>
+                                          <a class="dropdown-item" href="#">Match</a>
+                                          <a class="dropdown-item" href="#">Unmatch</a>
+                                          </div>
+                                          </th>
+                                          <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                              </thead>
+                              <tbody #commuteTable>
+
+                                    <tr *ngFor="let product of newExcelData; let i = index">
+                                          <td>{{ i + 1 }}</td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product['Product Category']"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span
+                                                            *ngIf="!product.isEditing">{{ product['Product Category'] }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product['Product Description']"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span
+                                                            *ngIf="!product.isEditing">{{ product['Product Description'] }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product.productResult.typesofpurchasename"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span *ngIf="!product.isEditing">{{
+                                                                    product.productResult?.typesofpurchasename }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <ng-container>
+                                                      <textarea *ngIf="product.isEditing" type="text"
+                                                            [(ngModel)]="product.code"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            class="form-control text-dark"></textarea>
+                                                      <span *ngIf="!product.isEditing">{{
+                                                                    product.productResult?.product }} {{ product.code
+                                                                    }}</span>
+                                                </ng-container>
+
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Purchase Date']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Purchase Date']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Value / Quantity']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span
+                                                      *ngIf="!product.isEditing">{{ product['Value / Quantity'] }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Unit']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Unit']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+                                                <input *ngIf="product.isEditing" type="text"
+                                                      [(ngModel)]="product['Vendor']"
+                                                      [ngModelOptions]="{standalone: true}" class="form-control" />
+                                                <span *ngIf="!product.isEditing">{{ product['Vendor']
+                                                                }}</span>
+                                          </td>
+                                          <td>
+
+                                                <span *ngIf="product['Vendor Specific EF'] !==''">{{
+                                                                product['Vendor Specific EF']}}&nbsp;
+                                                      {{product['Vendor Specific Unit'] }}</span>
+                                                <span *ngIf="product['Vendor Specific EF'] ===''"></span>
+                                          </td>
+                                          <td>
+
+                                                <span [ngClass]="{'redColor':!product.is_find}">{{product.is_find
+                                                                ? (product.productResult?.other_category_flag === '1' ?
+                                                                'Matched/Other Cat' : 'Matched') : 'Unmatched' }}</span>
+                                          </td>
+
+
+                                          <td class="d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn btn-sm btn-primary mr-1"
+                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag)"
+                                                      data-toggle="modal" data-target="#exampleModal">
+                                                      <i class="fa-solid fa-sync-alt"></i>
+                                                </button>
+                                                <button *ngIf="!product.is_find" type="button"
+                                                      class="btn btn-sm btn-danger mr-1"
+                                                      (click)="deletePSG(product['S. No.'])">
+                                                      <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                                <!-- <button class="btn btn-sm btn-success"> Add Vendor</button> -->
+                                          </td>
+                                    </tr>
+
+
+
+                              </tbody>
+
+                        </table>
+                  </div>
+
+                  <div class="col-12 mt-2 d-flex gap-3 align-items-end">
+                        <div class="col-4 mt-2">
+                              <label for="fname ">Attachments</label>
+                              <p-toast></p-toast>
+                              <div class="d-flex justify-content-end border rounded ct_upload_btn1 et_btn_h_38_900">
+                                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
+                                          chooseLabel="Please select a File"
+                                          (onSelect)="onFileSelected($event.files)"></p-fileUpload>
+                              </div>
+                        </div>
+                        <button *ngIf="!singlePGSTab" type="button"
+                        class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
+                        (click)="submitUnmatchWithAI()">
+                        Run AI Match</button>
+                        <!-- <button type="submit" class="px-4 trackingsubmitb">
+                              Submit
+                        </button> -->
+                        <app-submit-button [isLoading]="isSubmitting" text="AI Submit" class="mx-auto"></app-submit-button>
+                  </div>
+            </div>
+
+
             <div class="row " *ngIf="progressPSGTab">
 
                   <div class="col-md-12 table-responsive mt-2" style="height: 50vh;">
@@ -531,7 +783,7 @@
                                           <th scope="col">Date</th>
                                           <th scope="col">No of items</th>
                                           <th scope="col">Approx time</th>
-                                          <th scope="col">Status</th>
+                                          <th scope="col">Status </th>
 
 
                                           <th scope="col" class="text-center">Action</th>
@@ -570,29 +822,7 @@
                         Refresh Status
                   </button>
             </div>
-            <ng-container *ngIf="!progressPSGTab">
 
-                  <div class="col-12 mt-2 d-flex gap-3 align-items-end">
-                        <div class="col-4 mt-2">
-                              <label for="fname ">Attachments</label>
-                              <p-toast></p-toast>
-                              <div class="d-flex justify-content-end border rounded ct_upload_btn1 et_btn_h_38_900">
-                                    <p-fileUpload #fileUpload mode="basic" accept=".jpg,.png,.pdf"
-                                          chooseLabel="Please select a File"
-                                          (onSelect)="onFileSelected($event.files)"></p-fileUpload>
-                              </div>
-                        </div>
-                        <button *ngIf="!singlePGSTab" type="button"
-                        class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
-                        (click)="submitUnmatchWithAI()">
-                        Run AI Match</button>
-                        <!-- <button type="submit" class="px-4 trackingsubmitb">
-                              Submit
-                        </button> -->
-                        <app-submit-button [isLoading]="isSubmitting" text="Submit" class="ml-auto"></app-submit-button>
-                  </div>
-
-            </ng-container>
       </div>
       <!-- <div class="col-12 mt-5 pt-3 ml-3 text-center">
             <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>

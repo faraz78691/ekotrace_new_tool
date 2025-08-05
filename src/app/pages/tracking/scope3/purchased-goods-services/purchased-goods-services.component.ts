@@ -72,6 +72,7 @@ export class PurchasedGoodsServicesComponent {
   visible2 = false;
   hideMatchButon: boolean = false;
   psg_product: any;
+  status:any
   productsExcelData = [
     { category: 'Sports Teams and Clubs', expiryDate: '25-10-2025', quantity: 50, currency: 'INR', brand: 'Samsung', price: 2.00, status: 'Matched', isEditing: false },
     { category: 'Electronics', expiryDate: '30-12-2025', quantity: 100, currency: 'USD', brand: 'Sony', price: 5.00, status: 'Unmatched', isEditing: false }
@@ -79,6 +80,8 @@ export class PurchasedGoodsServicesComponent {
   uploadButton = false;
   superAdminID: number;
   allPRoducts: any;
+  loadAITable: boolean = false;
+  excelUploadTable: boolean = false;
   monthsTable: any[] = [
     { name: 'Jan', value: 'Jan' },
     { name: 'Feb', value: 'Feb' },
@@ -93,6 +96,11 @@ export class PurchasedGoodsServicesComponent {
     { name: 'Nov', value: 'Nov' },
     { name: 'Dec', value: 'Dec' }
 ];
+currentPage = 1;
+limit = 100;
+loading = false;
+allLoaded = false;
+  payloadId: any;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService) {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
@@ -299,7 +307,10 @@ export class PurchasedGoodsServicesComponent {
 
   bulkUploadPG() {
     this.progressPSGTab = false;
-    this.singlePGSTab = !this.singlePGSTab
+    this.singlePGSTab = !this.singlePGSTab;
+    this.excelUploadTable = !this.singlePGSTab 
+    this.loadAITable = false;
+
   }
 
   onProductHSNChange(event: any) {
@@ -425,8 +436,11 @@ export class PurchasedGoodsServicesComponent {
   }
 
   openProgresstab() {
-    this.singlePGSTab = !this.singlePGSTab
+    this.currentPage = 1;
+    this.singlePGSTab = false;
     this.progressPSGTab = true;
+    this.excelUploadTable = false;
+    this.loadAITable = false;
 
     const formdata = new URLSearchParams();
     formdata.set('facilityID', this.facilityID.toString());
@@ -558,53 +572,54 @@ export class PurchasedGoodsServicesComponent {
 
     const file = event[0];
     if (!file) return;
-    this.spinner.show();
-    this.selectedFile = event[0];
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: 'array' });
-
-      // Read first sheet
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-
-      // Convert to JSON
-      this.jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-      // Convert array to key-value pairs
-      this.jsonData = this.convertToKeyValue(this.jsonData);
-      const filteredJson = this.jsonData.filter((item: any) => item['Product Description'] !== '');
-
-      if (filteredJson.length > 0) {
-        this.newExcelData = filteredJson.map(items => ({
-          ...items,
-          is_find: false,
-          code: '',
-          productResult: {
-            ...items.productResult,
-            id: '',
-            typeofpurchase: '',
-            product: '',
-            typesofpurchasename: '',
-            HSN_code: '',
-            NAIC_code: '',
-            ISIC_code: ''
-          }
-
-        }));
-        this.spinner.hide();
-      } else {
-        this.sendJSON(this.jsonData);
-      }
-
-      // setTimeout(() => {
-      //     fileUpload.clear();
-      // }, 1000);
-
-    };
-    reader.readAsArrayBuffer(file);
-  };
+  
+    this.spinner.show(); // show spinner first
+  
+    setTimeout(() => {
+      this.loadAITable = false;
+      this.excelUploadTable = true;
+      this.selectedFile = file;
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+  
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+  
+        this.jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        this.jsonData = this.convertToKeyValue(this.jsonData);
+  
+        const filteredJson = this.jsonData.filter((item: any) => item['Product Description'] !== '');
+  
+        if (filteredJson.length > 0) {
+          this.newExcelData = filteredJson.map(items => ({
+            ...items,
+            is_find: false,
+            code: '',
+            productResult: {
+              ...items.productResult,
+              id: '',
+              typeofpurchase: '',
+              product: '',
+              typesofpurchasename: '',
+              HSN_code: '',
+              NAIC_code: '',
+              ISIC_code: ''
+            }
+          }));
+          this.spinner.hide();
+        } else {
+          this.sendJSON(this.jsonData);
+          this.spinner.hide();
+        }
+      };
+  
+      reader.readAsArrayBuffer(file);
+    }, 100); // delay to allow spinner to render
+  }
+  
 
   convertToKeyValue(data: any[]): any[] {
     if (data.length < 2) return [];
@@ -711,20 +726,32 @@ export class PurchasedGoodsServicesComponent {
   };
 
   loadAIMatchData(id: any) {
+    this.payloadId = id;
+    this.loading = true;
     const formdata = new URLSearchParams();
-    formdata.set('purchase_payload_id', id);
+    formdata.set('purchase_payload_id',  this.payloadId);
+    formdata.set('status', this.status ? this.status.toString() : '' );
+    formdata.set('page', this.currentPage.toString());
+    formdata.set('limit', '100');
     this.appService.postAPI('/get-purchase-good-matched-data-using-payload-id', formdata).subscribe({
       next: (response: any) => {
         if (response.success == true) {
 
-          this.newExcelData = response.data;
+          this.newExcelData.push(...response.data);
+          this.currentPage++;
           this.progressPSGTab = false;
-          this.singlePGSTab = !this.singlePGSTab;
+          // this.singlePGSTab = !this.singlePGSTab;
+          this.loadAITable = true;
 
         } else {
-          this.newExcelData = [];
+          this.allLoaded = true;
+          // this.newExcelData = [];
           this.notification.showWarning(response.message, '');
         }
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
       }
     })
 
@@ -944,4 +971,19 @@ export class PurchasedGoodsServicesComponent {
       this.hideMatchButon = false;
     }, 100);
   };
+
+  onTableScroll(event: any) {
+    const element = event.target;
+
+  const isVerticalScroll = element.scrollTop > 0;
+  const isAtBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
+
+  // ✅ Only load if vertical scroll and at bottom
+  if (isVerticalScroll && isAtBottom && !this.loading && !this.allLoaded) {
+      this.loadAIMatchData(this.payloadId);
+    }
+  }
+
+ 
+  
 }
