@@ -72,7 +72,7 @@ export class PurchasedGoodsServicesComponent {
   visible2 = false;
   hideMatchButon: boolean = false;
   psg_product: any;
-  status:any
+  status: any
   productsExcelData = [
     { category: 'Sports Teams and Clubs', expiryDate: '25-10-2025', quantity: 50, currency: 'INR', brand: 'Samsung', price: 2.00, status: 'Matched', isEditing: false },
     { category: 'Electronics', expiryDate: '30-12-2025', quantity: 100, currency: 'USD', brand: 'Sony', price: 5.00, status: 'Unmatched', isEditing: false }
@@ -95,12 +95,13 @@ export class PurchasedGoodsServicesComponent {
     { name: 'Oct', value: 'Oct' },
     { name: 'Nov', value: 'Nov' },
     { name: 'Dec', value: 'Dec' }
-];
-currentPage = 1;
-limit = 100;
-loading = false;
-allLoaded = false;
+  ];
+  currentPage = 1;
+  limit = 100;
+  loading = false;
+  allLoaded = false;
   payloadId: any;
+  matchedRowID: any;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService) {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
@@ -237,7 +238,7 @@ allLoaded = false;
       });
     } else {
 
-      const payload = this.newExcelData.filter(row => row.is_find == true && (row.productResult.other_category_flag == '0' || row.productResult.other_category_flag == '')).map(row => ({
+      const payload = this.newExcelData.filter(row => row.is_find == true && (row.productResult?.other_category_flag == '0' || row.productResult?.other_category_flag == '')).map(row => ({
         month: '',
         typeofpurchase: row.productResult.typeofpurchase,
         valuequantity: row['Value / Quantity'],
@@ -308,7 +309,7 @@ allLoaded = false;
   bulkUploadPG() {
     this.progressPSGTab = false;
     this.singlePGSTab = !this.singlePGSTab;
-    this.excelUploadTable = !this.singlePGSTab 
+    this.excelUploadTable = !this.singlePGSTab
     this.loadAITable = false;
 
   }
@@ -441,6 +442,8 @@ allLoaded = false;
     this.progressPSGTab = true;
     this.excelUploadTable = false;
     this.loadAITable = false;
+    this.allLoaded = false;
+
 
     const formdata = new URLSearchParams();
     formdata.set('facilityID', this.facilityID.toString());
@@ -572,27 +575,27 @@ allLoaded = false;
 
     const file = event[0];
     if (!file) return;
-  
+
     this.spinner.show(); // show spinner first
-  
+
     setTimeout(() => {
       this.loadAITable = false;
       this.excelUploadTable = true;
       this.selectedFile = file;
       const reader = new FileReader();
-  
+
       reader.onload = (e: any) => {
         const data = new Uint8Array(e.target.result);
         const workbook = XLSX.read(data, { type: 'array' });
-  
+
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-  
+
         this.jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         this.jsonData = this.convertToKeyValue(this.jsonData);
-  
+
         const filteredJson = this.jsonData.filter((item: any) => item['Product Description'] !== '');
-  
+
         if (filteredJson.length > 0) {
           this.newExcelData = filteredJson.map(items => ({
             ...items,
@@ -615,11 +618,11 @@ allLoaded = false;
           this.spinner.hide();
         }
       };
-  
+
       reader.readAsArrayBuffer(file);
     }, 100); // delay to allow spinner to render
   }
-  
+
 
   convertToKeyValue(data: any[]): any[] {
     if (data.length < 2) return [];
@@ -690,7 +693,8 @@ allLoaded = false;
     this.downloadFileService.downloadFile(this.downloadExcelUrl, 'Purchase Goods.xlsx');
   };
 
-  toggleEdit(index: number, id: any, productmatch: any, finder: any) {
+  toggleEdit(index: number, id: any, productmatch: any, finder: any, selectedId: any) {
+    this.matchedRowID = selectedId;
     this.getALlProducts();
 
     this.productID = id;
@@ -698,9 +702,6 @@ allLoaded = false;
 
     if (finder == '1' && productmatch == true) {
       this.hideMatchButon = true;
-    }
-    if (finder == 'delete') {
-      this.deleteProduct(index);
     }
   }
 
@@ -725,32 +726,44 @@ allLoaded = false;
     return timeString.trim();
   };
 
-  loadAIMatchData(id: any) {
+  loadAIMatchData(id: any, status?: any, isScroll?: any) {
+    this.status = status;
     this.payloadId = id;
     this.loading = true;
     const formdata = new URLSearchParams();
-    formdata.set('purchase_payload_id',  this.payloadId);
-    formdata.set('status', this.status ? this.status.toString() : '' );
+    formdata.set('purchase_payload_id', this.payloadId);
+    formdata.set('status', this.status != null || this.status != undefined ? this.status.toString() : '');
     formdata.set('page', this.currentPage.toString());
     formdata.set('limit', '100');
     this.appService.postAPI('/get-purchase-good-matched-data-using-payload-id', formdata).subscribe({
       next: (response: any) => {
         if (response.success == true) {
+          if (isScroll == 2) {
+            this.newExcelData = response.data
+          } else {
+            this.newExcelData.push(...response.data);
 
-          this.newExcelData.push(...response.data);
+          }
           this.currentPage++;
           this.progressPSGTab = false;
-          // this.singlePGSTab = !this.singlePGSTab;
           this.loadAITable = true;
 
         } else {
           this.allLoaded = true;
+          if (isScroll == 1) {
+
+          } else if (isScroll == 2) {
+            this.newExcelData = [];
+            this.notification.showWarning(response.message, '');
+          }
           // this.newExcelData = [];
-          this.notification.showWarning(response.message, '');
+
         }
+        this.spinner.hide();
         this.loading = false;
       },
       error: (err) => {
+        this.spinner.hide();
         this.loading = false;
       }
     })
@@ -873,7 +886,7 @@ allLoaded = false;
     })
   };
   onAllProductChange() {
-
+    console.log(this.psg_product);
 
     this.newExcelData = this.newExcelData.map(item => {
       if (item['S. No.'] === this.productID) {
@@ -906,6 +919,10 @@ allLoaded = false;
       return item;
     });
 
+    if (this.matchedRowID) {
+
+      this.updateMatchId()
+    }
 
     setTimeout(() => {
       this.visible2 = false;
@@ -974,16 +991,98 @@ allLoaded = false;
 
   onTableScroll(event: any) {
     const element = event.target;
+    const isVerticalScroll = element.scrollTop > 0;
+    const isAtBottom = (element.scrollTop + element.clientHeight) >= (element.scrollHeight - 1600);
 
-  const isVerticalScroll = element.scrollTop > 0;
-  const isAtBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
-
-  // ✅ Only load if vertical scroll and at bottom
-  if (isVerticalScroll && isAtBottom && !this.loading && !this.allLoaded) {
-      this.loadAIMatchData(this.payloadId);
+    // ✅ Only load if vertical scroll and at bottom
+    if (isVerticalScroll && isAtBottom && !this.loading && !this.allLoaded) {
+      this.loadAIMatchData(this.payloadId, '', 1);
     }
+  };
+
+  submitWithDB() {
+    this.spinner.show();
+    var formData = new FormData();
+
+    formData.set('productcodestandard', this.productHSNSelect);
+    formData.set('facilities', this.facilityID.toString());
+    formData.set('purchasePayloadId', this.payloadId.toString());
+    formData.set('is_annual', '0');
+    formData.set('tenant_id', this.loginInfo.tenantID.toString());
+    formData.set('super_tenant_id', this.superAdminID.toString());
+
+
+    if (this.selectedFile) {
+      formData.set('file', this.selectedFile, this.selectedFile.name);
+    }
+    this.appService.postAPI('/bulkPurchaseGoodsUploadAIMatched', formData).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.notification.showSuccess(
+            response.message,
+            'Success'
+          );
+          this.newExcelData = [];
+          this.GetHSN();
+          this.resetForm();
+          this.excelUploadTable = true;
+          this.payloadId = '';
+          this.loadAITable = false;
+
+
+        } else {
+          this.notification.showError(
+            response.message,
+            'Error'
+          );
+
+        }
+        this.spinner.hide();
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.notification.showError(
+          'Data entry added failed.',
+          'Error'
+        );
+        console.error('errrrrrr>>>>>>', err);
+      },
+      complete: () => { }
+    });
+
   }
 
- 
-  
+  getAIMatchFilterData(status: any) {
+    this.allLoaded = false;
+    this.status = status;
+    this.currentPage = 1;
+    this.loadAIMatchData(this.payloadId, this.status, 2);
+  };
+
+  loadProgressAIData(payloadId: any) {
+    this.newExcelData = [];
+    this.matchedRowID = undefined;
+    this.payloadId = payloadId;
+    this.spinner.show();
+    this.loadAIMatchData(payloadId);
+
+  }
+
+  updateMatchId() {
+    const formdata = new URLSearchParams();
+    formdata.set('id', this.matchedRowID);
+    formdata.set('matchedId', this.psg_product.id);
+    formdata.set('matchProductName', this.psg_product.product);
+
+    this.appService.postAPI('/updatePurchaseGoodsMAtchId', formdata).subscribe({
+      next: (response: any) => {
+        if (response.success == true) {
+          this.matchedRowID = '';
+        }
+      }
+    })
+  }
+
+
 }

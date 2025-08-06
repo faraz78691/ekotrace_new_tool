@@ -526,7 +526,7 @@
 
                                           <td class="d-flex justify-content-center align-items-center">
                                                 <button type="button" class="btn btn-sm btn-primary mr-1"
-                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag)"
+                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag ,product['id'])"
                                                       data-toggle="modal" data-target="#exampleModal">
                                                       <i class="fa-solid fa-sync-alt"></i>
                                                 </button>
@@ -568,7 +568,7 @@
             </div>
 
             <div class="row " *ngIf="loadAITable">
-                  AI table AI
+                  
                   <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between ct_gap_10 flex-wrap py-3">
                               <div class="mb-0" style="gap: 10px;">
@@ -628,9 +628,9 @@
                                           <th scope="col">Vendor Specific EF</th>
                                           <th scope="col" class="dropdown">Status <i class="fa fa-filter" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                 <div class="dropdown-menu ct_custom_drop_678" aria-labelledby="dropdownMenuButton">
-                                          <a class="dropdown-item" href="#">All</a>
-                                          <a class="dropdown-item" href="#">Match</a>
-                                          <a class="dropdown-item" href="#">Unmatch</a>
+                                          <a class="dropdown-item" (click)="getAIMatchFilterData(null)" >All</a>
+                                          <a class="dropdown-item"(click)="getAIMatchFilterData(1)">Match</a>
+                                          <a class="dropdown-item"(click)="getAIMatchFilterData(0)">Unmatch</a>
                                           </div>
                                           </th>
                                           <th scope="col" class="text-center">Action</th>
@@ -730,7 +730,7 @@
 
                                           <td class="d-flex justify-content-center align-items-center">
                                                 <button type="button" class="btn btn-sm btn-primary mr-1"
-                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag)"
+                                                      (click)="toggleEdit(i, product['S. No.'],product.is_find, product.productResult?.other_category_flag, product['id'])"
                                                       data-toggle="modal" data-target="#exampleModal">
                                                       <i class="fa-solid fa-sync-alt"></i>
                                                 </button>
@@ -741,6 +741,10 @@
                                                 </button>
                                                 <!-- <button class="btn btn-sm btn-success"> Add Vendor</button> -->
                                           </td>
+                                    </tr>
+
+                                    <tr *ngIf="loading">
+                                          <td colspan="9" class="text-center">Fetching Data Please Wait</td>
                                     </tr>
 
 
@@ -764,10 +768,10 @@
                         class="btn ct_scoope_1_tab et_light_blue_123 ct_view_request_btn px-4 trackingsubmitb" style="height: 38px;"
                         (click)="submitUnmatchWithAI()">
                         Run AI Match</button>
-                        <!-- <button type="submit" class="px-4 trackingsubmitb">
+                        <button type="button" class="px-4 trackingsubmitb mx-auto" (click)="submitWithDB()">
                               Submit
-                        </button> -->
-                        <app-submit-button [isLoading]="isSubmitting" text="AI Submit" class="mx-auto"></app-submit-button>
+                        </button>
+                        <!-- <app-submit-button [isLoading]="isSubmitting" text="AI Submit" class="mx-auto"></app-submit-button> -->
                   </div>
             </div>
 
@@ -801,8 +805,8 @@
                                           <td class="d-flex justify-content-center align-items-center">
                                                 <button type="button" class="btn btn-sm btn-primary mr-1"
                                                       [disabled]="product.status ? false : true"
-                                                      (click)="loadAIMatchData(product.id)">
-                                                      Load Data
+                                                      (click)="loadProgressAIData(product.id)">
+                                                     Load Data
                                                 </button>
 
                                           </td>
