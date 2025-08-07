@@ -2715,6 +2715,19 @@ h1.bft-edit-form-title {
     color: #fff !important;
   }
 
+.trackingDeleteb {
+    padding: 6px 16px !important;
+    border: 1px solid rgba(170, 34, 34, 0.75) !important;
+    border-radius: 5px !important;
+    transition: 0.4s ease all !important;
+    background-color: rgba(170, 34, 34, 0.75) !important;
+    color: #fff !important;
+  }
+  .trackingDeleteb:hover{
+    background-color: #8b2303 !important;
+    color: #fff !important;
+  }
+
   .et_select__38_678 .p-multiselect .p-multiselect-label{
     padding-block: 7.02px; 
  }

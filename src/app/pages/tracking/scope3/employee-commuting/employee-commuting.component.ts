@@ -173,4 +173,12 @@ export class EmployeeCommutingComponent {
         })
 
     }
+
+
+    deleteRow(row: any) {
+        if(this.rows.length == 1) return
+        this.rows = this.rows.filter(item => item.id !== row.id);
+      }
+    
+
 }

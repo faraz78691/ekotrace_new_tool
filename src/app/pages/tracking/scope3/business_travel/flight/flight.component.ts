@@ -418,5 +418,10 @@ export class FlightComponent {
       this.uploadButton = true
     }
   };
+
+  deleteRow(row: any) {
+    if (this.rowsFlightTravel.length == 1) return
+    this.rowsFlightTravel = this.rowsFlightTravel.filter(item => item.id !== row.id);
+  }
 }
 

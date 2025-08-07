@@ -425,5 +425,11 @@ export class CompanyOwnedVehiclesComponent {
         })
     };
 
+    deleteRow(row: any) {
+        if(this.rowsCompany.length == 1) return
+        this.rowsCompany = this.rowsCompany.filter(item => item.id !== row.id);
+      }
+    
+
 
 }

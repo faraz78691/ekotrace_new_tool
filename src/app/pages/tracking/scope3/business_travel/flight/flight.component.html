@@ -93,6 +93,7 @@
                                           <th scope="col">No. of Trips</th>
                                           <th scope="col">Month</th>
                                           <th scope="col">Cost Centre</th>
+                                          <th scope="col">Action</th>
 
                                     </tr>
                               </thead>
@@ -149,7 +150,9 @@
                                                 </p-dropdown>
 
                                           </td>
-
+                                          <td>
+                                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                           </td>
 
 
                                     </tr>
@@ -177,6 +180,7 @@
                                           <!-- <th scope="col">Reference Id</th> -->
                                           <th scope="col">Month</th>
                                           <th scope="col">Cost Centre</th>
+                                          <th scope="col">Action</th>
 
                                     </tr>
                               </thead>
@@ -265,6 +269,9 @@
                                                 </p-dropdown>
 
                                           </td>
+                                          <td>
+                                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                           </td>
 
 
 

@@ -82,6 +82,7 @@
                                     <th scope="col">Distance travelled per trip</th>
                                     <th scope="col">No of trips</th>
                                     <th scope="col">Month</th>
+                                    <th scope="col">Action</th>
 
                               </tr>
                         </thead>
@@ -141,6 +142,9 @@
                                                 name="months" ngModel optionValue="value">
                                           </p-dropdown>
                                     </td>
+                                    <td>
+                                          <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                     </td>
                               </tr>
                         </tbody>
                         <span class="ml-2 trackingsubmitb et_plusadd_455" (click)="addrowsOtherModes()">+</span>

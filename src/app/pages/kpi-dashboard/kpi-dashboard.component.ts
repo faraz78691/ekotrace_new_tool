@@ -64,7 +64,7 @@ export class KpiDashboardComponent {
   graph7: any;
   graph8: any;
   isHowtoUse = false
-
+  year = new Date();
   kpiList: any[] = []
 
   dateFormatType = 'Monthly'
@@ -176,14 +176,13 @@ export class KpiDashboardComponent {
         });;
       };
     }
-  };
-
+  }
 
 
 
 
   GetAllFacility() {
-    let tenantId = this.loginInfo.tenantID;
+    const tenantId = this.loginInfo.tenantID;
     this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
       this.facilityData = response;
       this.selectedFacility = [this.facilityData[0].id]
@@ -194,15 +193,14 @@ export class KpiDashboardComponent {
   };
 
   getKPIList() {
-    let tenantId = this.loginInfo.tenantID;
+    const tenantId = this.loginInfo.tenantID;
     this.appService.getApi('/kpiItemsList').subscribe((response: any) => {
       this.kpiList = response.data;
 
-
     });
-  };
+  }
   getKPiTargets() {
-    let tenantId = this.loginInfo.tenantID;
+    const tenantId = this.loginInfo.tenantID;
     this.appService.getApi('/getKpiTargetByUserId').subscribe((response: any) => {
       if (response.success == true) {
         this.targerKpisData = response.data;
@@ -211,7 +209,7 @@ export class KpiDashboardComponent {
 
 
     });
-  };
+  }
 
   onKpiChange(kpiId: any, row: any) {
     const unit = this.kpiList.find((item) => item.id == kpiId).unit;
@@ -266,8 +264,8 @@ export class KpiDashboardComponent {
     const formData = new URLSearchParams();
     formData.append('facilities', this.selectedFacility);
     formData.append('formatType', this.selectedFormatType);
-    formData.append('startDate', this.startDate.getFullYear().toString());
-    formData.append('endDate', this.endDate.getFullYear().toString());
+    formData.append('startDate', this.year.getFullYear().toString());
+    formData.append('endDate', this.year.getFullYear().toString());
     formData.append('format', this.dateFormatType);
     formData.append('kpiIds', event.toString());
 
@@ -419,8 +417,6 @@ export class KpiDashboardComponent {
         target_type: item.target_type
       }));
 
-
-
     const formData = new URLSearchParams();
     formData.append('jsonData', JSON.stringify(filteredData));
     this.appService.postAPI(`/addKpiTarget`, formData).subscribe((response: any) => {
@@ -436,36 +432,36 @@ export class KpiDashboardComponent {
       return false
     }
 
-  
-  // Check if savedkpis exist in localStorage
-  const savedKpis = JSON.parse(localStorage.getItem('savedkpis') || 'null');
 
-  let kpiArray;
+    // Check if savedkpis exist in localStorage
+    const savedKpis = JSON.parse(localStorage.getItem('savedkpis') || 'null');
 
-  if (savedKpis && Array.isArray(savedKpis) && savedKpis.length === 6) {
-    // Use saved KPIs from localStorage
-    kpiArray = savedKpis;
-  } else {
-    // Fallback to default selected KPIs
-    kpiArray = [
-      this.selectedKpi1,
-      this.selectedKpi2,
-      this.selectedKpi3,
-      this.selectedKpi4,
-      this.selectedKpi5,
-      this.selectedKpi6
-    ];
-  }
+    let kpiArray;
 
-  const kpiString = kpiArray.join(',');
+    if (savedKpis && Array.isArray(savedKpis) && savedKpis.length === 6) {
+      // Use saved KPIs from localStorage
+      kpiArray = savedKpis;
+    } else {
+      // Fallback to default selected KPIs
+      kpiArray = [
+        this.selectedKpi1,
+        this.selectedKpi2,
+        this.selectedKpi3,
+        this.selectedKpi4,
+        this.selectedKpi5,
+        this.selectedKpi6
+      ];
+    }
+    console.log(this.year.getFullYear().toString());
+    const kpiString = kpiArray.join(',');
 
-  const formData = new URLSearchParams();
-  formData.append('facilities', this.selectedFacility);
-  formData.append('formatType', this.selectedFormatType);
-  formData.append('startDate', this.startDate.getFullYear().toString());
-  formData.append('endDate', this.endDate.getFullYear().toString());
-  formData.append('format', this.dateFormatType);
-  formData.append('kpiIds', kpiString);
+    const formData = new URLSearchParams();
+    formData.append('facilities', this.selectedFacility);
+    formData.append('formatType', this.selectedFormatType);
+    formData.append('startDate', this.year.getFullYear().toString());
+    formData.append('endDate', this.year.getFullYear().toString());
+    formData.append('format', this.dateFormatType);
+    formData.append('kpiIds', kpiString);
 
     this.appService.postAPI(`/getKpiInventoryDashboard`, formData).subscribe((response: any) => {
 
@@ -482,10 +478,20 @@ export class KpiDashboardComponent {
 
 
   saveKpi() {
-localStorage.setItem('savedkpis',JSON.stringify([this.selectedKpi1, this.selectedKpi2, this.selectedKpi3, this.selectedKpi4, this.selectedKpi5, this.selectedKpi6]))
+    localStorage.setItem('savedkpis', JSON.stringify([this.selectedKpi1, this.selectedKpi2, this.selectedKpi3, this.selectedKpi4, this.selectedKpi5, this.selectedKpi6]))
 
-this.notification.showSuccess('KPI Saved Successfully', '');
+    this.notification.showSuccess('KPI Saved Successfully', '');
   }
 
+  onYearChange() {
 
+    this.generateGraphs()
+    // const year = this.trackingService.getYear(this.year);
+
+    // this.facilityService.yearSignal.set(year.toString());
+    // sessionStorage.setItem('selected_year', year.toString());
+    // this.ALLEntries(); 
+
+    // this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
+  }
 }

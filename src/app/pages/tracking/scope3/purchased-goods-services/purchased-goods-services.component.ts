@@ -16,6 +16,7 @@ import { DownloadFileService } from '@services/download-file.service';
 import { ToastModule } from 'primeng/toast';
 import { environment } from 'environments/environment';
 import { DialogModule } from "primeng/dialog";
+import { PurchaseGoodsService } from '@pages/tracking/services/purchase-goods.service';
 declare var $: any;
 @Component({
   selector: 'app-purchased-goods-services',
@@ -102,7 +103,7 @@ export class PurchasedGoodsServicesComponent {
   allLoaded = false;
   payloadId: any;
   matchedRowID: any;
-  constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService) {
+  constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService, private spinner: NgxSpinnerService, private downloadFileService: DownloadFileService , public purchaseService: PurchaseGoodsService) {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -135,12 +136,19 @@ export class PurchasedGoodsServicesComponent {
     // this.currency = this.facilityService.getCurrency();
   };
 
-
+// manual submit 
   EntrySave(dataEntryForm: NgForm) {
 
 
     if (this.singlePGSTab) {
+      if (JSON.parse(this.months).length == 0) {
+        this.notification.showInfo(
+          "Please select months",
+          'Warning'
+        );
+        return;
 
+      }
       const filledRows = this.rowsPurchased.filter(row =>
 
         row.productType == null
@@ -238,7 +246,7 @@ export class PurchasedGoodsServicesComponent {
       });
     } else {
 
-      const payload = this.newExcelData.filter(row => row.is_find == true && (row.productResult?.other_category_flag == '0' || row.productResult?.other_category_flag == '')).map(row => ({
+      const payload = this.newExcelData.filter(row => row.is_find == true).map(row => ({
         month: '',
         typeofpurchase: row.productResult.typeofpurchase,
         valuequantity: row['Value / Quantity'],
@@ -254,6 +262,7 @@ export class PurchasedGoodsServicesComponent {
         is_find: row.is_find,
         product_name: row.productResult?.product
       }))
+      
 
 
       var purchaseTableStringfy = JSON.stringify(payload);
@@ -305,6 +314,180 @@ export class PurchasedGoodsServicesComponent {
 
 
   };
+
+  // datababse payload ai submit api 
+  submitWithDB() {
+    this.spinner.show();
+    var formData = new FormData();
+
+    formData.set('productcodestandard', this.productHSNSelect);
+    formData.set('facilities', this.facilityID.toString());
+    formData.set('purchasePayloadId', this.payloadId.toString());
+    formData.set('is_annual', '0');
+    formData.set('tenant_id', this.loginInfo.tenantID.toString());
+    formData.set('super_tenant_id', this.superAdminID.toString());
+
+
+    if (this.selectedFile) {
+      formData.set('file', this.selectedFile, this.selectedFile.name);
+    }
+    this.appService.postAPI('/bulkPurchaseGoodsUploadAIMatched', formData).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.notification.showSuccess(
+            response.message,
+            'Success'
+          );
+          this.newExcelData = [];
+          this.GetHSN();
+          this.resetForm();
+          this.excelUploadTable = true;
+          this.payloadId = '';
+          this.loadAITable = false;
+
+
+        } else {
+          this.notification.showError(
+            response.message,
+            'Error'
+          );
+
+        }
+        this.spinner.hide();
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.notification.showError(
+          'Data entry added failed.',
+          'Error'
+        );
+        console.error('errrrrrr>>>>>>', err);
+      },
+      complete: () => { }
+    });
+
+  }
+
+  // submit for ai matching 
+  submitUnmatchWithAI() {
+    if (this.newExcelData.length == 0) return
+    this.spinner.show();
+    const payload = this.newExcelData.map(row => ({
+      month: '',
+      product_description: row['Product Description'],
+      product_category: row['Product Category'],
+      value: row['Value / Quantity'],
+      unit: row['Unit'],
+      vendor_name: row['Vendor'],
+      vendorunit: row['Vendor Specific Unit'],
+      vendor_ef: row['Vendor Specific EF'],
+      match_productCategory_Id: row.productResult?.id,
+      purchase_date: row['Purchase Date'],
+      product_code: row.code,
+      is_find: row.is_find,
+      facilityID: this.facilityID,
+      product_name: row.productResult?.product
+    }))
+    console.log("payload", payload);
+    var purchaseTableStringfy = JSON.stringify(payload);
+
+    let formData = new URLSearchParams();
+
+    // formData.set('productcodestandard', this.productHSNSelect);
+    formData.set('facility_id', this.facilityID.toString());
+    formData.set('jsonData', purchaseTableStringfy);
+    formData.set('user_id', this.loginInfo.Id.toString());
+    formData.append('filename', this.selectedFile.name); // Append file
+
+    this.appService.postAPI('/add-purchase-goods-match-unmatch-data', formData).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.notification.showSuccess(
+            response.message,
+            'Success'
+          );
+          this.purchaseService.triggerAIProcess();
+          this.openProgresstab();
+          this.newExcelData = [];
+          this.GetHSN();
+          // this.deselectAllItems(this.rowsPurchased)
+
+          this.resetForm();
+
+
+        } else {
+          this.notification.showError(
+            response.message,
+            'Error'
+          );
+
+        }
+        this.spinner.hide();
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.notification.showError(
+          'Data entry added failed.',
+          'Error'
+        );
+        console.error('errrrrrr>>>>>>', err);
+      },
+      complete: () => { }
+    });
+  };
+
+
+  loadAIMatchData(id: any, status?: any, isScroll?: any) {
+    this.status = status;
+    this.payloadId = id;
+    this.loading = true;
+    const formdata = new URLSearchParams();
+    formdata.set('purchase_payload_id', this.payloadId);
+    formdata.set('status', this.status != null || this.status != undefined ? this.status.toString() : '');
+    formdata.set('page', this.currentPage.toString());
+    formdata.set('limit', '100');
+    this.appService.postAPI('/get-purchase-good-matched-data-using-payload-id', formdata).subscribe({
+      next: (response: any) => {
+        if (response.success == true) {
+          if (isScroll == 2) {
+            this.newExcelData = response.data
+          } else {
+            this.newExcelData.push(...response.data);
+
+          }
+          this.currentPage++;
+          this.progressPSGTab = false;
+          this.loadAITable = true;
+
+        } else {
+          this.allLoaded = true;
+          if (isScroll == 1) {
+
+          } else if (isScroll == 2) {
+            this.newExcelData = [];
+            this.notification.showWarning(response.message, '');
+          }
+          // this.newExcelData = [];
+
+        }
+        this.spinner.hide();
+        this.loading = false;
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.loading = false;
+      }
+    })
+
+  };
+
+
+
+
+
+
 
   bulkUploadPG() {
     this.progressPSGTab = false;
@@ -375,29 +558,21 @@ export class PurchasedGoodsServicesComponent {
   };
 
   onSelectedChange(event: any, row: any) {
-    this.deselectAllItems(row.multiLevelItems);
+    this.purchaseService.deselectAllItems(row.multiLevelItems);
+   
 
     if (!event.children && event.length === 1) {
       event.checked = true;
       row.productType = event[0].item.value;
     } else {
-      this.deselectAllItems(event);
+      this.purchaseService.deselectAllItems(event);
       row.productType = null;
 
     }
     this.updatePlaceholder();
   }
 
-  deselectAllItems(items: TreeviewItem[]) {
-    items.forEach(item => {
-
-      item.checked = false;
-      if (item.children) {
-        this.deselectAllItems(item.children);
-      }
-    });
-  };
-
+ 
   updatePlaceholder() {
     const selectedItems = this.multiLevelItems.filter(item => item.checked);
     const placeholder = selectedItems.length > 0 ? `${selectedItems.length} options` : 'Choose product type';
@@ -462,88 +637,9 @@ export class PurchasedGoodsServicesComponent {
 
   };
 
-  submitUnmatchWithAI() {
-    if (this.newExcelData.length == 0) return
-    this.spinner.show();
-    const payload = this.newExcelData.map(row => ({
-      month: '',
-      product_description: row['Product Description'],
-      product_category: row['Product Category'],
-      value: row['Value / Quantity'],
-      unit: row['Unit'],
-      vendor_name: row['Vendor'],
-      vendorunit: row['Vendor Specific Unit'],
-      vendor_ef: row['Vendor Specific EF'],
-      match_productCategory_Id: row.productResult?.id,
-      purchase_date: row['Purchase Date'],
-      product_code: row.code,
-      is_find: row.is_find,
-      facilityID: this.facilityID,
-      product_name: row.productResult?.product
-    }))
-    console.log("payload", payload);
-    var purchaseTableStringfy = JSON.stringify(payload);
-
-    let formData = new URLSearchParams();
-
-    // formData.set('productcodestandard', this.productHSNSelect);
-    formData.set('facility_id', this.facilityID.toString());
-    formData.set('jsonData', purchaseTableStringfy);
-    formData.set('user_id', this.loginInfo.Id.toString());
-    formData.append('filename', this.selectedFile.name); // Append file
-
-    this.appService.postAPI('/add-purchase-goods-match-unmatch-data', formData).subscribe({
-      next: (response: any) => {
-
-        if (response.success == true) {
-          this.notification.showSuccess(
-            response.message,
-            'Success'
-          );
-          this.triggerAIProcess();
-          this.openProgresstab();
-          this.newExcelData = [];
+ 
 
 
-          this.GetHSN();
-          // this.deselectAllItems(this.rowsPurchased)
-
-          this.resetForm();
-
-
-        } else {
-          this.notification.showError(
-            response.message,
-            'Error'
-          );
-
-        }
-        this.spinner.hide();
-      },
-      error: (err) => {
-        this.spinner.hide();
-        this.notification.showError(
-          'Data entry added failed.',
-          'Error'
-        );
-        console.error('errrrrrr>>>>>>', err);
-      },
-      complete: () => { }
-    });
-  };
-
-  triggerAIProcess() {
-    this.appService.getApi2('/trigger-call').subscribe({
-      next: (Response) => {
-        if (Response) {
-
-        }
-        else {
-
-        }
-      }
-    })
-  };
 
   GetHSN() {
 
@@ -592,7 +688,7 @@ export class PurchasedGoodsServicesComponent {
         const worksheet = workbook.Sheets[sheetName];
 
         this.jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        this.jsonData = this.convertToKeyValue(this.jsonData);
+        this.jsonData = this.purchaseService.convertToKeyValue(this.jsonData);
 
         const filteredJson = this.jsonData.filter((item: any) => item['Product Description'] !== '');
 
@@ -621,27 +717,6 @@ export class PurchasedGoodsServicesComponent {
 
       reader.readAsArrayBuffer(file);
     }, 100); // delay to allow spinner to render
-  }
-
-
-  convertToKeyValue(data: any[]): any[] {
-    if (data.length < 2) return [];
-
-    const headers = data[0]; // Extract headers
-    return data.slice(1).map((row) => {
-      let obj: any = {};
-      headers.forEach((header: string, index: number) => {
-        let value = row[index] || '';
-
-        // Convert Excel date serial number to readable date
-        if (header.includes('Date') && typeof value === 'number') {
-          value = XLSX.SSF.format('dd-mm-yyyy', value); // Converts to "dd-mm-yyyy"
-        }
-
-        obj[header] = value;
-      });
-      return obj;
-    });
   }
 
   sendJSON(jsonData: any) {
@@ -713,62 +788,9 @@ export class PurchasedGoodsServicesComponent {
     this.newExcelData = this.newExcelData.filter(item => item['S. No.'] !== serialNo);
   };
 
-  getApproxTime(rows: number): string {
-    const totalSeconds = rows * 2;
 
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.ceil((totalSeconds % 3600) / 60); // round up minutes
 
-    let timeString = '';
-    if (hours > 0) timeString += `${hours} hr `;
-    if (minutes > 0 || hours === 0) timeString += `${minutes} min`;
-
-    return timeString.trim();
-  };
-
-  loadAIMatchData(id: any, status?: any, isScroll?: any) {
-    this.status = status;
-    this.payloadId = id;
-    this.loading = true;
-    const formdata = new URLSearchParams();
-    formdata.set('purchase_payload_id', this.payloadId);
-    formdata.set('status', this.status != null || this.status != undefined ? this.status.toString() : '');
-    formdata.set('page', this.currentPage.toString());
-    formdata.set('limit', '100');
-    this.appService.postAPI('/get-purchase-good-matched-data-using-payload-id', formdata).subscribe({
-      next: (response: any) => {
-        if (response.success == true) {
-          if (isScroll == 2) {
-            this.newExcelData = response.data
-          } else {
-            this.newExcelData.push(...response.data);
-
-          }
-          this.currentPage++;
-          this.progressPSGTab = false;
-          this.loadAITable = true;
-
-        } else {
-          this.allLoaded = true;
-          if (isScroll == 1) {
-
-          } else if (isScroll == 2) {
-            this.newExcelData = [];
-            this.notification.showWarning(response.message, '');
-          }
-          // this.newExcelData = [];
-
-        }
-        this.spinner.hide();
-        this.loading = false;
-      },
-      error: (err) => {
-        this.spinner.hide();
-        this.loading = false;
-      }
-    })
-
-  };
+ 
 
   refreshPSGStatus() {
     const formdata = new URLSearchParams();
@@ -829,10 +851,10 @@ export class PurchasedGoodsServicesComponent {
     formdata.set('facilities', this.facilityID.toString());
     this.appService.postAPI('/getcurrencyByfacilities', formdata).subscribe({
       next: (response: any) => {
-        // // // console.log(response);
+       
         if (response.success == true) {
           this.currency = response.categories;
-          console.log(this.currency);
+         
           this.purchaseGoodsUnitsGrid.push({ id: 1, units: this.currency })
           const concatUnits =
             [
@@ -857,13 +879,13 @@ export class PurchasedGoodsServicesComponent {
           multiLevelItems: [],
           productService: null,
           productType: null,
-          subVehicleCategory: [],  // Add any other nested dropdown arrays here if needed
+          subVehicleCategory: [], 
           months: '',
           quantity: '',
           selectedUnit: '',
           vendorName: '',
           vendorspecificEF: '',
-          vendorspecificEFUnit: `kgCO2e/${this.currency}` // Make sure to initialize this as well
+          vendorspecificEFUnit: `kgCO2e/${this.currency}` 
         }];
       }
     })
@@ -1000,58 +1022,7 @@ export class PurchasedGoodsServicesComponent {
     }
   };
 
-  submitWithDB() {
-    this.spinner.show();
-    var formData = new FormData();
-
-    formData.set('productcodestandard', this.productHSNSelect);
-    formData.set('facilities', this.facilityID.toString());
-    formData.set('purchasePayloadId', this.payloadId.toString());
-    formData.set('is_annual', '0');
-    formData.set('tenant_id', this.loginInfo.tenantID.toString());
-    formData.set('super_tenant_id', this.superAdminID.toString());
-
-
-    if (this.selectedFile) {
-      formData.set('file', this.selectedFile, this.selectedFile.name);
-    }
-    this.appService.postAPI('/bulkPurchaseGoodsUploadAIMatched', formData).subscribe({
-      next: (response: any) => {
-
-        if (response.success == true) {
-          this.notification.showSuccess(
-            response.message,
-            'Success'
-          );
-          this.newExcelData = [];
-          this.GetHSN();
-          this.resetForm();
-          this.excelUploadTable = true;
-          this.payloadId = '';
-          this.loadAITable = false;
-
-
-        } else {
-          this.notification.showError(
-            response.message,
-            'Error'
-          );
-
-        }
-        this.spinner.hide();
-      },
-      error: (err) => {
-        this.spinner.hide();
-        this.notification.showError(
-          'Data entry added failed.',
-          'Error'
-        );
-        console.error('errrrrrr>>>>>>', err);
-      },
-      complete: () => { }
-    });
-
-  }
+  
 
   getAIMatchFilterData(status: any) {
     this.allLoaded = false;
@@ -1082,6 +1053,11 @@ export class PurchasedGoodsServicesComponent {
         }
       }
     })
+  };
+
+  deleteRow(row: any) {
+    if(this.rowsPurchased.length == 1) return
+    this.rowsPurchased = this.rowsPurchased.filter(item => item.id !== row.id);
   }
 
 

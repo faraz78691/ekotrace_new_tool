@@ -277,4 +277,9 @@ export class OtherModeTransportComponent {
             }
         })
     };
+
+    deleteRow(row: any) {
+      if(this.rowsOtherTransport.length == 1) return
+      this.rowsOtherTransport = this.rowsOtherTransport.filter(item => item.id !== row.id);
+    }
 }

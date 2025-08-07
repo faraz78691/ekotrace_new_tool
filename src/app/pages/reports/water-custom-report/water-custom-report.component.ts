@@ -73,18 +73,7 @@ export class WaterCustomReportComponent {
     }
     //method for get assigned datapoint to a facility by facility id
     GetAssignedDataPoint(facilityID: number) {
-        this.trackingService
-            .getSavedDataPointforTracking(facilityID)
-            .subscribe({
-                next: (response) => {
-                    if (response === environment.NoData) {
-                        this.AssignedDataPoint = [];
-                    } else {
-                        this.AssignedDataPoint = response;
-                    }
-                },
-                error: (err) => { }
-            });
+      
     }
 
 

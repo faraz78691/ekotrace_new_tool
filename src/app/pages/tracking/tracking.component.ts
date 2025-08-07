@@ -432,9 +432,12 @@ export class TrackingComponent {
 
     setDefaultMonth() {
         this.monthString = this.trackingService.getMonthName(this.month);
+        console.log(this.monthString);
         this.months.forEach(m => {
+            console.log(m);
             if (m.name == this.monthString) {
                 this.selectMonths[0] = m;
+                console.log(this.selectMonths);
             }
 
         })

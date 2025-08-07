@@ -68,8 +68,8 @@ export class AuthInterceptor implements HttpInterceptor {
                  
                     this.appService.logout();
 
-                    this.router.navigate(['/login']); // Ensure this method clears the user session
-             // Redirect to login page
+                    this.router.navigate(['/login']);
+             
                 }
                 return throwError(() => new Error('Something went wrong; please try again later.'));
             })

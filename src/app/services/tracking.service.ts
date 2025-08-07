@@ -35,13 +35,7 @@ export class TrackingService {
         private http: HttpClient,
         private notification: NotificationService
     ) { }
-    public getSavedDataPointforTracking(facilityID: any): Observable<any> {
-        return this.http.get<any>(
-            'http://192.168.1.31:4003' +
-            'Tracking/getAssignedDataPointbyfacility/' +
-            facilityID
-        );
-    };
+ 
     public getDataPointsByFacility(facilityID: any): Observable<any> {
         return this.http.get<any>(
             environment.baseUrl +
@@ -68,59 +62,11 @@ export class TrackingService {
             environment.baseUrl + 'Facilities/' + facilityID
         );
     }
-    public postDataEntrySetting(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/DataEntrySetting',
-            data
-        );
-    }
-    public getdataEntrySetting(subCatid): Observable<DataEntrySetting> {
-        return this.http.get<DataEntrySetting>(
-            environment.baseUrl + 'Tracking/DataEntrySetting/' + subCatid
-        );
-    }
-    public getdataEntry(subCatid): Observable<DataEntry[]> {
-        return this.http.get<DataEntry[]>(
-            environment.baseUrl + 'Tracking/' + subCatid
-        );
-    }
-    public putDataEntrySetting(id, data): Observable<any> {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/DataEntrySetting/' + id,
-            data
-        );
-    }
-    public postDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveDataEntry',
-            data
-        );
-    }
+
+  
     public getAllDataEntries() {
         return this.http.get(environment.baseUrl + 'Tracking');
     }
-    public getpendingDataEntries(facilityID: any, year): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/getpendingDataEntries/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-
-    public UpdateEntry(Entries: DataEntry[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdateDataEntries',
-            Entries
-        );
-    }
-    public UpdateSCEntry(Entries: StationaryCombustionDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdateSCDataEntries',
-            Entries
-        );
-    };
 
     public newUpdateSCEntry(Entries:any) {
         return this.http.post(
@@ -144,129 +90,9 @@ export class TrackingService {
         return this.http.post(
             environment.baseUrl + '/uploadFdreport',
             Entries
-        );
+        )
     };
 
-    public UpdaterefEntry(Entries: RefrigerantsDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdaterefDataEntries',
-            Entries
-        );
-    }
-    public UpdatefireEntry(Entries: FireExtinguisherDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdatefireDataEntries',
-            Entries
-        );
-    }
-    public UpdatevehicleEntry(Entries: VehicleDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdatevehicleDataEntries',
-            Entries
-        );
-    }
-    public UpdateelecEntry(Entries: ElectricityDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdateelecDataEntries',
-            Entries
-        );
-    }
-    public UpdateHSEntry(Entries: HeatandSteamDE[]) {
-        return this.http.put(
-            environment.baseUrl + 'Tracking/UpdateHSDataEntries',
-            Entries
-        );
-    }
-
-    public DeleteEntry(id: number, CatID: number) {
-        return this.http.delete(
-            environment.baseUrl + 'Tracking/EntryDelete/' + id + '/' + CatID
-        );
-    }
-    public getSendforApprovalSCDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalSCDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public getSendforApprovalrefDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalrefDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public getSendforApprovalFireDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalfireDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public getSendforApprovalVehicleDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalVehicleDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public getSendforApprovalelecDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalElecDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public getSendforApprovalHSDataEntries(
-        facilityID: any,
-        year
-    ): Observable<any> {
-        return this.http.get<any>(
-            environment.baseUrl +
-            'Tracking/SendforApprovalHSDataPoint/' +
-            facilityID +
-            '/' +
-            year
-        );
-    }
-    public sendSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdateEntry/' + id,
-            dataentry
-        );
-    }
-    public sendSCSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdateSCEntry/' + id,
-            dataentry
-        );
-    }
     public newSendDeleteSingleDataforApprove(dataentry): Observable<any> {
         return this.http.post<any>(
             environment.baseUrl + '/UpdateelecEntryReject' ,
@@ -283,138 +109,22 @@ export class TrackingService {
             dataentry,{'headers':headers}
         );
     }
-    public sendrefSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdaterefEntry/' + id,
-            dataentry
-        );
-    };
-    public sendfireSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdatefireEntry/' + id,
-            dataentry
-        );
-    }
-    public sendvehicleSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdatevehicleEntry/' + id,
-            dataentry
-        );
-    }
-    public sendelecSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdateelecEntry/' + id,
-            dataentry
-        );
-    }
-    public sendHSSingleDataforApprove(id, dataentry): Observable<any> {
-        return this.http.put<any>(
-            environment.baseUrl + 'Tracking/UpdateHSEntry/' + id,
-            dataentry
-        );
-    }
+
+
+  
     public postNotification(data): Observable<any> {
         return this.http.post(environment.baseUrl + 'Notification', data);
     }
-    public getEmissionFactorHistory(): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl + 'Tracking/GetEmissionFactoryHistory'
-        );
-    }
-    public GetEmissionFactorStationarybyID(seedID): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetEmissionFactorStationarybyID/' +
-            seedID
-        );
-    }
-    public GetEmissionFactorFirebyID(seedID): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetFireEmissionFactor/' +
-            seedID
-        );
-    }
-    public GetEmissionFactorRefrigerantsbyID(
-        seedID
-    ): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetEmissionFactorRefrigerantsbyID/' +
-            seedID
-        );
-    }
-    public GetEmissionFactorElectricitybyID(
-        seedID
-    ): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetElectricityEmissionFactor/' +
-            seedID
-        );
-    }
-    public GetEmissionFactorHeatandSteambyID(
-        seedID
-    ): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetHeatAndSteamEmissionFactor/' +
-            seedID
-        );
-    }
-    public GetEmissionFactorVehiclebyID(
-        seedID
-    ): Observable<EmissionFactor[]> {
-        return this.http.get<EmissionFactor[]>(
-            environment.baseUrl +
-            'Tracking/GetVehicleEmissionFactor/' +
-            seedID
-        );
-    }
-    UploadFile(formData: FormData): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/UploadFile',
-            formData
-        );
-    }
-    downloadFile(fileName: string): Observable<Blob> {
-        return this.http.get(
-            environment.baseUrl + 'Tracking/DownloadFile/' + fileName,
-            { responseType: 'blob' }
-        );
-    }
-
+ 
     getMonthName(month: Date): string {
         const datePipe = new DatePipe('en-US');
         const selectedDate = new Date(month);
-        return datePipe.transform(selectedDate, 'MMMM');
+        return datePipe.transform(selectedDate, 'MMM');
     }
     getYear(year: Date): string {
         const datePipe = new DatePipe('en-US');
         const selectedDate = new Date(year);
         return datePipe.transform(selectedDate, 'yyyy');
-    }
-    getBlend(): Observable<BlendType[]> {
-        return this.http.get<BlendType[]>(environment.baseUrl +
-            'Tracking/getBlendType')
-    }
-    getVehicleDEMode(): Observable<VehicleDEmode[]> {
-        return this.http.get<VehicleDEmode[]>(environment.baseUrl +
-            'Tracking/GetVehicleDEMode')
-    }
-    getElectricitySource(): Observable<ElectricitySource[]> {
-        return this.http.get<ElectricitySource[]>(environment.baseUrl +
-            'Tracking/GetElectricitySource')
-    }
-    getElectricityGrid(): Observable<ElectricityGrid[]> {
-        return this.http.get<ElectricityGrid[]>(environment.baseUrl +
-            'Tracking/GetElectricityGrid')
-    }
-    public PostSCDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveSCDataEntry',
-            data
-        );
     }
 
     public newPostSCDataEntry(data): Observable<any> {
@@ -429,21 +139,10 @@ export class TrackingService {
             
         );
     }
-    public PostRegrigerantDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveRefrigerantDataEntry',
-            data
-        );
-    }
+
     public newPostRegrigerantDataEntry(data): Observable<any> {
         return this.http.post(
             environment.baseUrl + '/Addrefrigerant',
-            data
-        );
-    }
-    public PostFireExtinguisherDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveFireExtiguisherDataEntry',
             data
         );
     }
@@ -453,24 +152,14 @@ export class TrackingService {
             data
         );
     }
-    public PostVehicleDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveVehicleDataEntry',
-            data
-        );
-    }
+  
     public newPostVehicleDataEntry(data): Observable<any> {
         return this.http.post(
             environment.baseUrl + '/Addcompanyownedvehicles',
             data
         );
     }
-    public PostElectricityDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveElectricityDataEntry',
-            data
-        );
-    }
+
     public newPostElectricityDataEntry(data): Observable<any> {
         return this.http.post(
             environment.baseUrl + '/Addelectricity',
@@ -483,61 +172,22 @@ export class TrackingService {
             data
         );
     };
-    public PostHeatandSteamDataEntry(data): Observable<any> {
-        return this.http.post(
-            environment.baseUrl + 'Tracking/SaveHeatandSteamDataEntry',
-            data
-        );
-    }
+
     public newPostHeatandSteamDataEntry(data): Observable<any> {
         return this.http.post(
             environment.baseUrl + '/Addheatandsteam',
             data
         );
     }
-    public getSCdataentry(subcatID: number, tenantID: number): Observable<StationaryCombustionDE[]> {
-        return this.http.get<StationaryCombustionDE[]>(environment.baseUrl +
-            'Tracking/getSCDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getrefdataentry(subcatID: number, tenantID: number): Observable<RefrigerantsDE[]> {
-        return this.http.get<RefrigerantsDE[]>(environment.baseUrl +
-            'Tracking/getrefDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getfiredataentry(subcatID: number, tenantID: number): Observable<FireExtinguisherDE[]> {
-        return this.http.get<FireExtinguisherDE[]>(environment.baseUrl +
-            'Tracking/getfireDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getvehicledataentry(subcatID: number, tenantID: number): Observable<VehicleDE[]> {
-        return this.http.get<VehicleDE[]>(environment.baseUrl +
-            'Tracking/getvehicleDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getHeatandSteamdataentry(subcatID: number, tenantID: number): Observable<VehicleDE[]> {
-        return this.http.get<VehicleDE[]>(environment.baseUrl +
-            'Tracking/getHeatandSteamDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getElectricdataentry(subcatID: number, tenantID: number): Observable<ElectricityDE[]> {
-        return this.http.get<ElectricityDE[]>(environment.baseUrl +
-            'Tracking/getElectricDataEntry/' + subcatID + '/' + tenantID)
-    }
-    public getUnits(subcatID: number): Observable<Units[]> {
-        return this.http.get<Units[]>(environment.baseUrl +
-            'Tracking/GetUnits/' + subcatID)
-    }
     public newgetUnits(subcatID: number): Observable<Units[]> {
         return this.http.get<Units[]>(environment.baseUrl +'/GetUnits/' + subcatID)
     }
-    public getDeliveryVehicleType(): Observable<VehicleType[]> {
-        return this.http.get<VehicleType[]>(environment.baseUrl +
-            'Tracking/GetDeliveryVehicleType')
-    };
+  
 
     public newGetDeliveryVehicleType(id , year): Observable<any> {
         return this.http.get(environment.baseUrl +'/Getdeliveryvehicletypes?facilityId=' + id + '&year=' + year)
     }
-    public getPassengerVehicleType(): Observable<VehicleType[]> {
-        return this.http.get<VehicleType[]>(environment.baseUrl +
-            'Tracking/GetPassengerVehicleType')
-    }
+  
     public newGetPassengerVehicleType(id , year): Observable<any> {
         return this.http.get(environment.baseUrl +'/Getpassengervehicletypes?facilityId=' + id + '&year=' + year)
     }
@@ -547,45 +197,16 @@ export class TrackingService {
     public newgetCategory(): Observable<ManageDataPointCategory[]> {
         return this.http.get<ManageDataPointCategory[]>(environment.baseUrl + '/GetAllcategoryByScope')
     }
-    public getSCpendingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getSCpendingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
+ 
     public newgetSCpendingDataEntries(data): Observable<any> {
         return this.http.post<any>(environment.baseUrl + '/GetpendingDataEnteries',data)
     }
     public newgetSCpendingDataEntriesForFuels(data): Observable<any> {
         return this.http.post<any>(environment.baseUrl + '/GetpendingDataEnteriesFuelType',data)
     }
-    public getrefpendingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getrefpendingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
-    public getfirependingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getfirependingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
-    public getvehiclependingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getvehiclependingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
-    public getElectricitypendingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getElectricitypendingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
-    public getHeatandSteampendingDataEntries(facilityID, year): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/getHeatandSteampendingDataEntries/' + facilityID +
-            '/' +
-            year)
-    }
-    public getsubCatType(subCatID): Observable<any> {
-        return this.http.get<any>(environment.baseUrl + 'Tracking/GetSubCategoryTypes/' + subCatID)
-    }
+  
+
+  
     public newgetsubCatType(subCatID , facility_id,year): Observable<any> {
         return this.http.get<any>(environment.baseUrl + '/GetSubCategoryTypes/' + subCatID + '?facilityId=' + facility_id + '&year=' + year)
     }
@@ -594,10 +215,6 @@ export class TrackingService {
     }
    
 
-
-    // Scope threee apis Routes starts ------->
-
-   
     UploadTemplate(formData: FormData): Observable<any> {
         const headers = new HttpHeaders()
         .set('content-type','application/x-www-form-urlencoded')

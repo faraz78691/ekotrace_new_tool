@@ -110,6 +110,7 @@
                                                             <th scope="col">Avg commute distance (one-way
                                                                   trip)
                                                                   km</th>
+                                                                  <th scope="col">Action</th>
                                                       </tr>
                                                 </thead>
                                                 <tbody #commuteTable>
@@ -152,6 +153,9 @@
                                                                         [(ngModel)]="row.avgCommute"
                                                                         placeholder="Enter km value">
                                                             </td>
+                                                            <td>
+                                                                  <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                                             </td>
                                                       </tr>
 
 

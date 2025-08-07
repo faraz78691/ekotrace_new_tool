@@ -268,6 +268,7 @@
                                           <th scope="col">Vendor</th>
                                           <th scope="col">Vendor Specific EF</th>
                                           <th scope="col">EF unit</th>
+                                          <th scope="col">Action</th>
                                     </tr>
                               </thead>
                               <tbody #commuteTable>
@@ -335,6 +336,9 @@
                                                 <input disabled type="text" class="form-control"
                                                       style="width:200px;height:38px" name="vendorspecificEF_{{row.id}}"
                                                       [(ngModel)]="row.vendorspecificEFUnit">
+                                          </td>
+                                          <td>
+                                               <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
                                           </td>
                                     </tr>
 
@@ -800,7 +804,7 @@
                                           <td>{{product.filename}}</td>
                                           <td>{{product.created_at | date: 'dd-MM-yyyy'}}</td>
                                           <td>{{product.matched_no_of_rows}}/{{product.no_of_rows}}</td>
-                                          <td>{{getApproxTime(product.no_of_rows)}}</td>
+                                          <td>{{purchaseService.getApproxTime(product.no_of_rows)}}</td>
                                           <td>{{product.status ? 'Completed' : 'Pending'}}</td>
                                           <td class="d-flex justify-content-center align-items-center">
                                                 <button type="button" class="btn btn-sm btn-primary mr-1"

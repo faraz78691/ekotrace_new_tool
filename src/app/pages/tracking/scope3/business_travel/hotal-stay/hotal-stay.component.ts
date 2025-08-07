@@ -217,4 +217,9 @@ export class HotalStayComponent {
       this.uploadButton = true
     }
   };
+
+  deleteRow(row: any) {
+    if (this.rowsHotelStay.length == 1) return
+    this.rowsHotelStay = this.rowsHotelStay.filter(item => item.id !== row.id);
+  }
 }

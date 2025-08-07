@@ -287,7 +287,6 @@ export class FinanceEmissionsComponent {
         this.defaulttab = router.url;
         this.loginInfo = new LoginInfo();
         this.trackingData = new Facility();
-        this.dataEntrySetting = new DataEntrySetting();
         this.dataEntry = new DataEntry();
         this.SCdataEntry = new StationaryCombustionDE();
         this.RefrigerantDE = new RefrigerantsDE();
@@ -634,19 +633,6 @@ export class FinanceEmissionsComponent {
         this.isVisited = true;
     }
     // retrieves the data entry setting for a given subcategory ID.
-    getSetting(subCatId: any) {
-        this.trackingService
-            .getdataEntrySetting(subCatId)
-            .subscribe((response) => {
-                if (response != null) {
-                    this.dataEntrySetting = response;
-                } else {
-                    this.dataEntrySetting = new DataEntrySetting();
-                }
-            });
-    };
-
-
     onInputEdit() {
         this.isInputEdited = true;
     };

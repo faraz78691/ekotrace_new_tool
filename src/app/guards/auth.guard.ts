@@ -45,8 +45,8 @@ export class AuthGuard  {
                         // Token refresh successful, proceed with authentication
                         return of(true);
                     } else {
-                        // Token refresh failed or not attempted, redirect to login
-                        this.router.navigate(['/login']);
+                        this.appService.logout();
+                   
                         return of(false);
                     }
                 })
@@ -72,11 +72,7 @@ export class AuthGuard  {
                 if (error.status === 401) {
                     return this.handleTokenExpired();
                 } else {
-                    // Handle other error cases
-                    this.notification.showError(
-                        'An error occurred while refreshing the token',
-                        ''
-                    );
+                
                     this.appService.logout();
                     return of(false);
                 }
