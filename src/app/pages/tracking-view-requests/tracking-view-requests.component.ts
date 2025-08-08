@@ -87,6 +87,7 @@ export class TrackingViewRequestsComponent {
     computedFacilities = computed(() => {
         return this.facilityService.selectedfacilitiesSignal();
     });
+loading = true;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -324,6 +325,9 @@ export class TrackingViewRequestsComponent {
     };
 
     ALLEntries(facilityID: number) {
+        console.log("here");
+        this.loading = true;
+        
         this.modeShow = false;
         this.months = new months();
         // this.convertedYear = this.trackingService.getYear(this.year);
@@ -339,13 +343,16 @@ export class TrackingViewRequestsComponent {
                         if (response.success === false) {
                             this.dataEntriesPending = [];
                         } else {
+                            // this.dataEntriesPending = [];
                             this.dataEntriesPending = response.categories;
                         }
                         setTimeout(() => {
                             this.dt.first = this.indexPage
                         });
+                        this.loading = false;
                     },
                     error: (err) => {
+                        this.loading = false;
                         this.notification.showError(
                             'Get data Point failed.',
                             'Error'
@@ -376,9 +383,11 @@ export class TrackingViewRequestsComponent {
                                 this.dataEntriesPending = response.categories;
                             }
                         }
+                        this.loading = false;
 
                     },
                     error: (err) => {
+                        this.loading = false;
                         this.notification.showError(
                             'Get data Point failed.',
                             'Error'

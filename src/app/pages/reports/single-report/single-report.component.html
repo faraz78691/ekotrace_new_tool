@@ -132,7 +132,7 @@
             </div>
             <div class="row">
                 <div class="pt-5">
-                    <button (click)="newgenerateReport()"
+                    <button (click)="newgenerateReport(this.page , this.rows)"
                         class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">
                         Generate Report
                     </button>
@@ -155,9 +155,11 @@
             <div class="row">
 
                 <div class="col-md-12" *ngIf="reportData.length >0; else emptyList">
-
-                    <p-table class="ct_bottom_table_tr" #dt [value]="reportData" [rowHover]="true"
-                        styleClass="p-datatable-striped" editMode="row">
+                    <div class="eti_report_table_123">
+                    <p-table class="ct_bottom_table_tr" #dt [value]="reportData" [rowHover]="true" [paginator]="true"      [lazy]="true"     (onLazyLoad)="loadData($event)"
+                    [loading]="loading"    [rows]="10"    [totalRecords]="totalRecords"   [rowsPerPageOptions]="[10, 25, 50, 100,500]" [rowHover]="true"
+                        styleClass="p-datatable-striped" editMode="row"   [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} records">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th
@@ -422,8 +424,11 @@
                                 <td *ngIf="selectedCategory == 15">{{ de.noofemployees }}</td>
                                 <td *ngIf="selectedCategory == 15">{{ de.noofmonths }}</td>
                                 <td
-                                    *ngIf="selectedCategory == 8 || selectedCategory == 10 || selectedCategory ==17 || selectedCategory ==23 || selectedCategory ==12 || selectedCategory ==16 || selectedCategory ==18 || selectedCategory ==22 || selectedCategory ==21 ">
+                                    *ngIf="selectedCategory == 10 || selectedCategory ==17 || selectedCategory ==23 || selectedCategory ==12 || selectedCategory ==16 || selectedCategory ==18 || selectedCategory ==22 || selectedCategory ==21 ">
                                     {{de.category}}</td>
+                                <td
+                                    *ngIf="selectedCategory == 8">
+                                    {{de.Type_of_Purchase}}</td>
                                 <td *ngIf="selectedCategory == 8">
                                     {{de.Product}}</td>
                                 <td *ngIf="selectedCategory == 8">
@@ -539,6 +544,7 @@
                             </tr>
                         </ng-template>
                     </p-table>
+                </div>
                 </div>
 
                 <ng-template #emptyList>

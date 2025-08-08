@@ -94,8 +94,10 @@ export class SingleReportComponent {
     startYear: any;
     endMonth: any;
     endYear: any;
-
-
+    loading = false;
+    page = 1;
+    rows = 10;
+    totalRecords = 0;
     reportmonths: any[] = [
         { name: 'Jan', value: 'Jan' },
         { name: 'Feb', value: 'Feb' },
@@ -188,7 +190,7 @@ export class SingleReportComponent {
     };
 
     dataPointChangedID(id) {
-        
+
         if (id == 13) {
             this.modeShow = true
         } else {
@@ -220,28 +222,6 @@ export class SingleReportComponent {
 
     dataInputType: string = 'single';
 
-    // multipleDataPointsChanged(id: any){
-    //     if (id == 13) {
-    //         this.modeShow = true
-    //     } else {
-    //         this.modeShow = false
-    //     }
-    // }
-    //method for get assigned datapoint to a facility by facility id
-    // GetAssignedDataPoint(facilityID: number) {
-    //     this.trackingService
-    //         .getSavedDataPointforTracking(facilityID)
-    //         .subscribe({
-    //             next: (response) => {
-    //                 if (response === environment.NoData) {
-    //                     this.AssignedDataPoint = [];
-    //                 } else {
-    //                     this.AssignedDataPoint = response;
-    //                 }
-    //             },
-    //             error: (err) => { }
-    //         });
-    // };
 
     GetAssignedDataPoint(facilityID: number) {
 
@@ -340,9 +320,9 @@ export class SingleReportComponent {
 
         doc.save('report.pdf');
     };
-   
 
-    newgenerateReport() {
+
+    newgenerateReport(page: number, page_size: number) {
 
         this.CustomReportData = [];
         const reportFormData = new URLSearchParams();
@@ -496,8 +476,8 @@ export class SingleReportComponent {
             }
             reportFormData.set('facility', this.selectedFacilityID)
             reportFormData.set('year', this.dataEntry.year)
-            // reportFormData.set('page', '1')
-            // reportFormData.set('page_size', '10')
+            reportFormData.set('page', page.toString())
+            reportFormData.set('page_size', page_size.toString())
             if (url != 'reportEmployeeCommuting' && url != 'reportHomeOffice') {
                 reportFormData.set('month', selectedMonths)
 
@@ -507,7 +487,8 @@ export class SingleReportComponent {
         this.facilityService.gerReport(url, reportFormData.toString()).subscribe({
             next: res => {
                 if (res.success) {
-                    this.reportData = res.result
+                    this.reportData = res.result;
+                    this.totalRecords = res.totalCount;
 
                 } else {
                     this.notification.showSuccess(
@@ -554,5 +535,24 @@ export class SingleReportComponent {
 
     selectModeChanged(e: any) {
         this.reportData = []
+    };
+
+    loadData(event: any) {
+        // event contains: first, rows, sortField, sortOrder, filters
+        const page = event.first / event.rows + 1; // PrimeNG gives "first" as starting row index
+        const limit = event.rows;
+        this.newgenerateReport(page, limit)
+        // this.loading = true;
+
+        // this.yourService.getPaginatedData(page, limit).subscribe({
+        //     next: (res) => {
+        //         this.reportData = res.data;          // your backend data array
+        //         this.totalRecords = res.total;       // total rows count from backend
+        //         this.loading = false;
+        //     },
+        //     error: () => {
+        //         this.loading = false;
+        //     }
+        // });
     }
 }

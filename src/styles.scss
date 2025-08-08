@@ -643,7 +643,7 @@ label:not(.form-check-label):not(.custom-file-label) {
 // }
 
 .p-paginator .p-paginator-current {
-    color: white !important;
+    color: #000 !important;
 
 }
 
@@ -716,7 +716,16 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 
 }
-
+.eti_report_table_123 .p-datatable-wrapper {
+    height: 554px !important;
+  }
+  .eti_report_table_123 .p-datatable-wrapper .p-datatable-thead{
+    position: sticky;
+    top: 0;
+  }
+  .eti_report_table_123 .p-datatable-wrapper .p-datatable-thead th{
+    background-color: #a6c275 !important;
+  }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     // background-color: #88AD47!important;
     // color: #fff !important;
