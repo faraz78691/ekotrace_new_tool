@@ -436,12 +436,23 @@ export class EnergyCustomReportComponent {
         if (this.isMultiple) {
             const startYear = this.startYear.getFullYear().toString();
             const endYear = this.endYear.getFullYear().toString();
+ 
+
             if(this.selectReportType == 'Monthly'){
                 url = 'reportFilterMultipleCategoryNew'
             }else{
                   url = 'reportFilterMultipleCategoryConsolidated'
             }
+            if(!this.selectedMultipleFacility ){
+                this.notification.showInfo(
+                    "Please select at least one facility",
+                    'Warning'
+                );
+                return;
+            }
             let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
+
+          
 
             const categoryMap = {
              

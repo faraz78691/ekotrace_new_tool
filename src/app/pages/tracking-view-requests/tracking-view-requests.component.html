@@ -54,9 +54,9 @@
                       <ng-template  #tableData>
                           <p-table class="ct_bottom_table_tr et_table_spacing_12 ct_chev_icon_dark230" #dt
                               [(selection)]="selectedEntry" [scrollable]="true" [globalFilterFields]="['catName']"
-                              dataKey="id" [rowsPerPageOptions]="[10, 25, 50]" [rowHover]="true"
-                              [globalFilterFields]="['catName', 'subcatName', 'year', 'month', 'readingValue', 'unit', 'status']"
-                              [value]="dataEntriesPending" [paginator]="true" [rows]="rows" editMode="row" [first]="indexPage"
+                              dataKey="id" [rowsPerPageOptions]="[10, 25, 50, 100, 200, 500]" [rowHover]="true"
+                              [globalFilterFields]="['catName', 'subcatName', 'year', 'month', 'readingValue', 'unit', 'status']"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                              [value]="dataEntriesPending" [paginator]="true" [rows]="rows" editMode="row" [first]="indexPage" [showCurrentPageReport]="true"
                               (onPage)="onPageChange($event)">
       
                               <ng-template pTemplate="header">

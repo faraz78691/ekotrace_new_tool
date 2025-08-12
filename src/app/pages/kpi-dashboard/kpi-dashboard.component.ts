@@ -70,7 +70,26 @@ export class KpiDashboardComponent {
   dateFormatType = 'Monthly'
   desiredLength = 12;
   visibleDate = false;
-
+  monthData: any[] = [
+    { name: 'Jan', value: 'Jan' },
+    { name: 'Feb', value: 'Feb' },
+    { name: 'Mar', value: 'Mar' },
+    { name: 'Apr', value: 'Apr' },
+    { name: 'May', value: 'May' },
+    { name: 'June', value: 'Jun' },
+    { name: 'July', value: 'Jul' },
+    { name: 'Aug', value: 'Aug' },
+    { name: 'Sep', value: 'Sep' },
+    { name: 'Oct', value: 'Oct' },
+    { name: 'Nov', value: 'Nov' },
+    { name: 'Dec', value: 'Dec' }
+];
+quarterData = [
+  { name: 'Q1', value: 'Q1' },
+  { name: 'Q2', value: 'Q2' },
+  { name: 'Q3', value: 'Q3' },
+  { name: 'Q4', value: 'Q4' }
+]
 
 
   dateFormat =
@@ -264,8 +283,8 @@ export class KpiDashboardComponent {
     const formData = new URLSearchParams();
     formData.append('facilities', this.selectedFacility);
     formData.append('formatType', this.selectedFormatType);
-    formData.append('startDate', this.year.getFullYear().toString());
-    formData.append('endDate', this.year.getFullYear().toString());
+    formData.append('startDate', this.startDate.getFullYear().toString());
+    formData.append('endDate', this.endDate.getFullYear().toString());
     formData.append('format', this.dateFormatType);
     formData.append('kpiIds', event.toString());
 
@@ -432,6 +451,12 @@ export class KpiDashboardComponent {
       return false
     }
 
+    if(this.startDate.getFullYear() > this.endDate.getFullYear()){
+     this.notification.showError('Start Year should be less than End Year', '');
+
+      return false
+    }
+
 
     // Check if savedkpis exist in localStorage
     const savedKpis = JSON.parse(localStorage.getItem('savedkpis') || 'null');
@@ -458,8 +483,8 @@ export class KpiDashboardComponent {
     const formData = new URLSearchParams();
     formData.append('facilities', this.selectedFacility);
     formData.append('formatType', this.selectedFormatType);
-    formData.append('startDate', this.year.getFullYear().toString());
-    formData.append('endDate', this.year.getFullYear().toString());
+    formData.append('startDate', this.startDate.getFullYear().toString());
+    formData.append('endDate', this.endDate.getFullYear().toString());
     formData.append('format', this.dateFormatType);
     formData.append('kpiIds', kpiString);
 

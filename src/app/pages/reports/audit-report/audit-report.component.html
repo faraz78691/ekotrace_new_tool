@@ -262,8 +262,8 @@
                     <div class="col-md-12" *ngIf="reportData.length >0; else emptyList">
 
                         <p-table class="ct_chev_icon_dark230" [paginator]="true" [rowHover]="true"
-                            [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
-                            styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
+                            [rows]="10" [rowsPerPageOptions]="[10, 20, 50, 100,500]"
+                            styleClass="statusTable ct_status_tble_230_space ct_status_table_main" [showCurrentPageReport]="true"
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
                              #dt [value]="reportData" [rowHover]="true"
                             styleClass="p-datatable-striped" editMode="row">

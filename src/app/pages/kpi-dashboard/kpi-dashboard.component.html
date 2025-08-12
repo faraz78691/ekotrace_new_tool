@@ -172,26 +172,53 @@
 
             </div>
 
-            <div class="d-flex align-items-center ct_gap_10 ct_res_100_767" *ngIf="visibleDate">
-                <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
-                    <label for="" class="ct_white_space_nowrape mb-0">Start Date
-                    </label>
+            <div class="d-flex align-items-center ct_gap_10 ct_res_100_767">
+                <ng-container *ngIf="dateFormatType == 'Annually'">
+                    <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400" *ngIf="selectedFormatType == 'Aggregate'">
+                        <label for="" class="ct_white_space_nowrape mb-0">Start Year
+                        </label>
+    
+                        <div
+                            class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                            <p-calendar class="w-100" ngModel name="year" year styleClass="pcalender" view="year"
+                                [(ngModel)]="startDate" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
+                        <label for="" class="ct_white_space_nowrape mb-0">{{selectedFormatType == 'Aggregate' ? 'End Year' : 'Year'}}
+                        </label>
+                        <div
+                            class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                            <p-calendar class="w-100"  [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" styleClass="pcalender"
+                                view="year" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                        </div>
+                    </div>
 
-                    <div
-                        class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
-                        <p-calendar class="w-100" ngModel name="year" year styleClass="pcalender" view="year"
-                            [(ngModel)]="startDate" dateFormat="yy" inputId="yearpicker" [showIcon]="true"></p-calendar>
+                </ng-container>
+               
+                <ng-container *ngIf="dateFormatType !== 'Annually' ">
+                    <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
+                        <label for="" class="ct_white_space_nowrape mb-0">Year
+                        </label>
+    
+                        <div
+                            class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                            <p-calendar class="w-100"  styleClass="pcalender" view="year"
+                                [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
-                    <label for="" class="ct_white_space_nowrape mb-0">End Date
-                    </label>
-                    <div
-                        class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
-                        <p-calendar class="w-100" ngModel name="year" year [(ngModel)]="endDate" styleClass="pcalender"
-                            view="year" dateFormat="yy" inputId="yearpicker" [showIcon]="true"></p-calendar>
-                    </div>
-                </div>
+                    <!-- <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400" *ngIf="selectedFormatType == 'Compare'">
+                        <label for="" class="ct_white_space_nowrape mb-0">{{dateFormatType == 'Monthly' ? 'Select Month' : 'Select Quarter'}}
+                        </label>
+                        <div 
+                            class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                            <p-multiSelect
+                            class="ct_select_2_full_width12 ct_input_dark_text_145 ct_multi_select_overlap_text_302 et_select__38_678"
+                            [options]="dateFormatType == 'Monthly' ? monthData : quarterData" placeholder="Select value" optionLabel="name"
+                            optionValue="value" appendTo="body"></p-multiSelect>
+                        </div>
+                    </div> -->
+                </ng-container>
             </div>
 
 
@@ -329,65 +356,7 @@
 
             </div>
         </div>
-        <!-- <div class=" mt-4">
-           
-
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="form-group mb-0">
-
-                        <p-dropdown
-                        class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
-                        ngModel placeholder="Select KPIs" [options]="kpiList" optionLabel="name" optionValue="name"
-                        styleClass="facilitydropdown" #country="ngModel" required>
-                    </p-dropdown>
-                        <div class="mt-4">
-                            <apx-chart
-                            [series]="graph7.series"
-                            [chart]="graph7.chart"
-                            [dataLabels]="graph7.dataLabels"
-                            [plotOptions]="graph7.plotOptions"
-                            [yaxis]="graph7.yaxis"
-                            [xaxis]="graph7.xaxis"
-                            [legend]="graph7.legend"
-                            [annotations]="graph7.annotations"
-                            [colors]="graph7.colors"
-                            [grid]="graph7.grid"
-                          ></apx-chart>
-                          </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="form-group mb-0">
-
-                        <p-dropdown
-                            class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
-                            ngModel placeholder="Select KPIs" [options]="kpiList" optionLabel="name" optionValue="name"
-                            styleClass="facilitydropdown" #country="ngModel" required>
-                        </p-dropdown>
-                        <div class="mt-4">
-                            <apx-chart
-                            [series]="graph8.series"
-                            [chart]="graph8.chart"
-                            [dataLabels]="graph8.dataLabels"
-                            [plotOptions]="graph8.plotOptions"
-                            [yaxis]="graph8.yaxis"
-                            [xaxis]="graph8.xaxis"
-                            [annotations]="graph8.annotations"
-                            [legend]="graph8.legend"
-                            [colors]="graph8.colors"
-                            [grid]="graph8.grid"
-                          ></apx-chart>
-                          </div>
-
-                    </div>
-                </div>
-
-
-            </div>
-        </div> -->
-
+    
     </div>
 </section>
 
@@ -405,7 +374,6 @@
                         <th scope="col">KPI</th>
                         <th scope="col">Target</th>
                         <th scope="col">Unit</th>
-
                         <th scope="col">Target Type</th>
 
                     </tr>

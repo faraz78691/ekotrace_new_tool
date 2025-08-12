@@ -43,7 +43,7 @@ export class VendorDashboardComponent {
   allVendorReport: any;
   customVendorReport: any;
   sumofALLScope: any;
-
+  endDate: Date = new Date()
   flightsTravelTypes =
     [
       {
@@ -124,12 +124,12 @@ export class VendorDashboardComponent {
 
 
   getVendorDash() {
-    const currentYear = new Date().getFullYear();
+
     const resultID = [...new Set(this.selectedFacility.flat().map(item => +item))];
     const formData = new URLSearchParams();
     formData.set('facility', resultID.toString())
     formData.set('tenant_id', this.loginInfo.super_admin_id.toString())
-    formData.set('year', currentYear.toString())
+    formData.set('year', this.endDate.getFullYear().toString())
     this.facilityService.getVendorDashboard(formData).subscribe((response: any) => {
       if (response.success == true) {
         this.originalData = response.vendorWiseEmission;
@@ -205,7 +205,7 @@ console.log(  this.vendorData );
     const currentYear = new Date().getFullYear();
     const formData = new URLSearchParams();
     formData.set('facilities', id)
-    formData.set('year', currentYear.toString())
+    formData.set('year',  this.endDate.getFullYear().toString())
     this.facilityService.getScopeDonutsER(formData).subscribe((response: any) => {
       if (response.success == true) {
         this.sumofALLScope = parseFloat(response.scope1) + parseFloat(response.scope2) + parseFloat(response.scope3);
@@ -221,6 +221,7 @@ console.log(  this.vendorData );
     let tenantId = this.loginInfo.tenantID;
     const formData = new URLSearchParams();
     formData.set('tenantID', tenantId.toString());
+    formData.set('superAdminId', this.loginInfo.super_admin_id.toString());
 
     this.dashboardService.getdashboardfacilities(formData.toString()).subscribe((result: any) => {
       if (result.success) {
@@ -242,7 +243,7 @@ console.log(  this.vendorData );
     const currentYear = new Date().getFullYear();
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedFacility);
-    formData.set('year', currentYear.toString())
+    formData.set('year', this.endDate.getFullYear().toString())
     this.facilityService.getVendorLocation(formData).subscribe((response: any) => {
       if (response.success == true) {
         // this.businessClass = response.renewable;
@@ -388,5 +389,11 @@ console.log(  this.vendorData );
 
     // console.log(sortedData); // Sorted data for debugging
     return sortedData; // Return sorted data for further use
+  }
+
+  onYearChange() {
+    this.getVendorDash()
+    this.getVendorLocation();
+    this.getEmissionProducts()
   }
 }

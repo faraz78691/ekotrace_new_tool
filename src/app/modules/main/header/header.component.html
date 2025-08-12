@@ -92,8 +92,11 @@
                         <i class="pi  pi-user pt-1 pl-1"></i>
                     </div> -->
 
-                    <a *ngIf="loginInfo.role != 'Platform Admin'" routerLink="settings"
-                        class="mx-3 pt-0 pointer d-flex headertextL"><i class="fa-solid fa-gear"></i></a>
+                    <a  href="https://carbontektool.gitbook.io/helpmanual" target="_blank"
+                        class="mx-3 pt-0 pointer d-flex headertextL">
+ 
+                        
+                        <i class="fas fa-hands-helping"></i></a>
 
                     <a (click)="logout()" class="mr-2 pt-0 pointer d-flex" [ngClass]="
                             this.updatedtheme === 'dark'

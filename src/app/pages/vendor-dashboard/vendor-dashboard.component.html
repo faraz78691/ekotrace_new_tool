@@ -47,8 +47,7 @@
 
         </div>
         <div class="d-flex align-items-center justify-content-between gap-3   mt-2 ct_flex_column_767 flex-wrap" style="gap: 20px;">
-            <h4 class="ct_fs_24 ct_fw_600 mb-0">Supplier Ranking
-            </h4>
+           
             <div class="d-flex align-items-center gap-3  ct_gap_10 flex-wrap ct_flex_column_767">
                 <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
                     <label for="" class="ct_white_space_nowrape mb-0">Product
@@ -107,17 +106,23 @@
                         optionValue="ID" defaultLabel="Select"
                         (onChange)="onFacilityChange(selectedFacility)">
                     </p-multiSelect>
-                    <!-- <p-dropdown
-                        class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
-                        ngModel placeholder="Select" [options]="dashboardData" optionLabel="AssestType" optionValue="ID"  [(ngModel)]="selectedFacility"  (ngModelChange)="onFacilityChange($event)"
-                        styleClass="facilitydropdown"  required>
-                    </p-dropdown> -->
+              
+                </div>
+                <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">
+                    <label for="" class="ct_white_space_nowrape mb-0">Year
+                    </label>
+                    <div
+                    class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
+                    <p-calendar class="w-100"  styleClass="pcalender" view="year"
+                        [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                </div>
+              
                 </div>
             </div>
 
         </div>
         <div class="row pt-4">
-            <div class="col-lg-3 mb-4 mb-lg-0">
+            <div class="col-lg-4 mb-4 mb-lg-0">
                 <div class="ct_vendor_dash_left">
                     <div class="ct_supplier_emission mb-4">
                         <h4 class="ct_fs_24 ct_fw_600">Supplier Emissions by Location
@@ -140,7 +145,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9 mb-4 mb-lg-0">
+            <div class="col-lg-8 mb-4 mb-lg-0 ">
                 <div class="row">
                     <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-4" *ngFor="let items of vendorData; index as i">
                         <div class="ct_vendor_card_45_bg">
