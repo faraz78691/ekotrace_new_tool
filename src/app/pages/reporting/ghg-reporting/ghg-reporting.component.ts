@@ -43,6 +43,7 @@ export type ChartOptions = {
   styleUrls: ['./ghg-reporting.component.scss']
 })
 export class GhgReportingComponent {
+  reportingYear = new Date()
   isHowtoUse = false;
   baseYear: any;
   loginInfo: any;
@@ -151,6 +152,12 @@ export class GhgReportingComponent {
   };
 
   onGenerateReport() {
+    console.log(this.baseYear?.getFullYear(), this.reportingYear.getFullYear());
+
+    if(this.baseYear?.getFullYear() >= this.reportingYear.getFullYear()){
+      this.notificationService.showInfo('Base year should be less than reporting year', '')
+      return
+    }
     if (this.selectedMultipleFacility.length == 0) {
       console.log(this.selectedMultipleFacility);
       this.notificationService.showInfo('Please select at least one facility', '')
@@ -222,7 +229,7 @@ export class GhgReportingComponent {
   getScopeWiseEmission() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/GhgScopewiseEmssion', formData).pipe(
       tap((response) => {
@@ -249,7 +256,7 @@ export class GhgReportingComponent {
   scope1Categories() {
     const formData = new URLSearchParams();
     formData.set('facilityIds', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgScope1Emissions', formData).pipe(
       tap((response: any) => {
@@ -282,7 +289,7 @@ export class GhgReportingComponent {
   scope2Categories() {
     const formData = new URLSearchParams();
     formData.set('faciltyId', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/fetchScope2Comission', formData).pipe(
       tap((response: any) => {
@@ -322,7 +329,7 @@ export class GhgReportingComponent {
   scope3Categories() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/Scope3WiseEmssionOnly', formData).pipe(
       tap((response: any) => {
@@ -371,7 +378,7 @@ export class GhgReportingComponent {
   getPurchaseGoodsServices() {
     const formData = new URLSearchParams();
     formData.set('faciltyId', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/purchaseGoodAndService', formData).pipe(
       tap((response: any) => {
@@ -404,7 +411,7 @@ export class GhgReportingComponent {
   getBusinessTravel() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgBussinessTravelServices', formData).pipe(
       tap((response: any) => {
@@ -436,7 +443,7 @@ export class GhgReportingComponent {
   getEmployee() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEmployeeCommute', formData).pipe(
       tap((response: any) => {
@@ -455,7 +462,7 @@ export class GhgReportingComponent {
   getWelltoTank() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumptionWellTank', formData).pipe(
       tap((response: any) => {
@@ -467,7 +474,7 @@ export class GhgReportingComponent {
   ghgEnergy() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumption', formData).pipe(
       tap((response: any) => {
@@ -478,7 +485,7 @@ export class GhgReportingComponent {
   getEmissionsIntesity() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('current_year', this.currentYear.toString());
+    formData.set('current_year', this.reportingYear.getFullYear().toString());
     formData.set('base_year', this.baseYear.toString());
 
     return this._appService.postAPI('/getKpiInventoryEmissionIntensity', formData).pipe(
@@ -500,7 +507,7 @@ export class GhgReportingComponent {
   getWaste() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgWasteEmission', formData).pipe(
       tap((response: any) => {
@@ -548,7 +555,7 @@ export class GhgReportingComponent {
   ghgEnergyMonth() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumptionMonth', formData).pipe(
       tap((response: any) => {
@@ -632,7 +639,7 @@ export class GhgReportingComponent {
   getTopEmissions() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('year', this.currentYear.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgTopEmissionGenerating', formData).pipe(
       tap((response: any) => {
@@ -658,18 +665,18 @@ export class GhgReportingComponent {
       var formatBaseyear = Number(this.baseYear)
 
     } else {
-      var formatBaseyear = Number(this.currentYear);
+      var formatBaseyear = Number(this.reportingYear.getFullYear());
     }
 
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('current_year', this.currentYear.toString());
-    formData.set('base_year', this.baseYear ? this.baseYear.toString() : this.currentYear.toString());
+    formData.set('current_year', this.reportingYear.getFullYear().toString());
+    formData.set('base_year', this.baseYear ? this.baseYear.toString() : this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/GhgEmssionPerNumberOfEmployee', formData).pipe(
       tap((response: any) => {
         this.noofEmployeeData = response.data;
-        const condition = this.noofEmployeeData.length > 0 ? this.currentYear : this.currentYear + 1;
+        const condition = this.noofEmployeeData.length > 0 ? this.reportingYear.getFullYear() : this.reportingYear.getFullYear() + 1;
         for (let i = formatBaseyear; i < condition; i++) {
 
           const yearExists = this.noofEmployeeData.some((item: any) => item.year === i);
@@ -699,7 +706,7 @@ export class GhgReportingComponent {
     console.log(base_year);
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('current_year', this.currentYear.toString());
+    formData.set('current_year', this.reportingYear.getFullYear().toString());
     formData.set('base_year', base_year.toString());
 
     return this._appService.postAPI('/GhgScopewiseEmssionYearRangeWise', formData).pipe(
@@ -767,24 +774,28 @@ export class GhgReportingComponent {
     console.log(base_year);
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-    formData.set('current_year', this.currentYear.toString());
+    formData.set('current_year', this.reportingYear.getFullYear().toString());
     formData.set('base_year', base_year.toString());
 
     return this._appService.postAPI('/GhgEmssionYearRangeWise', formData).pipe(
       tap((response: any) => {
 
-        this.baseYearGhg = response.data.find((item: any) => item.category == base_year).emission;
-        this.currentYearGhg = response.data.find((item: any) => item.category == this.currentYear.toString()).emission;
-        if (this.baseYearGhg) {
-          if (this.baseYearGhg > this.currentYearGhg) {
-            this.percentageIncDec = Number(((this.baseYearGhg - this.currentYearGhg) / this.currentYear) * 100).toFixed(2);
-          } else {
-            this.percentageIncDec = Number(((this.currentYearGhg - this.baseYearGhg) / this.baseYear) * 100).toFixed(2);
-
+        if(response.data.length > 0){
+          this.baseYearGhg = response.data.find((item: any) => item.category == base_year).emission;
+          this.currentYearGhg = response.data.find((item: any) => item.category == this.reportingYear.getFullYear().toString()).emission;
+          if (this.baseYearGhg) {
+            if (this.baseYearGhg > this.currentYearGhg) {
+              this.percentageIncDec = Number(((this.baseYearGhg - this.currentYearGhg) / this.reportingYear.getFullYear()) * 100).toFixed(2);
+            } else {
+              this.percentageIncDec = Number(((this.currentYearGhg - this.baseYearGhg) / this.baseYear) * 100).toFixed(2);
+  
+            }
           }
+          // this.rangeScopeLineOptions = this.getLineChartOptions(response.emission, response.year);
+          this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category));
+          
         }
-        // this.rangeScopeLineOptions = this.getLineChartOptions(response.emission, response.year);
-        this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category));
+console.log(response);
       })
     );
   }
@@ -797,8 +808,8 @@ export class GhgReportingComponent {
 
     const formData = new URLSearchParams();
     formData.set('facility_id', this.selectedMultipleFacility.toString());
-    formData.set('current_year', this.currentYear.toString());
-    formData.set('base_year', this.baseYear ? this.baseYear.toString() : this.currentYear.toString());
+    formData.set('current_year', this.reportingYear.getFullYear().toString());
+    formData.set('base_year', this.baseYear ? this.baseYear.toString() : this.reportingYear.getFullYear().toString());
     formData.set('kpi_id', this.selectedMultipleKPIs.toString());
 
     return this._appService.postAPI('/getKpiInventoryByFacilityIdAndYearAndKpiId', formData).pipe(

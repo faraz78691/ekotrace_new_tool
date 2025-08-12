@@ -99,3 +99,10 @@
         height: auto;
     }
     }
+
+
+    .ct_vendor_list_scroll{
+        height: auto;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    }

@@ -17,7 +17,7 @@
                         <ul style="list-style: disc;" class="mb-0 pl-4">
                             <li>Ready-to-present PDF report aligned with GHG Protocol, ISO 14064, and SBTi frameworks.
                             </li>
-                            <li>Covers multiple facilities and custom timeframes (current year and base year).
+                            <li>Covers multiple facilities and custom timeframes (Reporting year and base year).
                             </li>
                             <li>Includes interactive graphs and diagrams for easy data visualization.
                             </li>
@@ -36,8 +36,8 @@
                             <li>Select facilities – Single or multiple.
 
                             </li>
-                            <li>Choose base year and current year
-                                (Note: If there’s no previous data, select the current year as base year)
+                            <li>Choose base year and Reporting year
+                                (Note: If there’s no previous data, select the Reporting year as base year)
                             </li>
                             <li>Select up to 3 KPIs – Shown as graphs in the report.
                             </li>
@@ -79,6 +79,16 @@
 
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">Reporting Year</label>
+                        <div class="selectyear mx-0">
+                            <p-calendar placeholder="Select Year" #calendarRef
+                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                [(ngModel)]="reportingYear" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="fyear" class="text-dark">Base Year</label>
                         <div class="selectyear mx-0">
                             <p-calendar placeholder="Select Year" #calendarRef
@@ -88,6 +98,20 @@
 
                         </div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fname " class="text-dark">Categories</label>
+                        <ng-container>
+                            <div
+                                class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                                <p-multiSelect [options]="categoriesData" [(ngModel)]="selectedMultipleCategories"
+                                    optionLabel="name" optionValue="id" styleClass="pcalender"
+                                    (onChange)="onCategoriesSelected()" defaultLabel="Select Multiple Data Points"
+                                    name="multipleDataPoints">
+                                </p-multiSelect>
+                            </div>
+                        </ng-container>
+    
+                    </div>
 
 
 
@@ -96,7 +120,7 @@
 
 
             </div>
-            <div class="row mt-4  text-white">
+            <div class="row mt-2  text-white">
 
                 <div class="col-md-6 mb-3">
                     <label for="fname " class="text-dark">KPIs</label>
@@ -106,20 +130,6 @@
                             <p-multiSelect [options]="kpiList" [(ngModel)]="selectedMultipleKPIs" optionLabel="kpi_name"
                                 optionValue="id" styleClass="pcalender" placeholder="Select maximum three KPIs"
                                 name="multipleDataPoints" (onChange)="limitSelection()">
-                            </p-multiSelect>
-                        </div>
-                    </ng-container>
-
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="fname " class="text-dark">Categories</label>
-                    <ng-container>
-                        <div
-                            class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                            <p-multiSelect [options]="categoriesData" [(ngModel)]="selectedMultipleCategories"
-                                optionLabel="name" optionValue="id" styleClass="pcalender"
-                                (onChange)="onCategoriesSelected()" defaultLabel="Select Multiple Data Points"
-                                name="multipleDataPoints">
                             </p-multiSelect>
                         </div>
                     </ng-container>
@@ -172,7 +182,7 @@
                                 src="assets/img/ekobonL.png" alt=""> -->
                         </div>
                         <hr class="et_hr_line_green mb-3" />
-                        <p class="et_text_595959 et_fw_500 et_fs_18">Year {{currentYear}}
+                        <p class="et_text_595959 et_fw_500 et_fs_18">Year {{reportingYear.getFullYear()}}
                         </p>
 
                         <div class="mt-5 pt-5">
@@ -277,7 +287,7 @@
             <div class="row align-items-center mt-3">
                 <div class="col-sm-6">
                     <p class="ct_fw_500">This report presents the findings of {{loginInfo.companyName}}'s
-                        {{currentYear}} GHG emissions
+                        {{reportingYear.getFullYear()}} GHG emissions
                         assessment, based on the data provided and subject to its accuracy, completeness, and
                         appropriate classification. The assessment provides valuable insights into the company’s carbon
                         footprint, helping to identify key emission sources and opportunities for reduction. By
@@ -286,7 +296,7 @@
                         and net-zero alignment.
                     </p>
                     <div class="text-center mt-2">
-                        <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in {{currentYear}}
+                        <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in {{reportingYear.getFullYear()}}
                         </small>
 
 
@@ -315,7 +325,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Reporting period</td>
-                                        <td>{{currentYear}}</td>
+                                        <td>{{reportingYear.getFullYear()}}</td>
                                     </tr>
                                     <tr *ngIf="baseYear">
                                         <td>Base year and comparability</td>
@@ -369,7 +379,7 @@
                                             from baseline ({{baseYear}})
                                         </td>
                                         <td *ngIf="baseYearGhg > currentYearGhg">
-                                            total decrease of {{((baseYearGhg - currentYearGhg) / currentYear * 100) |
+                                            total decrease of {{((baseYearGhg - currentYearGhg) / reportingYear.getFullYear() * 100) |
                                             number:'1.2-2'}}%
 
                                         </td>
@@ -416,13 +426,13 @@
                                     <tr>
                                         <th></th>
                                         <th>Base year</th>
-                                        <th>Current year</th>
+                                        <th>Reporting year</th>
                                         <th>ΔKPI₁</th>
                                         <th>Base year</th>
-                                        <th>Current year</th>
+                                        <th>Reporting year</th>
                                         <th>ΔKPI₂</th>
                                         <th>Base year</th>
-                                        <th>Current year</th>
+                                        <th>Reporting year</th>
                                         <th>ΔKPI₃</th>
                                     </tr>
                                 </thead>
@@ -492,9 +502,9 @@
                             </table>
 
                             <p *ngIf="baseYear" class="ct_fs_14 mt-3 text-end et_fw_700">Base year:
-                                {{baseYear}}<br>Current
+                                {{baseYear}}<br>Reporting
                                 year:
-                                {{currentYear}}</p>
+                                {{reportingYear.getFullYear()}}</p>
 
                         </div>
 
@@ -1134,7 +1144,7 @@
 
         <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
         <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR {{currentYear}}
+            <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR {{reportingYear.getFullYear()}}
 
             </h2>
 
@@ -1173,7 +1183,7 @@
 
         <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
         <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM {{baseYear}}-{{currentYear}}
+            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM {{baseYear}}-{{reportingYear.getFullYear()}}
             </h2>
 
             <hr class="et_hr_line_green mb-3 mt-2" />
@@ -1191,12 +1201,12 @@
                         </div>
                     </div>
 
-                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a {{baseYear > currentYear ?
-                        'consistent reduction' : baseYear == currentYear ? 'stable trend' : 'increase'}} in emissions
+                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a {{baseYear > reportingYear.getFullYear() ?
+                        'consistent reduction' : baseYear == reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in emissions
                         across all
                         scopes from {{baseYear}} to
-                        {{currentYear}}, reflecting {{baseYear > currentYear ? 'effective mitigation efforts' : baseYear
-                        == currentYear ? 'steady emissions levels' : 'rising environmental impact'}}.
+                        {{reportingYear.getFullYear()}}, reflecting {{baseYear > reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear
+                        == reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
                     </p>
                 </div>
 
@@ -1254,10 +1264,10 @@
 
 
             </div>
-            <p class="mt-4"><strong>Remark:</strong> The {{baseYear > currentYear ? 'steady decline' : baseYear ==
-                currentYear ? 'stable trend' : 'increase'}} in the carbon footprint per employee from {{baseYear}}
-                to {{currentYear}} highlights {{baseYear > currentYear ? 'significant efficiency gains' : baseYear ==
-                currentYear ? 'steady emissions levels' : 'rising environmental impact'}}.
+            <p class="mt-4"><strong>Remark:</strong> The {{baseYear > reportingYear.getFullYear() ? 'steady decline' : baseYear ==
+                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from {{baseYear}}
+                to {{reportingYear.getFullYear()}} highlights {{baseYear > reportingYear.getFullYear() ? 'significant efficiency gains' : baseYear ==
+                reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
 
             </p>
         </div>
@@ -1324,7 +1334,7 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{intensitySeries[0] >
                     intensitySeries[intensitySeries.length - 1 ] ? 'steady decline' : intensitySeries[0] ==
                     intensitySeries[intensitySeries.length - 1 ] ? 'stable trend' : 'increase'}} in emission intensity
-                    from {{baseYear}} to {{currentYear}} indicates {{intensitySeries[0] >
+                    from {{baseYear}} to {{reportingYear.getFullYear()}} indicates {{intensitySeries[0] >
                     intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
                     == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' : 'rising environmental
                     impact'}}
@@ -1667,7 +1677,7 @@
                     {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg == currentYearGhg ?
                     'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg >
                     currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total
-                    increase of '}} {{percentageIncDec}} by {{currentYear}}.
+                    increase of '}} {{percentageIncDec}} by {{reportingYear.getFullYear()}}.
 
 
                 </p>
