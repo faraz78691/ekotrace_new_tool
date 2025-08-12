@@ -4,15 +4,15 @@
 
 export const environment = {
     production: false,
-    
-    baseUrl: 'http://192.168.29.241:4000',
-    // baseUrl2: 'http://192.168.29.241:5000',
-    
 
-  
-// 
-//    baseUrl: 'https://ekotrace.ekobon.com:4000',
-   baseUrl2: 'https://ekotrace.ekobon.com:5000',
+    // baseUrl: 'http://192.168.29.241:4000',
+    // baseUrl2: 'http://192.168.29.241:5000',
+
+
+
+    // 
+    baseUrl: 'https://ekotrace.ekobon.com:4000',
+    baseUrl2: 'https://ekotrace.ekobon.com:5000',
 
     // baseUrl: 'https://newportal.net0carbontek.com:4000',
     // baseUrl2: 'https://newportal.net0carbontek.com:5000',
