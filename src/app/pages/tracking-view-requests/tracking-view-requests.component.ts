@@ -326,7 +326,7 @@ export class TrackingViewRequestsComponent {
     };
 
     ALLEntries(facilityID: number) {
-        console.log("here");
+        
         this.loading = true;
 
         this.modeShow = false;
@@ -700,7 +700,7 @@ export class TrackingViewRequestsComponent {
                 return [
                     { field: 'typeofpurchase', header: 'Category' },
                     { field: 'product_category_name', header: 'Product / Service' },
-                    { field: 'code_name', header: 'Code' },
+                    { field: 'productcode', header: 'Code' },
                     { field: 'valuequantity', header: 'Quantity' },
                     { field: 'supplier', header: 'Vendor' },
                     { field: 'supplierspecificEF', header: 'Vendor EF' },
