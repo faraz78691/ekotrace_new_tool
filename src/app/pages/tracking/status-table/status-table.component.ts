@@ -14,7 +14,7 @@ export class StatusTableComponent {
   @Input() categoryId: number;
   @Input() businessId: number | null = null;
   @Input() category_name: number | string = '';
-
+  @Input() loading = true;
   columns: any[] = [];
 
   ngOnInit() {
@@ -37,6 +37,9 @@ export class StatusTableComponent {
     if (changes['businessId'] && !changes['businessId'].firstChange) {
       this.columns = this.getColumnsByCategory(this.categoryId, this.businessId);
 
+    }
+    if (changes['loading'] && !changes['loading'].firstChange) {
+      this.loading = changes['loading'].currentValue;
     }
   }
 
@@ -101,7 +104,7 @@ export class StatusTableComponent {
         return [
           { field: 'typeofpurchase', header: 'Category' },
           { field: 'product_category_name', header: 'Product / Service' },
-          { field: 'code_name', header: 'Code' },
+          { field: 'productcode', header: 'Code' },
           { field: 'valuequantity', header: 'Quantity' },
           { field: 'supplier', header: 'Vendor' },
           { field: 'supplierspecificEF', header: 'Vendor EF' },
@@ -112,16 +115,11 @@ export class StatusTableComponent {
         ];
       case 9:
         return [
-          { field: 'typeofpurchase', header: 'Category' },
-          { field: 'typeofpurchase', header: 'Product / Service' },
-          { field: 'typeofpurchase', header: 'Code' },
-          { field: 'typeofpurchase', header: 'Quantity' },
-          { field: 'typeofpurchase', header: 'Product / Service' },
-          { field: 'typeofpurchase', header: 'Vendor' },
-          { field: 'typeofpurchase', header: 'Vendor EF' },
-          { field: 'typeofpurchase', header: 'Vendor EF Unit' },
+          { field: 'tablename', header: 'Category' },
+          { field: 'subcatName', header: 'Sub Category' },
+          { field: 'readingValue', header: 'Reading Value' },
           { field: 'unit', header: 'Unit' },
-          { field: 'unit', header: 'Month' },
+          { field: 'month', header: 'Month' },
 
         ];
 

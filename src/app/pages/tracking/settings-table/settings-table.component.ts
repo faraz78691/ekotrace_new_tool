@@ -98,7 +98,7 @@ export class SettingsTableComponent {
         ];
       case 9:
         return [
-          { field: 'product_category_name', header: 'Type' },
+          { field: 'subcatName', header: 'Type' },
           { field: 'emissionFactorUsed', header: 'Emission Factor' },
           { xtra: 'kg CO2e/', field: 'unit', header: 'Unit' },
           { field: 'user_name', header: 'User' },

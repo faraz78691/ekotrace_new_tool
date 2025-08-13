@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AppService {
     getElectricitySource() {
-      throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
     }
     public user: any = null;
     public invalidLogin: boolean = false;
@@ -103,5 +103,27 @@ export class AppService {
         const datePipe = new DatePipe('en-US');
         const selectedDate = new Date(year);
         return datePipe.transform(selectedDate, 'yyyy');
+    };
+
+    private readonly roleMap: { [key: string]: string } = {
+        'b34c0dbe-4730-4521-82dd-5d3de28bcea0': 'Super Admin',
+        '525debfd-cd64-4936-ae57-346d57de3585': 'Admin',
+        '8f7e334f-db30-44d6-a3d6-a1d12b29547c': 'Manager',
+        '9782f1b1-27ba-4a5c-861c-94174d73d471': 'Preparer',
+        'd9be1ec0-7372-44a2-98aa-f46bffd474b9': 'Approver',
+        'a34d0ecf-4730-4521-82ee-5e3eg28bdfb0': 'Auditor',
+        'ca0f6fe6-2bf1-410a-aff2-d1511dc6937c': 'Platform Admin'
+    };
+
+    getRoleName(): string | null {
+        const roleUUID = this.getRoleUUID();
+        return roleUUID ? this.roleMap[roleUUID] || null : null;
+    };
+
+    getRoleUUID(): string | null {
+        return localStorage.getItem('role_uuid');
     }
+
+
+
 }

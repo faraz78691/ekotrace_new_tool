@@ -70,7 +70,7 @@ export class TrackingComponent {
     categoryName: string;
     public loginInfo: LoginInfo;
     AssignedDataPoint: TrackingDataPoint[] = [];
-
+    loading = false;
 
     todayDate;
     SubCatAllData: ManageDataPointSubCategories;
@@ -159,9 +159,6 @@ export class TrackingComponent {
 
 
 
-
-
-
     ngOnInit() {
         // this.config = {
         //     hasAllCheckBox: true,
@@ -185,8 +182,6 @@ export class TrackingComponent {
         }
         this.superAdminID = this.loginInfo.super_admin_id;
         this.setDefaultMonth();
-
-
     }
 
     GetAssignedDataPoint(facilityID: number) {
@@ -321,7 +316,8 @@ export class TrackingComponent {
         this.isVisited = true;
     }
     ALLEntries() {
-
+        this.loading = true;
+        this.dataEntriesPending = [];
         if (this.categoryId == 25 || this.categoryId == 26 || this.categoryId == 24) {
             const categoryID = 13
             const formData = new URLSearchParams();
@@ -350,6 +346,7 @@ export class TrackingComponent {
                                 this.dataEntriesPending = response.categories;
                             }
                         }
+                        this.loading = false;
                     },
                     error: (err) => {
                         this.notification.showError(
@@ -385,6 +382,7 @@ export class TrackingComponent {
                             const filterEntries = response.categories.filter((items => items.Scope3GHGEmission !== '0.000'));
                             this.dataEntriesPending = filterEntries;
                         }
+                        this.loading = false;
                     },
                     error: (err) => {
                         this.notification.showError('Operation failed', 'Error');
@@ -420,24 +418,20 @@ export class TrackingComponent {
                             this.dataEntriesPending = response.categories;
                         }
                     }
+                    this.loading = false;
                 },
                 error: (err) => {
+                    this.loading = false;
                     this.notification.showError('Operation failed', 'Error');
                 }
             });
-
-
-
     }
 
     setDefaultMonth() {
         this.monthString = this.trackingService.getMonthName(this.month);
-        console.log(this.monthString);
         this.months.forEach(m => {
-            console.log(m);
             if (m.name == this.monthString) {
                 this.selectMonths[0] = m;
-                console.log(this.selectMonths);
             }
 
         })
@@ -452,21 +446,17 @@ export class TrackingComponent {
 
 
     onYearChange() {
-
         const year = this.trackingService.getYear(this.year);
-
         this.facilityService.yearSignal.set(year.toString());
         sessionStorage.setItem('selected_year', year.toString());
         this.ALLEntries(); 
-
-        // this.SubCatData(this.SubCatAllData, this.categoryId, this.categoryName);
     }
 
     onTabChange(event: any) {
         const index = event.index
 
         if (index != 0) { // index of Status tab
-            this.ALLEntries(); // your API logic
+            this.ALLEntries();
         }
     }
 

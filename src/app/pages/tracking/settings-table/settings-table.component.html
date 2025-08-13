@@ -1,8 +1,9 @@
 <p class="mb-2 pb-2 mt-3 text-dark border-bottom">
       {{ category_name}}
 </p>
-<p-table [value]="data" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
-      styleClass="statusTable ct_status_tble_230_space ct_status_table_main">
+<p-table [value]="data" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10,20,50,100,500]"
+      styleClass="statusTable ct_status_tble_230_space ct_status_table_main" [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
       <ng-template pTemplate="header">
             <tr>
                   <th *ngFor="let col of columns">{{ col.header }}</th>

@@ -451,10 +451,13 @@ quarterData = [
       return false
     }
 
-    if(this.startDate.getFullYear() > this.endDate.getFullYear()){
-     this.notification.showError('Start Year should be less than End Year', '');
-
-      return false
+    if(this.dateFormatType  == 'Annually'){
+      if(this.startDate.getFullYear() > this.endDate.getFullYear()){
+       this.notification.showError('Start Year should be less than End Year', '');
+  
+        return false
+      }
+      
     }
 
 

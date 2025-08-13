@@ -346,6 +346,7 @@ export class TrackingViewRequestsComponent {
                         } else {
                             // this.dataEntriesPending = [];
                             this.dataEntriesPending = response.categories;
+                            console.log(this.dataEntriesPending);
                             this.columns = this.getColumnsByCategory(this.selectedCategory, this.selectMode);
                         }
                         if (this.isCategoryChanged == true) {
@@ -543,6 +544,7 @@ export class TrackingViewRequestsComponent {
 
 
     FilterByYear() {
+        this.isCategoryChanged = true;
         const year2 = this.trackingService.getYear(this.year);
         this.facilityService.yearSignal.set(year2.toString());
         sessionStorage.setItem('selected_year', year2.toString());
@@ -700,7 +702,7 @@ export class TrackingViewRequestsComponent {
                 return [
                     { field: 'typeofpurchase', header: 'Category' },
                     { field: 'product_category_name', header: 'Product / Service' },
-                    { field: 'productcode', header: 'Code' },
+                    { field: 'productCode', header: 'Code' },
                     { field: 'valuequantity', header: 'Quantity' },
                     { field: 'supplier', header: 'Vendor' },
                     { field: 'supplierspecificEF', header: 'Vendor EF' },
