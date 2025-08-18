@@ -10,8 +10,14 @@
          subCategoryID === 6 ? "Biogas" : ""
   }}
         </p>
+      
         <div class="ct_how_use_tooltip_main">
-            <i class="fa-solid fa-circle-question" (click)="isHowtoUse = !isHowtoUse"></i>
+         
+                <label style="color: black;" for="">Multiple Months</label>
+                <p-inputSwitch [(ngModel)]="annualEntry" [ngModelOptions]="{standalone: true}" (ngModelChange)="onAnnualChange($event)"></p-inputSwitch>
+    
+           
+            <i class="fa-solid fa-circle-question ml-3" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
                     <p class="ct_fs_16 mb-1">Emissions from the burning of fuels in
@@ -108,6 +114,14 @@
 
     <div class="trackingContent">
         <div class="row mt-4 mx-2">
+            <div class="col-lg-4" *ngIf="annualEntry">
+                <label for="fname">Months</label>
+                <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" [options]="monthsData"
+                [(ngModel)]="multipleMonths" [ngModelOptions]="{standalone: true}" defaultLabel="Select Month"
+                 optionLabel="name" optionValue="value">
+            </p-multiSelect>
+
+            </div>
             <div class="col-lg-4">
                 <label for="fname">Type</label>
                 <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="fuelType" optionLabel="TypeName"
@@ -134,9 +148,9 @@
                     Reading value required.
                 </p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" [ngClass]="annualEntry ? 'mt-4' : ''">
                 <label for="fname">Calorific value (optional)</label>
-                <i class="fa fa-info-circle tooltip-icon mx-2" pTooltip="Calorific value – Gross CV of fuel, if available. 
+                <i class="fa fa-info-circle tooltip-icon" pTooltip="Calorific value – Gross CV of fuel, if available. 
                                            
                                            " tooltipPosition="top" style="color: #88ad47"></i>
                 <!-- <input required ngModel name="calorificValue" type="text"

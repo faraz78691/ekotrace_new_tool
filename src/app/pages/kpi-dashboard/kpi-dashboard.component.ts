@@ -451,7 +451,7 @@ quarterData = [
       return false
     }
 
-    if(this.dateFormatType  == 'Annually'){
+    if(this.dateFormatType  == 'Annually' && this.selectedFormatType == 'Aggregate'){
       if(this.startDate.getFullYear() > this.endDate.getFullYear()){
        this.notification.showError('Start Year should be less than End Year', '');
   

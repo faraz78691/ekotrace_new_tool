@@ -124,6 +124,20 @@ export class AppService {
         return localStorage.getItem('role_uuid');
     }
 
+    monthsData: any[] = [
+        { name: 'Jan', value: 'Jan' },
+        { name: 'Feb', value: 'Feb' },
+        { name: 'Mar', value: 'Mar' },
+        { name: 'Apr', value: 'Apr' },
+        { name: 'May', value: 'May' },
+        { name: 'June', value: 'Jun' },
+        { name: 'July', value: 'Jul' },
+        { name: 'Aug', value: 'Aug' },
+        { name: 'Sep', value: 'Sep' },
+        { name: 'Oct', value: 'Oct' },
+        { name: 'Nov', value: 'Nov' },
+        { name: 'Dec', value: 'Dec' }
+    ];
 
 
 }

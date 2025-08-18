@@ -8,11 +8,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SubmitButtonComponent } from '@/shared/submit-button/submit-button.component';
 import { TabViewModule } from "primeng/tabview";
 import { FileUploadModule } from "primeng/fileupload";
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiSelectModule } from 'primeng/multiselect';
 declare var $: any;
 @Component({
   selector: 'app-stationary-combustion',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule, InputSwitchModule,MultiSelectModule],
   templateUrl: './stationary-combustion.component.html',
   styleUrls: ['./stationary-combustion.component.scss']
 })
@@ -29,6 +31,7 @@ export class StationaryCombustionComponent {
   units: any[] = [];
   fuelId: number = 0;
   unit: any;
+  annualEntry = false;
   blendType =
     [
       {
@@ -48,11 +51,12 @@ export class StationaryCombustionComponent {
   uploadButton = false;
   selectedBlend: any;
   blendPercent: any = 20;
-
+  monthsData: any[] = [];
   selectedFile: File;
+  multipleMonths:any;
 
-
-  constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+  constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService,) {
+    this.monthsData = this.appService.monthsData;
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -174,8 +178,9 @@ export class StationaryCombustionComponent {
     }
   };
   onTypeChange(event: any) {
+  };
 
-
-
-  }
+  onAnnualChange(event: any) {
+    console.log(this.annualEntry);
+  };
 }

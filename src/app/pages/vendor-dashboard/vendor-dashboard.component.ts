@@ -304,8 +304,8 @@ console.log(  this.vendorData );
           series: this.productsEmission,
           chart: {
             width: "300px",
-            height: "350px",
-            type: "pie",
+            height: "500",
+            type: "donut",
 
           },
           legend: {
