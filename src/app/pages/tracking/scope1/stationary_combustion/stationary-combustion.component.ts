@@ -10,11 +10,12 @@ import { TabViewModule } from "primeng/tabview";
 import { FileUploadModule } from "primeng/fileupload";
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DialogModule } from 'primeng/dialog';
 declare var $: any;
 @Component({
   selector: 'app-stationary-combustion',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule, InputSwitchModule,MultiSelectModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule, InputSwitchModule, MultiSelectModule, DialogModule],
   templateUrl: './stationary-combustion.component.html',
   styleUrls: ['./stationary-combustion.component.scss']
 })
@@ -53,8 +54,9 @@ export class StationaryCombustionComponent {
   blendPercent: any = 20;
   monthsData: any[] = [];
   selectedFile: File;
-  multipleMonths:any;
-
+  multipleMonths: any;
+  viewValue: Boolean = false
+  visible: Boolean = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService,) {
     this.monthsData = this.appService.monthsData;
     effect(() => {
@@ -78,61 +80,90 @@ export class StationaryCombustionComponent {
 
 
   EntrySave(dataEntryForm: NgForm) {
+
     if (!dataEntryForm.valid) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
       });
       return;
     }
-  
+
     if (this.selectedBlend === 'Perc. Blend' && !this.blendPercent) {
       return;
     }
-  
+
     this.isSubmitting = true;
     const formData = new FormData();
-  
+
     if (this.selectedBlend === 'Perc. Blend') {
       formData.set('blendPercent', this.blendPercent.toString());
     }
-  
+
     formData.set('subCategoryTypeId', this.fuelId.toString());
     formData.set('SubCategorySeedID', this.subCategoryID.toString());
-  
+
     if (this.subCategoryID === 1 && (this.fuelId === 1 || this.fuelId === 2)) {
       formData.set('blendType', this.selectedBlend);
     }
-  
+
     formData.set('calorificValue', dataEntryForm.value.calorificValue || '');
     formData.set('unit', this.unit);
-    formData.set('readingValue', (dataEntryForm.value.readingvalue || '').toString());
-    formData.set('months', this.months);
     formData.set('year', this.year);
     formData.set('facility_id', this.facilityID.toString());
-  
+
     if (this.selectedFile) {
       formData.set('file', this.selectedFile, this.selectedFile.name);
     }
-  
-    this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
-      next: (response: any) => {
-        if (response.success === true) {
-          this.notification.showSuccess('Data entry added successfully', 'Success');
-          this.isSubmitting = false;
-          dataEntryForm.reset();
-        } else {
-          this.notification.showError(response.message, 'Error');
-          this.isSubmitting = false;
+
+    if (this.annualEntry) {
+      this.monthsData.forEach(item => {
+        if (item.selected) {
+          formData.set('months', JSON.stringify([item.value]));
+          formData.set('readingValue', (item.readingValue || '').toString());
+          this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
+            next: (response: any) => {
+              if (response.success === true) {
+                this.notification.showSuccess('Data entry added successfully', 'Success');
+                this.isSubmitting = false;
+                dataEntryForm.reset();
+                formData.delete('months');
+                formData.delete('readingValue');
+              } else {
+                this.notification.showError(response.message, 'Error');
+                this.isSubmitting = false;
+              }
+            },
+            error: (err) => {
+              this.notification.showError('Data entry failed.', 'Error');
+              this.isSubmitting = false;
+              console.error('Error while submitting form:', err);
+            }
+          });
         }
-      },
-      error: (err) => {
-        this.notification.showError('Data entry failed.', 'Error');
-        this.isSubmitting = false;
-        console.error('Error while submitting form:', err);
-      }
-    });
+      })
+    } else {
+      formData.set('months', this.months);
+      formData.set('readingValue', (dataEntryForm.value.readingvalue || '').toString());
+      this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
+        next: (response: any) => {
+          if (response.success === true) {
+            this.notification.showSuccess('Data entry added successfully', 'Success');
+            this.isSubmitting = false;
+            dataEntryForm.reset();
+          } else {
+            this.notification.showError(response.message, 'Error');
+            this.isSubmitting = false;
+          }
+        },
+        error: (err) => {
+          this.notification.showError('Data entry failed.', 'Error');
+          this.isSubmitting = false;
+          console.error('Error while submitting form:', err);
+        }
+      });
+    }
   }
-  
+
 
 
   getsubCategoryType(subCatID: number) {
@@ -181,6 +212,13 @@ export class StationaryCombustionComponent {
   };
 
   onAnnualChange(event: any) {
+    this.visible = event
     console.log(this.annualEntry);
   };
+
+  selectAll(event: any) {
+    this.monthsData.forEach(item => {
+      item.selected = event.target.checked
+    })
+  }
 }

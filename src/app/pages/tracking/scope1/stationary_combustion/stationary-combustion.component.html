@@ -10,13 +10,15 @@
          subCategoryID === 6 ? "Biogas" : ""
   }}
         </p>
-      
+
         <div class="ct_how_use_tooltip_main">
-         
-                <label style="color: black;" for="">Multiple Months</label>
-                <p-inputSwitch [(ngModel)]="annualEntry" [ngModelOptions]="{standalone: true}" (ngModelChange)="onAnnualChange($event)"></p-inputSwitch>
-    
-           
+
+            <label style="color: black;" for="">Multiple Months</label>
+            <p-inputSwitch [(ngModel)]="annualEntry" [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onAnnualChange($event);"></p-inputSwitch>
+
+            <i class="fa-solid fa-eye ml-3 text-primary" (click)="viewValue = !viewValue"></i>
+
             <i class="fa-solid fa-circle-question ml-3" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
@@ -107,6 +109,41 @@
                     </p>
                 </div>
             </div>
+            <p-dialog [(visible)]="visible || viewValue" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}">
+                <div class="table-responsive px-5">
+                    <table class="table table_loc ct_space_table_21 ct_billing_table_bg_120">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center border-0"><input (change)="selectAll($event)"
+                                        type="checkbox" class="ct_input_checkbox_1234">
+                                </th>
+                                <th scope="col" class="text-center border-0">Month</th>
+                                <th scope="col" class="text-center border-0">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of monthsData">
+                                <td class="text-center" style="vertical-align: middle;">
+                                    <input type="checkbox" class="ct_input_checkbox_1234" [(ngModel)]="item.selected"
+                                        [ngModelOptions]="{standalone: true}">
+                                </td>
+                                <td class="text-center" style="vertical-align: middle;">{{item.name}}</td>
+                                <td class="d-flex justify-content-center"><input type="text" class="form-control w-auto"
+                                        placeholder="Reading Value" [(ngModel)]="item.readingValue"
+                                        [disabled]="!item.selected"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3 ct_modal_btns_12 px-4">
+                    <Button type="submit " class="px-4 trackingsubmitb " (click)="visible=false; viewValue=false">
+                        Save
+                    </Button>
+                    <span type="button" class="closebutton ml-3 " (click)="visible=false; viewValue=false">
+                        Close
+                    </span>
+                </div>
+            </p-dialog>
         </div>
     </div>
 </div>
@@ -114,14 +151,13 @@
 
     <div class="trackingContent">
         <div class="row mt-4 mx-2">
-            <div class="col-lg-4" *ngIf="annualEntry">
+            <!-- <div class="col-lg-4" *ngIf="annualEntry">
                 <label for="fname">Months</label>
                 <p-multiSelect class="ct_calender_input_1234 ct_drop_scroll" [options]="monthsData"
-                [(ngModel)]="multipleMonths" [ngModelOptions]="{standalone: true}" defaultLabel="Select Month"
-                 optionLabel="name" optionValue="value">
-            </p-multiSelect>
-
-            </div>
+                    [(ngModel)]="multipleMonths" [ngModelOptions]="{standalone: true}" defaultLabel="Select Month"
+                    optionLabel="name" optionValue="value">
+                </p-multiSelect>
+            </div> -->
             <div class="col-lg-4">
                 <label for="fname">Type</label>
                 <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" [options]="fuelType" optionLabel="TypeName"
@@ -135,7 +171,8 @@
                 <label for="fname">Reading Value</label>
                 <div class=" position-relative">
                     <input required ngModel name="readingvalue" #myControl="ngModel" placeholder="Enter value"
-                        id="search-input" type="text" class="form-control Dashboard-tab text-white" />
+                        id="search-input" type="text" class="form-control Dashboard-tab text-white"
+                        [disabled]="annualEntry" />
                     <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                         [options]="units" optionLabel="UnitName" optionValue="UnitName" [(ngModel)]="unit"
                         [ngModelOptions]="{standalone: true}">
@@ -148,7 +185,7 @@
                     Reading value required.
                 </p>
             </div>
-            <div class="col-lg-4" [ngClass]="annualEntry ? 'mt-4' : ''">
+            <div class="col-lg-4">
                 <label for="fname">Calorific value (optional)</label>
                 <i class="fa fa-info-circle tooltip-icon" pTooltip="Calorific value – Gross CV of fuel, if available. 
                                            
@@ -187,15 +224,12 @@
                         </div>
                     </div>
                     <p class="validation"
-                    *ngIf="(blendPercent == null || blendPercent == '' || blendPercent == undefined) && dataEntryForm.submitted">
-                    Blend percent required.
-                </p>
+                        *ngIf="(blendPercent == null || blendPercent == '' || blendPercent == undefined) && dataEntryForm.submitted">
+                        Blend percent required.
+                    </p>
                 </div>
 
             </ng-container>
-
-
-
 
             <div class="col-8 mt-4">
                 <label for="fname ">Attachments</label>
