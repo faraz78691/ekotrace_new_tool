@@ -84,6 +84,8 @@ export class RefrigerantsComponent {
                     this.notification.showSuccess('Data entry added successfully', 'Success');
                     this.isSubmitting = false;
                     dataEntryForm.reset();
+                    this.monthsData = this.appService.monthsData;
+                    this.annualEntry = false
                   }
                   formData.delete('months');
                   formData.delete('refAmount');

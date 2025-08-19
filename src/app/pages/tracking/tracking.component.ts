@@ -294,7 +294,6 @@ export class TrackingComponent {
         this.facilityService.yearSignal.set(year.toString());
         const monthString = JSON.stringify(this.selectMonths.map(m => m.value));
         this.facilityService.monthSignal.set(monthString);
-        this.isDropdownDisabled = false;
         try {
             this.dynamicComponent = await loadComponentByCategoryId(categoryID, businessId);
         } catch (err) {
