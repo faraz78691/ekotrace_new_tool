@@ -116,27 +116,34 @@ export class StationaryCombustionComponent {
     }
 
     if (this.annualEntry) {
-      this.monthsData.forEach(item => {
+      const selectedMonths = this.monthsData.filter(item => item.selected)
+      this.monthsData.forEach((item, index) => {
         if (item.selected) {
           formData.set('months', JSON.stringify([item.value]));
           formData.set('readingValue', (item.readingValue || '').toString());
           this.appService.postAPI('/stationaryCombustionEmission', formData).subscribe({
             next: (response: any) => {
               if (response.success === true) {
-                this.notification.showSuccess('Data entry added successfully', 'Success');
-                this.isSubmitting = false;
-                dataEntryForm.reset();
+                if (index === selectedMonths.length - 1) {
+                  this.notification.showSuccess('Data entry added successfully', 'Success');
+                  this.isSubmitting = false;
+                  dataEntryForm.reset();
+                }
                 formData.delete('months');
                 formData.delete('readingValue');
               } else {
-                this.notification.showError(response.message, 'Error');
-                this.isSubmitting = false;
+                if (index === selectedMonths.length - 1) {
+                  this.notification.showError(response.message, 'Error');
+                  this.isSubmitting = false;
+                }
               }
             },
             error: (err) => {
-              this.notification.showError('Data entry failed.', 'Error');
-              this.isSubmitting = false;
-              console.error('Error while submitting form:', err);
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError('Data entry failed.', 'Error');
+                this.isSubmitting = false;
+                console.error('Error while submitting form:', err);
+              }
             }
           });
         }
@@ -213,6 +220,7 @@ export class StationaryCombustionComponent {
 
   onAnnualChange(event: any) {
     this.visible = event
+    this.appService.sendData(event);
     console.log(this.annualEntry);
   };
 

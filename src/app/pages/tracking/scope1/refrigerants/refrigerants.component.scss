@@ -20,3 +20,64 @@
     margin-bottom: 0px;
     font-size: 14px;
   }
+
+  .ct_quantity_text {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: rgba(136, 173, 71, 0.75);
+  color: #6c757d;
+  width: auto;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  height: 38px;
+  padding-inline: 5px;
+  white-space: nowrap;
+}
+.ct_quantity_text p{
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+.validation {
+  color: red;
+  font-size: 12px;
+}
+
+.ct_modal_btns_12 button {
+border: 1px solid rgba(136, 173, 71, 0.75);
+color: #fff !important;
+padding: 3px 15px;
+width: 100px;
+}
+.ct_modal_btns_12 span {
+font-weight: 500 !important;
+}
+.ct_space_table_21 tr th{
+background-color: rgba(136, 173, 71, 0.75);
+padding: 6px 10px;
+}
+.ct_space_table_21 tr td{
+padding: 6px 10px;
+border-color: #eee;
+}
+
+.ct_custom_flex_basisc.myCol {
+max-width: 64% !important;
+flex-basis: 64% !important;
+}
+
+.ct_input_checkbox_1234 {
+    border: 2px solid #ced4da;
+    background: #ffffff;
+    width: 15px;
+    height: 15px;
+    color: #495057;
+    border-radius: 3px;
+    margin-left: 1rem;
+}

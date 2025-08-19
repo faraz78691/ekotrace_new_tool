@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginInfo } from '@/models/loginInfo';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FacilityService } from './facility.service';
 import { DatePipe } from '@angular/common';
 
@@ -20,6 +20,12 @@ export class AppService {
     public invalidLogin: boolean = false;
     public showLoader: boolean = true;
     public loginInfo: LoginInfo;
+    private dataSource = new BehaviorSubject<any>(null);
+    data$ = this.dataSource.asObservable();
+
+    sendData(data: any) {
+        this.dataSource.next(data);
+    }
 
     constructor(
         private http: HttpClient,

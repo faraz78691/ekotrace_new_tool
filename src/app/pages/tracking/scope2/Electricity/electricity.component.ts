@@ -9,11 +9,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TabViewModule } from 'primeng/tabview';
 import { FileUploadModule } from "primeng/fileupload";
 import { data } from 'jquery';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DialogModule } from 'primeng/dialog';
 declare var $: any;
 @Component({
   selector: 'app-electricity',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule],
+  imports: [CommonModule, FormsModule, DropdownModule, SubmitButtonComponent, TabViewModule, FileUploadModule, InputSwitchModule, DialogModule],
   templateUrl: './electricity.component.html',
   styleUrls: ['./electricity.component.scss']
 })
@@ -40,7 +42,12 @@ export class ElectricityComponent {
   regionId: any;
   selectedunit: any;
   selectedUnit: any;
+  viewValue: Boolean = false
+  visible: Boolean = false
+  monthsData: any[] = [];
+  annualEntry = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+    this.monthsData = this.appService.monthsData;
     this.marketTypes =
       [
         {
@@ -91,7 +98,7 @@ export class ElectricityComponent {
   }
 
   EntrySave(dataEntryForm: NgForm) {
-    if (dataEntryForm.invalid) {
+    if (dataEntryForm.invalid && !this.annualEntry) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
       });
@@ -104,52 +111,81 @@ export class ElectricityComponent {
       url = '/Addrenewableelectricity'
     }
 
-
-
     var formData = new FormData();
     if (this.subCategoryID == 9) {
       formData.set('RegionID', this.regionId.toString());
-      formData.set('readingValue', dataEntryForm.value.readingvalueLocation.toString());
     } else {
       formData.set('typeID', this.marketTypeId);
       formData.set('sourceName', this.renewableSelected ? this.sourceName : '');
       formData.set('emission_factor', dataEntryForm.value.emission_factorS);
-      formData.set('readingValue', this.renewableSelected ? dataEntryForm.value.readingValueREnew.toString() : dataEntryForm.value.readingSupplierValue.toString());
     }
 
     formData.set('unit', this.selectedUnit);
     formData.set('facilities', this.facilityID.toString());
-    formData.set('months', this.months);
     formData.set('year', this.year);
     formData.set('SubCategorySeedID', this.subCategoryID.toString());
     if (this.selectedFile) {
       formData.set('file', this.selectedFile, this.selectedFile.name);
     }
-    this.appService.postAPI(url, formData).subscribe({
-      next: (response: any) => {
-        if (response.success == true) {
-          this.notification.showSuccess(
-            'Data entry added successfully',
-            'Success'
-          );
-          this.dataEntryForm.reset();
+    if (this.annualEntry) {
+      const selectedMonths = this.monthsData.filter(item => item.selected)
+      this.monthsData.forEach((item, index) => {
+        if (item.selected) {
+          formData.set('months', JSON.stringify([item.value]));
+          formData.set('readingValue', (item.readingValue || '').toString());
 
-        } else {
-          this.notification.showError(
-            response.message,
-            'Error'
-          );
+          this.appService.postAPI(url, formData).subscribe({
+            next: (response: any) => {
+              if (response.success === true) {
+                if (index === selectedMonths.length - 1) {
+                  this.notification.showSuccess('Data entry added successfully', 'Success');
+                  this.isSubmitting = false;
+                  dataEntryForm.reset();
+                }
+                formData.delete('months');
+                formData.delete('readingValue');
+              } else {
+                if (index === selectedMonths.length - 1) {
+                  this.notification.showError(response.message, 'Error');
+                  this.isSubmitting = false;
+                }
+              }
+            },
+            error: (err) => {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError('Data entry failed.', 'Error');
+                this.isSubmitting = false;
+                console.error('Error while submitting form:', err);
+              }
+            }
+          });
         }
-      },
-      error: (err) => {
-        this.notification.showError(
-          'Data entry added failed.',
-          'Error'
-        );
-        console.error('errrrrrr>>>>>>', err);
-      },
-      complete: () => { }
-    });
+      })
+    } else {
+      formData.set('months', this.months);
+      if (this.subCategoryID == 9) {
+        formData.set('readingValue', dataEntryForm.value.readingvalueLocation.toString());
+      } else {
+        formData.set('readingValue', this.renewableSelected ? dataEntryForm.value.readingValueREnew.toString() : dataEntryForm.value.readingSupplierValue.toString());
+      }
+      this.appService.postAPI(url, formData).subscribe({
+        next: (response: any) => {
+          if (response.success === true) {
+            this.notification.showSuccess('Data entry added successfully', 'Success');
+            this.isSubmitting = false;
+            dataEntryForm.reset();
+          } else {
+            this.notification.showError(response.message, 'Error');
+            this.isSubmitting = false;
+          }
+        },
+        error: (err) => {
+          this.notification.showError('Data entry failed.', 'Error');
+          this.isSubmitting = false;
+          console.error('Error while submitting form:', err);
+        }
+      });
+    }
   };
 
   getRegionName() {
@@ -221,4 +257,14 @@ export class ElectricityComponent {
     }
   };
 
+  onAnnualChange(event: any) {
+    this.visible = event
+    this.appService.sendData(event);
+  };
+
+  selectAll(event: any) {
+    this.monthsData.forEach(item => {
+      item.selected = event.target.checked
+    })
+  }
 }
