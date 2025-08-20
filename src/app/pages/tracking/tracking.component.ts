@@ -75,7 +75,7 @@ export class TrackingComponent {
     todayDate;
     SubCatAllData: ManageDataPointSubCategories;
     id_var: any;
-
+    isDropdownDisabled: boolean = false;
     APIURL: string = environment.baseUrl;
     @ViewChild('dataEntryForm', { static: false }) dataEntryForm: NgForm;
     @ViewChild('tabView') dataentryTab: TabView;
@@ -131,14 +131,14 @@ export class TrackingComponent {
         private facilityService: FacilityService,
         private trackingService: TrackingService,
         private notification: NotificationService,
-
+        private appService: AppService,
     ) {
         const storedYear = sessionStorage.getItem('selected_year');
         if (storedYear) {
-          // Create a new Date object using the stored year
-          this.year = new Date(Number(storedYear), 0); // January of the stored year
-        }else{
-          this.year = new Date();
+            // Create a new Date object using the stored year
+            this.year = new Date(Number(storedYear), 0); // January of the stored year
+        } else {
+            this.year = new Date();
         }
         effect(() => {
             if (this.computedFacilities() != 0) {
@@ -167,6 +167,9 @@ export class TrackingComponent {
         //     decoupleChildFromParent: false,
         //     maxHeight: 500
         // };
+        this.appService.data$.subscribe(data => {
+            this.isDropdownDisabled = data;
+        });
 
         $(document).ready(() => {
             $('.ct_custom_dropdown').click(() => {
@@ -291,7 +294,6 @@ export class TrackingComponent {
         this.facilityService.yearSignal.set(year.toString());
         const monthString = JSON.stringify(this.selectMonths.map(m => m.value));
         this.facilityService.monthSignal.set(monthString);
-
         try {
             this.dynamicComponent = await loadComponentByCategoryId(categoryID, businessId);
         } catch (err) {
@@ -449,7 +451,7 @@ export class TrackingComponent {
         const year = this.trackingService.getYear(this.year);
         this.facilityService.yearSignal.set(year.toString());
         sessionStorage.setItem('selected_year', year.toString());
-        this.ALLEntries(); 
+        this.ALLEntries();
     }
 
     onTabChange(event: any) {
