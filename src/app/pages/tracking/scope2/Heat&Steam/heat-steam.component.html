@@ -7,7 +7,7 @@
             <label style="color: black;" for="">Multiple Months</label>
             <p-inputSwitch [(ngModel)]="annualEntry" [ngModelOptions]="{standalone: true}"
                 (ngModelChange)="onAnnualChange($event);"></p-inputSwitch>
-            <i class="fa-solid fa-eye ml-3 text-primary" (click)="viewValue = !viewValue"></i>
+     
             <i class="fa-solid fa-circle-question ml-3" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
@@ -68,7 +68,7 @@
 
                 </div>
             </div>
-            <p-dialog [(visible)]="visible || viewValue" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}">
+            <p-dialog [(visible)]="visible" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}">
                 <div class="table-responsive px-5">
                     <table class="table table_loc ct_space_table_21 ct_billing_table_bg_120">
                         <thead>
@@ -120,10 +120,11 @@
 
             <div class="col-lg-4">
                 <label for="fname">Reading Value</label>
+                <i class="fa-solid fa-eye ml-3 text-primary" (click)="visible = !visible"></i>
                 <div class=" position-relative">
                     <input required ngModel name="readingvalue" #myControl="ngModel" placeholder="Enter value"
                         id="search-input" type="text" class="form-control Dashboard-tab text-white"
-                        [disabled]="annualEntry" />
+                        [disabled]="annualEntry" [class.disabledC]="annualEntry" />
                     <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                         [options]="units" optionLabel="UnitName" optionValue="UnitName" [(ngModel)]="unit"
                         [ngModelOptions]="{standalone: true}">

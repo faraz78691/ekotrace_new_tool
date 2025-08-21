@@ -10,6 +10,9 @@ import { NotificationService } from '@services/notification.service';
 import { FileUploadModule } from "primeng/fileupload";
 import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { firstValueFrom } from 'rxjs';
+
+import { getMonthsData } from '../../months';
 declare var $: any;
 @Component({
   selector: 'app-refrigerants',
@@ -38,7 +41,7 @@ export class RefrigerantsComponent {
   annualEntry = false;
   monthsData: any[] = [];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-    this.monthsData = this.appService.monthsData;
+    this.monthsData = getMonthsData();
     this.templateLinks = 'assets/Refrigerant_Template.xlsx'
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
@@ -57,7 +60,7 @@ export class RefrigerantsComponent {
     this.getsubCategoryType(this.subCategoryID);
     // this.getUnit(this.subCategoryID);
   }
-  EntrySave(dataEntryForm: NgForm) {
+  async EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.valid || this.annualEntry) {
       this.isSubmitting = true;
       let formData = new FormData();
@@ -73,39 +76,49 @@ export class RefrigerantsComponent {
       // }
       if (this.annualEntry) {
         const selectedMonths = this.monthsData.filter(item => item.selected)
-        this.monthsData.forEach((item, index) => {
+        if(selectedMonths.length == 0){
+          this.notification.showWarning('Please select at least one month', 'Warning');
+          this.isSubmitting = false;
+          return
+        }
+        this.isSubmitting = true;
+        for (let index = 0; index < this.monthsData.length; index++) {
+          const item = this.monthsData[index];
           if (item.selected) {
             formData.set('months', JSON.stringify([item.value]));
             formData.set('refAmount', (item.readingValue || '').toString());
-            this.appService.postAPI('/Addrefrigerant', formData).subscribe({
-              next: (response: any) => {
-                if (response.success === true) {
-                  if (index === selectedMonths.length - 1) {
-                    this.notification.showSuccess('Data entry added successfully', 'Success');
-                    this.isSubmitting = false;
-                    dataEntryForm.reset();
-                    this.monthsData = this.appService.monthsData;
-                    this.annualEntry = false
-                  }
-                  formData.delete('months');
-                  formData.delete('refAmount');
-                } else {
-                  if (index === selectedMonths.length - 1) {
-                    this.notification.showError(response.message, 'Error');
-                    this.isSubmitting = false;
-                  }
-                }
-              },
-              error: (err) => {
+
+            try {
+              const response: any = await firstValueFrom(
+                this.appService.postAPI('/Addrefrigerant', formData)
+              )
+      
+              if (response.success === true) {
                 if (index === selectedMonths.length - 1) {
-                  this.notification.showError('Data entry failed.', 'Error');
+                  this.notification.showSuccess('Data entry added successfully', 'Success');
                   this.isSubmitting = false;
-                  console.error('Error while submitting form:', err);
+                  dataEntryForm.reset();
+                  this.monthsData = getMonthsData();
+                  this.annualEntry = false;
+                  this.appService.sendData(false);
+                }
+              } else {
+                if (index === selectedMonths.length - 1) {
+                  this.notification.showError(response.message, 'Error');
+                  this.isSubmitting = false;
+                  this.appService.sendData(false);
                 }
               }
-            });
+            } catch (err) {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError('Data entry failed.', 'Error');
+                this.isSubmitting = false;
+                console.error('Error while submitting form:', err);
+              }
+            }
+            await new Promise(res => setTimeout(res, 200));
           }
-        })
+        }
       } else {
         formData.set('months', this.months);
         formData.set('refAmount', dataEntryForm.value.refAmount.toString());
@@ -160,7 +173,7 @@ export class RefrigerantsComponent {
   };
 
   onAnnualChange(event: any) {
-    this.visible = event
+
     this.appService.sendData(event);
   };
 

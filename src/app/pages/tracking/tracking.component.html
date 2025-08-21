@@ -47,7 +47,7 @@
                                                     <p-multiSelect [options]="months" placeholder="Months" name="months"
                                                         [(ngModel)]="selectMonths" styleClass="pcalender"
                                                         optionLabel="name" (onChange)="onMonthsChange($event)"
-                                                        [disabled]="isDropdownDisabled"></p-multiSelect>
+                                                        [disabled]="isDropdownDisabled" [class.disabledC]="isDropdownDisabled"></p-multiSelect>
                                                 </div>
                                                 <div
                                                     class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">

@@ -11,7 +11,9 @@ import { FileUploadModule } from "primeng/fileupload";
 import { data } from 'jquery';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
+import { firstValueFrom } from 'rxjs';
 declare var $: any;
+import { getMonthsData } from '../../months';
 @Component({
   selector: 'app-electricity',
   standalone: true,
@@ -47,7 +49,7 @@ export class ElectricityComponent {
   monthsData: any[] = [];
   annualEntry = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-    this.monthsData = this.appService.monthsData;
+    this.monthsData = getMonthsData()
     this.marketTypes =
       [
         {
@@ -97,7 +99,7 @@ export class ElectricityComponent {
 
   }
 
-  EntrySave(dataEntryForm: NgForm) {
+ async EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.invalid && !this.annualEntry) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
@@ -129,40 +131,76 @@ export class ElectricityComponent {
     }
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected)
-      this.monthsData.forEach((item, index) => {
+      if(selectedMonths.length == 0){
+        this.notification.showWarning('Please select at least one month', 'Warning');
+        this.isSubmitting = false;
+        return
+      }
+      for (let index = 0; index < this.monthsData.length; index++) {
+        const item = this.monthsData[index];
         if (item.selected) {
           formData.set('months', JSON.stringify([item.value]));
           formData.set('readingValue', (item.readingValue || '').toString());
 
-          this.appService.postAPI(url, formData).subscribe({
-            next: (response: any) => {
-              if (response.success === true) {
-                if (index === selectedMonths.length - 1) {
-                  this.notification.showSuccess('Data entry added successfully', 'Success');
-                  this.isSubmitting = false;
-                  dataEntryForm.reset();
-                  this.monthsData = this.appService.monthsData;
-                  this.annualEntry = false
-                }
-                formData.delete('months');
-                formData.delete('readingValue');
-              } else {
-                if (index === selectedMonths.length - 1) {
-                  this.notification.showError(response.message, 'Error');
-                  this.isSubmitting = false;
-                }
-              }
-            },
-            error: (err) => {
+          // this.appService.postAPI(url, formData).subscribe({
+          //   next: (response: any) => {
+          //     if (response.success === true) {
+          //       if (index === selectedMonths.length - 1) {
+          //         this.notification.showSuccess('Data entry added successfully', 'Success');
+          //         this.isSubmitting = false;
+          //         dataEntryForm.reset();
+          //         this.monthsData = this.appService.monthsData;
+          //         this.annualEntry = false
+          //       }
+          //       formData.delete('months');
+          //       formData.delete('readingValue');
+          //     } else {
+          //       if (index === selectedMonths.length - 1) {
+          //         this.notification.showError(response.message, 'Error');
+          //         this.isSubmitting = false;
+          //       }
+          //     }
+          //   },
+          //   error: (err) => {
+          //     if (index === selectedMonths.length - 1) {
+          //       this.notification.showError('Data entry failed.', 'Error');
+          //       this.isSubmitting = false;
+          //       console.error('Error while submitting form:', err);
+          //     }
+          //   }
+          // });
+
+          try {
+            const response: any = await firstValueFrom(
+              this.appService.postAPI(url, formData)
+            )
+    
+            if (response.success === true) {
               if (index === selectedMonths.length - 1) {
-                this.notification.showError('Data entry failed.', 'Error');
+                this.notification.showSuccess('Data entry added successfully', 'Success');
                 this.isSubmitting = false;
-                console.error('Error while submitting form:', err);
+                dataEntryForm.reset();
+                this.monthsData = getMonthsData()
+                this.annualEntry = false;
+                this.appService.sendData(false);
+              }
+            } else {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError(response.message, 'Error');
+                this.isSubmitting = false;
+                this.appService.sendData(false);
               }
             }
-          });
+          } catch (err) {
+            if (index === selectedMonths.length - 1) {
+              this.notification.showError('Data entry failed.', 'Error');
+              this.isSubmitting = false;
+              console.error('Error while submitting form:', err);
+            }
+          }
+          await new Promise(res => setTimeout(res, 200));
         }
-      })
+      }
     } else {
       formData.set('months', this.months);
       if (this.subCategoryID == 9) {
@@ -260,7 +298,7 @@ export class ElectricityComponent {
   };
 
   onAnnualChange(event: any) {
-    this.visible = event
+ 
     this.appService.sendData(event);
   };
 

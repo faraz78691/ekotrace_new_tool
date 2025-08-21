@@ -10,6 +10,8 @@ import { NotificationService } from '@services/notification.service';
 import { FileUploadModule } from "primeng/fileupload";
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
+import { firstValueFrom } from 'rxjs';
+import { getMonthsData } from '@pages/tracking/months';
 declare var $: any;
 @Component({
   selector: 'app-heat-steam',
@@ -38,7 +40,7 @@ export class HeatSteamComponent {
   monthsData: any[] = [];
   annualEntry = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-    this.monthsData = this.appService.monthsData;
+   this.monthsData = getMonthsData()
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -105,7 +107,7 @@ export class HeatSteamComponent {
   };
 
 
-  EntrySave(dataEntryForm: NgForm) {
+ async EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.invalid && !this.annualEntry) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
@@ -124,39 +126,75 @@ export class HeatSteamComponent {
     };
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected)
-      this.monthsData.forEach((item, index) => {
+      console.log(selectedMonths);
+      if(selectedMonths.length == 0){
+        this.notification.showWarning('Please select at least one month', 'Warning');
+        this.isSubmitting = false;
+        return
+      }
+      for (let index = 0; index < this.monthsData.length; index++) {
+        const item = this.monthsData[index];
         if (item.selected) {
           formData.set('months', JSON.stringify([item.value]));
-          formData.set('readingValue', (item.readingValue || '').toString());
-          this.appService.postAPI('/Addheatandsteam', formData).subscribe({
-            next: (response: any) => {
-              if (response.success === true) {
-                if (index === selectedMonths.length - 1) {
-                  this.notification.showSuccess('Data entry added successfully', 'Success');
-                  this.isSubmitting = false;
-                  dataEntryForm.reset();
-                  this.monthsData = this.appService.monthsData;
-                  this.annualEntry = false
-                }
-                formData.delete('months');
-                formData.delete('readingValue');
-              } else {
-                if (index === selectedMonths.length - 1) {
-                  this.notification.showError(response.message, 'Error');
-                  this.isSubmitting = false;
-                }
-              }
-            },
-            error: (err) => {
+          formData.set('readingValue', (item.readingValue || 0).toString());
+          // this.appService.postAPI('/Addheatandsteam', formData).subscribe({
+          //   next: (response: any) => {
+          //     if (response.success === true) {
+          //       if (index === selectedMonths.length - 1) {
+          //         this.notification.showSuccess('Data entry added successfully', 'Success');
+          //         this.isSubmitting = false;
+          //         dataEntryForm.reset();
+          //         this.monthsData = this.appService.monthsData;
+          //         this.annualEntry = false
+          //       }
+          //       formData.delete('months');
+          //       formData.delete('readingValue');
+          //     } else {
+          //       if (index === selectedMonths.length - 1) {
+          //         this.notification.showError(response.message, 'Error');
+          //         this.isSubmitting = false;
+          //       }
+          //     }
+          //   },
+          //   error: (err) => {
+          //     if (index === selectedMonths.length - 1) {
+          //       this.notification.showError('Data entry failed.', 'Error');
+          //       this.isSubmitting = false;
+          //       console.error('Error while submitting form:', err);
+          //     }
+          //   }
+          // });
+          try {
+            const response: any = await firstValueFrom(
+              this.appService.postAPI('/Addheatandsteam', formData)
+            )
+    
+            if (response.success === true) {
               if (index === selectedMonths.length - 1) {
-                this.notification.showError('Data entry failed.', 'Error');
+                this.notification.showSuccess('Data entry added successfully', 'Success');
                 this.isSubmitting = false;
-                console.error('Error while submitting form:', err);
+                dataEntryForm.reset();
+                this.monthsData = getMonthsData()
+                this.annualEntry = false;
+                this.appService.sendData(false);
+              }
+            } else {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError(response.message, 'Error');
+                this.isSubmitting = false;
+                this.appService.sendData(false);
               }
             }
-          });
+          } catch (err) {
+            if (index === selectedMonths.length - 1) {
+              this.notification.showError('Data entry failed.', 'Error');
+              this.isSubmitting = false;
+              console.error('Error while submitting form:', err);
+            }
+          }
+          await new Promise(res => setTimeout(res, 200));
         }
-      })
+      }
     } else {
       formData.set('months', this.months);
       formData.set('readingValue', dataEntryForm.value.readingvalue.toString());
@@ -181,7 +219,7 @@ export class HeatSteamComponent {
   }
 
   onAnnualChange(event: any) {
-    this.visible = event
+   
     this.appService.sendData(event);
   };
 
