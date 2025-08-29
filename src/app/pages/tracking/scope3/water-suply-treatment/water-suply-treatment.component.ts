@@ -143,9 +143,16 @@ export class WaterSuplyTreatmentComponent {
               if (index === selectedMonths.length - 1) {
                 this.notification.showSuccess('Data entry added successfully', 'Success');
                 this.isSubmitting = false;
-                this.convertToKilo = [];
-                this.dischargeToKilo = [];
-                this.treatmentToKilo = [];
+                console.log(this.convertToKilo);
+                for (let i = 0; i < this.convertToKilo.length; i++) {
+                  this.convertToKilo[i] = null; // or 0
+                }
+                for (let i = 0; i < this.dischargeToKilo.length; i++) {
+                  this.dischargeToKilo[i] = null;
+                }
+                for (let i = 0; i < this.treatmentToKilo.length; i++) {
+                  this.treatmentToKilo[i] = null;
+                }
                 // dataEntryForm.reset();
 
                 this.monthsData = getMonthsData();
@@ -209,6 +216,15 @@ export class WaterSuplyTreatmentComponent {
               response.message,
               'Success'
             );
+            for (let i = 0; i < this.convertToKilo.length; i++) {
+              this.convertToKilo[i] = null; // or 0
+            }
+            for (let i = 0; i < this.dischargeToKilo.length; i++) {
+              this.dischargeToKilo[i] = null;
+            }
+            for (let i = 0; i < this.treatmentToKilo.length; i++) {
+              this.treatmentToKilo[i] = null;
+            }
             this.dataEntryForm.reset();
             this.waterSupplyUnit = 'kilo litres'
 
