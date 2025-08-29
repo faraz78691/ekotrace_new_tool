@@ -12,6 +12,7 @@ import { getMonthsData } from '@pages/tracking/months';
 import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-water-suply-treatment',
@@ -72,40 +73,14 @@ export class WaterSuplyTreatmentComponent {
     });
   };
 
- async EntrySave(form: NgForm) {
-
-
-    if (form.value.water_supply <= form.value.water_treatment) {
-      this.notification.showInfo(
-        'Water withdrawn should be greater than or equal to water discharged',
-        'Error'
-      );
-      return
-    }
-
-    if (form.value.water_supply < 0 || form.value.water_supply == null) {
-      this.notification.showInfo(
-        'Enter water withdrawn',
-        'Error'
-      );
-      return
-    }
-    if (form.value.water_treatment < 0 || form.value.water_treatment == null) {
-      this.notification.showInfo(
-        'Enter water discharged',
-        'Error'
-      );
-      return
-    }
-    this.isSubmitting = true;
-
+  async EntrySave(form: NgForm) {
+    let formData = new URLSearchParams();
     if (this.waterSupplyUnit == 'kilo litres') {
       var allUnits = 1
     }
     if (this.waterSupplyUnit == 'cubic m') {
       var allUnits = 2
     }
-
     var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty };
@@ -132,60 +107,152 @@ export class WaterSuplyTreatmentComponent {
     var waterDischargeobj5 = { "type": "Others", "withthtreatment": form.value.others_withTreatment || 0, "leveloftreatment": form.value.others_levelTreatment };
 
     const dischargeWater = [waterDischargeobj1, waterDischargeobj2, waterDischargeobj3, waterDischargeobj4, waterDischargeobj5]
-    var waterDischargeStringfy = JSON.stringify(dischargeWater)
-    let formData = new URLSearchParams();
+    var waterDischargeStringfy = JSON.stringify(dischargeWater);
 
-    formData.set('water_supply', form.value.water_supply);
-    formData.set('water_treatment', form.value.water_treatment);
     formData.set('water_supply_unit', '1');
     formData.set('water_treatment_unit', '1');
     formData.set('water_withdrawl', water_withdrawlStringfy);
     formData.set('water_discharge_only', water_DischargeonlyStringfy);
     formData.set('water_discharge', waterDischargeStringfy);
     formData.set('facilities', this.facilityID.toString());
-    formData.set('month', this.months);
     formData.set('year', this.year);
     formData.set('batch', '1');
 
+    if (this.annualEntry) {
+      const selectedMonths = this.monthsData.filter(item => item.selected);
+      if (selectedMonths.length == 0) {
+        this.notification.showWarning('Please select at least one month', 'Warning');
+        this.isSubmitting = false;
+        return
+      }
+      this.isSubmitting = true;
 
-    // this.appService.postAPI('/AddwatersupplytreatmentCategory', formData.toString()).subscribe({
-    this.appService.postAPI('/UploadWaterSupplyDE', formData.toString()).subscribe({
-      next: (response: any) => {
+      for (let index = 0; index < this.monthsData.length; index++) {
+        const item = this.monthsData[index];
 
-        if (response.success == true) {
-          this.notification.showSuccess(
-            response.message,
-            'Success'
-          );
-          this.dataEntryForm.reset();
+        if (item.selected) {
+          formData.set('water_supply', JSON.stringify([item.readingValue1]));
+          formData.set('water_treatment', JSON.stringify([item.readingValue2]));
+          formData.set('month', JSON.stringify([item.value]));
+          try {
+            const response: any = await firstValueFrom(
+              this.appService.postAPI('/UploadWaterSupplyDE', formData)
+            )
+
+            if (response.success === true) {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showSuccess('Data entry added successfully', 'Success');
+                this.isSubmitting = false;
+                this.convertToKilo = [];
+                this.dischargeToKilo = [];
+                this.treatmentToKilo = [];
+                // dataEntryForm.reset();
+
+                this.monthsData = getMonthsData();
+
+                this.annualEntry = false;
+                this.appService.sendData(false);
+              }
+            } else {
+              if (index === selectedMonths.length - 1) {
+                this.notification.showError(response.message, 'Error');
+                this.isSubmitting = false;
+                this.appService.sendData(false);
+              }
+            }
+          } catch (err) {
+            if (index === selectedMonths.length - 1) {
+              this.notification.showError('Data entry failed.', 'Error');
+              this.isSubmitting = false;
+              console.error('Error while submitting form:', err);
+            }
+          }
+
+          // optional: wait 1 second before next request
+          await new Promise(res => setTimeout(res, 200));
+        }
+      }
+
+    } else {
+      if (form.value.water_supply <= form.value.water_treatment) {
+        this.notification.showInfo(
+          'Water withdrawn should be greater than or equal to water discharged',
+          'Error'
+        );
+        return
+      }
+
+      if (form.value.water_supply < 0 || form.value.water_supply == null) {
+        this.notification.showInfo(
+          'Enter water withdrawn',
+          'Error'
+        );
+        return
+      }
+      if (form.value.water_treatment < 0 || form.value.water_treatment == null) {
+        this.notification.showInfo(
+          'Enter water discharged',
+          'Error'
+        );
+        return
+      }
+      this.isSubmitting = true;
+
+      formData.set('water_supply', form.value.water_supply);
+      formData.set('water_treatment', form.value.water_treatment);
+      formData.set('month', this.months);
+      this.appService.postAPI('/UploadWaterSupplyDE', formData.toString()).subscribe({
+        next: (response: any) => {
+
+          if (response.success == true) {
+            this.notification.showSuccess(
+              response.message,
+              'Success'
+            );
+            this.dataEntryForm.reset();
+            this.waterSupplyUnit = 'kilo litres'
+
+          } else {
+            this.notification.showError(
+              response.message,
+              'Error'
+            );
+            this.dataEntryForm.reset();
+            this.waterSupplyUnit = 'kilo litres'
+
+          }
+          this.isSubmitting = false;
+          // this.ALLEntries();
+        },
+        error: (err) => {
+          this.isSubmitting = false;
           this.waterSupplyUnit = 'kilo litres'
-
-        } else {
           this.notification.showError(
-            response.message,
+            'Data entry added failed.',
             'Error'
           );
           this.dataEntryForm.reset();
-          this.waterSupplyUnit = 'kilo litres'
-
-        }
-        this.isSubmitting = false;
-        // this.ALLEntries();
-      },
-      error: (err) => {
-        this.isSubmitting = false;
-        this.waterSupplyUnit = 'kilo litres'
-        this.notification.showError(
-          'Data entry added failed.',
-          'Error'
-        );
-        this.dataEntryForm.reset();
 
 
-        console.error('errrrrrr>>>>>>', err);
-      },
-      complete: () => { }
-    })
+          console.error('errrrrrr>>>>>>', err);
+        },
+        complete: () => { }
+      })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // this.appService.postAPI('/AddwatersupplytreatmentCategory', formData.toString()).subscribe({
+
   }
 
   onAnnualChange(event: any) {
@@ -200,38 +267,38 @@ export class WaterSuplyTreatmentComponent {
   }
 
   onInput(event: any, type: any) {
-   this.convertToKilo[type] = (event.target.value * this.dataEntryForm.value.water_supply) / 100
+    this.convertToKilo[type] = (event.target.value * this.dataEntryForm.value.water_supply) / 100
   };
 
   onWaterWithdrawalChange(event: any) {
     const selectedIndex = event.target.value;
-      this.convertToKilo[0]= (this.dataEntryForm.value.surface_water * selectedIndex ) / 100
-      this.convertToKilo[1]= (this.dataEntryForm.value.groundwater * selectedIndex ) / 100
-      this.convertToKilo[2]= (this.dataEntryForm.value.thirdParty * selectedIndex ) / 100
-      this.convertToKilo[3]= (this.dataEntryForm.value.seaWater * selectedIndex ) / 100
-      this.convertToKilo[4]= (this.dataEntryForm.value.others * selectedIndex ) / 100
+    this.convertToKilo[0] = (this.dataEntryForm.value.surface_water * selectedIndex) / 100
+    this.convertToKilo[1] = (this.dataEntryForm.value.groundwater * selectedIndex) / 100
+    this.convertToKilo[2] = (this.dataEntryForm.value.thirdParty * selectedIndex) / 100
+    this.convertToKilo[3] = (this.dataEntryForm.value.seaWater * selectedIndex) / 100
+    this.convertToKilo[4] = (this.dataEntryForm.value.others * selectedIndex) / 100
   }
   onWaterDischargeChange(event: any) {
     const selectedIndex = event.target.value;
-      this.dischargeToKilo[0]= (this.dataEntryForm.value.surface_water_dest * selectedIndex ) / 100
-      this.dischargeToKilo[1]= (this.dataEntryForm.value.groundwater_dest * selectedIndex ) / 100
-      this.dischargeToKilo[2]= (this.dataEntryForm.value.thirdParty_dest * selectedIndex ) / 100
-      this.dischargeToKilo[3]= (this.dataEntryForm.value.seaWater_dest * selectedIndex ) / 100
-      this.dischargeToKilo[4]= (this.dataEntryForm.value.others_dest * selectedIndex ) / 100
+    this.dischargeToKilo[0] = (this.dataEntryForm.value.surface_water_dest * selectedIndex) / 100
+    this.dischargeToKilo[1] = (this.dataEntryForm.value.groundwater_dest * selectedIndex) / 100
+    this.dischargeToKilo[2] = (this.dataEntryForm.value.thirdParty_dest * selectedIndex) / 100
+    this.dischargeToKilo[3] = (this.dataEntryForm.value.seaWater_dest * selectedIndex) / 100
+    this.dischargeToKilo[4] = (this.dataEntryForm.value.others_dest * selectedIndex) / 100
 
-      this.treatmentToKilo[0] = (this.dataEntryForm.value.surface_withTreatment * this.dischargeToKilo[0]) / 100
-  
-      this.treatmentToKilo[1] = (this.dataEntryForm.value.ground_withTreatment * this.dischargeToKilo[1]) / 100
-      this.treatmentToKilo[2] = (this.dataEntryForm.value.third_withTreatment * this.dischargeToKilo[2]) / 100
-      this.treatmentToKilo[3] = (this.dataEntryForm.value.seawater_withTreatment * this.dischargeToKilo[3]) / 100
-      this.treatmentToKilo[4] = (this.dataEntryForm.value.others_withTreatment * this.dischargeToKilo[4]) / 100
+    this.treatmentToKilo[0] = (this.dataEntryForm.value.surface_withTreatment * this.dischargeToKilo[0]) / 100
+
+    this.treatmentToKilo[1] = (this.dataEntryForm.value.ground_withTreatment * this.dischargeToKilo[1]) / 100
+    this.treatmentToKilo[2] = (this.dataEntryForm.value.third_withTreatment * this.dischargeToKilo[2]) / 100
+    this.treatmentToKilo[3] = (this.dataEntryForm.value.seawater_withTreatment * this.dischargeToKilo[3]) / 100
+    this.treatmentToKilo[4] = (this.dataEntryForm.value.others_withTreatment * this.dischargeToKilo[4]) / 100
   }
 
   onInputDischarge(event: any, type: any) {
     this.dischargeToKilo[type] = (event.target.value * this.dataEntryForm.value.water_treatment) / 100
-    
+
     this.treatmentToKilo[0] = (this.dataEntryForm.value.surface_withTreatment * this.dischargeToKilo[0]) / 100
-  
+
     this.treatmentToKilo[1] = (this.dataEntryForm.value.ground_withTreatment * this.dischargeToKilo[1]) / 100
     this.treatmentToKilo[2] = (this.dataEntryForm.value.third_withTreatment * this.dischargeToKilo[2]) / 100
     this.treatmentToKilo[3] = (this.dataEntryForm.value.seawater_withTreatment * this.dischargeToKilo[3]) / 100
@@ -239,7 +306,7 @@ export class WaterSuplyTreatmentComponent {
   };
 
   onInputTreatment(event: any, type: any) {
-   this.treatmentToKilo[type] = (event.target.value * this.dischargeToKilo[type]) / 100
+    this.treatmentToKilo[type] = (event.target.value * this.dischargeToKilo[type]) / 100
   };
 }
 
