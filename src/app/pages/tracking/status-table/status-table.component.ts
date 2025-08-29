@@ -44,7 +44,7 @@ export class StatusTableComponent {
   }
 
 
-  getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string }[] {
+  getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string, isArray?: boolean, xtra?: string }[] {
     switch (categoryId) {
       case 1:
         return [
@@ -140,30 +140,29 @@ export class StatusTableComponent {
       case 11:
         return [
           { field: 'water_withdrawn_value', header: 'Total Water Withdrawn' },
-          { field: 'water_withdrawl_by_source[0]', header: 'Surface Water(%)' },
-          { field: 'water_withdrawl_by_source2', header: 'Groundwater (%)' },
-          { field: 'water_withdrawl_by_source3', header: 'Third party (%)' },
-          { field: 'water_withdrawl_by_source4', header: 'Sea water / desalinated water (%)' },
-          { field: 'water_withdrawl_by_source5', header: 'Others (%)' },
-          { field: 'water_withdrawn_value', header: 'Total Water Discharged' },
-          { field: 'water_discharged_value', header: 'Surface Water(%)' },
-          { field: 'withdrawn_emission_factor_used', header: 'Groundwater (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Third party (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Sea water / desalinated water (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Others (%)' },
-          { field: 'water_withdrawn_value', header: 'Total Water Treated' },
-          { field: 'water_discharged_value', header: 'Surface Water(%)' },
-          { field: 'withdrawn_emission_factor_used', header: 'Treatment' },
-          { field: 'treatment_emission_factor_used', header: 'Groundwater (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Treatment' },
-          { field: 'treatment_emission_factor_used', header: 'Third party (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Treatment' },
-          { field: 'treatment_emission_factor_used', header: 'Sea water / desalinated water (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Treatment' },
-          { field: 'treatment_emission_factor_used', header: 'Others (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Treatment' },
-          { field: 'unit', header: 'Month' },
-
+          { field: 'water_withdrawl_by_source', header: '', isArray: true },
+          // { field: 'water_withdrawl_by_source2', header: 'Groundwater (%)' },
+          // { field: 'water_withdrawl_by_source3', header: 'Third party (%)' },
+          // { field: 'water_withdrawl_by_source4', header: 'Sea water / desalinated water (%)' },
+          // { field: 'water_withdrawl_by_source5', header: 'Others (%)' },
+          { field: 'water_discharged_value', header: 'Total Water Discharged' },
+          { field: 'water_discharge', header: '', isArray: true },
+          // { field: 'withdrawn_emission_factor_used', header: 'Groundwater (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Third party (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Sea water / desalinated water (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Others (%)' },
+          { field: 'totalwatertreated', header: 'Total Water Treated' },
+          { field: 'water_treatment', header: '', isArray: true, xtra: 'treatment' },
+          // { field: 'withdrawn_emission_factor_used', header: 'Treatment' },
+          // { field: 'treatment_emission_factor_used', header: 'Groundwater (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Treatment' },
+          // { field: 'treatment_emission_factor_used', header: 'Third party (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Treatment' },
+          // { field: 'treatment_emission_factor_used', header: 'Sea water / desalinated water (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Treatment' },
+          // { field: 'treatment_emission_factor_used', header: 'Others (%)' },
+          // { field: 'treatment_emission_factor_used', header: 'Treatment' },
+          { field: 'month', header: 'Month' },
         ];
       case 12:
         return [
