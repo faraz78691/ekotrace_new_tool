@@ -7,7 +7,23 @@
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"> >
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let col of columns">{{ col.header }}</th>
+      <ng-container *ngFor="let col of columns">
+
+        <!-- If this column is array -->
+        <ng-container *ngIf="col.isArray; else normalHeader">
+          <ng-container *ngFor="let item of data[0][col.field]; let i = index">
+            <th> {{ item.water_withdrawl || item.water_discharge }} (%) </th>
+            <th *ngIf="col.xtra"> {{ col.xtra }} </th>
+          </ng-container>
+        </ng-container>
+
+        <!-- Normal header -->
+        <ng-template #normalHeader>
+          <th> {{ col.header }} </th>
+        </ng-template>
+
+      </ng-container>
+
       <th>Year</th>
       <!-- <th>Month</th> -->
       <th>Status</th>
@@ -16,51 +32,66 @@
     </tr>
   </ng-template>
 
+
   <ng-template pTemplate="body" let-row>
     <tr>
-      <td *ngFor="let col of columns; let i = index">
-        <ng-container [ngSwitch]="col.field">
+      <ng-container *ngFor="let col of columns">
 
-          <!-- combineVehicle -->
-          <ng-container *ngSwitchCase="'combineVehicle'">
-            {{ row.category_name }} - {{ row.type }}
-          </ng-container>
-          <ng-container *ngSwitchCase="'franchise_spaceLease'">
-            {{ row.franchise_space }} {{ row.unit }}
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            {{ row[col.field] }}
-          </ng-container>
-
-            <!-- tablename -->
-        <ng-container *ngSwitchCase="'tablename'">
-          <ng-container [ngSwitch]="row[col.field]">
-            <ng-container *ngSwitchCase="'stationarycombustionde'">
-              Stationary Combustion
-            </ng-container>
-            <ng-container *ngSwitchCase="'dbo.renewableelectricityde'">
-              Electricity
-            </ng-container>
-            <ng-container *ngSwitchCase="'dbo.heatandsteamde'">
-              Heat and Steam
-            </ng-container>
-            <ng-container *ngSwitchDefault>
-              {{ row[col.field] }}
-            </ng-container>
+        <!-- If it's an array -->
+        <ng-container *ngIf="col.isArray; else normalCell">
+          <ng-container *ngFor="let item of row[col.field]; let i = index">
+            <td>
+              {{ item.kilolitres || item.withthtreatment }}
+            </td>
+            <td *ngIf="col.xtra"> {{item.treated_water }} </td>
           </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="'water_withdrawl_by_source1'">
-            <ng-container >
-              {{ row[col.field][0].kilolitres }}
+
+        <!-- Normal column -->
+        <ng-template #normalCell>
+          <td>
+            <ng-container [ngSwitch]="col.field">
+
+              <!-- combineVehicle -->
+              <ng-container *ngSwitchCase="'combineVehicle'">
+                {{ row.category_name }} - {{ row.type }}
+              </ng-container>
+
+              <!-- franchise_spaceLease -->
+              <ng-container *ngSwitchCase="'franchise_spaceLease'">
+                {{ row.franchise_space }} {{ row.unit }}
+              </ng-container>
+
+              <!-- tablename -->
+              <ng-container *ngSwitchCase="'tablename'">
+                <ng-container [ngSwitch]="row[col.field]">
+                  <ng-container *ngSwitchCase="'stationarycombustionde'">
+                    Stationary Combustion
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'dbo.renewableelectricityde'">
+                    Electricity
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'dbo.heatandsteamde'">
+                    Heat and Steam
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    {{ row[col.field] }}
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+              <!-- Default -->
+              <ng-container *ngSwitchDefault>
+                {{ row[col.field] }}
+              </ng-container>
+
             </ng-container>
-       
-        </ng-container>
+          </td>
+        </ng-template>
 
+      </ng-container>
 
-
-        </ng-container>
-      </td>
-
+      <!-- Fixed extra columns -->
       <td>{{ row.year }}</td>
       <!-- <td>{{ row.month }}</td> -->
       <td>{{ row.status }}</td>
@@ -68,4 +99,5 @@
       <td>{{ row.user_name }}</td>
     </tr>
   </ng-template>
+
 </p-table>
