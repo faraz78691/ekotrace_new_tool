@@ -103,7 +103,7 @@
 
             <div class="col-lg-6">
                 <label for="fname">No. of Extinguisher</label>
-                <i class="fa-solid fa-eye ml-3 text-primary" (click)="visible = !visible"></i>
+                <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                 <input required ngModel name="ExtinguisherNo" #ExtinguisherNo="ngModel" ExtinguisherNo id="search-input"
                     type="text" placeholder="Enter no of extinguisher" class="form-control Dashboard-tab text-white"
                     [disabled]="annualEntry" [class.disabledC]="annualEntry" />
@@ -115,7 +115,7 @@
             <div class="col-lg-6">
                 <label pTooltip="Quantity of CO2 Makeup" tooltipPosition="top" for="fname">Amount of C02
                     used</label>
-                    <i class="fa-solid fa-eye ml-3 text-primary" (click)="visible = !visible"></i>
+                    <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                 <div class="position-relative">
                     <input required ngModel name="coo" #coo="ngModel" placeholder="Enter value" id="search-input"
                         type="number" class="form-control Dashboard-tab text-white" [disabled]="annualEntry" [class.disabledC]="annualEntry" />

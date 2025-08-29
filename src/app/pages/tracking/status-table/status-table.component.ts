@@ -140,11 +140,11 @@ export class StatusTableComponent {
       case 11:
         return [
           { field: 'water_withdrawn_value', header: 'Total Water Withdrawn' },
-          { field: 'water_discharged_value', header: 'Surface Water(%)' },
-          { field: 'withdrawn_emission_factor_used', header: 'Groundwater (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Third party (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Sea water / desalinated water (%)' },
-          { field: 'treatment_emission_factor_used', header: 'Others (%)' },
+          { field: 'water_withdrawl_by_source[0]', header: 'Surface Water(%)' },
+          { field: 'water_withdrawl_by_source2', header: 'Groundwater (%)' },
+          { field: 'water_withdrawl_by_source3', header: 'Third party (%)' },
+          { field: 'water_withdrawl_by_source4', header: 'Sea water / desalinated water (%)' },
+          { field: 'water_withdrawl_by_source5', header: 'Others (%)' },
           { field: 'water_withdrawn_value', header: 'Total Water Discharged' },
           { field: 'water_discharged_value', header: 'Surface Water(%)' },
           { field: 'withdrawn_emission_factor_used', header: 'Groundwater (%)' },

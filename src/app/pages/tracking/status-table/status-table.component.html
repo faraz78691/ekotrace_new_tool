@@ -18,7 +18,7 @@
 
   <ng-template pTemplate="body" let-row>
     <tr>
-      <td *ngFor="let col of columns">
+      <td *ngFor="let col of columns; let i = index">
         <ng-container [ngSwitch]="col.field">
 
           <!-- combineVehicle -->
@@ -49,6 +49,14 @@
             </ng-container>
           </ng-container>
         </ng-container>
+        <ng-container *ngSwitchCase="'water_withdrawl_by_source1'">
+            <ng-container >
+              {{ row[col.field][0].kilolitres }}
+            </ng-container>
+       
+        </ng-container>
+
+
 
         </ng-container>
       </td>

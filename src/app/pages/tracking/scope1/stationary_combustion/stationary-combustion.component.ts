@@ -65,7 +65,7 @@ export class StationaryCombustionComponent {
     this.monthsData = getMonthsData();
    
 
-    console.log("monthsData", this.monthsData);
+   
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();

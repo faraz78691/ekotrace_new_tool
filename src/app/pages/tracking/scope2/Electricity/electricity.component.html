@@ -114,7 +114,7 @@
         <div class="row mt-4 mx-2" *ngIf="subCategoryID == 9">
             <div class="col-lg-4">
                 <label for="fname">Reading Value</label>
-                <i class="fa-solid fa-eye ml-3 text-primary" (click)="visible = !visible"></i>
+                <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                 <div class="position-relative">
                     <input required ngModel name="readingvalueLocation" #readingvalueLocation="ngModel"
                         placeholder="Enter value" readingvalue id="search-input" type="text"
@@ -150,10 +150,10 @@
                 <div class="row mt-4 mx-2">
                     <div class="col-lg-4">
                         <label for="fname">Reading Value</label>
-                        <i class="fa-solid fa-eye ml-3 text-primary" (click)="visible = !visible"></i>
+                        <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                         <div class=" position-relative">
                             <input required ngModel name="readingValueREnew" #readingValueREnew="ngModel"
-                                placeholder="Enter value" readingvalue id="search-input" type="text"
+                                placeholder="Enter value" readingvalue id="search-input" type="text" 
                                 class="form-control Dashboard-tab text-white" [disabled]="annualEntry" [class.disabledC]="annualEntry" />
                             <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                                 [options]="units" optionLabel="UnitName" optionValue="UnitName"
@@ -190,10 +190,11 @@
                     </div>
                     <div class="col-lg-4">
                         <label for="fname">Value</label>
+                        <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                         <div class=" position-relative">
                             <input required ngModel name="readingSupplierValue" #readingSupplierValue="ngModel"
                                 placeholder="Enter value" readingvalue id="search-input" type="number"
-                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry" />
+                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry" [class.disabledC]="annualEntry" />
                             <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                                 [options]="units" optionLabel="UnitName" optionValue="UnitName"
                                 [(ngModel)]="unitSelected" [ngModelOptions]="{standalone: true}"></p-dropdown>

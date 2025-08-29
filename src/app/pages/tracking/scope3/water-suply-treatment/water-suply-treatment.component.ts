@@ -8,11 +8,15 @@ import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
 import { DataEntry } from '@/models/DataEntry';
 import { SubmitButtonComponent } from "@/shared/submit-button/submit-button.component";
+import { getMonthsData } from '@pages/tracking/months';
+import { DialogModule } from 'primeng/dialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-water-suply-treatment',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule, SubmitButtonComponent],
+  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule, SubmitButtonComponent, InputSwitchModule, MultiSelectModule, DialogModule],
   templateUrl: './water-suply-treatment.component.html',
   styleUrls: ['./water-suply-treatment.component.scss']
 })
@@ -32,7 +36,16 @@ export class WaterSuplyTreatmentComponent {
   waterSupplyUnit = 'kilo litres'
   dataEntry: DataEntry = new DataEntry();
   waterUsageLevel: any[] = [];
+  isWaterWithdrawal: boolean = false
+  isWaterDischarge: boolean = false;
+  annualEntry: boolean = false;
+  monthsData: any[] = [];
+  visible: boolean = false;
+  convertToKilo: any = [];
+  dischargeToKilo: any = [];
+  treatmentToKilo: any = [];
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+    this.monthsData = getMonthsData();
     this.waterUsageLevel =
       [{
         "id": 1,
@@ -59,8 +72,8 @@ export class WaterSuplyTreatmentComponent {
     });
   };
 
-  EntrySave(form: NgForm) {
-   
+ async EntrySave(form: NgForm) {
+
 
     if (form.value.water_supply <= form.value.water_treatment) {
       this.notification.showInfo(
@@ -84,7 +97,7 @@ export class WaterSuplyTreatmentComponent {
       );
       return
     }
-this.isSubmitting = true;
+    this.isSubmitting = true;
 
     if (this.waterSupplyUnit == 'kilo litres') {
       var allUnits = 1
@@ -92,7 +105,7 @@ this.isSubmitting = true;
     if (this.waterSupplyUnit == 'cubic m') {
       var allUnits = 2
     }
-  
+
     var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty };
@@ -103,20 +116,20 @@ this.isSubmitting = true;
     var water_withdrawlStringfy = JSON.stringify(typoOfOffice);
 
 
-    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water_dest };
-    var waterDischargeonlyobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater_dest };
-    var waterDischargeonlyobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty_dest };
-    var waterDischargeonlyobj4 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater_dest };
-    var waterDischargeonlyobj5 = { "type": "Others", "kilolitres": form.value.others_dest };
+    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water_dest || 0 };
+    var waterDischargeonlyobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater_dest || 0 };
+    var waterDischargeonlyobj3 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater_dest || 0 };
+    var waterDischargeonlyobj4 = { "type": "Third party water", "kilolitres": form.value.thirdParty_dest || 0 };
+    var waterDischargeonlyobj5 = { "type": "Others", "kilolitres": form.value.others_dest || 0 };
 
     const typoOfDischargeonlyOffice = [waterDischargeonlyobj1, waterDischargeonlyobj2, waterDischargeonlyobj3, waterDischargeonlyobj4, waterDischargeonlyobj5]
     var water_DischargeonlyStringfy = JSON.stringify(typoOfDischargeonlyOffice);
 
-    var waterDischargeobj1 = { "type": "Into Surface water", "withthtreatment": form.value.surface_withTreatment, "leveloftreatment": form.value.surface_levelTreatment };
-    var waterDischargeobj2 = { "type": "Into Ground water", "withthtreatment": form.value.ground_withTreatment, "leveloftreatment": form.value.ground_levelTreatment };
-    var waterDischargeobj3 = { "type": "Into Seawater", "withthtreatment": form.value.seawater_withTreatment, "leveloftreatment": form.value.seawater_levelTreatment };
-    var waterDischargeobj4 = { "type": "Send to third-parties", "withthtreatment": form.value.third_withTreatment, "leveloftreatment": form.value.third_levelTreatment };
-    var waterDischargeobj5 = { "type": "Others", "withthtreatment": form.value.others_withTreatment, "leveloftreatment": form.value.others_levelTreatment };
+    var waterDischargeobj1 = { "type": "Into Surface water", "withthtreatment": form.value.surface_withTreatment || 0, "leveloftreatment": form.value.surface_levelTreatment };
+    var waterDischargeobj2 = { "type": "Into Ground water", "withthtreatment": form.value.ground_withTreatment || 0, "leveloftreatment": form.value.ground_levelTreatment };
+    var waterDischargeobj3 = { "type": "Into Seawater", "withthtreatment": form.value.seawater_withTreatment || 0, "leveloftreatment": form.value.seawater_levelTreatment };
+    var waterDischargeobj4 = { "type": "Send to third-parties", "withthtreatment": form.value.third_withTreatment || 0, "leveloftreatment": form.value.third_levelTreatment };
+    var waterDischargeobj5 = { "type": "Others", "withthtreatment": form.value.others_withTreatment || 0, "leveloftreatment": form.value.others_levelTreatment };
 
     const dischargeWater = [waterDischargeobj1, waterDischargeobj2, waterDischargeobj3, waterDischargeobj4, waterDischargeobj5]
     var waterDischargeStringfy = JSON.stringify(dischargeWater)
@@ -135,7 +148,8 @@ this.isSubmitting = true;
     formData.set('batch', '1');
 
 
-    this.appService.postAPI('/AddwatersupplytreatmentCategory', formData.toString()).subscribe({
+    // this.appService.postAPI('/AddwatersupplytreatmentCategory', formData.toString()).subscribe({
+    this.appService.postAPI('/UploadWaterSupplyDE', formData.toString()).subscribe({
       next: (response: any) => {
 
         if (response.success == true) {
@@ -173,5 +187,59 @@ this.isSubmitting = true;
       complete: () => { }
     })
   }
+
+  onAnnualChange(event: any) {
+    this.appService.sendData(event);
+
+  };
+
+  selectAll(event: any) {
+    this.monthsData.forEach(item => {
+      item.selected = event.target.checked
+    })
+  }
+
+  onInput(event: any, type: any) {
+   this.convertToKilo[type] = (event.target.value * this.dataEntryForm.value.water_supply) / 100
+  };
+
+  onWaterWithdrawalChange(event: any) {
+    const selectedIndex = event.target.value;
+      this.convertToKilo[0]= (this.dataEntryForm.value.surface_water * selectedIndex ) / 100
+      this.convertToKilo[1]= (this.dataEntryForm.value.groundwater * selectedIndex ) / 100
+      this.convertToKilo[2]= (this.dataEntryForm.value.thirdParty * selectedIndex ) / 100
+      this.convertToKilo[3]= (this.dataEntryForm.value.seaWater * selectedIndex ) / 100
+      this.convertToKilo[4]= (this.dataEntryForm.value.others * selectedIndex ) / 100
+  }
+  onWaterDischargeChange(event: any) {
+    const selectedIndex = event.target.value;
+      this.dischargeToKilo[0]= (this.dataEntryForm.value.surface_water_dest * selectedIndex ) / 100
+      this.dischargeToKilo[1]= (this.dataEntryForm.value.groundwater_dest * selectedIndex ) / 100
+      this.dischargeToKilo[2]= (this.dataEntryForm.value.thirdParty_dest * selectedIndex ) / 100
+      this.dischargeToKilo[3]= (this.dataEntryForm.value.seaWater_dest * selectedIndex ) / 100
+      this.dischargeToKilo[4]= (this.dataEntryForm.value.others_dest * selectedIndex ) / 100
+
+      this.treatmentToKilo[0] = (this.dataEntryForm.value.surface_withTreatment * this.dischargeToKilo[0]) / 100
+  
+      this.treatmentToKilo[1] = (this.dataEntryForm.value.ground_withTreatment * this.dischargeToKilo[1]) / 100
+      this.treatmentToKilo[2] = (this.dataEntryForm.value.third_withTreatment * this.dischargeToKilo[2]) / 100
+      this.treatmentToKilo[3] = (this.dataEntryForm.value.seawater_withTreatment * this.dischargeToKilo[3]) / 100
+      this.treatmentToKilo[4] = (this.dataEntryForm.value.others_withTreatment * this.dischargeToKilo[4]) / 100
+  }
+
+  onInputDischarge(event: any, type: any) {
+    this.dischargeToKilo[type] = (event.target.value * this.dataEntryForm.value.water_treatment) / 100
+    
+    this.treatmentToKilo[0] = (this.dataEntryForm.value.surface_withTreatment * this.dischargeToKilo[0]) / 100
+  
+    this.treatmentToKilo[1] = (this.dataEntryForm.value.ground_withTreatment * this.dischargeToKilo[1]) / 100
+    this.treatmentToKilo[2] = (this.dataEntryForm.value.third_withTreatment * this.dischargeToKilo[2]) / 100
+    this.treatmentToKilo[3] = (this.dataEntryForm.value.seawater_withTreatment * this.dischargeToKilo[3]) / 100
+    this.treatmentToKilo[4] = (this.dataEntryForm.value.others_withTreatment * this.dischargeToKilo[4]) / 100
+  };
+
+  onInputTreatment(event: any, type: any) {
+   this.treatmentToKilo[type] = (event.target.value * this.dischargeToKilo[type]) / 100
+  };
 }
 
