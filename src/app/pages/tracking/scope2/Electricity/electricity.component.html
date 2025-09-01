@@ -1,14 +1,14 @@
 <div class="row text-white">
     <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-            {{subCategoryID == 9 ? 'Location Based' : 'Market Based'}}
+            {{subCategoryID === 9 ? 'Location Based' : 'Market Based'}}
         </p>
         <div class="ct_how_use_tooltip_main">
             <label style="color: black;" for="">Multiple Months</label>
             <p-inputSwitch [(ngModel)]="annualEntry" [ngModelOptions]="{standalone: true}"
                 (ngModelChange)="onAnnualChange($event);"></p-inputSwitch>
 
-      
+
             <i class="fa-solid fa-circle-question ml-3" (click)="isHowtoUse = !isHowtoUse"></i>
             <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
                 <div>
@@ -111,14 +111,15 @@
 
     <div class="trackingContent">
 
-        <div class="row mt-4 mx-2" *ngIf="subCategoryID == 9">
+        <div class="row mt-4 mx-2" *ngIf="subCategoryID === 9">
             <div class="col-lg-4">
                 <label for="fname">Reading Value</label>
                 <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                 <div class="position-relative">
                     <input required ngModel name="readingvalueLocation" #readingvalueLocation="ngModel"
                         placeholder="Enter value" readingvalue id="search-input" type="text"
-                        class="form-control Dashboard-tab text-white" [disabled]="annualEntry"  [class.disabledC]="annualEntry"  />
+                        class="form-control Dashboard-tab text-white" [disabled]="annualEntry"
+                        [class.disabledC]="annualEntry" />
                     <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                         [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}" [options]="units"
                         optionLabel="UnitName" optionValue="UnitName"></p-dropdown>
@@ -137,7 +138,7 @@
             </div>
         </div>
 
-        <ng-container *ngIf="subCategoryID ==1002">
+        <ng-container *ngIf="subCategoryID === 1002">
             <div class="row mt-4 mx-2">
                 <div class="col-lg-4">
                     <label for="fname">Type</label>
@@ -153,8 +154,9 @@
                         <i class="fa-solid fa-eye ml-3 text-primary" (click)="annualEntry && (visible = !visible)"></i>
                         <div class=" position-relative">
                             <input required ngModel name="readingValueREnew" #readingValueREnew="ngModel"
-                                placeholder="Enter value" readingvalue id="search-input" type="text" 
-                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry" [class.disabledC]="annualEntry" />
+                                placeholder="Enter value" readingvalue id="search-input" type="text"
+                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry"
+                                [class.disabledC]="annualEntry" />
                             <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                                 [options]="units" optionLabel="UnitName" optionValue="UnitName"
                                 [(ngModel)]="selectedUnit" [ngModelOptions]="{standalone: true}"></p-dropdown>
@@ -194,7 +196,8 @@
                         <div class=" position-relative">
                             <input required ngModel name="readingSupplierValue" #readingSupplierValue="ngModel"
                                 placeholder="Enter value" readingvalue id="search-input" type="number"
-                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry" [class.disabledC]="annualEntry" />
+                                class="form-control Dashboard-tab text-white" [disabled]="annualEntry"
+                                [class.disabledC]="annualEntry" />
                             <p-dropdown class="ct_select_op_input ct_select_op_input ct_position_small_quantity"
                                 [options]="units" optionLabel="UnitName" optionValue="UnitName"
                                 [(ngModel)]="unitSelected" [ngModelOptions]="{standalone: true}"></p-dropdown>

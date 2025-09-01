@@ -34,7 +34,7 @@
 
                                 <!-- scope 3 govind categories -->
                                 <ng-container *ngFor="let seed of AssignedDataPoint; let i = index">
-                                    <p-tabPanel *ngIf="seed.ScopeID !=3">
+                                    <p-tabPanel *ngIf="seed.ScopeID !== 3">
 
 
                                         <ng-template pTemplate="header">
@@ -47,7 +47,8 @@
                                                     <p-multiSelect [options]="months" placeholder="Months" name="months"
                                                         [(ngModel)]="selectMonths" styleClass="pcalender"
                                                         optionLabel="name" (onChange)="onMonthsChange($event)"
-                                                        [disabled]="isDropdownDisabled" [class.disabledC]="isDropdownDisabled"></p-multiSelect>
+                                                        [disabled]="isDropdownDisabled"
+                                                        [class.disabledC]="isDropdownDisabled"></p-multiSelect>
                                                 </div>
                                                 <div
                                                     class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
@@ -77,34 +78,34 @@
                                                                             pTemplate="header">
                                                                             {{head.catName }}
                                                                             <div class="iicon">
-                                                                                <i *ngIf="head.catName == 'Stationary Combustion'"
+                                                                                <i *ngIf="head.catName === 'Stationary Combustion'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Direct emissions from owned or controlled stationary sources that uses fossil fuels.
                                                                                       
                                                                                        " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Refrigerants'"
+                                                                                <i *ngIf="head.catName === 'Refrigerants'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Direct emissions from owned or controlled stationary sources that emit fugitive emissions"
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Company Owned Vehicles'"
+                                                                                <i *ngIf="head.catName === 'Company Owned Vehicles'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from owned mobile sources (both on-road and non-road vehicles) that are within the company’s inventory boundaries.
                                                                                         
                                                                                         " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Fire Extinguisher'"
+                                                                                <i *ngIf="head.catName === 'Fire Extinguisher'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Direct emissions released into the atmosphere from the use and maintenance of fire extinguishers."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Electricity'"
+                                                                                <i *ngIf="head.catName === 'Electricity'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Indirect emissions associated with the generation of purchased electricity used by a company."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Heat and Steam'"
+                                                                                <i *ngIf="head.catName === 'Heat and Steam'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Indirect emissions associated with the generation of heat and steam used by a company."
                                                                                     tooltipPosition="top"
@@ -148,7 +149,7 @@
 
                                     </p-tabPanel>
                                     <!-- for intermediate and cusotmized package -->
-                                    <p-tabPanel *ngIf="seed.ScopeID ==3 && this.haveBasicPackage != 1">
+                                    <p-tabPanel *ngIf="seed.ScopeID === 3 && this.haveBasicPackage !== 1">
                                         <ng-template pTemplate="header">
                                             {{ seed.scopeName }}
 
@@ -205,76 +206,76 @@
 
 
                                                                             <div class="iicon">
-                                                                                <i *ngIf="child.subCatName == 'Purchased goods and services'"
+                                                                                <i *ngIf="child.subCatName === 'Purchased goods and services'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Upstream emissions from the production of goods and services that the reporting company purchases.
                                                                                   
                                                                                    " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Fuel and Energy-related Activities'"
+                                                                                <i *ngIf="head.catName === 'Fuel and Energy-related Activities'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Indirect emissions associated with the production, processing, and transportation of fuels and energy that are consumed by the reporting company but not included in Scope 1 or Scope 2 emissions.
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Upstream Transportation and Distribution'"
+                                                                                <i *ngIf="head.catName === 'Upstream Transportation and Distribution'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the transportation and distribution of products purchased by the company, from suppliers to the company’s facilities.
                                                                                     
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Water Supply and Treatment'"
+                                                                                <i *ngIf="head.catName === 'Water Supply and Treatment'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the disposal and treatment of waste generated in the company’s operations."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Waste generated in operations'"
+                                                                                <i *ngIf="head.catName === 'Waste generated in operations'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the disposal and treatment of waste generated in the company’s operations.
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Employee Commuting'"
+                                                                                <i *ngIf="head.catName === 'Employee Commuting'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the transportation of employees between their homes and workplaces.
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Home Office'"
+                                                                                <i *ngIf="head.catName === 'Home Office'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions associated with company staff working from home."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Upstream Leased Assets'"
+                                                                                <i *ngIf="head.catName === 'Upstream Leased Assets'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip=" Emissions from the operation of assets leased by the company from other entities.
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Downstream Transportation and Distribution'"
+                                                                                <i *ngIf="head.catName === 'Downstream Transportation and Distribution'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the transportation and distribution of products sold by the company to end-users, including retail and storage."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Processing of Sold Products'"
+                                                                                <i *ngIf="head.catName === 'Processing of Sold Products'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the processing of intermediate products sold by the company. 
                                                                                     " tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
 
-                                                                                <i *ngIf="head.catName == 'Use of Sold Products'"
+                                                                                <i *ngIf="head.catName === 'Use of Sold Products'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the use of products sold by the company."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'End-of-life Treatment of Sold Products'"
+                                                                                <i *ngIf="head.catName === 'End-of-life Treatment of Sold Products'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the disposal and treatment of products sold by the company at the end of their life."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
-                                                                                <i *ngIf="head.catName == 'Downstream Leased Assets'"
+                                                                                <i *ngIf="head.catName === 'Downstream Leased Assets'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the operation of assets owned by the company and leased to other entities."
                                                                                     tooltipPosition="top"
                                                                                     style="color: #88ad47"></i>
 
-                                                                                <i *ngIf="head.catName == 'Franchises'"
+                                                                                <i *ngIf="head.catName === 'Franchises'"
                                                                                     class="fa fa-info-circle tooltip-icon"
                                                                                     pTooltip="Emissions from the operations of franchises owned by the company."
                                                                                     tooltipPosition="top"
@@ -285,7 +286,7 @@
                                                                             <p-accordionTab
                                                                                 class="ct_business_drop_12_main position-relative"
                                                                                 header="Business Travel"
-                                                                                *ngIf="head.manageDataPointCategorySeedID ==13"
+                                                                                *ngIf="head.manageDataPointCategorySeedID === 13"
                                                                                 clickable (click)="
                                                                                 ToggleClick();
                                                                             " pTooltip="{{ child.subCatName }}">
@@ -331,7 +332,7 @@
                                     </p-tabPanel>
 
                                     <!-- for basic package -->
-                                    <p-tabPanel *ngIf="seed.ScopeID ==3 && this.haveBasicPackage === 1">
+                                    <p-tabPanel *ngIf="seed.ScopeID === 3 && this.haveBasicPackage === 1">
                                         <ng-template pTemplate="header">
                                             {{ seed.scopeName }}
 
@@ -398,14 +399,14 @@
                                                                             <p-accordionTab
                                                                                 class="ct_business_drop_12_main"
                                                                                 header="Business Travel"
-                                                                                *ngIf="head.manageDataPointCategorySeedID ==13"
+                                                                                *ngIf="head.manageDataPointCategorySeedID === 13"
                                                                                 clickable (click)="
                                                                                 ToggleClick(
                                                                                     )
                                                                             " pTooltip="{{ child.subCatName }}">
 
                                                                                 <ul class="ct_dropdwon_item"
-                                                                                    [class.ct_open_modal]="isVisited == true">
+                                                                                    [class.ct_open_modal]="isVisited === true">
                                                                                     <li
                                                                                         (click)="setActive(24, child,
                                                                                     head.manageDataPointCategorySeedID, head.catName)">

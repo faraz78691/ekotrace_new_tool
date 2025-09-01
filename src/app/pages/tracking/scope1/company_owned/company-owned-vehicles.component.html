@@ -1,7 +1,7 @@
 <div class="row text-white">
     <div class="d-flex align-items-center justify-content-between w-100 border-bottom">
         <p class="mb-2 mt-3 ml-4 text-dark ct_fw_600">
-            {{subCategoryID == 10 ? 'Passenger Vehicle' : 'Delivery Vehicle'}}
+            {{subCategoryID === 10 ? 'Passenger Vehicle' : 'Delivery Vehicle'}}
         </p>
         <div class="ml-auto">
             <button class=" mr-2 et_tab_btn" [ngClass]="{'active': singleCompanyTab}" type="button"
@@ -35,7 +35,7 @@
                             etc.
                         </li>
                     </ol>
-                    <h5 class="ct_fs_16  mb-0">To collect emissions data for vehicles owned
+                    <h5 class="ct_fs_16 mb-0">To collect emissions data for vehicles owned
                         by company, follow these steps:
                     </h5>
                     <ol>
@@ -90,14 +90,10 @@
                             <th scope="col">Vehicle Type</th>
                             <th scope="col">No of vehicles</th>
                             <th scope="col">Trips per vehicle</th>
-
                             <th scope="col">Mode of data entry</th>
-
                             <th scope="col">Value</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Action</th>
-
-
                         </tr>
                     </thead>
                     <tbody #commuteTable>
@@ -110,7 +106,6 @@
                                     [options]="VehicleType" optionLabel="VehicleType" optionValue="ID"
                                     placeholder="Select type" appendTo="body">
                                 </p-dropdown>
-
                             </td>
                             <td>
 
@@ -146,8 +141,9 @@
                                     placeholder="Enter value" />
                             </td>
                             <td>
-                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(rows)"><i class="fa fa-trash"></i> </button>
-                           </td>
+                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(rows)"><i
+                                        class="fa fa-trash"></i> </button>
+                            </td>
 
                         </tr>
 
@@ -209,8 +205,9 @@
                                     placeholder="Enter value" />
                             </td>
                             <td>
-                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(rows)"><i class="fa fa-trash"></i> </button>
-                           </td>
+                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(rows)"><i
+                                        class="fa fa-trash"></i> </button>
+                            </td>
 
                         </tr>
 

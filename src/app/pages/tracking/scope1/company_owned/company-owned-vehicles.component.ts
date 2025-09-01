@@ -36,7 +36,6 @@ export class CompanyOwnedVehiclesComponent {
     multipleCompanyTab = false;
     bulkCompanyTab = false;
     selectedProductsCategory: any;
-
     rowsCompany: any[] = [];
     jsonCompanyData: any[] = [];
     selectedFile: File;
@@ -84,7 +83,6 @@ export class CompanyOwnedVehiclesComponent {
                     "id": 3,
                     "modeName": "Avg. amount spent per trip"
                 }
-
             ]
     };
 
@@ -426,10 +424,10 @@ export class CompanyOwnedVehiclesComponent {
     };
 
     deleteRow(row: any) {
-        if(this.rowsCompany.length == 1) return
+        if (this.rowsCompany.length == 1) return
         this.rowsCompany = this.rowsCompany.filter(item => item.id !== row.id);
-      }
-    
+    }
+
 
 
 }
