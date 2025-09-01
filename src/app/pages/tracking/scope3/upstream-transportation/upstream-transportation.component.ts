@@ -22,6 +22,7 @@ export class UpstreamTransportationComponent {
   @ViewChild('dataEntryForm', { static: false }) dataEntryForm: NgForm;
   vehcilestransporationchecked: boolean = false;
   storageTransporationChecked: boolean = false;
+  spndBasedChecked: boolean = false;
   upstreamVehicletypeId: any;
   subVehicleCategoryValue: string = 'Van-Petrol';
   storage_type: any;
@@ -41,22 +42,23 @@ export class UpstreamTransportationComponent {
   fuelId: number = 0;
   isSubmitting = false;
   months: string;
+  unit: any
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-       this.storageGrid =
-            [{
-                "id": 1,
-                "storagef_type": "Distribution Centre"
-            },
-            {
-                "id": 2,
-                "storagef_type": "Dry Warehouse"
-            },
-            {
-                "id": 3,
-                "storagef_type": "Refrigerated Warehouse"
-            }
+    this.storageGrid =
+      [{
+        "id": 1,
+        "storagef_type": "Distribution Centre"
+      },
+      {
+        "id": 2,
+        "storagef_type": "Dry Warehouse"
+      },
+      {
+        "id": 3,
+        "storagef_type": "Refrigerated Warehouse"
+      }
 
-            ]
+      ]
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -64,21 +66,34 @@ export class UpstreamTransportationComponent {
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
         this.facilityCountryCode = this.facilityService.countryCodeSignal();
-
       }
+      this.getPurchaseGoodsCurrency();
     });
   };
 
   ngOnInit(): void {
     this.getVehicleTypes();
-   
+
   }
+
+  getPurchaseGoodsCurrency() {
+    const formdata = new URLSearchParams();
+    formdata.set('facilities', this.facilityID.toString());
+    this.appService.postAPI('/getcurrencyByfacilities', formdata).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.unit = response.categories;
+        }
+      }
+    })
+  };
 
   EntrySave(form: NgForm) {
 
     let formData = new URLSearchParams();
 
-    if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true) {
+    if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true && this.spndBasedChecked === false) {
       formData.set('vehicle_type', this.upstreamVehicletypeId);
       formData.set('sub_category', this.subVehicleCategoryValue);
       formData.set('noOfVehicles', form.value.noOfVehicles);
@@ -90,6 +105,16 @@ export class UpstreamTransportationComponent {
       formData.set('storagef_type', this.storage_type);
       formData.set('area_occupied', form.value.area_occupied);
       formData.set('averageNoOfDays', form.value.averageNoOfDays);
+      formData.set('facility_id', this.facilityID);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
+    } else if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true && this.spndBasedChecked === true) {
+      formData.set('storagef_type', this.storage_type);
+      formData.set('area_occupied', form.value.area_occupied);
+      formData.set('averageNoOfDays', form.value.averageNoOfDays);
+      formData.set('area_occupied_unit', 'm2');
+      formData.set('spent_base', this.spndBasedChecked ? '1' : '0');
+      formData.set('reading_value', form.value.readingvalueLocation);
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
@@ -101,7 +126,7 @@ export class UpstreamTransportationComponent {
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
-    } else if (this.vehcilestransporationchecked == true) {
+    } else if (this.vehcilestransporationchecked == true && this.spndBasedChecked == false) {
       formData.set('vehicle_type', this.upstreamVehicletypeId);
       formData.set('sub_category', this.subVehicleCategoryValue);
       formData.set('mass_unit', 'tonnes');
@@ -109,6 +134,12 @@ export class UpstreamTransportationComponent {
       formData.set('noOfVehicles', form.value.noOfVehicles);
       formData.set('mass_of_products', form.value.mass_of_products);
       formData.set('distanceInKms', form.value.distanceInKms);
+      formData.set('facility_id', this.facilityID);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
+    } else if (this.spndBasedChecked == true && this.vehcilestransporationchecked == true) {
+      formData.set('spent_base', this.spndBasedChecked ? '1' : '0');
+      formData.set('reading_value', form.value.readingvalueLocation);
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
@@ -130,9 +161,9 @@ export class UpstreamTransportationComponent {
             response.message,
             'Error'
           );
-         
+
         }
-      
+
       },
       error: (err) => {
         this.notification.showError(
@@ -145,20 +176,20 @@ export class UpstreamTransportationComponent {
     });
   }
 
-      getVehicleTypes() {
-        this.appService.getApi(`/vehicleCategories`).subscribe({
-            next: (response:any) => {
+  getVehicleTypes() {
+    this.appService.getApi(`/vehicleCategories`).subscribe({
+      next: (response: any) => {
 
-                if (response.success == true) {
-                    this.VehicleGrid = response.categories;
-                    this.upstreamVehicletypeId = this.VehicleGrid[0].id;
-                    this.getSubVehicleCategory(this.upstreamVehicletypeId);
+        if (response.success == true) {
+          this.VehicleGrid = response.categories;
+          this.upstreamVehicletypeId = this.VehicleGrid[0].id;
+          this.getSubVehicleCategory(this.upstreamVehicletypeId);
 
 
-                }
-            }
-        })
-    };
+        }
+      }
+    })
+  };
 
   onVehicleTypeChange(event: any) {
     const selectedIndex = event.value;

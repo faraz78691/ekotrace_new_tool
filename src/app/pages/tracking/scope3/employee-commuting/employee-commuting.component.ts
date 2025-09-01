@@ -46,6 +46,10 @@ export class EmployeeCommutingComponent {
         });
     };
 
+    ngOnInit(): void {
+        this.appService.sendData(true);
+    }
+
     getEmployeeCommuTypes() {
         this.appService.getApi('/employeeCommunityCategory?facility_id=' + this.facilityID).subscribe({
             next: (response) => {
@@ -87,12 +91,12 @@ export class EmployeeCommutingComponent {
     EntrySave(form: NgForm) {
         if (!form.valid) {
             Object.values(form.controls).forEach(control => {
-              control.markAsTouched();
+                control.markAsTouched();
             });
             return;
-          }
-        
-        
+        }
+
+
         const filledRows = this.rows.filter(row => row.vehicleType1 !== null);
 
         if (filledRows.length === 0) {
@@ -176,9 +180,11 @@ export class EmployeeCommutingComponent {
 
 
     deleteRow(row: any) {
-        if(this.rows.length == 1) return
+        if (this.rows.length == 1) return
         this.rows = this.rows.filter(item => item.id !== row.id);
-      }
-    
+    }
+    ngOnDestroy(): void {
+        this.appService.sendData(false);
+    }
 
 }

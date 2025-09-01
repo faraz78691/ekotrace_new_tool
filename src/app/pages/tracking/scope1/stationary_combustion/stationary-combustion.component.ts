@@ -63,9 +63,9 @@ export class StationaryCombustionComponent {
   visible: Boolean = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService,) {
     this.monthsData = getMonthsData();
-   
 
-   
+
+
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -87,7 +87,7 @@ export class StationaryCombustionComponent {
   }
 
 
- async EntrySave(dataEntryForm: NgForm) {
+  async EntrySave(dataEntryForm: NgForm) {
 
     if (!dataEntryForm.valid) {
       Object.values(dataEntryForm.controls).forEach(control => {
@@ -101,10 +101,10 @@ export class StationaryCombustionComponent {
     }
 
     this.isSubmitting = true;
- 
+
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected);
-      if(selectedMonths.length == 0){
+      if (selectedMonths.length == 0) {
         this.notification.showWarning('Please select at least one month', 'Warning');
         this.isSubmitting = false;
         return
@@ -113,44 +113,44 @@ export class StationaryCombustionComponent {
       console.log("selectedMonths", this.monthsData);
       for (let index = 0; index < this.monthsData.length; index++) {
         const item = this.monthsData[index];
-    
+
         if (item.selected) {
           const formData = new FormData();
-    
+
           formData.set('months', JSON.stringify([item.value]));
           formData.set('readingValue', item.readingValue);
           if (this.selectedBlend === 'Perc. Blend') {
             formData.set('blendPercent', this.blendPercent.toString());
           }
-    
+
           formData.set('subCategoryTypeId', this.fuelId.toString());
           formData.set('SubCategorySeedID', this.subCategoryID.toString());
-    
+
           if (this.subCategoryID === 1 && (this.fuelId === 1 || this.fuelId === 2)) {
             formData.set('blendType', this.selectedBlend);
           }
-    
+
           formData.set('calorificValue', dataEntryForm.value.calorificValue || '');
           formData.set('unit', this.unit);
           formData.set('year', this.year);
           formData.set('facility_id', this.facilityID.toString());
-    
+
           if (this.selectedFile) {
             formData.set('file', this.selectedFile, this.selectedFile.name);
           }
-    
+
           try {
             const response: any = await firstValueFrom(
               this.appService.postAPI('/stationaryCombustionEmission', formData)
             )
-    
+
             if (response.success === true) {
               if (index === selectedMonths.length - 1) {
                 this.notification.showSuccess('Data entry added successfully', 'Success');
                 this.isSubmitting = false;
                 dataEntryForm.reset();
-            
-                this.monthsData = getMonthsData();  
+
+                this.monthsData = getMonthsData();
                 console.log("monthsData", this.monthsData);
                 this.annualEntry = false;
                 this.appService.sendData(false);
@@ -169,30 +169,30 @@ export class StationaryCombustionComponent {
               console.error('Error while submitting form:', err);
             }
           }
-    
+
           // optional: wait 1 second before next request
           await new Promise(res => setTimeout(res, 200));
         }
       }
-      
+
     } else {
-      const formData = new FormData(); 
+      const formData = new FormData();
       if (this.selectedBlend === 'Perc. Blend') {
         formData.set('blendPercent', this.blendPercent.toString());
       }
-  
+
       formData.set('subCategoryTypeId', this.fuelId.toString());
       formData.set('SubCategorySeedID', this.subCategoryID.toString());
-  
+
       if (this.subCategoryID === 1 && (this.fuelId === 1 || this.fuelId === 2)) {
         formData.set('blendType', this.selectedBlend);
       }
-  
+
       formData.set('calorificValue', dataEntryForm.value.calorificValue || '');
       formData.set('unit', this.unit);
       formData.set('year', this.year);
       formData.set('facility_id', this.facilityID.toString());
-  
+
       if (this.selectedFile) {
         formData.set('file', this.selectedFile, this.selectedFile.name);
       }
@@ -267,12 +267,15 @@ export class StationaryCombustionComponent {
 
   onAnnualChange(event: any) {
     this.appService.sendData(event);
-   
   };
 
   selectAll(event: any) {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }

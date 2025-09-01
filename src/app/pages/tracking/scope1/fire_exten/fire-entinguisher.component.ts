@@ -76,12 +76,12 @@ export class FireEntinguisherComponent {
             formData.set('months', JSON.stringify([item.value]));
             formData.set('NumberOfExtinguisher', (item.readingValue || '').toString());
             formData.set('quantityOfCO2makeup', (item.amount || '').toString());
-          
+
             try {
               const response: any = await firstValueFrom(
                 this.appService.postAPI('/Addfireextinguisher', formData)
               )
-      
+
               if (response.success === true) {
                 if (index === selectedMonths.length - 1) {
                   this.notification.showSuccess('Data entry added successfully', 'Success');
@@ -165,5 +165,9 @@ export class FireEntinguisherComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }

@@ -76,7 +76,7 @@ export class RefrigerantsComponent {
       // }
       if (this.annualEntry) {
         const selectedMonths = this.monthsData.filter(item => item.selected)
-        if(selectedMonths.length == 0){
+        if (selectedMonths.length == 0) {
           this.notification.showWarning('Please select at least one month', 'Warning');
           this.isSubmitting = false;
           return
@@ -92,7 +92,7 @@ export class RefrigerantsComponent {
               const response: any = await firstValueFrom(
                 this.appService.postAPI('/Addrefrigerant', formData)
               )
-      
+
               if (response.success === true) {
                 if (index === selectedMonths.length - 1) {
                   this.notification.showSuccess('Data entry added successfully', 'Success');
@@ -181,5 +181,9 @@ export class RefrigerantsComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }

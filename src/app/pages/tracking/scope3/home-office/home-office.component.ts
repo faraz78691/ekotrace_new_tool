@@ -49,6 +49,10 @@ export class HomeOfficeComponent {
         });
     };
 
+    ngOnInit(): void {
+        this.appService.sendData(true);
+    }
+
     EntrySave(dataEntryForm) {
         this.isSubmitting = true;
 
@@ -118,6 +122,10 @@ export class HomeOfficeComponent {
             complete: () => { }
         })
 
+    }
+
+    ngOnDestroy(): void {
+        this.appService.sendData(false);
     }
 
 }

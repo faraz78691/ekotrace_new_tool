@@ -40,7 +40,7 @@ export class HeatSteamComponent {
   monthsData: any[] = [];
   annualEntry = false
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-   this.monthsData = getMonthsData()
+    this.monthsData = getMonthsData()
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -107,7 +107,7 @@ export class HeatSteamComponent {
   };
 
 
- async EntrySave(dataEntryForm: NgForm) {
+  async EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.invalid && !this.annualEntry) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
@@ -127,7 +127,7 @@ export class HeatSteamComponent {
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected)
       console.log(selectedMonths);
-      if(selectedMonths.length == 0){
+      if (selectedMonths.length == 0) {
         this.notification.showWarning('Please select at least one month', 'Warning');
         this.isSubmitting = false;
         return
@@ -168,7 +168,7 @@ export class HeatSteamComponent {
             const response: any = await firstValueFrom(
               this.appService.postAPI('/Addheatandsteam', formData)
             )
-    
+
             if (response.success === true) {
               if (index === selectedMonths.length - 1) {
                 this.notification.showSuccess('Data entry added successfully', 'Success');
@@ -219,7 +219,7 @@ export class HeatSteamComponent {
   }
 
   onAnnualChange(event: any) {
-   
+
     this.appService.sendData(event);
   };
 
@@ -227,5 +227,9 @@ export class HeatSteamComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }

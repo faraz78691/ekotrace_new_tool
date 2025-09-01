@@ -16,7 +16,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 @Component({
   selector: 'app-waste-generated',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule, SubmitButtonComponent,InputSwitchModule, DialogModule],
+  imports: [CommonModule, FormsModule, DropdownModule, TabViewModule, SubmitButtonComponent, InputSwitchModule, DialogModule],
   templateUrl: './waste-generated.component.html',
   styleUrls: ['./waste-generated.component.scss']
 })
@@ -48,46 +48,46 @@ export class WasteGeneratedComponent {
   annualEntry = false;
   visible: boolean = false;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
-            this.recycleMethod =
-            [
+    this.recycleMethod =
+      [
 
-                {
-                    "id": 1,
-                    "template": "Open Loop"
-                },
-                {
-                    "id": 2,
-                    "template": "Close Loop"
-                }
+        {
+          "id": 1,
+          "template": "Open Loop"
+        },
+        {
+          "id": 2,
+          "template": "Close Loop"
+        }
 
-            ];
-         this.waterWasteMethod =
-            [
-                {
-                    "id": 'reuse',
-                    "water_type": "Reuse"
-                },
-                {
-                    "id": 'recycling',
-                    "water_type": "Recycling"
-                },
-                {
-                    "id": 'incineration',
-                    "water_type": "Incineration"
-                },
-                {
-                    "id": 'composting',
-                    "water_type": "Composting"
-                },
-                {
-                    "id": 'landfill',
-                    "water_type": "Landfill"
-                },
-                {
-                    "id": 'anaerobic_digestion',
-                    "water_type": "Anaerobic digestion"
-                }
-            ];
+      ];
+    this.waterWasteMethod =
+      [
+        {
+          "id": 'reuse',
+          "water_type": "Reuse"
+        },
+        {
+          "id": 'recycling',
+          "water_type": "Recycling"
+        },
+        {
+          "id": 'incineration',
+          "water_type": "Incineration"
+        },
+        {
+          "id": 'composting',
+          "water_type": "Composting"
+        },
+        {
+          "id": 'landfill',
+          "water_type": "Landfill"
+        },
+        {
+          "id": 'anaerobic_digestion',
+          "water_type": "Anaerobic digestion"
+        }
+      ];
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
@@ -106,11 +106,11 @@ export class WasteGeneratedComponent {
 
   };
 
- async EntrySave(form: NgForm) {
- 
+  async EntrySave(form: NgForm) {
+
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected)
-      if(selectedMonths.length == 0){
+      if (selectedMonths.length == 0) {
         this.notification.showWarning('Please select at least one month', 'Warning');
         this.isSubmitting = false;
         return
@@ -128,14 +128,14 @@ export class WasteGeneratedComponent {
       } else {
         formData.set('product', this.waterWasteProduct);
         formData.set('waste_type', this.wasteSubCategory);
-   
+
         formData.set('method', this.wasteMethod);
         formData.set('unit', 'tonnes');
         formData.set('id', this.waterWasteId.toString());
         formData.set('year', this.year);
         formData.set('facility_id', this.facilityID.toString());
       }
-  
+
       for (let index = 0; index < this.monthsData.length; index++) {
         const item = this.monthsData[index];
         if (item.selected) {
@@ -146,7 +146,7 @@ export class WasteGeneratedComponent {
             const response: any = await firstValueFrom(
               this.appService.postAPI('/wasteGeneratedEmission', formData)
             )
-    
+
             if (response.success === true) {
               if (index === selectedMonths.length - 1) {
                 this.notification.showSuccess('Data entry added successfully', 'Success');
@@ -172,15 +172,15 @@ export class WasteGeneratedComponent {
           await new Promise(res => setTimeout(res, 200));
         }
       }
-    } else{
-       
-    if (form.value.waste_quantity == null || form.value.waste_quantity == '') {
-      this.notification.showInfo(
-        'Enter waste quantity',
-        ''
-      );
-      return
-    }
+    } else {
+
+      if (form.value.waste_quantity == null || form.value.waste_quantity == '') {
+        this.notification.showInfo(
+          'Enter waste quantity',
+          ''
+        );
+        return
+      }
       this.isSubmitting = true;
       let formData = new URLSearchParams();
       if (this.wasteMethod == 'recycling') {
@@ -205,11 +205,11 @@ export class WasteGeneratedComponent {
         formData.set('year', this.year);
         formData.set('facility_id', this.facilityID.toString());
       }
-  
-  
+
+
       this.appService.postAPI('/wasteGeneratedEmission', formData.toString()).subscribe({
         next: (response: any) => {
-  
+
           if (response.success == true) {
             this.notification.showSuccess(
               response.message,
@@ -218,7 +218,7 @@ export class WasteGeneratedComponent {
             this.dataEntryForm.reset();
             // this.wasteMethod = this.waterWasteMethod[0].id
             // this.getWasteSubCategory("1")
-  
+
           } else {
             this.notification.showError(
               response.message,
@@ -226,7 +226,7 @@ export class WasteGeneratedComponent {
             );
             // this.dataEntryForm.reset();
             // this.wasteMethod = this.waterWasteMethod[0].id
-  
+
           }
           this.isSubmitting = false;
           // this.ALLEntries();
@@ -239,32 +239,32 @@ export class WasteGeneratedComponent {
             'Error'
           );
           this.dataEntryForm.reset();
-  
-  
+
+
           console.error('errrrrrr>>>>>>', err);
         },
         complete: () => { }
       })
 
     }
-   
+
 
   };
 
-      getEndWasteType() {
-        this.appService.getApi('/getendoflife_waste_type?facility_id=' + this.facilityID).subscribe({
-            next: (response: any) => {
-            
-                if (response.success == true) {
-                    this.wasteGrid = response.categories;
-                    this.waterWasteId = this.wasteGrid[0].id
-                    this.waterWasteProduct = this.wasteGrid[0].type;
-                    this.getWasteSubCategory(this.waterWasteId);
-                    // this.franchiseCategoryValue = this.franchiseGrid[0].categories
-                }
-            }
-        })
-    };
+  getEndWasteType() {
+    this.appService.getApi('/getendoflife_waste_type?facility_id=' + this.facilityID).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.wasteGrid = response.categories;
+          this.waterWasteId = this.wasteGrid[0].id
+          this.waterWasteProduct = this.wasteGrid[0].type;
+          this.getWasteSubCategory(this.waterWasteId);
+          // this.franchiseCategoryValue = this.franchiseGrid[0].categories
+        }
+      }
+    })
+  };
 
 
   onWasteTypeChange(event: any) {
@@ -306,7 +306,7 @@ export class WasteGeneratedComponent {
   }
 
   onAnnualChange(event: any) {
- console.log(this.annualEntry);
+    console.log(this.annualEntry);
     this.appService.sendData(event);
   };
 
@@ -314,6 +314,10 @@ export class WasteGeneratedComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }
 

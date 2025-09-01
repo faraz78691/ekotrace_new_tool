@@ -99,7 +99,7 @@ export class ElectricityComponent {
 
   }
 
- async EntrySave(dataEntryForm: NgForm) {
+  async EntrySave(dataEntryForm: NgForm) {
     if (dataEntryForm.invalid && !this.annualEntry) {
       Object.values(dataEntryForm.controls).forEach(control => {
         control.markAsTouched();
@@ -131,7 +131,7 @@ export class ElectricityComponent {
     }
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected)
-      if(selectedMonths.length == 0){
+      if (selectedMonths.length == 0) {
         this.notification.showWarning('Please select at least one month', 'Warning');
         this.isSubmitting = false;
         return
@@ -174,7 +174,7 @@ export class ElectricityComponent {
             const response: any = await firstValueFrom(
               this.appService.postAPI(url, formData)
             )
-    
+
             if (response.success === true) {
               if (index === selectedMonths.length - 1) {
                 this.notification.showSuccess('Data entry added successfully', 'Success');
@@ -266,11 +266,7 @@ export class ElectricityComponent {
     this.appService.getApi('/GetUnits/' + subcatId).subscribe({
       next: (Response: any) => {
         if (Response) {
-
           this.units = Response.categories;
-
-
-
         }
         else {
           this.units = [];
@@ -298,7 +294,7 @@ export class ElectricityComponent {
   };
 
   onAnnualChange(event: any) {
- 
+
     this.appService.sendData(event);
   };
 
@@ -306,5 +302,9 @@ export class ElectricityComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
   }
 }

@@ -151,8 +151,9 @@
 
                                           </td>
                                           <td>
-                                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
-                                           </td>
+                                                <button type="button" class="px-4 trackingDeleteb"
+                                                      (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                          </td>
 
 
                                     </tr>
@@ -191,33 +192,36 @@
 
                                           <td class="et_select_min_w_400_43">
                                                 <p-dropdown
-                                                      class="ct_select_op_input  ct_flex_1 ct_chev_icon_dark230  w-200" [style]="{'min-width': '300px'}"
-                                                      ngModel [options]="airportGrid" [(ngModel)]="row.from"
-                                                      [ngModelOptions]="{standalone: true}" optionLabel="airport_desc"
-                                                      optionValue="airport_code" placeholder="Select from"
-                                                      [filter]="true" name="classs" [virtualScroll]="true"
-                                                      [virtualScrollItemSize]="38" #classs="ngModel" appendTo="body">
+                                                      class="ct_select_op_input  ct_flex_1 ct_chev_icon_dark230  w-200"
+                                                      [style]="{'min-width': '300px'}" ngModel [options]="airportGrid"
+                                                      [(ngModel)]="row.from" [ngModelOptions]="{standalone: true}"
+                                                      optionLabel="airport_desc" optionValue="airport_code"
+                                                      placeholder="Select from" [filter]="true" name="classs"
+                                                      [virtualScroll]="true" [virtualScrollItemSize]="38"
+                                                      #classs="ngModel" appendTo="body">
                                                 </p-dropdown>
 
                                           </td>
                                           <td>
                                                 <p-dropdown
-                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230 et_select_min_w_600_43" [style]="{'min-width': '300px'}"
-                                                      ngModel [options]="airportGrid" [(ngModel)]="row.to"
-                                                      [ngModelOptions]="{standalone: true}" optionLabel="airport_desc"
-                                                      optionValue="airport_code" placeholder="Select to" [filter]="true"
-                                                      name="classs" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230 et_select_min_w_600_43"
+                                                      [style]="{'min-width': '300px'}" ngModel [options]="airportGrid"
+                                                      [(ngModel)]="row.to" [ngModelOptions]="{standalone: true}"
+                                                      optionLabel="airport_desc" optionValue="airport_code"
+                                                      placeholder="Select to" [filter]="true" name="classs"
+                                                      [virtualScroll]="true" [virtualScrollItemSize]="38"
                                                       #classs="ngModel" appendTo="body">
                                                 </p-dropdown>
                                           </td>
                                           <td>
                                                 <p-dropdown
-                                                      class="ct_select_op_input et_select_min_w_400_43 ct_flex_1 ct_chev_icon_dark230  w-200" [style]="{'min-width': '300px'}"
-                                                      ngModel [options]="airportGrid" [(ngModel)]="row.via"
-                                                      [ngModelOptions]="{standalone: true}" optionLabel="airport_desc"
-                                                      optionValue="airport_code" placeholder="Select via"
-                                                      [filter]="true" name="classs" [virtualScroll]="true"
-                                                      [virtualScrollItemSize]="38" #classs="ngModel" appendTo="body">
+                                                      class="ct_select_op_input et_select_min_w_400_43 ct_flex_1 ct_chev_icon_dark230  w-200"
+                                                      [style]="{'min-width': '300px'}" ngModel [options]="airportGrid"
+                                                      [(ngModel)]="row.via" [ngModelOptions]="{standalone: true}"
+                                                      optionLabel="airport_desc" optionValue="airport_code"
+                                                      placeholder="Select via" [filter]="true" name="classs"
+                                                      [virtualScroll]="true" [virtualScrollItemSize]="38"
+                                                      #classs="ngModel" appendTo="body">
                                                 </p-dropdown>
                                           </td>
                                           <td>
@@ -270,18 +274,36 @@
 
                                           </td>
                                           <td>
-                                                <button type="button" class="px-4 trackingDeleteb" (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
-                                           </td>
-
-
-
-
+                                                <button type="button" class="px-4 trackingDeleteb"
+                                                      (click)="deleteRow(row)"><i class="fa fa-trash"></i> </button>
+                                          </td>
                                     </tr>
-
-
                               </tbody>
                               <span class="ml-2 trackingsubmitb et_plusadd_455" (click)="addrowsFlightTravel()">+</span>
                         </table>
+                  </div>
+
+                  <div class="" [ngStyle]="{'display': flightDisplay3}" style="height:auto">
+                        <div class="row mt-4 mx-2">
+                              <div class="col-lg-4">
+                                    <label for="fname">Spend Based</label>
+                                    <!-- <i class="fa-solid fa-eye ml-3 text-primary"
+                                          (click)="annualEntry && (visible = !visible)"></i> -->
+                                    <div class="position-relative">
+                                          <input required ngModel name="readingvalueLocation"
+                                                #readingvalueLocation="ngModel" placeholder="Enter value" readingvalue
+                                                id="search-input" type="text"
+                                                class="form-control Dashboard-tab text-white" />
+                                          <div class="ct_quantity_text">
+                                                <p>{{unit}}</p>
+                                          </div>
+                                    </div>
+                                    <p class="validation"
+                                          *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted && readingvalueLocation.touched">
+                                          Spend Based is required.
+                                    </p>
+                              </div>
+                        </div>
                   </div>
             </div>
             <div class="col-12 mt-2 d-flex gap-3 align-items-end">
@@ -295,7 +317,6 @@
                         </div>
                   </div>
                   <app-submit-button [isLoading]="isSubmitting" text="Submit"></app-submit-button>
-
             </div>
       </div>
 </form>

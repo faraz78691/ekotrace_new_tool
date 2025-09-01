@@ -324,5 +324,9 @@ export class WaterSuplyTreatmentComponent {
   onInputTreatment(event: any, type: any) {
     this.treatmentToKilo[type] = (event.target.value * this.dischargeToKilo[type]) / 100
   };
+
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
+  }
 }
 
