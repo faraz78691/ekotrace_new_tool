@@ -122,16 +122,15 @@
                                                                   (input)="onWaterWithdrawalChange($event)"
                                                                   name="water_supply" ngModel [disabled]="annualEntry"
                                                                   [class.disabledC]="annualEntry" />
-                                                            <!-- <p-dropdown
-                                                                    class="ct_select_op_input ct_position_small_quantity"
-                                                                    ngModel [options]="waterSupplyUnitGrid"
-                                                                    optionLabel="unitType" optionValue="unitType"
-                                                                    [(ngModel)]="waterSupplyUnit"
-                                                                    name="waterSupplyUnits" #wasteUnits="ngModel">
-                                                                </p-dropdown> -->
-                                                            <div class="ct_quantity_text">
+                                                            <p-dropdown
+                                                                  class="ct_select_op_input ct_position_small_quantity"
+                                                                  [options]="waterSupplyUnitGrid" optionLabel="unitType"
+                                                                  optionValue="id" [(ngModel)]="waterSupplyUnit"
+                                                                  [ngModelOptions]="{standalone: true}">
+                                                            </p-dropdown>
+                                                            <!-- <div class="ct_quantity_text">
                                                                   <p>kilo litre</p>
-                                                            </div>
+                                                            </div> -->
                                                       </div>
                                                       <i class="fa-solid"
                                                             [ngClass]="{'fa-angle-down': !isWaterWithdrawal, 'fa-angle-up': isWaterWithdrawal}"
@@ -163,14 +162,16 @@
                                                                               <td>Surface water</td>
 
                                                                               <td>
-                                                                                    <div style="position: relative;" class="w-75">
+                                                                                    <div style="position: relative;"
+                                                                                          class="w-75">
 
                                                                                           <input type="number"
                                                                                                 class="form-control "
-                                                                                                name="surface_water" ngModel
+                                                                                                name="surface_water"
+                                                                                                ngModel
                                                                                                 (input)="onInput($event,0)"
-                                                                                                placeholder="Enter required value"  >
-                                                                                                <span
+                                                                                                placeholder="Enter required value">
+                                                                                          <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
@@ -181,25 +182,28 @@
                                                                                           disabled="true"
                                                                                           [(ngModel)]="convertToKilo[0]"
                                                                                           [ngModelOptions]="{standalone: true}">
-                                                                                        
+
                                                                               </td>
 
                                                                         <tr>
 
                                                                               <td>Groundwater</td>
                                                                               <td>
-                                                                                    <div style="position: relative;" class="w-75">
+                                                                                    <div style="position: relative;"
+                                                                                          class="w-75">
                                                                                           <input type="number"
                                                                                                 class="form-control"
-                                                                                                name="groundwater" ngModel
+                                                                                                name="groundwater"
+                                                                                                ngModel
                                                                                                 (input)="onInput($event,1)"
                                                                                                 placeholder="Enter required value">
-                                                                                                <span
+                                                                                          <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
-                                                                                          
+
                                                                                     </div>
                                                                               </td>
-                                                                              <td *ngIf="!annualEntry"><input type="number"
+                                                                              <td *ngIf="!annualEntry"><input
+                                                                                          type="number"
                                                                                           class="form-control w-auto"
                                                                                           disabled="true"
                                                                                           [(ngModel)]="convertToKilo[1]"
@@ -209,19 +213,22 @@
                                                                         </tr>
                                                                         <tr>
                                                                               <td>Third party water</td>
-                                                                              <td >
-                                                                              <div style="position: relative;" class="w-75">
-                                                                                    <input type="number"
+                                                                              <td>
+                                                                                    <div style="position: relative;"
+                                                                                          class="w-75">
+                                                                                          <input type="number"
                                                                                                 class="form-control"
-                                                                                                name="thirdParty" ngModel
+                                                                                                name="thirdParty"
+                                                                                                ngModel
                                                                                                 (input)="onInput($event,2)"
                                                                                                 placeholder="Enter required value">
-                                                                                                <span
+                                                                                          <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
-                                                                              </div>
+                                                                                    </div>
                                                                               </td>
-                                                                              <td *ngIf="!annualEntry"><input type="number"
+                                                                              <td *ngIf="!annualEntry"><input
+                                                                                          type="number"
                                                                                           class="form-control w-auto"
                                                                                           disabled="true"
                                                                                           [(ngModel)]="convertToKilo[2]"
@@ -231,19 +238,22 @@
                                                                         </tr>
                                                                         <tr>
                                                                               <td>Sea water/ desalinated water</td>
-                                                                              <td><div style="position: relative;" class="w-75">
-                                                                                    <input type="number"
-                                                                                          class="form-control"
-                                                                                          name="seaWater" ngModel
-                                                                                          (input)="onInput($event,3)"
-                                                                                          placeholder="Enter required value">
+                                                                              <td>
+                                                                                    <div style="position: relative;"
+                                                                                          class="w-75">
+                                                                                          <input type="number"
+                                                                                                class="form-control"
+                                                                                                name="seaWater" ngModel
+                                                                                                (input)="onInput($event,3)"
+                                                                                                placeholder="Enter required value">
                                                                                           <span
-                                                                                          style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
-                                                                              </div>
-                                                                                    
+                                                                                    </div>
+
                                                                               </td>
-                                                                              <td *ngIf="!annualEntry"><input type="number"
+                                                                              <td *ngIf="!annualEntry"><input
+                                                                                          type="number"
                                                                                           class="form-control w-auto"
                                                                                           disabled="true"
                                                                                           [(ngModel)]="convertToKilo[3]"
@@ -253,19 +263,21 @@
                                                                         <tr>
                                                                               <td>Others</td>
                                                                               <td>
-                                                                                    <div style="position: relative;" class="w-75">
+                                                                                    <div style="position: relative;"
+                                                                                          class="w-75">
                                                                                           <input type="number"
                                                                                                 class="form-control"
                                                                                                 name="others" ngModel
                                                                                                 (input)="onInput($event,4)"
                                                                                                 placeholder="Enter required value">
-                                                                                                <span
+                                                                                          <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
-                                                                                    
+
                                                                               </td>
-                                                                              <td *ngIf="!annualEntry"><input type="number"
+                                                                              <td *ngIf="!annualEntry"><input
+                                                                                          type="number"
                                                                                           class="form-control w-auto"
                                                                                           disabled="true"
                                                                                           [(ngModel)]="convertToKilo[4]"
@@ -297,9 +309,15 @@
                                                                   name="water_treatment" ngModel
                                                                   [disabled]="annualEntry"
                                                                   [class.disabledC]="annualEntry" />
-                                                            <div class="ct_quantity_text">
+                                                            <p-dropdown
+                                                                  class="ct_select_op_input ct_position_small_quantity"
+                                                                  [options]="waterSupplyUnitGrid" optionLabel="unitType"
+                                                                  optionValue="id" [(ngModel)]="waterSupplyUnit2"
+                                                                  [ngModelOptions]="{standalone: true}">
+                                                            </p-dropdown>
+                                                            <!-- <div class="ct_quantity_text">
                                                                   <p>kilo litre</p>
-                                                            </div>
+                                                            </div> -->
                                                       </div>
                                                       <i class="fa-solid"
                                                             [ngClass]="{'fa-angle-down': !isWaterDischarge, 'fa-angle-up': isWaterDischarge}"
@@ -398,20 +416,41 @@
                                                       <tr>
 
                                                             <td>Surface water</td>
-                                                            <td><input type="number" class="form-control w-auto"
-                                                                        name="surface_water_dest" ngModel
-                                                                        (input)="onInputDischarge($event, 0)"
-                                                                        placeholder="Enter required value"></td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="surface_water_dest" ngModel
+                                                                              (input)="onInputDischarge($event, 0)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [(ngModel)]="dischargeToKilo[0]" disabled="true"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         placeholder="Enter required value"></td>
-                                                            <td><input type="number" class="form-control"
+
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="surface_withTreatment" ngModel
+                                                                              (input)="onInputTreatment($event, 0)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control"
                                                                         (input)="onInputTreatment($event, 0)"
                                                                         name="surface_withTreatment" ngModel
                                                                         placeholder="Enter treatment">
-                                                            </td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            </td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="treatmentToKilo[0]" disabled="true"
                                                                         placeholder="Enter required value"></td>
@@ -429,20 +468,45 @@
                                                       <tr>
 
                                                             <td>Ground water</td>
-                                                            <td><input type="number" class="form-control w-auto"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="groundwater_dest" ngModel
+                                                                              (input)="onInputDischarge($event, 1)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="groundwater_dest" ngModel
                                                                         (input)="onInputDischarge($event, 1)"
-                                                                        placeholder="Enter required value"></td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                                        placeholder="Enter required value"></td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="dischargeToKilo[1]" disabled="true"
                                                                         placeholder="Enter required value"></td>
-                                                            <td><input type="number" class="form-control"
+
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="ground_withTreatment" ngModel
+                                                                              (input)="onInputTreatment($event, 1)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control"
                                                                         name="ground_withTreatment" ngModel
                                                                         placeholder="Enter treatment"
                                                                         (input)="onInputTreatment($event, 1)">
-                                                            </td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            </td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="treatmentToKilo[1]" disabled="true"
                                                                         placeholder="Enter required value"></td>
@@ -458,21 +522,47 @@
                                                       <tr>
 
                                                             <td>Third party </td>
-                                                            <td><input type="number" class="form-control w-auto"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="thirdParty_dest" ngModel
+                                                                              (input)="onInputDischarge($event, 2)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="thirdParty_dest" ngModel
                                                                         (input)="onInputDischarge($event, 2)"
-                                                                        placeholder="Enter required value"></td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                                        placeholder="Enter required value"></td> -->
+
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="dischargeToKilo[2]" disabled="true"
                                                                         placeholder="Enter required value"></td>
 
-                                                            <td><input type="number" class="form-control"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="third_withTreatment" ngModel
+                                                                              (input)="onInputTreatment($event, 2)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+
+                                                            <!-- <td><input type="number" class="form-control"
                                                                         name="third_withTreatment" ngModel
                                                                         placeholder="Enter treatment"
                                                                         (input)="onInputTreatment($event, 2)">
-                                                            </td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            </td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="treatmentToKilo[2]" disabled="true"
                                                                         placeholder="Enter required value"></td>
@@ -488,22 +578,45 @@
                                                       <tr>
 
                                                             <td>Sea water/ desalinated water</td>
-                                                            <td><input type="number" class="form-control w-auto"
+                                                            <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="seaWater_dest" ngModel
                                                                         (input)="onInputDischarge($event, 3)"
-                                                                        placeholder="Enter required value"></td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                                        placeholder="Enter required value"></td> -->
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;" name="seaWater_dest"
+                                                                              ngModel
+                                                                              (input)="onInputDischarge($event, 3)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="dischargeToKilo[3]" disabled="true"
                                                                         placeholder="Enter required value"></td>
 
-
-                                                            <td><input type="number" class="form-control"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="seawater_withTreatment" ngModel
+                                                                              (input)="onInputTreatment($event, 3)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control"
                                                                         name="seawater_withTreatment" ngModel
                                                                         placeholder="Enter treatment"
                                                                         (input)="onInputTreatment($event, 3)">
-                                                            </td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            </td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="treatmentToKilo[3]" disabled="true"
                                                                         placeholder="Enter required value"></td>
@@ -521,20 +634,44 @@
                                                       <tr>
 
                                                             <td>Others</td>
-                                                            <td><input type="number" class="form-control w-auto"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;" name="others_dest"
+                                                                              ngModel
+                                                                              (input)="onInputDischarge($event, 4)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="others_dest" ngModel
                                                                         (input)="onInputDischarge($event, 4)"
-                                                                        placeholder="Enter required value"></td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                                        placeholder="Enter required value"></td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="dischargeToKilo[4]" disabled="true"
                                                                         placeholder="Enter required value"></td>
-                                                            <td><input type="number" class="form-control"
+                                                            <td>
+                                                                  <div style="position: relative;" class="w-75">
+                                                                        <input type="number" class="form-control"
+                                                                              style="width: 200px;"
+                                                                              name="others_withTreatment" ngModel
+                                                                              (input)="onInputTreatment($event, 4)"
+                                                                              placeholder="Enter value">
+                                                                        <span
+                                                                              style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
+                                                                  </div>
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control"
                                                                         name="others_withTreatment" ngModel
                                                                         placeholder="Enter treatment"
                                                                         (input)="onInputTreatment($event, 4)">
-                                                            </td>
-                                                            <td *ngIf="!annualEntry"><input type="number" class="form-control w-auto"
+                                                            </td> -->
+                                                            <td *ngIf="!annualEntry"><input type="number"
+                                                                        class="form-control w-auto"
                                                                         [ngModelOptions]="{standalone: true}"
                                                                         [(ngModel)]="treatmentToKilo[4]" disabled="true"
                                                                         placeholder="Enter required value"></td>

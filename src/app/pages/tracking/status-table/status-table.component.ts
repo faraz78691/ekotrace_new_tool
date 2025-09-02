@@ -131,6 +131,7 @@ export class StatusTableComponent {
           { field: 'no_of_vehicles', header: 'No of Vehicles' },
           { field: 'distance_travelled_km', header: 'Distance Travelled (Km)' },
           { field: 'mass_of_product_trans', header: 'Mass of Product (tonnes)' },
+          { field: 'spend_base_value', header: 'Spend Amount' },
           { field: 'storage_facility_type', header: 'Storage Facility ' },
           { field: 'area_occupied', header: 'Area occupied (sqm)' },
           { field: 'avg_no_of_days', header: 'No of days storage' },
@@ -183,6 +184,7 @@ export class StatusTableComponent {
               { field: 'no_of_passengers', header: 'No of Trips/Passengers' },
               { field: 'avg_distance', header: 'Distance Travelled' },
               { field: 'return_Flight', header: 'Return Flight' },
+              { field: 'spend_base_value', header: 'Spend Amount' },
               { field: 'month', header: 'Month' },
             ];
 

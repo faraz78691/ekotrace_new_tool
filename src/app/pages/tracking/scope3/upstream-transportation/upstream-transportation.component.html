@@ -121,7 +121,7 @@
                               <div class="d-flex align-items-center mb-4 justify-content-between">
                                     <h5 class="">VEHICLES</h5>
                                     <div>
-                                          <label class="ml-3" for="">SPEND BASED</label>
+                                          <label class="ml-3" for="">Spend Amount</label>
                                           <p-inputSwitch [(ngModel)]="spndBasedChecked"
                                                 [ngModelOptions]="{standalone: true}"></p-inputSwitch>
                                     </div>
@@ -227,12 +227,12 @@
                               </div>
                               <div class="row" *ngIf="spndBasedChecked">
                                     <div class="col-lg-4">
-                                          <label for="fname">Reading Value</label>
+                                          <label for="fname">Spend Amount</label>
                                           <!-- <i class="fa-solid fa-eye ml-3 text-primary"
                                           (click)="annualEntry && (visible = !visible)"></i> -->
                                           <div class="position-relative">
                                                 <input required ngModel name="readingvalueLocation"
-                                                      #readingvalueLocation="ngModel" placeholder="Enter value"
+                                                      #readingvalueLocation="ngModel" placeholder="Enter amount"
                                                       readingvalue id="search-input" type="text"
                                                       class="form-control Dashboard-tab text-white" />
                                                 <div class="ct_quantity_text">

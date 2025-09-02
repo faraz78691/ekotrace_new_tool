@@ -45,6 +45,18 @@ export class WaterSuplyTreatmentComponent {
   convertToKilo: any = [];
   dischargeToKilo: any = [];
   treatmentToKilo: any = [];
+  waterSupplyUnit2 = 1
+  waterSupplyUnitGrid = 
+    [
+      {
+        "id": 1,
+        "unitType": "kilo litres"
+      },
+      {
+        "id": 2,
+        "unitType": "cubic m"
+      }
+    ]
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.monthsData = getMonthsData();
     this.waterUsageLevel =
@@ -81,11 +93,11 @@ export class WaterSuplyTreatmentComponent {
     if (this.waterSupplyUnit == 'cubic m') {
       var allUnits = 2
     }
-    var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water };
-    var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater };
-    var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty };
-    var waterobj4 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater };
-    var waterobj5 = { "type": "Others", "kilolitres": form.value.others };
+    var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water || 0 };
+    var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater || 0  };
+    var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty || 0  };
+    var waterobj4 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater || 0  };
+    var waterobj5 = { "type": "Others", "kilolitres": form.value.others || 0  };
 
     const typoOfOffice = [waterobj1, waterobj2, waterobj3, waterobj4, waterobj5]
     var water_withdrawlStringfy = JSON.stringify(typoOfOffice);
@@ -109,8 +121,8 @@ export class WaterSuplyTreatmentComponent {
     const dischargeWater = [waterDischargeobj1, waterDischargeobj2, waterDischargeobj3, waterDischargeobj4, waterDischargeobj5]
     var waterDischargeStringfy = JSON.stringify(dischargeWater);
 
-    formData.set('water_supply_unit', '1');
-    formData.set('water_treatment_unit', '1');
+    formData.set('water_supply_unit', this.waterSupplyUnit.toString());
+    formData.set('water_treatment_unit', this.waterSupplyUnit2.toString());
     formData.set('water_withdrawl', water_withdrawlStringfy);
     formData.set('water_discharge_only', water_DischargeonlyStringfy);
     formData.set('water_discharge', waterDischargeStringfy);
@@ -226,7 +238,7 @@ export class WaterSuplyTreatmentComponent {
               this.treatmentToKilo[i] = null;
             }
             this.dataEntryForm.reset();
-            this.waterSupplyUnit = 'kilo litres'
+     
 
           } else {
             this.notification.showError(
@@ -234,7 +246,7 @@ export class WaterSuplyTreatmentComponent {
               'Error'
             );
             this.dataEntryForm.reset();
-            this.waterSupplyUnit = 'kilo litres'
+         
 
           }
           this.isSubmitting = false;
@@ -242,7 +254,7 @@ export class WaterSuplyTreatmentComponent {
         },
         error: (err) => {
           this.isSubmitting = false;
-          this.waterSupplyUnit = 'kilo litres'
+       
           this.notification.showError(
             'Data entry added failed.',
             'Error'

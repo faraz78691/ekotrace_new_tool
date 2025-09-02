@@ -65,6 +65,7 @@ export class FlightComponent {
   busineessGrid: any[] = [];
   uploadButton: boolean = false;
   months: string;
+  flightTravelMode = 'Generic';
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.flightsTravelTypes =
       [
@@ -235,13 +236,15 @@ export class FlightComponent {
             response.message,
             'Success'
           );
+          this.flightDisplay1 = 'block';
+          this.flightDisplay2 = 'none';
+          this.flightDisplay3 = 'none';
+
           this.dataEntryForm.reset();
           // this.ALLEntries();
           this.resetForm();
           // this.getStatusData(this.activeCategoryIndex);
-          this.flightDisplay1 = 'block';
-          this.flightDisplay2 = 'none';
-          this.flightDisplay3 = 'none';
+       
           this.rowsFlightTravel = [{
             id: 1,
             flightMode: '',
