@@ -131,8 +131,15 @@
                         [ngModelOptions]="{standalone: true}"></p-inputSwitch>
                   <div class="col-12">
                         <div class="mt-4" *ngIf="vehcilestransporationchecked">
-                              <h5 class="mb-4">VEHICLES</h5>
-                              <div class="row">
+                              <div class="d-flex align-items-center mb-4 justify-content-between">
+                                    <h5 class="">VEHICLES</h5>
+                                    <div>
+                                          <label class="ml-3" for="">Spend Amount</label>
+                                          <p-inputSwitch [(ngModel)]="spndBasedChecked"
+                                                [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+                                    </div>
+                              </div>
+                              <div class="row" *ngIf="!spndBasedChecked">
                                     <div class="col-md-6">
                                           <div class="mb-4" style="gap: 10px;">
                                                 <label class=" ct_text_wrape">Vehicle types</label>
@@ -230,6 +237,26 @@
                                           </div>
                                     </div>
 
+                              </div>
+                              <div class="row" *ngIf="spndBasedChecked">
+                                    <div class="col-lg-4">
+                                          <label for="fname">Spend Amount</label>
+                                          <!-- <i class="fa-solid fa-eye ml-3 text-primary"
+                                          (click)="annualEntry && (visible = !visible)"></i> -->
+                                          <div class="position-relative">
+                                                <input required ngModel name="readingvalueLocation"
+                                                      #readingvalueLocation="ngModel" placeholder="Enter amount"
+                                                      readingvalue id="search-input" type="text"
+                                                      class="form-control Dashboard-tab text-white" />
+                                                <div class="ct_quantity_text">
+                                                      <p>{{unit}}</p>
+                                                </div>
+                                          </div>
+                                          <p class="validation"
+                                                *ngIf="readingvalueLocation.errors?.['required'] && dataEntryForm.submitted && readingvalueLocation.touched">
+                                                Reading value is required.
+                                          </p>
+                                    </div>
                               </div>
 
                         </div>

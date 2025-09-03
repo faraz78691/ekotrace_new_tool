@@ -41,6 +41,8 @@ export class DownstreamTransportationComponent {
   fuelId: number = 0;
   isSubmitting = false;
   months: string;
+  spndBasedChecked: boolean = false;
+  unit: any;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
        this.storageGrid =
             [{
@@ -71,6 +73,7 @@ export class DownstreamTransportationComponent {
 
   ngOnInit(): void {
     this.getVehicleTypes();
+    this.getPurchaseGoodsCurrency();
    
   }
 
@@ -78,7 +81,7 @@ export class DownstreamTransportationComponent {
 
     let formData = new URLSearchParams();
 
-    if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true) {
+    if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true && this.spndBasedChecked === false) {
       formData.set('vehicle_type', this.upstreamVehicletypeId);
       formData.set('sub_category', this.subVehicleCategoryValue);
       formData.set('noOfVehicles', form.value.noOfVehicles);
@@ -93,7 +96,19 @@ export class DownstreamTransportationComponent {
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
-    } else if (this.storageTransporationChecked === true) {
+    } else if (this.storageTransporationChecked === true && this.vehcilestransporationchecked === true && this.spndBasedChecked === true) {
+      formData.set('storagef_type', this.storage_type);
+      formData.set('area_occupied', form.value.area_occupied);
+      formData.set('averageNoOfDays', form.value.averageNoOfDays);
+      formData.set('area_occupied_unit', 'm2');
+      formData.set('spent_base', this.spndBasedChecked ? '1' : '0');
+      formData.set('reading_value', form.value.readingvalueLocation);
+      formData.set('facility_id', this.facilityID);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
+      formData.set('currency', this.unit);
+    }
+     else if (this.storageTransporationChecked === true) {
       formData.set('storagef_type', this.storage_type);
       formData.set('area_occupied', form.value.area_occupied);
       formData.set('averageNoOfDays', form.value.averageNoOfDays);
@@ -101,7 +116,7 @@ export class DownstreamTransportationComponent {
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
-    } else if (this.vehcilestransporationchecked == true) {
+    } else if (this.vehcilestransporationchecked == true && this.spndBasedChecked == false) {
       formData.set('vehicle_type', this.upstreamVehicletypeId);
       formData.set('sub_category', this.subVehicleCategoryValue);
       formData.set('mass_unit', 'tonnes');
@@ -112,6 +127,13 @@ export class DownstreamTransportationComponent {
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
+    }else if (this.spndBasedChecked == true && this.vehcilestransporationchecked == true) {
+      formData.set('spent_base', this.spndBasedChecked ? '1' : '0');
+      formData.set('reading_value', form.value.readingvalueLocation);
+      formData.set('facility_id', this.facilityID);
+      formData.set('month', this.months);
+      formData.set('year', this.year);
+      formData.set('currency', this.unit);
     }
 
 
@@ -182,5 +204,19 @@ export class DownstreamTransportationComponent {
   onSubCategoryVehicleChange(event: any) {
     this.subVehicleCategoryValue = event.value;
   };
+
+  getPurchaseGoodsCurrency() {
+    const formdata = new URLSearchParams();
+    formdata.set('facilities', this.facilityID.toString());
+    this.appService.postAPI('/getcurrencyByfacilities', formdata).subscribe({
+      next: (response: any) => {
+
+        if (response.success == true) {
+          this.unit = response.categories;
+        }
+      }
+    })
+  };
+
 }
 

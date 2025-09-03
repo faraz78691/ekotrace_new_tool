@@ -115,6 +115,8 @@ export class UpstreamTransportationComponent {
       formData.set('area_occupied_unit', 'm2');
       formData.set('spent_base', this.spndBasedChecked ? '1' : '0');
       formData.set('reading_value', form.value.readingvalueLocation);
+      formData.set('currency', this.unit);
+
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
@@ -143,6 +145,7 @@ export class UpstreamTransportationComponent {
       formData.set('facility_id', this.facilityID);
       formData.set('month', this.months);
       formData.set('year', this.year);
+      formData.set('currency', this.unit);
     }
 
 

@@ -165,15 +165,15 @@
                                                       <input type="number" placeholder="Enter Waste Quantity"
                                                             name="waste_quantity" ngModel
                                                             class="form-control Dashboard-tab text-white"[disabled]="annualEntry"  [class.disabledC]="annualEntry" />
-                                                      <!-- <p-dropdown
+                                                      <p-dropdown
                                                                     class="ct_select_op_input ct_position_small_quantity "
-                                                                    ngModel [options]="wasteUnitsGrid" [disabled]="true"
-                                                                    optionLabel="units" optionValue="units"
-                                                                    name="wasteUnits" #wasteUnits="ngModel">
-                                                                </p-dropdown> -->
-                                                      <div class="ct_quantity_text">
+                                                                     [options]="wasteUnitsGrid" 
+                                                                    optionLabel="units" optionValue="units" [(ngModel)]="wasteUnitsSelected" [ngModelOptions]="{standalone: true}"
+                                                                    >
+                                                                </p-dropdown>
+                                                      <!-- <div class="ct_quantity_text">
                                                             <p>tonnes</p>
-                                                      </div>
+                                                      </div> -->
                                                 </div>
                                           </div>
                                     </div>

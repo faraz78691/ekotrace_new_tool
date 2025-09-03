@@ -47,6 +47,18 @@ export class WasteGeneratedComponent {
   monthsData: any[] = [];
   annualEntry = false;
   visible: boolean = false;
+  wasteUnitsSelected = 'tonnes';
+  wasteUnitsGrid = [
+    {
+      "id": 1,
+      "units": "kg"
+    },
+    {
+      "id": 2,
+      "units": "tonnes"
+    }
+  
+  ]
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.recycleMethod =
       [
@@ -120,7 +132,7 @@ export class WasteGeneratedComponent {
         formData.set('product', this.waterWasteProduct);
         formData.set('waste_type', this.wasteSubCategory);
         formData.set('method', this.wasteMethod);
-        formData.set('unit', 'tonnes');
+        formData.set('unit', this.wasteUnitsSelected);
         formData.set('waste_loop', this.recycleSelectedMethod);
         formData.set('id', this.waterWasteId.toString());
         formData.set('year', this.year);
@@ -130,7 +142,7 @@ export class WasteGeneratedComponent {
         formData.set('waste_type', this.wasteSubCategory);
 
         formData.set('method', this.wasteMethod);
-        formData.set('unit', 'tonnes');
+        formData.set('unit',  this.wasteUnitsSelected);
         formData.set('id', this.waterWasteId.toString());
         formData.set('year', this.year);
         formData.set('facility_id', this.facilityID.toString());
@@ -188,7 +200,7 @@ export class WasteGeneratedComponent {
         formData.set('waste_type', this.wasteSubCategory);
         formData.set('total_waste', form.value.waste_quantity);
         formData.set('method', this.wasteMethod);
-        formData.set('unit', 'tonnes');
+        formData.set('unit',  this.wasteUnitsSelected);
         formData.set('waste_loop', this.recycleSelectedMethod);
         formData.set('id', this.waterWasteId.toString());
         formData.set('months', this.months);
@@ -199,7 +211,7 @@ export class WasteGeneratedComponent {
         formData.set('waste_type', this.wasteSubCategory);
         formData.set('total_waste', form.value.waste_quantity);
         formData.set('method', this.wasteMethod);
-        formData.set('unit', 'tonnes');
+        formData.set('unit',  this.wasteUnitsSelected);
         formData.set('id', this.waterWasteId.toString());
         formData.set('months', this.months);
         formData.set('year', this.year);

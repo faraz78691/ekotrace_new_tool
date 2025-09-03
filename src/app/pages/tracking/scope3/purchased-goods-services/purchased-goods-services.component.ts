@@ -117,6 +117,7 @@ export class PurchasedGoodsServicesComponent {
   };
 
   ngOnInit(): void {
+
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
       let jsonObj = JSON.parse(userInfo); // string to "any" object first
@@ -524,8 +525,10 @@ export class PurchasedGoodsServicesComponent {
   onAnnualChange(event: any) {
     const selectedIndex = event.value;
     if (selectedIndex == '0') {
+      this.appService.sendData(false);
       this.annualMonths = false
     } else {
+      this.appService.sendData(true);
       this.annualMonths = true
     }
   }
@@ -1059,6 +1062,9 @@ export class PurchasedGoodsServicesComponent {
     if(this.rowsPurchased.length == 1) return
     this.rowsPurchased = this.rowsPurchased.filter(item => item.id !== row.id);
   }
+  ngOnDestroy(): void {
+    this.appService.sendData(false);
+}
 
 
 }
