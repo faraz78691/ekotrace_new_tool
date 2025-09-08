@@ -122,7 +122,6 @@
                                                 <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                       [(ngModel)]="row.return_flight"
                                                       [ngModelOptions]="{standalone: true}" [options]="annualEntry"
-                                                     
                                                       optionLabel="name" optionValue="name" placeholder="Select return"
                                                       appendTo="body">
                                                 </p-dropdown>
@@ -143,11 +142,13 @@
 
                                           </td>
                                           <td>
-                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
-                                                [options]="busineessGrid" optionLabel="cost_center_name"
-                                                [(ngModel)]="row.costCentre" [ngModelOptions]="{standalone: true}"
-                                                optionValue="cost_centre_name" appendTo="body">
-                                          </p-dropdown>
+
+                                                <p-dropdown *ngIf="busineessGrid"
+                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                      [options]="busineessGrid" optionLabel="cost_center_name"
+                                                      [(ngModel)]="row.costCentre" [ngModelOptions]="{standalone: true}"
+                                                      optionValue="cost_center_name" appendTo="body">
+                                                </p-dropdown>
 
                                           </td>
                                           <td>
@@ -243,7 +244,6 @@
                                                 <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                       [(ngModel)]="row.return_flight" name="annualEntry"
                                                       [ngModelOptions]="{standalone: true}" [options]="annualEntry"
-                                                  
                                                       optionLabel="name" optionValue="name" placeholder="Select return"
                                                       appendTo="body">
                                                 </p-dropdown>
@@ -266,10 +266,11 @@
 
                                           </td>
                                           <td>
-                                                <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
+                                                <p-dropdown *ngIf="busineessGrid"
+                                                      class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                       [options]="busineessGrid" optionLabel="cost_center_name"
                                                       [(ngModel)]="row.costCentre" [ngModelOptions]="{standalone: true}"
-                                                      optionValue="cost_centre_name" appendTo="body">
+                                                      optionValue="cost_center_name" appendTo="body">
                                                 </p-dropdown>
 
                                           </td>
