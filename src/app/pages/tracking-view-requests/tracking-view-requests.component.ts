@@ -702,7 +702,7 @@ export class TrackingViewRequestsComponent {
                 return [
                     { field: 'typeofpurchase', header: 'Category' },
                     { field: 'product_category_name', header: 'Product / Service' },
-                    { field: 'productCode', header: 'Code' },
+                    { field: 'productcodes', header: 'Code' },
                     { field: 'valuequantity', header: 'Quantity' },
                     { field: 'supplier', header: 'Vendor' },
                     { field: 'supplierspecificEF', header: 'Vendor EF' },
