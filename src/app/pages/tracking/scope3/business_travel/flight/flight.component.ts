@@ -11,6 +11,7 @@ import { DataEntry } from '@/models/DataEntry';
 import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { TreeviewItem } from '@treeview/ngx-treeview';
 import { ToastModule } from 'primeng/toast';
+import { LoginInfo } from '@/models/loginInfo';
 declare var $: any;
 @Component({
   selector: 'app-flight',
@@ -66,7 +67,13 @@ export class FlightComponent {
   uploadButton: boolean = false;
   months: string;
   flightTravelMode = 'Generic';
+  public loginInfo: LoginInfo;
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+    if (localStorage.getItem('LoginInfo') != null) {
+      let userInfo = localStorage.getItem('LoginInfo');
+      let jsonObj = JSON.parse(userInfo); // string to "any" object first
+      this.loginInfo = jsonObj as LoginInfo;
+    };
     this.flightsTravelTypes =
       [
 
@@ -129,7 +136,9 @@ export class FlightComponent {
         ]
       this.getFlightType();
       this.getPurchaseGoodsCurrency();
+   
     });
+    this.getCostCentre();
   };
 
   EntrySave(form: NgForm) {
@@ -147,6 +156,8 @@ export class FlightComponent {
     let formData = new FormData();
 
     if (form.value.flightMode == 'Generic') {
+      console.log(this.rowsFlightTravel);
+    
       const payloadsFlight = this.rowsFlightTravel.map(row => ({
 
         flight_type: row.flightType,
@@ -367,32 +378,6 @@ export class FlightComponent {
     })
   };
 
-  onProductStandardChange(event: any, row: any) {
-    // // console.log(event.value);
-    const selectedIndex = event.value;
-    this.getProductPurchaseItems(selectedIndex, row)
-    // this.getSubEmployeeCommuTypes(selectedIndex, row)
-  }
-
-  getProductPurchaseItems(standardType, row: any) {
-    let formData = new URLSearchParams();
-
-    formData.set('product_code_id', this.productHSNSelect);
-    formData.set('typeofpurchase', standardType);
-    formData.set('country_id', this.facilityCountryCode);
-    formData.set('year', this.year.getFullYear().toString());
-
-    this.appService.postAPI('/purchaseGoodsAllcategories', formData.toString()).subscribe({
-      next: (response: any) => {
-
-        if (response.success == true) {
-
-          // row.multiLevelItems = this.getTreeData();
-          row.multiLevelItems = response.categories.map(item => new TreeviewItem(item));
-        }
-      }
-    })
-  };
 
   addrowsFlightTravel() {
     this.rowsFlightTravel.push({
@@ -450,6 +435,26 @@ export class FlightComponent {
   deleteRow(row: any) {
     if (this.rowsFlightTravel.length == 1) return
     this.rowsFlightTravel = this.rowsFlightTravel.filter(item => item.id !== row.id);
+  }
+
+
+  getCostCentre() {
+    this.appService.getApi(`/getcostCenter/${this.loginInfo.super_admin_id}`)
+      .subscribe({
+        next: (response: any) => {
+          this.busineessGrid = response.categories;
+          // if (response?.success) {
+          //   this.busineessGrid
+          //   = response.categories;
+          // }
+        },
+        error: (err) => {
+          console.error('Error while fetching cost center >>>>', err);
+        },
+        complete: () => {
+          console.info('Cost centre fetch complete');
+        }
+      });
   }
 }
 

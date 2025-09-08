@@ -107,6 +107,7 @@ export class PurchasedGoodsServicesComponent {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
+      console.log("months", this.year);
       this.months = this.facilityService.monthSignal();
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
@@ -503,6 +504,20 @@ export class PurchasedGoodsServicesComponent {
     const selectedIndex = event.value;
     this.productHSNSelect = selectedIndex
     this.GetStandardType(this.productHSNSelect)
+    this.rowsPurchased = [{
+      id: 1,
+      multiLevelItems: [],
+      productService: null,
+      productType: null,
+      subVehicleCategory: [], 
+      months: '',
+      quantity: '',
+      selectedUnit: '',
+      vendorName: '',
+      vendorspecificEF: '',
+      vendorspecificEFUnit: `kgCO2e/${this.currency}` 
+    }];
+
     // this.getSubEmployeeCommuTypes(selectedIndex, row)
   }
 
@@ -723,13 +738,14 @@ export class PurchasedGoodsServicesComponent {
   }
 
   sendJSON(jsonData: any) {
+    
     const json = jsonData.filter((item: any) => item['Product Description'] !== '');
 
     const jsonDataString = JSON.stringify(json);
     const formData = new URLSearchParams();
     formData.append('product', jsonDataString);
     formData.append('country_code', this.facilityCountryCode);
-    formData.append('year', this.year.getFullYear().toString());
+    formData.append('year', this.year.toString());
 
     this.appService.postAPI('/get-purchase-categories-ef', (formData)).subscribe({
       next: (response: any) => {
@@ -772,6 +788,7 @@ export class PurchasedGoodsServicesComponent {
   };
 
   toggleEdit(index: number, id: any, productmatch: any, finder: any, selectedId: any) {
+    this.psg_product = null;
     this.matchedRowID = selectedId;
     this.getALlProducts();
 
@@ -911,7 +928,7 @@ export class PurchasedGoodsServicesComponent {
     })
   };
   onAllProductChange() {
-    console.log(this.psg_product);
+   
 
     this.newExcelData = this.newExcelData.map(item => {
       if (item['S. No.'] === this.productID) {

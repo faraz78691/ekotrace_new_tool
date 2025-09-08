@@ -208,8 +208,8 @@ this.GetAllSubGrups()
 
         } else {
           this.notification.showSuccess(
-            'No data found for tihs month',
-            'Success'
+            'No data found',
+            ''
           );
         }
         // // console.log( this.reportData );

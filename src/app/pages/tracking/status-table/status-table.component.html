@@ -53,6 +53,9 @@
             <ng-container [ngSwitch]="col.field">
 
               <!-- combineVehicle -->
+              <ng-container *ngSwitchCase="'productcodes'">
+                {{ row.product_code_name }} {{ row.productCode }}
+              </ng-container>
               <ng-container *ngSwitchCase="'combineVehicle'">
                 {{ row.category_name }} - {{ row.type }}
               </ng-container>

@@ -94,8 +94,8 @@
                     </label>
                     <p-dropdown
                         class="finput ct_res_100_767 ct_input_white_bg13 ct_w_150_select_345 ct_select_2_drop_white ct_input_dark_text_145"
-                        ngModel placeholder="Select" [options]="Show" optionLabel="Show" optionValue="Show"
-                        styleClass="facilitydropdown" #country="ngModel" required>
+                        ngModel placeholder="Select" [options]="Show" optionLabel="Show" optionValue="id" (onChange)="onShowChange($event)"
+                        styleClass="facilitydropdown" #country="ngModel" required (onChange)="onShowChange($event)">
                     </p-dropdown>
                 </div>
                 <div class="form-group d-flex align-items-center ct_gap_10 flex-wrap ct_res_100_767 mb-0">

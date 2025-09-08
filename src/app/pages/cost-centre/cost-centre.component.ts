@@ -92,10 +92,7 @@ ngOnInit() {
 
 
 GetCostCetnre() {
-  //   let formData = new URLSearchParams();
-
-  //   formData.set('tenant_id', tenantID.toString());
-
+  
   this.GroupService.getCostCentre(this.superAdminId).subscribe({
     next: (response) => {
 

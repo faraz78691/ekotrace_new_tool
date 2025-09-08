@@ -134,7 +134,7 @@ export class VendorDashboardComponent {
       if (response.success == true) {
         this.originalData = response.vendorWiseEmission;
          this.vendorData = this.calculateVendorEmissions('All');
-console.log(  this.vendorData );
+
         // this.vendorData = response.vendorWiseEmission;
         this.customVendorReport = response;
 
@@ -143,6 +143,21 @@ console.log(  this.vendorData );
 
     });
   };
+
+  onShowChange(event: any) {
+    this.vendorData = this.calculateVendorEmissions(this.selectedProduct);
+   
+    if(event.value == 1){
+      this.vendorData = this.vendorData.sort((a, b) => b.totalEmission - a.totalEmission).slice(0, 5);
+     
+    }
+    else if(event.value == 2){
+      this.vendorData = this.vendorData.sort((a, b) => b.totalEmission - a.totalEmission).slice(0, 10);
+    }
+    else if(event.value == 3){
+      this.vendorData = this.vendorData.sort((a, b) => b.totalEmission - a.totalEmission).slice(0, 15);
+    }
+  }
 
   calculateVendorEmissions(typesofpurchasename: string[] | 'All'): any[] {
     

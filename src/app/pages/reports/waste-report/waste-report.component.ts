@@ -394,7 +394,7 @@ export class WasteReportComponent {
 
         } else {
           this.notification.showSuccess(
-            'No data found for tihs month',
+            'No data found',
             'Success'
           );
         }

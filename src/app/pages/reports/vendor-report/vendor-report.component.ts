@@ -222,7 +222,7 @@ export class VendorReportComponent {
           this.reportData = res.vendorReport
         } else {
           this.notification.showSuccess(
-            'No data found for tihs month',
+            'No data found',
             'Success'
           );
         }

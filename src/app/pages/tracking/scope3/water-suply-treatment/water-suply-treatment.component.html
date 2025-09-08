@@ -152,7 +152,7 @@
                                                                               <th scope="col">Water withdrawl by source
                                                                               </th>
                                                                               <th scope="col">Value (%)</th>
-                                                                              <th scope="col" *ngIf="!annualEntry">Kl
+                                                                              <th scope="col" *ngIf="!annualEntry">Value
                                                                               </th>
                                                                         </tr>
                                                                   </thead>
@@ -167,14 +167,21 @@
 
                                                                                           <input type="number"
                                                                                                 class="form-control "
-                                                                                                name="surface_water"
-                                                                                                ngModel
+                                                                                                name="surface_water" [min]="0"
+                                                                                                [max]="100"
+                                                                                                required
+                                                                                                #surfaceWaterModel="ngModel"
+                                                                                         
+                                                                                                ngModel    [ngModel]="100"
                                                                                                 (input)="onInput($event,0)"
                                                                                                 placeholder="Enter required value">
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
+                                                                                    <span *ngIf="surfaceWaterModel.invalid && surfaceWaterModel.touched" class="text-danger">
+                                                                                          Value must be between 0 and 100
+                                                                                        </span>
                                                                               </td>
                                                                               <td *ngIf="!annualEntry"><input
                                                                                           type="number"
@@ -193,14 +200,20 @@
                                                                                           class="w-75">
                                                                                           <input type="number"
                                                                                                 class="form-control"
-                                                                                                name="groundwater"
-                                                                                                ngModel
+                                                                                                name="groundwater"  [min]="0"
+                                                                                                [max]="100"
+                                                                                                required
+                                                                                                #groundwaterModel="ngModel"
+                                                                                                ngModel  [ngModel]="0"
                                                                                                 (input)="onInput($event,1)"
                                                                                                 placeholder="Enter required value">
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
+                                                                                    <span *ngIf="groundwaterModel.invalid && groundwaterModel.touched" class="text-danger">
+                                                                                          Value must be between 0 and 100
+                                                                                        </span>
                                                                               </td>
                                                                               <td *ngIf="!annualEntry"><input
                                                                                           type="number"
@@ -218,14 +231,20 @@
                                                                                           class="w-75">
                                                                                           <input type="number"
                                                                                                 class="form-control"
-                                                                                                name="thirdParty"
-                                                                                                ngModel
+                                                                                                name="thirdParty"  [min]="0"
+                                                                                                [max]="100"
+                                                                                                required
+                                                                                                #thirdwaterModel="ngModel"
+                                                                                                ngModel  [ngModel]="0"
                                                                                                 (input)="onInput($event,2)"
                                                                                                 placeholder="Enter required value">
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
+                                                                                    <span *ngIf="thirdwaterModel.invalid && thirdwaterModel.touched" class="text-danger">
+                                                                                          Value must be between 0 and 100
+                                                                                        </span>
                                                                               </td>
                                                                               <td *ngIf="!annualEntry"><input
                                                                                           type="number"
@@ -242,14 +261,20 @@
                                                                                     <div style="position: relative;"
                                                                                           class="w-75">
                                                                                           <input type="number"
-                                                                                                class="form-control"
-                                                                                                name="seaWater" ngModel
+                                                                                                class="form-control"  [min]="0"
+                                                                                                [max]="100"
+                                                                                                required
+                                                                                                #seawaterModel="ngModel"
+                                                                                                name="seaWater" ngModel  [ngModel]="0"
                                                                                                 (input)="onInput($event,3)"
                                                                                                 placeholder="Enter required value">
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
+                                                                                    <span *ngIf="seawaterModel.invalid && seawaterModel.touched" class="text-danger">
+                                                                                          Value must be between 0 and 100
+                                                                                        </span>
 
                                                                               </td>
                                                                               <td *ngIf="!annualEntry"><input
@@ -266,14 +291,20 @@
                                                                                     <div style="position: relative;"
                                                                                           class="w-75">
                                                                                           <input type="number"
-                                                                                                class="form-control"
-                                                                                                name="others" ngModel
+                                                                                                class="form-control" [min]="0"
+                                                                                                [max]="100"
+                                                                                                required
+                                                                                                #otherwaterModel="ngModel"
+                                                                                                name="others" ngModel  [ngModel]="0"
                                                                                                 (input)="onInput($event,4)"
                                                                                                 placeholder="Enter required value">
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
                                                                                     </div>
+                                                                                    <span *ngIf="otherwaterModel.invalid && otherwaterModel.touched" class="text-danger">
+                                                                                          Value must be between 0 and 100
+                                                                                        </span>
 
                                                                               </td>
                                                                               <td *ngIf="!annualEntry"><input
@@ -312,7 +343,7 @@
                                                             <p-dropdown
                                                                   class="ct_select_op_input ct_position_small_quantity"
                                                                   [options]="waterSupplyUnitGrid" optionLabel="unitType"
-                                                                  optionValue="id" [(ngModel)]="waterSupplyUnit2"
+                                                                  optionValue="id" [(ngModel)]="waterSupplyUnit"
                                                                   [ngModelOptions]="{standalone: true}">
                                                             </p-dropdown>
                                                             <!-- <div class="ct_quantity_text">
@@ -406,7 +437,7 @@
 
                                                             <th scope="col">Water discharge by destination</th>
                                                             <th scope="col">Value (%)</th>
-                                                            <th scope="col" *ngIf="!annualEntry">Kl</th>
+                                                            <th scope="col" *ngIf="!annualEntry">Value</th>
                                                             <th scope="col">With treatment (%)</th>
                                                             <th scope="col" *ngIf="!annualEntry">Treated Value</th>
                                                             <th scope="col">Level of treatment</th>
@@ -420,12 +451,18 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;"
-                                                                              name="surface_water_dest" ngModel
-                                                                              (input)="onInputDischarge($event, 0)"
+                                                                              name="surface_water_dest" ngModel  [ngModel]="100"
+                                                                              (input)="onInputDischarge($event, 0)"  [min]="0"
+                                                                              [max]="100"
+                                                                              required
+                                                                              #surfaceWaterDestModel="ngModel"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
                                                                   </div>
+                                                                  <span *ngIf="surfaceWaterDestModel.invalid && surfaceWaterDestModel.touched" class="text-danger">
+                                                                        Value must be between 0 and 100
+                                                                      </span>
                                                             </td>
                                                             <td *ngIf="!annualEntry"><input type="number"
                                                                         class="form-control w-auto"
@@ -472,12 +509,18 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;"
-                                                                              name="groundwater_dest" ngModel
-                                                                              (input)="onInputDischarge($event, 1)"
+                                                                              name="groundwater_dest" ngModel  [ngModel]="0"
+                                                                              (input)="onInputDischarge($event, 1)" [min]="0"
+                                                                              [max]="100"
+                                                                              required
+                                                                              #groundWaterDestModel="ngModel"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
                                                                   </div>
+                                                                  <span *ngIf="groundWaterDestModel.invalid && groundWaterDestModel.touched" class="text-danger">
+                                                                        Value must be between 0 and 100
+                                                                      </span>
                                                             </td>
                                                             <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="groundwater_dest" ngModel
@@ -526,12 +569,18 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;"
-                                                                              name="thirdParty_dest" ngModel
-                                                                              (input)="onInputDischarge($event, 2)"
+                                                                              name="thirdParty_dest" ngModel  [ngModel]="0"
+                                                                              (input)="onInputDischarge($event, 2)" [min]="0"
+                                                                              [max]="100"
+                                                                              required
+                                                                              #thirdWaterDestModel="ngModel"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
                                                                   </div>
+                                                                  <span *ngIf="thirdWaterDestModel.invalid && thirdWaterDestModel.touched" class="text-danger">
+                                                                        Value must be between 0 and 100
+                                                                      </span>
                                                             </td>
                                                             <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="thirdParty_dest" ngModel
@@ -586,12 +635,18 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;" name="seaWater_dest"
-                                                                              ngModel
+                                                                              ngModel [ngModel]="0" [min]="0"
+                                                                              [max]="100"
+                                                                              required
+                                                                              #seaWaterDestModel="ngModel"
                                                                               (input)="onInputDischarge($event, 3)"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
                                                                   </div>
+                                                                  <span *ngIf="seaWaterDestModel.invalid && seaWaterDestModel.touched" class="text-danger">
+                                                                        Value must be between 0 and 100
+                                                                      </span>
                                                             </td>
                                                             <td *ngIf="!annualEntry"><input type="number"
                                                                         class="form-control w-auto"
@@ -638,12 +693,18 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;" name="others_dest"
-                                                                              ngModel
+                                                                              ngModel  [ngModel]="0" [min]="0"
+                                                                              [max]="100"
+                                                                              required
+                                                                              #othersWaterDestModel="ngModel"
                                                                               (input)="onInputDischarge($event, 4)"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
                                                                   </div>
+                                                                  <span *ngIf="othersWaterDestModel.invalid && othersWaterDestModel.touched" class="text-danger">
+                                                                        Value must be between 0 and 100
+                                                                      </span>
                                                             </td>
                                                             <!-- <td><input type="number" class="form-control w-auto"
                                                                         name="others_dest" ngModel

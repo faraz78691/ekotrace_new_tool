@@ -13,6 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { firstValueFrom } from 'rxjs';
+import { LoginInfo } from '@/models/loginInfo';
 
 @Component({
   selector: 'app-water-suply-treatment',
@@ -45,7 +46,8 @@ export class WaterSuplyTreatmentComponent {
   convertToKilo: any = [];
   dischargeToKilo: any = [];
   treatmentToKilo: any = [];
-  waterSupplyUnit2 = 1
+  waterSupplyUnit2 = 1;
+  loginInfo: LoginInfo = new LoginInfo();
   waterSupplyUnitGrid = 
     [
       {
@@ -58,6 +60,7 @@ export class WaterSuplyTreatmentComponent {
       }
     ]
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+
     this.monthsData = getMonthsData();
     this.waterUsageLevel =
       [{
@@ -86,6 +89,9 @@ export class WaterSuplyTreatmentComponent {
   };
 
   async EntrySave(form: NgForm) {
+    if(form.invalid){
+      return
+    }
     let formData = new URLSearchParams();
     if (this.waterSupplyUnit == 'kilo litres') {
       var allUnits = 1
@@ -93,6 +99,18 @@ export class WaterSuplyTreatmentComponent {
     if (this.waterSupplyUnit == 'cubic m') {
       var allUnits = 2
     }
+
+    const  totalWaterSupply = parseFloat(form.value.surface_water) +parseFloat(form.value.groundwater) + parseFloat(form.value.thirdParty) + parseFloat(form.value.seaWater) + parseFloat(form.value.others);
+    if(totalWaterSupply > 100){
+      this.notification.showWarning('Total sum of water withdrawal source cannot be greater than 100%', '');
+      return
+    };
+    const  totalWaterDischarge = parseFloat(form.value.surface_water_dest) +parseFloat(form.value.groundwater_dest) + parseFloat(form.value.seaWater_dest) + parseFloat(form.value.thirdParty_dest) + parseFloat(form.value.others_dest);
+    if(totalWaterDischarge > 100){
+      this.notification.showWarning('Total sum of water discharge destination cannot be greater than 100%', '');
+      return
+    };
+
     var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water || 0 };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater || 0  };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty || 0  };
@@ -122,7 +140,7 @@ export class WaterSuplyTreatmentComponent {
     var waterDischargeStringfy = JSON.stringify(dischargeWater);
 
     formData.set('water_supply_unit', this.waterSupplyUnit.toString());
-    formData.set('water_treatment_unit', this.waterSupplyUnit2.toString());
+    formData.set('water_treatment_unit', this.waterSupplyUnit.toString());
     formData.set('water_withdrawl', water_withdrawlStringfy);
     formData.set('water_discharge_only', water_DischargeonlyStringfy);
     formData.set('water_discharge', waterDischargeStringfy);
@@ -268,20 +286,11 @@ export class WaterSuplyTreatmentComponent {
       })
     }
 
-
-
-
-
-
-
-
-
-
-
-
     // this.appService.postAPI('/AddwatersupplytreatmentCategory', formData.toString()).subscribe({
 
   }
+
+
 
   onAnnualChange(event: any) {
     this.appService.sendData(event);

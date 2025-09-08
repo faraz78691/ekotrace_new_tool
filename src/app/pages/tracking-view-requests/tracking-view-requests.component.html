@@ -66,7 +66,23 @@
                                         <input class="ct_input_checkbox_1234" type="checkbox" [checked]="allSelected"
                                             (change)="toggleSelectAll($event)" />
                                     </th>
-                                    <th *ngFor="let col of columns">{{ col.header }}</th>
+                                    <ng-container *ngFor="let col of columns">
+
+                                        <!-- If this column is array -->
+                                        <ng-container *ngIf="col.isArray; else normalHeader">
+                                            <ng-container
+                                                *ngFor="let item of dataEntriesPending[0][col.field]; let i = index">
+                                                <th> {{ item.water_withdrawl || item.water_discharge }} (%) </th>
+                                                <th *ngIf="col.xtra"> {{ col.xtra }} </th>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <!-- Normal header -->
+                                        <ng-template #normalHeader>
+                                            <th> {{ col.header }} </th>
+                                        </ng-template>
+
+                                    </ng-container>
                                     <th>Year</th>
                                     <!-- <th>Month</th> -->
                                     <th>Status</th>
@@ -86,19 +102,35 @@
                                                       de.status === Pending
                                                   ">Sent for Approval</label>
                                     </td>
-                                    <td *ngFor="let col of columns">
-                                        <ng-container [ngSwitch]="col.field">
-                                            <ng-container *ngSwitchCase="'combineVehicle'">
-                                                {{ row.category_name }} - {{ row.type }}
-                                            </ng-container>
-                                            <ng-container *ngSwitchCase="'franchise_spaceLease'">
-                                                {{ row.franchise_space }} {{ row.unit }}
-                                            </ng-container>
-                                            <ng-container *ngSwitchDefault>
-                                                {{ row[col.field] }}
-                                            </ng-container>
-                                        </ng-container>
-                                    </td>
+                                    <!-- If it's an array -->
+                                     <ng-container  *ngFor="let col of columns">
+                                         <ng-container *ngIf="col.isArray; else normalCell">
+                                             <ng-container *ngFor="let item of row[col.field]; let i = index">
+                                                 <td>
+                                                     {{ item.kilolitres || item.withthtreatment }}
+                                                 </td>
+                                                 <td *ngIf="col.xtra"> {{item.treated_water }} </td>
+                                             </ng-container>
+                                         </ng-container>
+     
+                                         <ng-template #normalCell>
+                                             <td>
+                                                 <ng-container [ngSwitch]="col.field">
+                                                     <ng-container *ngSwitchCase="'combineVehicle'">
+                                                         {{ row.category_name }} - {{ row.type }}
+                                                     </ng-container>
+                                                     <ng-container *ngSwitchCase="'franchise_spaceLease'">
+                                                         {{ row.franchise_space }} {{ row.unit }}
+                                                     </ng-container>
+                                                     <ng-container *ngSwitchDefault>
+                                                         {{ row[col.field] }}
+                                                     </ng-container>
+                                                 </ng-container>
+                                             </td>
+                                         </ng-template>
+
+                                     </ng-container>
+
 
                                     <td>{{ row.year }}</td>
                                     <!-- <td>{{ row.month }}</td> -->
