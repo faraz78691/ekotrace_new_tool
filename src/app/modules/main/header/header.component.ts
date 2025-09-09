@@ -142,10 +142,10 @@ export class HeaderComponent implements OnInit {
         let jsonObj = JSON.parse(userInfo);
         this.loginInfo = jsonObj as LoginInfo;
         const tenantID = this.loginInfo.tenantID;
-     
+
         this.showFacility = false;
         this.showGroup = false;
-  
+
         if (tenantID) {
 
             if (baseUrl === '/finance_emissions') {
@@ -160,14 +160,14 @@ export class HeaderComponent implements OnInit {
 
                 this.GetFacilityGroupList(tenantID);
             } else if (baseUrl === '/tracking-view-requests') {
-             console.log("tracking-view-requests");
+                console.log("tracking-view-requests");
                 this.facilitysubgrouplist = [];
                 this.showFacility = true;
                 this.showGroup = false;
 
                 // this.GetFacilityGroupList(tenantID);
             };
-          
+
         }
     }
 
@@ -237,16 +237,16 @@ export class HeaderComponent implements OnInit {
                     this.facilitygrouplist = res;
                     const facilityID = sessionStorage.getItem('SelectedfacilityID');
                     this.selectedFacilityID = Number(facilityID);
-                  
+
                     if (facilityID) {
                         this.selectedFacilityID = Number(facilityID);
 
                     } else {
-                      
+
                         this.selectedFacilityID = Number(this.facilitygrouplist[0].id);
                         sessionStorage.setItem('SelectedfacilityID', this.selectedFacilityID);
                     }
-                 
+
                     this.facilityService.facilitySelected(this.selectedFacilityID);
                     this.facilityCountryCode = this.facilitygrouplist.find(item => item.id === this.selectedFacilityID)?.country_code;
                     this.facilityService.setFacilityCountryCode(this.facilityCountryCode);
@@ -254,7 +254,7 @@ export class HeaderComponent implements OnInit {
                 } else {
                     this.facilitygrouplist = [];
                 }
-                
+
             });
 
     };
@@ -280,6 +280,11 @@ export class HeaderComponent implements OnInit {
             });
     };
 
-
-
+    getRedirectLink() {
+        this.appService.getApi('/redirect-url').subscribe((res) => {
+            if (res.success) {
+                window.open(res.data[0].redirect_url, '_blank');
+            }
+        });
+    }
 }

@@ -38,36 +38,31 @@
                     </p> -->
                     <p class="mr-2 pt-1 pointer ct_filter_dropdown">
                         <ng-container *ngIf="showFacility && facilitygrouplist.length > 0">
-                            <p-dropdown
-                              class="et_header_drop_down_560"
-                              *ngIf="loginInfo.role !== 'Platform Admin'"
-                              [options]="facilitygrouplist"
-                              optionLabel="AssestType"
-                              optionValue="id"
-                              styleClass="headerFacility"
-                              [(ngModel)]="selectedFacilityID"
-                              [ngModelOptions]="{ standalone: true }"
-                              (onChange)="onFacilityChange()">
-                              
-                              <ng-template let-option pTemplate="item">
-                                <div class="d-flex justify-content-between">
-                                  <div>{{ option.AssestType }}</div>
-                                  <div class="d-flex justify-content-end pt-1 ml-1">
-                                    <i class="fa fa-user"></i>
-                                  </div>
-                                </div>
-                              </ng-template>
-                              
+                            <p-dropdown class="et_header_drop_down_560" *ngIf="loginInfo.role !== 'Platform Admin'"
+                                [options]="facilitygrouplist" optionLabel="AssestType" optionValue="id"
+                                styleClass="headerFacility" [(ngModel)]="selectedFacilityID"
+                                [ngModelOptions]="{ standalone: true }" (onChange)="onFacilityChange()">
+
+                                <ng-template let-option pTemplate="item">
+                                    <div class="d-flex justify-content-between">
+                                        <div>{{ option.AssestType }}</div>
+                                        <div class="d-flex justify-content-end pt-1 ml-1">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
                             </p-dropdown>
-                          </ng-container>
-                          
-                         
+                        </ng-container>
+
+
 
                         <ng-container *ngIf="showGroup">
-                            <p-dropdown class="et_header_drop_down_560" 
+                            <p-dropdown class="et_header_drop_down_560"
                                 *ngIf="loginInfo.role !== 'Platform Admin' && facilitysubgrouplist.length > 0"
                                 [options]="facilitysubgrouplist" optionLabel="name" optionValue="id"
-                                styleClass="headerFacility" [(ngModel)]="selectedGroupID" [ngModelOptions]="{standalone: true}" (ngModelChange)="onGroupChnage()">
+                                styleClass="headerFacility" [(ngModel)]="selectedGroupID"
+                                [ngModelOptions]="{standalone: true}" (ngModelChange)="onGroupChnage()">
                                 <ng-template let-option pTemplate="item">
                                     <div class="d-flex justify-content-between">
                                         <div>{{ option.name }}</div>
@@ -92,10 +87,9 @@
                         <i class="pi  pi-user pt-1 pl-1"></i>
                     </div> -->
 
-                    <a  href="https://carbontektool.gitbook.io/helpmanual" target="_blank"
-                        class="mx-3 pt-0 pointer d-flex headertextL">
- 
-                        
+                    <a (click)="getRedirectLink()" class="mx-3 pt-0 pointer d-flex headertextL">
+
+
                         <i class="fa fa-book" aria-hidden="true"></i></a>
 
                     <a (click)="logout()" class="mr-2 pt-0 pointer d-flex" [ngClass]="
