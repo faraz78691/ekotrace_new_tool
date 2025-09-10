@@ -100,9 +100,9 @@
 
                     <div class="d-flex align-items-center ct_gap_10 flex-wrap my-3 justify-content-between  ">
                         <div>
-                            <a [href]="vehicleType ==1 ? 'assets/VehicleFleet-passengervehicle.xlsx' : 'assets/VehicleFleet-deliveryVehicle.xlsx'"
+                            <a [href]="vehicleType ==1 ? passengerTemplate: deliveryTemplate"
                                 download class="px-4 trackingsubmitb ct_h_40"><i
-                                    class="fa-solid fa-download mr-2"></i>Vehicle upload template</a>
+                                    class="fa-solid fa-download mr-2"></i>Vehicle Fleet template</a>
                         </div>
                         <div class="d-flex ct_gap_10">
                             <div class=" ct_h_40 rounded">

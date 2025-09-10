@@ -48,6 +48,8 @@ export class VehicleFleetComponent {
   overRide = false;
   showSubmit1 = false;
   showSubmit2 = false;
+  deliveryTemplate: any;
+  passengerTemplate: any;
 
 
   constructor(
@@ -71,6 +73,21 @@ export class VehicleFleetComponent {
   };
 
   ngOnInit() {
+    if (localStorage.getItem('assets') != null) {
+      let userAssets = localStorage.getItem('assets');
+     
+      this.deliveryTemplate = JSON.parse(userAssets).vehiclefleet_deliveryvehicle
+      this.passengerTemplate = JSON.parse(userAssets).vehiclefleet_passengervehicle
+  
+  } else {
+      this.appService.getApi('/login_logo').subscribe((res) => {
+          this.deliveryTemplate = res.data[0].vehiclefleet_deliveryvehicle
+          this.passengerTemplate = res.data[0].vehiclefleet_passengervehicle
+          const jsonAssets = JSON.stringify(res.data[0]);
+          localStorage.setItem('assets', jsonAssets);
+
+      })
+  }
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
       let jsonObj = JSON.parse(userInfo); // string to "any" object first

@@ -39,6 +39,7 @@ export class FireEntinguisherComponent {
   visible: Boolean = false
   annualEntry = false;
   monthsData: any[] = [];
+  fireTempalte: any
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.templateLinks = 'assets/FireExtinguisher_Template.xlsx'
     this.monthsData = getMonthsData();
@@ -52,6 +53,21 @@ export class FireEntinguisherComponent {
 
       }
     });
+  };
+  ngOnInit() { 
+    if (localStorage.getItem('assets') != null) {
+      let userAssets = localStorage.getItem('assets');
+     
+      this.fireTempalte = JSON.parse(userAssets).fireextinguisher_template
+  
+  } else {
+      this.appService.getApi('/login_logo').subscribe((res) => {
+          this.fireTempalte = res.data[0].fireextinguisher_template
+          const jsonAssets = JSON.stringify(res.data[0]);
+          localStorage.setItem('assets', jsonAssets);
+
+      })
+  }
   };
 
 

@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
     public forgotpassword: ForgotPassword;
     forgotData: ForgotPassword = new ForgotPassword();
-
+logoUrl: any;
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
@@ -54,6 +54,18 @@ adding a CSS class to the root element, setting up the form, and checking if a u
 the given email exists.
 */
     ngOnInit(): void {
+        if (localStorage.getItem('assets') != null) {
+            let userAssets = localStorage.getItem('assets');
+            this.logoUrl = JSON.parse(userAssets).login_logo
+         
+        } else {
+            this.appService.getApi('/login_logo').subscribe((res) => {
+                this.logoUrl = res.data[0].login_logo
+                const jsonAssets = JSON.stringify(res.data[0]);
+                localStorage.setItem('assets', jsonAssets);
+
+            })
+        }
         this.route.queryParams.subscribe((params) => {
             this.email = params.email;
         });

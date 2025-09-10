@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
     public lang = 'en';
     public type!: 'image' | 'audio';
     public invalidLogin: boolean = false;
+    logoUrl: string = '';
+    dashboardUrl: string = '';
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
@@ -81,6 +83,7 @@ export class LoginComponent implements OnInit {
             this.loginInfo = jsonObj as LoginInfo;
             this.getTenantsDetailById(Number(this.loginInfo.tenantID));
         }
+        this.getLogo()
     }
     //get tenant details by id
     getTenantsDetailById(id: number) {
@@ -263,5 +266,16 @@ export class LoginComponent implements OnInit {
 
                 }
             });
+    };
+    getLogo() {
+      
+        this.appService.getApi('/login_logo').subscribe((res) => {
+            this.logoUrl = res.data[0].login_logo;
+            const jsonAssets = JSON.stringify(res.data[0]);
+            localStorage.setItem('assets', jsonAssets);
+          
+        })
+            
+          
     };
 }

@@ -40,6 +40,7 @@ export class RefrigerantsComponent {
   visible: Boolean = false
   annualEntry = false;
   monthsData: any[] = [];
+  refregerantTempalte = ''
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
     this.monthsData = getMonthsData();
     this.templateLinks = 'assets/Refrigerant_Template.xlsx'
@@ -58,9 +59,23 @@ export class RefrigerantsComponent {
 
   ngOnInit(): void {
     this.getsubCategoryType(this.subCategoryID);
+    if (localStorage.getItem('assets') != null) {
+      let userAssets = localStorage.getItem('assets');
+     
+      this.refregerantTempalte = JSON.parse(userAssets).refrigerant_template
+  
+  } else {
+      this.appService.getApi('/login_logo').subscribe((res) => {
+          this.refregerantTempalte = res.data[0].refrigerant_template
+          const jsonAssets = JSON.stringify(res.data[0]);
+          localStorage.setItem('assets', jsonAssets);
+
+      })
+  }
     // this.getUnit(this.subCategoryID);
   }
   async EntrySave(dataEntryForm: NgForm) {
+
     if (dataEntryForm.valid || this.annualEntry) {
       this.isSubmitting = true;
       let formData = new FormData();

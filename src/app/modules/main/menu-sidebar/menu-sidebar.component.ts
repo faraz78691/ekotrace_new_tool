@@ -35,6 +35,7 @@ export class MenuSidebarComponent implements OnInit {
     public brsrdata: BRSR_Doc;
     isBRSRDoc: boolean;
     haveMainGroup = 2;
+    dashboardLogoUrl: string = '';
 
 
     constructor(
@@ -54,6 +55,21 @@ export class MenuSidebarComponent implements OnInit {
     }
 
     ngOnInit() {
+     
+        if (localStorage.getItem('assets') != null) {
+            let userAssets = localStorage.getItem('assets');
+            console.log(userAssets);
+            this.dashboardLogoUrl = JSON.parse(userAssets).dashboard_logo
+            console.log(this.dashboardLogoUrl);
+        } else {
+            this.appService.getApi('/login_logo').subscribe((res) => {
+                this.dashboardLogoUrl = res.data.dashboard_logo
+                const jsonAssets = JSON.stringify(res.data[0]);
+                localStorage.setItem('assets', jsonAssets);
+
+            })
+        }
+
         this.loginInfo = new LoginInfo();
         if (localStorage.getItem('LoginInfo') != null) {
             let userInfo = localStorage.getItem('LoginInfo');
@@ -84,14 +100,14 @@ export class MenuSidebarComponent implements OnInit {
                                 ?.items || [];
                     }
                     else {
-                       
+
                         this.isBRSRDoc = false;
                         if (this.loginInfo.role == 'Platform Admin') {
                             this.menu =
-                            menu.find((item) => item.role === this.loginInfo.role && item.haveMainGorup == this.haveMainGroup)
-                                ?.items || [];
-                        }else{
-                        
+                                menu.find((item) => item.role === this.loginInfo.role && item.haveMainGorup == this.haveMainGroup)
+                                    ?.items || [];
+                        } else {
+
                             this.menu =
                                 menu.find((item) => item.role === this.loginInfo.role && item.package_name == this.loginInfo.package_name && item.haveMainGorup == this.haveMainGroup)
                                     ?.items || [];
@@ -109,7 +125,7 @@ export class MenuSidebarComponent implements OnInit {
         });
         this.user = this.appService.user;
 
-       
+
     }
 
     handleActiveClass() {
@@ -132,7 +148,7 @@ export class MenuSidebarComponent implements OnInit {
                 .toPromise();
 
             this.companyDetails = response;
-           
+
             const currentDate = new Date();
             const licenseExpiredDate = new Date(
                 this.companyDetails.licenseExpired
@@ -167,10 +183,10 @@ export class MenuSidebarComponent implements OnInit {
         this.facilityService.getSubGroupsByTenantId(formData.toString()).subscribe((result: any) => {
 
             if (result.success == true) {
-                if(result.categories.length > 0){
+                if (result.categories.length > 0) {
                     // this.haveMainGroup = result.categories[0].is_subgroup;
                     // console.log(this.haveMainGroup);
-                  
+
                 }
 
 
@@ -294,7 +310,7 @@ export const menu = [
                 iconSRC: 'assets/img/trees.png',
                 path: ['tracking']
             },
-          
+
             {
                 name: 'Financed Emissions',
                 iconClasses: 'fas fa-table',
@@ -797,7 +813,7 @@ export const menu = [
                 iconSRC: 'assets/img/dashboard.svg',
                 path: ['dashboard']
             },
-            
+
             // {
             //     name: 'Financed E. Dashboard',
             //     iconClasses: 'fas fa-table',
