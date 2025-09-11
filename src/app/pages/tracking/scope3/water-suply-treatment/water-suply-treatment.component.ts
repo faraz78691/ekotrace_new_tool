@@ -111,7 +111,7 @@ export class WaterSuplyTreatmentComponent {
       return
     };
 
-    var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water || 0 };
+    var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water || 100 };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater || 0  };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty || 0  };
     var waterobj4 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater || 0  };
@@ -121,7 +121,7 @@ export class WaterSuplyTreatmentComponent {
     var water_withdrawlStringfy = JSON.stringify(typoOfOffice);
 
 
-    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water_dest || 0 };
+    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water_dest || 100 };
     var waterDischargeonlyobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater_dest || 0 };
     var waterDischargeonlyobj3 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater_dest || 0 };
     var waterDischargeonlyobj4 = { "type": "Third party water", "kilolitres": form.value.thirdParty_dest || 0 };
@@ -255,7 +255,10 @@ export class WaterSuplyTreatmentComponent {
             for (let i = 0; i < this.treatmentToKilo.length; i++) {
               this.treatmentToKilo[i] = null;
             }
-            this.dataEntryForm.reset();
+            this.dataEntryForm.reset({
+              surface_water_dest: 100,
+              surface_water: 100
+            });
      
 
           } else {
