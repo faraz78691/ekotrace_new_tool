@@ -310,7 +310,7 @@ export class VendorDashboardComponent {
     const currentYear = new Date().getFullYear();
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedFacility);
-    formData.set('year', currentYear.toString())
+    formData.set('year', this.endDate.getFullYear().toString())
     this.facilityService.getEmissionProducts(formData).subscribe((response: any) => {
       if (response.success == true) {
         this.productsSeries = response.emissions.map(items => items.Product);

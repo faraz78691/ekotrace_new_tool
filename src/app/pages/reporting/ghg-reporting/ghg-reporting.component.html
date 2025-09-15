@@ -354,10 +354,11 @@
                                     <tr>
                                         <td>GHG emissions</td>
                                         <td>
-                                            Scope 1: {{this.scopeEmissons?.Scope1[0].total_emission }} tCO2e<br>
-                                            Scope 2: {{this.scopeEmissons?.Scope2[0].total_emission }} tCO2e
+                                            Scope 1: {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.2-2' }} tCO2e
                                             <br>
-                                            Scope 3: {{this.scopeEmissons?.Scope3[0].total_emission }} tCO2e
+                                            Scope 2: {{this.scopeEmissons?.Scope2[0].total_emission | number : '1.2-2'  }} tCO2e
+                                            <br>
+                                            Scope 3: {{this.scopeEmissons?.Scope3[0].total_emission | number : '1.2-2' }} tCO2e
                                         </td>
                                     </tr>
                                     <tr>
@@ -441,21 +442,20 @@
                                         <tr>
                                             <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
                                                 {{item[0].facility_name}}</td>
-                                            <td class="text-center">{{item[0].base_year_annual}}</td>
-                                            <td class="text-center">{{item[0].current_year_annual}}</td>
-                                            <td class="text-center">{{item[0].base_year_annual ?
-                                                (item[0].current_year_annual - item[0].base_year_annual)
-                                                /item[0].base_year_annual *100 : '-'}}</td>
-                                            <td class="text-center">{{item[1]?.base_year_annual}}</td>
-                                            <td class="text-center">{{item[1]?.current_year_annual}}</td>
+                                            <td class="text-center">{{item[0].base_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[0].base_year_annual ?((item[0].current_year_annual - item[0].base_year_annual)
+                                                /item[0].base_year_annual *100  | number : '1.4-4' )  : '-'}}</td>
+                                            <td class="text-center">{{item[1]?.base_year_annual | number : '1.4-4' }}</td>
+                                            <td class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}</td>
                                             <td class="text-center">{{item[1]?.base_year_annual ?
-                                                (item[1].current_year_annual - item[1].base_year_annual)
-                                                /item[1].base_year_annual *100 : '-'}}</td>
-                                            <td class="text-center">{{item[2]?.base_year_annual}}</td>
-                                            <td class="text-center">{{item[2]?.current_year_annual}}</td>
+                                                ((item[1].current_year_annual - item[1].base_year_annual)
+                                                /item[1].base_year_annual *100 | number : '1.4-4' ) : '-'}}</td>
+                                            <td class="text-center">{{item[2]?.base_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}</td>
                                             <td class="text-center">{{item[2]?.base_year_annual ?
-                                                (item[2].current_year_annual - item[2].base_year_annual)
-                                                /item[2].base_year_annual *100 : '-'}}</td>
+                                                ((item[2].current_year_annual - item[2].base_year_annual)
+                                                /item[2].base_year_annual *100  | number : '1.4-4') : '-'}}</td>
                                         </tr>
 
                                     </ng-container>
@@ -486,13 +486,13 @@
                                             <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
                                                 {{item[0].facility_name}}</td>
 
-                                            <td colspan="3" class="text-center">{{item[0].current_year_annual}}</td>
+                                            <td colspan="3" class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}</td>
 
 
-                                            <td colspan="3" class="text-center">{{item[1]?.current_year_annual}}</td>
+                                            <td colspan="3" class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}</td>
 
 
-                                            <td colspan="3" class="text-center">{{item[2]?.current_year_annual}}</td>
+                                            <td colspan="3" class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}</td>
 
                                         </tr>
 
@@ -547,16 +547,16 @@
                                 length > 0">
                                     <tr>
                                         <td class="category" rowspan="3">Fuels</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName}}</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission}}</td>
+                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName || '-'}}</td>
+                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission | number : '1.4-4'}}</td>
                                     </tr>
                                     <tr>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[1]?.TypeName}}</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission}}</td>
+                                        <td>{{scope1Emissions?.CombustionEmissionData[1]?.TypeName || '-'}}</td>
+                                        <td>{{(scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission | number : '1.4-4') || '-'  }}</td>
                                     </tr>
                                     <tr>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[2]?.TypeName}}</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission}}</td>
+                                        <td>{{scope1Emissions?.CombustionEmissionData[2]?.TypeName || '-'}}</td>
+                                        <td>{{(scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission | number : '1.4-4') || '-'}}</td>
                                     </tr>
 
                                 </ng-container>
@@ -564,7 +564,7 @@
                                 <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
                                 length == 0">
                                     <tr>
-                                        <td class="category" rowspan="3">Fuels</td>
+                                        <td class="category">Fuels</td>
                                         <td>-</td>
                                         <td>-</td>
                                     </tr>
@@ -577,44 +577,44 @@
                                     <td>{{scope1Emissions?.RefrigerantEmissionData ?
                                         scope1Emissions?.RefrigerantEmissionData.TypeName : '-'}}</td>
                                     <td>{{scope1Emissions?.RefrigerantEmissionData ?
-                                        scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission : '-'}}</td>
+                                        (scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <td class="category">Fire extinguisher</td>
                                     <td>CO₂ type</td>
                                     <td>{{scope1Emissions?.ExtinguisherEmissionData ?
-                                        scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission : '-'}}</td>
+                                        (scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <td class="category">Company owned vehicles</td>
                                     <td>Passenger vehicle (Diesel)</td>
                                     <td>{{scope1Emissions?.DieselPassengerData ?
-                                        scope1Emissions?.DieselPassengerData.Total_GHGEmission : '-'}}</td>
+                                       ( scope1Emissions?.DieselPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Passenger vehicle (Petrol)</td>
                                     <td>{{scope1Emissions?.PetrolPassengerData ?
-                                        scope1Emissions?.PetrolPassengerData.Total_GHGEmission : '-'}}</td>
+                                        (scope1Emissions?.PetrolPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Delivery vehicle (Diesel)</td>
                                     <td>{{scope1Emissions?.DieselDeliveryData ?
-                                        scope1Emissions?.DieselDeliveryData.Total_GHGEmission : '-'}}</td>
+                                        (scope1Emissions?.DieselDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Delivery vehicle (Other)</td>
                                     <td>{{scope1Emissions?.otherDeliveryData ?
-                                        scope1Emissions?.otherDeliveryData.Total_GHGEmission : '-'}}</td>
+                                        (scope1Emissions?.otherDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="ct_dark_green_bg mt-3">
                         <p class="mb-0 et_fw_700">Total scope 1 emissions =
-                            {{this.scopeEmissons?.Scope1[0].total_emission }} tCO₂e</p>
+                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.4-4' }} tCO₂e</p>
                     </div>
 
                 </div>
@@ -672,14 +672,14 @@
                             <tbody>
                                 <tr>
                                     <td>Electricity from grid</td>
-                                    <td>{{scope2Emissions?.electricity.totalGHGEmission}}</td>
+                                    <td>{{scope2Emissions?.electricity.totalGHGEmission | number : '1.4-4'}}</td>
                                 </tr>
                                 <tr>
                                     <td rowspan="2" class="category">Renewable energy</td>
-                                    <td>Solar - {{scope2Emissions?.recSolar.totalGHGEmission}}</td>
+                                    <td>Solar - {{scope2Emissions?.recSolar.totalGHGEmission | number : '1.4-4'}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Wind - {{scope2Emissions?.recWind.totalGHGEmission}}</td>
+                                    <td>Wind - {{scope2Emissions?.recWind.totalGHGEmission | number : '1.4-4'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -696,7 +696,7 @@
                         </div>
                     </div>
                     <div class="ct_dark_green_bg mt-5">
-                        <p class="mb-0 et_fw_700">Total scope 2 emissions = {{scope2Emissions?.total}} tCO₂e
+                        <p class="mb-0 et_fw_700">Total scope 2 emissions = {{scope2Emissions?.total | number : '1.4-4'}} tCO₂e
                         </p>
                     </div>
                 </div>
@@ -750,7 +750,7 @@
                             <tbody>
                                 <tr *ngFor="let item of scope3Data?.slice(0, 5)">
                                     <td>{{item.category}}</td>
-                                    <td>{{item.emission}}</td>
+                                    <td>{{item.emission | number : '1.4-4'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -761,7 +761,7 @@
                     <div class=" position-relative">
                         <div class="ct_dark_green_bg mt-5 et_verticle_badge">
                             <p class="mb-0 et_fw_700">Total scope 3 emissions =
-                                {{scopeEmissons?.Scope3[0].total_emission}} tCO₂e
+                                {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
 
                             </p>
                         </div>
@@ -776,7 +776,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of scope3Data?.slice(5, 10)">
                                         <td>{{item.category}}</td>
-                                        <td>{{item.emission}}</td>
+                                        <td>{{item.emission | number : '1.4-4'}}</td>
                                     </tr>
 
                                 </tbody>
@@ -823,7 +823,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase1">
                                         <td>{{item.product}}</td>
-                                        <td>{{item.total_emission}}</td>
+                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
                                     </tr>
 
                                 </tbody>
@@ -862,7 +862,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase2">
                                         <td>{{item.product}}</td>
-                                        <td>{{item.total_emission}}</td>
+                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -898,7 +898,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase3">
                                         <td>{{item.product}}</td>
-                                        <td>{{item.total_emission}}</td>
+                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -948,7 +948,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of businesTravelData.modeOfTransportRespose">
                                         <td>{{item.mode_of_trasport}}</td>
-                                        <td>{{item.total_emission}}</td>
+                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
                                     </tr>
 
                                 </tbody>
@@ -985,7 +985,7 @@
                             <tbody>
                                 <tr *ngFor="let item of businesTravelData?.data">
                                     <td>{{item.flight_Type}}</td>
-                                    <td>{{item.total_emission}}</td>
+                                    <td>{{item.total_emission | number : '1.4-4'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1014,7 +1014,7 @@
                             <tbody>
                                 <tr *ngFor="let item of businesTravelData?.hotelStayResponse">
                                     <td>{{item.type_of_hotel}}</td>
-                                    <td>{{item.total_emission}}</td>
+                                    <td>{{item.total_emission | number : '1.4-4'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1048,7 +1048,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of employeeData?.data">
                                         <td>{{item.type}}</td>
-                                        <td>{{item.subtotal_total_emission}}</td>
+                                        <td>{{item.subtotal_total_emission | number : '1.4-4'}}</td>
                                     </tr>
 
 
@@ -1059,7 +1059,7 @@
                         </div>
                         <div class="ct_dark_green_bg mt-3">
                             <p class="mb-0 et_fw_700">Total emissions from employee commute =
-                                {{employeeData?.total_emission}} tCO₂e
+                                {{employeeData?.total_emission | number : '1.4-4'}} tCO₂e
                             </p>
                         </div>
                     </div>
@@ -1238,9 +1238,9 @@
                             <tbody>
                                 <tr *ngFor="let item of noofEmployeeData">
                                     <td class="text-center">{{item.year}}</td>
-                                    <td class="text-center">{{item.total_emission}}</td>
+                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
                                     <td class="text-center">{{item.total_employees}}</td>
-                                    <td class="text-center">{{item.total_per_employee_emission}}</td>
+                                    <td class="text-center">{{item.total_per_employee_emission | number : '1.4-4'}}</td>
                                 </tr>
 
 
@@ -1301,8 +1301,8 @@
                                 <ng-container *ngFor="let items of ghgIntensity; let i = index">
                                     <tr>
                                         <td class="text-center">{{items.category}}</td>
-                                        <td class="text-center">{{items.emission}}</td>
-                                        <td class="text-center">{{ghgRevenue[i].emission}}</td>
+                                        <td class="text-center">{{items.emission | number : '1.4-4'}}</td>
+                                        <td class="text-center">{{ghgRevenue[i].emission | number : '1.4-4'}}</td>
                                         <td class="text-center">{{ghgRevenue[i].emission ? (items.emission /
                                             ghgRevenue[i].emission | number :'1.2-2') : '-'}}
                                         </td>
@@ -1377,7 +1377,7 @@
                                 <tr *ngFor="let item of wasteDate?.waste_type">
                                     <td class="text-center">{{item.product}}
                                     </td>
-                                    <td class="text-center">{{item.total_emission}}</td>
+                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
 
                                 </tr>
 
@@ -1438,7 +1438,7 @@
                                     <td class="text-center">{{item.method}}
 
                                     </td>
-                                    <td class="text-center">{{item.total_emission}}</td>
+                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
 
                                 </tr>
 
@@ -1500,7 +1500,7 @@
                                         <td class="text-center">Reuse
 
                                         </td>
-                                        <td class="text-center">{{item.total_emission}}</td>
+                                        <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
 
                                     </tr>
 
@@ -1512,7 +1512,7 @@
 
                                     </td>
                                     <td class="text-center">{{wasteDate?.open_recycling.length > 0 ?
-                                        wasteDate?.open_recycling[0]?.total_emission : 0}}</td>
+                                         (wasteDate?.open_recycling[0]?.total_emission | number : '1.4-4') : 0}}</td>
 
                                 </tr>
                                 <tr>
@@ -1522,7 +1522,7 @@
 
                                     </td>
                                     <td class="text-center">{{wasteDate?.close_recycling.length > 0 ?
-                                        wasteDate?.close_recycling[0]?.total_emission : 0}}</td>
+                                        (wasteDate?.close_recycling[0]?.total_emission | number : '1.4-4') : 0}}</td>
 
                                 </tr>
                                 <ng-container *ngFor="let item of wasteDate?.method_type">
@@ -1531,7 +1531,7 @@
                                         <td class="text-center">Composting
 
                                         </td>
-                                        <td class="text-center">{{item.total_emission}}</td>
+                                        <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
 
                                     </tr>
 
@@ -1598,31 +1598,31 @@
                                 <tr>
                                     <td style="vertical-align: top;" rowspan="6">GHG emissions</td>
                                     <td style="vertical-align: top;">Scope 1:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope1[0].total_emission}} tCO₂e
+                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Scope 2:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope2[0].total_emission}} tCO₂e
+                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Scope 3:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope3[0].total_emission}} tCO₂e
+                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Business Travel</td>
-                                    <td style="vertical-align: top;">{{businessTravelTotal?.emission}} tCO₂e</td>
+                                    <td style="vertical-align: top;">{{businessTravelTotal?.emission | number : '1.4-4'}} tCO₂e</td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Employee Commute</td>
-                                    <td style="vertical-align: top;">{{employeeTotal?.emission}} tCO₂e</td>
+                                    <td style="vertical-align: top;">{{employeeTotal?.emission | number : '1.4-4'}} tCO₂e</td>
                                 </tr>
                                 <ng-container *ngFor="let item of noofEmployeeData">
                                     <tr *ngIf="item.year == currentYear">
                                         <td style="vertical-align: top;">GHG emission per employee:</td>
-                                        <td style="vertical-align: top;">{{item.total_per_employee_emission}} tCO₂e</td>
+                                        <td style="vertical-align: top;">{{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e</td>
                                     </tr>
 
                                 </ng-container>
@@ -1634,19 +1634,19 @@
                                     <td style="vertical-align: top;" rowspan="3">Waste</td>
                                     <td style="vertical-align: top;">Total waste generated:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.waste_emissions ==0 ? '-' :
-                                        this.scopeEmissons?.waste_emissions}} {{this.scopeEmissons?.waste_emissions ==0
+                                        this.scopeEmissons?.waste_emissions | number : '1.4-4'}} {{this.scopeEmissons?.waste_emissions ==0
                                         ? '' : 'tonnes'}}</td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Total waste disposal:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.waste_disposed ==0 ? '-' :
-                                        this.scopeEmissons?.waste_disposed}} {{this.scopeEmissons?.waste_disposed ==0 ?
+                                        this.scopeEmissons?.waste_disposed }} {{this.scopeEmissons?.waste_disposed ==0 ?
                                         '' : 'tonnes'}}</td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Total waste diverted:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0 ? '-' :
-                                        this.scopeEmissons?.diverted_emssion}} {{this.scopeEmissons?.diverted_emssion
+                                        this.scopeEmissons?.diverted_emssion | number : '1.4-4'}} {{this.scopeEmissons?.diverted_emssion
                                         ==0 ? '' : 'tonnes'}}</td>
                                 </tr>
 

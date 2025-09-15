@@ -6,12 +6,12 @@
             </div>
             <h3>Water Supply Report</h3>
         </div>
-        <!-- <div class="d-flex gap-3 align-items-center">
+        <div class="d-flex gap-3 align-items-center">
             <p-dropdown  class="ct_grop_select_2_drop_white123 ct_group_select_dark_124 mx-4" required
-            ngModel placeholder="select" [options]="reportType"
-            [(ngModel)]="selectReportType" optionLabel="value" optionValue="value"
+            ngModel  [options]="reportType"
+            [(ngModel)]="selectReportType" optionLabel="name" optionValue="value"
             name="group" #group="ngModel"></p-dropdown>
-        </div> -->
+        </div>
      
     </div>
 
@@ -171,82 +171,62 @@
                                 <tr [pEditableRow]="de">
 
                                     <td> Water Withdrawn</td>
-                                    <td>  {{ de.water_withdrawl[0].totalwaterwithdrawl +
-                                        de.water_withdrawl[1].totalwaterwithdrawl +
-                                        de.water_withdrawl[2].totalwaterwithdrawl +
-                                        de.water_withdrawl[3].totalwaterwithdrawl +
-                                        de.water_withdrawl[4].totalwaterwithdrawl | number:'1.2-2' }}</td>
-                                    <td>{{ de.water_withdrawl[0].totalwaterwithdrawl}}</td>
-                                    <td> {{ de.water_withdrawl[1].totalwaterwithdrawl}}</td>
-                                    <td> {{ de.water_withdrawl[2].totalwaterwithdrawl}}</td>
-                                    <td > {{ de.water_withdrawl[3].totalwaterwithdrawl}}</td>
-                                    <td > {{ de.water_withdrawl[4].totalwaterwithdrawl}}</td>
-                                    <td > -</td>
-                                    <td >{{ de.water_withdrawl[0].month}}</td>
-                                    <td > {{ de.water_withdrawl[0].year}}</td>
+                                    <td>  {{ de.waterWithdrawal[0].Total | number:'1.2-2' }}</td>
+                                    <td>{{ de.waterWithdrawal[0]['Surface water']}}</td>
+                                    <td> {{ de.waterWithdrawal[0]['Ground water']}}</td>
+                                    <td> {{ de.waterWithdrawal[0]['Third party']}}</td>
+                                    <td > {{ de.waterWithdrawal[0]['Sea water']}}</td>
+                                    <td > {{ de.waterWithdrawal[0]['Others']}}</td>
+                                    <td > {{ de.waterWithdrawal[0]['unit']}}</td>
+                                    <td >{{ de.month}}</td>
+                                    <td > {{ de.year}}</td>
                                 </tr>
                                 <tr [pEditableRow]="de">
                                     <td> Water Discharged</td>
-                                    <td>  {{ de.water_discharge[0].treatper +
-                                        de.water_discharge[1].treatper +
-                                        de.water_discharge[2].treatper +
-                                        de.water_discharge[3].treatper +
-                                        de.water_discharge[4].treatper | number:'1.2-2' }}</td>
-                                    <td>{{ de.water_discharge[0].treatper}}</td>
-                                    <td> {{ de.water_discharge[1].treatper}}</td>
-                                    <td> {{ de.water_discharge[2].treatper}}</td>
-                                    <td > {{ de.water_discharge[3].treatper}}</td>
-                                    <td > {{ de.water_discharge[4].treatper}}</td>
-                                    <td > -</td>
-                                    <td >{{ de.water_discharge[0].month}}</td>
-                                    <td > {{ de.water_discharge[0].year}}</td>
+                                    <td>  {{ de.waterDischargeOnly[0].Total | number:'1.2-2' }}</td>
+                                    <td>{{ de.waterDischargeOnly[0]['Surface water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Ground water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Third party']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Sea water']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Others']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['unit']}}</td>
+                                    <td >{{ de.month}}</td>
+                                    <td > {{ de.year}}</td>
                                 </tr>
                                 <tr [pEditableRow]="de">
                                     <td>Primary</td>
-                                    <td>  {{ de.water_treated[0]['Into Ground water'] +
-                                        de.water_treated[0]['Into Seawater']  +
-                                        de.water_treated[0]['Send to third-parties']  +
-                                        de.water_treated[0]['Into Surface water']  +
-                                        de.water_treated[0]['Others'] | number:'1.2-2' }}</td>
-                                    <td>{{ de.water_treated[0]['Into Surface water']}}</td>
-                                    <td>{{ de.water_treated[0]['Into Ground water']}}</td>
-                                    <td> {{ de.water_treated[0]['Send to third-parties']}}</td>
-                                    <td >{{ de.water_treated[0]['Into Seawater']}}</td>
-                                    <td > {{ de.water_treated[0]['Others']}}</td>
-                                    <td > -</td>
+                                    <td>  {{ de.waterDischargeOnly[0].Total | number:'1.2-2' }}</td>
+                                    <td>{{ de.waterDischargeOnly[0]['Surface water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Ground water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Third party']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Sea water']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Others']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['unit']}}</td>
                                     <td >{{ de.water_treated[0].month}}</td>
                                     <td > {{ de.water_treated[0].year}}</td>
                                 </tr>
                                 <tr [pEditableRow]="de">
                                     <td>Secondary</td>
-                                    <td>  {{ de.water_treated[1]['Into Ground water'] +
-                                        de.water_treated[1]['Into Seawater']  +
-                                        de.water_treated[1]['Send to third-parties']  +
-                                        de.water_treated[1]['Into Surface water']  +
-                                        de.water_treated[1]['Others'] | number:'1.2-2' }}</td>
-                                    <td>{{ de.water_treated[1]['Into Surface water']}}</td>
-                                    <td>{{ de.water_treated[1]['Into Ground water']}}</td>
-                                    <td> {{ de.water_treated[1]['Send to third-parties']}}</td>
-                                    <td >{{ de.water_treated[1]['Into Seawater']}}</td>
-                                    <td > {{ de.water_treated[1]['Others']}}</td>
-                                    <td > -</td>
+                                    <td>  {{ de.waterDischargeOnly[0].Total | number:'1.2-2' }}</td>
+                                    <td>{{ de.waterDischargeOnly[0]['Surface water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Ground water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Third party']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Sea water']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Others']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['unit']}}</td>
                                     <td >{{ de.water_treated[1].month}}</td>
                                     <td > {{ de.water_treated[1].year}}</td>
                                 </tr>
                 
                                 <tr [pEditableRow]="de">
                                     <td>Tertiary</td>
-                                    <td>  {{ de.water_treated[2]['Into Ground water'] +
-                                        de.water_treated[2]['Into Seawater']  +
-                                        de.water_treated[2]['Send to third-parties']  +
-                                        de.water_treated[2]['Into Surface water']  +
-                                        de.water_treated[2]['Others'] | number:'1.2-2' }}</td>
-                                    <td>{{ de.water_treated[2]['Into Surface water']}}</td>
-                                    <td>{{ de.water_treated[2]['Into Ground water']}}</td>
-                                    <td> {{ de.water_treated[2]['Send to third-parties']}}</td>
-                                    <td >{{ de.water_treated[2]['Into Seawater']}}</td>
-                                    <td > {{ de.water_treated[2]['Others']}}</td>
-                                    <td > -</td>
+                                    <td>  {{ de.waterDischargeOnly[0].Total | number:'1.2-2' }}</td>
+                                    <td>{{ de.waterDischargeOnly[0]['Surface water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Ground water']}}</td>
+                                    <td> {{ de.waterDischargeOnly[0]['Third party']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Sea water']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['Others']}}</td>
+                                    <td > {{ de.waterDischargeOnly[0]['unit']}}</td>
                                     <td >{{ de.water_treated[2].month}}</td>
                                     <td > {{ de.water_treated[2].year}}</td>
                                 </tr>

@@ -416,6 +416,7 @@ export class GhgReportingComponent {
     return this._appService.postAPI('/ghgBussinessTravelServices', formData).pipe(
       tap((response: any) => {
         this.businesTravelData = response;
+        console.log(this.businesTravelData);
 
         this.hotelPieOptions = this.businesTravelData.hotelStayResponse?.length > 0
           ? this.getPieCharOptions(

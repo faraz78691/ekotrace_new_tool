@@ -91,8 +91,8 @@ export class WaterSupplyComponent {
         { name: 'Dec', value: 'Dec' }
     ];
     reportType: any[] = [
-        { name: '1', value: 'Monthly' },
-        { name: '2', value: 'Consolidated' },
+        { name: 'Monthly', value: 'monthly' },
+        { name: 'Consolidated', value: 'consolidated' },
 
     ];
     @ViewChild('calendarRef') calendarRef!: Calendar;
@@ -289,13 +289,13 @@ export class WaterSupplyComponent {
     newgenerateReport() {
         const startYear = this.startYear.getFullYear().toString();
         const endYear = this.endYear.getFullYear().toString();
-        let url = ''
+        let  url = 'waterReport'
         const reportFormData = new URLSearchParams();
-        if (this.selectReportType == 'Monthly') {
-            url = 'waterReport'
-        } else {
-            url = 'waterReportConsolidated'
-        }
+        // if (this.selectReportType == 'Monthly') {
+        //     url = 'waterReport'
+        // } else {
+        //     url = 'waterReportConsolidated'
+        // }
         let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
 
 
@@ -304,25 +304,26 @@ export class WaterSupplyComponent {
         reportFormData.set('end_year', endYear)
         reportFormData.set('start_month', this.startMonth.value)
         reportFormData.set('end_month', this.endMonth.value)
+        reportFormData.set('data_type', this.selectReportType)
 
         this.facilityService.gerReport(url, reportFormData.toString()).subscribe({
             next: res => {
-              
-                if (res.waterWithdrawal.length > 0) {
-                    const waterWithDrwal = res.waterWithdrawal;
-                    const waterDischarge = res.waterDischargeOnly;
-                    const waterTreated = res.waterDischarge;
+                this.reportData = res.finalResponse;
+                // if (res.waterWithdrawal.length > 0) {
+                //     const waterWithDrwal = res.waterWithdrawal;
+                //     const waterDischarge = res.waterDischargeOnly;
+                //     const waterTreated = res.waterDischarge;
 
-                    const groupedWaterData = this.groupDataByMonth(waterWithDrwal, waterDischarge,waterTreated);
+                //     const groupedWaterData = this.groupDataByMonth(waterWithDrwal, waterDischarge,waterTreated);
                   
-                    this.reportData = groupedWaterData;
+                //     this.reportData = res.finalResponse;
 
-                } else {
-                    this.notification.showSuccess(
-                        'No data found',
-                        'Success'
-                    );
-                }
+                // } else {
+                //     this.notification.showSuccess(
+                //         'No data found',
+                //         'Success'
+                //     );
+                // }
                 // // console.log( this.reportData );
 
             }
