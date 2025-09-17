@@ -1254,7 +1254,7 @@
                         <div id="chart" *ngIf="employeeLineGraphOptions">
                             <apx-chart [series]="employeeLineGraphOptions.series"
                                 [chart]="employeeLineGraphOptions.chart" [xaxis]="employeeLineGraphOptions.xaxis"
-                                [dataLabels]="employeeLineGraphOptions.dataLabels"
+                                [dataLabels]="employeeLineGraphOptions.dataLabels" [yaxis]="employeeLineGraphOptions.yaxis"
                                 [grid]="employeeLineGraphOptions.grid" [stroke]="employeeLineGraphOptions.stroke"
                                 [title]="employeeLineGraphOptions.title"></apx-chart>
                         </div>
@@ -1321,7 +1321,7 @@
                             <apx-chart [series]="ghgIntensityLineOptions.series" [chart]="ghgIntensityLineOptions.chart"
                                 [xaxis]="ghgIntensityLineOptions.xaxis"
                                 [dataLabels]="ghgIntensityLineOptions.dataLabels" [grid]="ghgIntensityLineOptions.grid"
-                                [stroke]="ghgIntensityLineOptions.stroke"
+                                [stroke]="ghgIntensityLineOptions.stroke" [yaxis]="ghgIntensityLineOptions.yaxis"
                                 [title]="ghgIntensityLineOptions.title"></apx-chart>
                         </div>
                     </div>
@@ -1464,8 +1464,7 @@
             </div>
             <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is managed through
                 {{sustainableWaste > nonsustainableWaste ? 'more sustainable methods' : 'less sustainable methods' }}
-                {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' : 'highlighting
-                the need for improved waste management strategies'}} to further reduce environmental impact.
+                {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' : 'highlighting the need for improved waste management strategies'}} to further reduce environmental impact.
 
 
             </p>
@@ -1661,7 +1660,7 @@
                             <div id="chart" *ngIf="yearWiseLineOptions">
                                 <apx-chart [series]="yearWiseLineOptions.series" [chart]="yearWiseLineOptions.chart"
                                     [xaxis]="yearWiseLineOptions.xaxis" [dataLabels]="yearWiseLineOptions.dataLabels"
-                                    [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke"
+                                    [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke" [yaxis]="yearWiseLineOptions.yaxis"
                                     [title]="yearWiseLineOptions.title"></apx-chart>
                             </div>
                         </div>
@@ -1675,9 +1674,7 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{baseYearGhg > currentYearGhg ? 'steady decline' :
                     baseYearGhg == currentYearGhg ? 'stable trend' : 'increase'}} in GHG emissions from the
                     {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg == currentYearGhg ?
-                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg >
-                    currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total
-                    increase of '}} {{percentageIncDec}} by {{reportingYear.getFullYear()}}.
+                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}} {{percentageIncDec}} by {{reportingYear.getFullYear()}}.
 
 
                 </p>

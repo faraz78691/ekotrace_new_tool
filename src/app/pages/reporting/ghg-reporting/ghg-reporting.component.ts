@@ -10,6 +10,8 @@ import jsPDF from 'jspdf';
 import { forkJoin, tap } from 'rxjs';
 import { NotificationService } from '@services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { style } from '@angular/animations';
+
 export type ChartOptions2 = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
@@ -500,8 +502,8 @@ export class GhgReportingComponent {
           return (!isFinite(result) || isNaN(result)) ? 0 : Number(result.toFixed(2));
         });
 
-        console.log(this.intensitySeries);
-        this.ghgIntensityLineOptions = this.getLineChartOptions(this.intensitySeries, intensityLabel);
+      
+        this.ghgIntensityLineOptions = this.getLineChartOptions(this.intensitySeries, intensityLabel,'tCO2e / mn','Economic Intensity');
       })
     );
   }
@@ -523,10 +525,11 @@ export class GhgReportingComponent {
           .reduce((sum: number, item: any) => sum + Number(item.total_emission), 0);
 
 
-        let series = this.wasteDate?.method_type.map((item: any) => {
-          if (item.method === 'reuse' || item.method === 'composting') return Number(item.total_emission);
-          return 0;
-        }) || [];
+        
+          let series = this.wasteDate?.method_type
+          .filter((item: any) => item.method === 'reuse' || item.method === 'composting')
+          .map((item: any) => Number(item.total_emission)) || [];
+        
 
         series = [
           ...series,
@@ -545,6 +548,7 @@ export class GhgReportingComponent {
           this.wasteDate.method_type.map(items => Number(items.total_emission)),
           this.wasteDate.method_type.map(items => items.method)
         );
+        // console.log(series, labels);
 
         this.wasteMixChartOptions = this.getPieCharOptions(series, labels);
       })
@@ -627,7 +631,16 @@ export class GhgReportingComponent {
             opacity: 1
           },
           yaxis: {
+            title: {
+              text:'tCO2e',
+              style: {
+                fontSize: '14px',
+                fontWeight: 'bold',
+                color: '#333'
+              }
+            },
             labels: {
+            
               style: {
                 fontSize: '13px'
               }
@@ -698,7 +711,7 @@ export class GhgReportingComponent {
         let series = this.noofEmployeeData.map((item: any) => item.total_per_employee_emission);
         let labels = this.noofEmployeeData.map((item: any) => item.year);
 
-        this.employeeLineGraphOptions = this.getLineChartOptions(series, labels);
+        this.employeeLineGraphOptions = this.getLineChartOptions(series, labels,'tCO₂e', 'Emission tonnes per employee');
       })
     );
   }
@@ -753,8 +766,14 @@ export class GhgReportingComponent {
           },
           yaxis: {
             title: {
-              text: "Emissions (tonne CO2e)"
+              text: "Emissions (tonnes CO2e)",
+              style: {
+                fontSize: '14px',
+                fontWeight: 'bold',
+                color: '#333'
+              }
             }
+          
           },
           fill: {
             opacity: 1
@@ -793,10 +812,10 @@ export class GhgReportingComponent {
             }
           }
           // this.rangeScopeLineOptions = this.getLineChartOptions(response.emission, response.year);
-          this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category));
+          this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category),'tCO2e','GHG Emissions');
           
         }
-console.log(response);
+
       })
     );
   }
@@ -868,50 +887,58 @@ console.log(response);
 
   getPieCharOptions(seriesValues: number[], categories: string[]) {
     return {
-      dataLabels: {
-        enabled: false
-      },
-
       series: seriesValues,
       chart: {
-        // width: 380,
         width: '470',
         height: '370',
         type: 'pie',
       },
+      labels: categories,
       legend: {
         show: true,
         position: 'bottom',
         offsetY: 0,
-        fontSize: "10px"
+        fontSize: "11px",
+        labels: {
+          colors: '#000'   // 👈 legend labels black
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        style: {
+          colors: ['#000'],   // 👈 % inside pie black
+          fontSize: '12px',
+          fontWeight: 'bold'
+        },
+        dropShadow: {
+          enabled: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            offset: -10,
+            minAngleToShowLabel: 5
+          }
+        }
+      },
+      tooltip: {
+        theme: "light",   // 👈 makes tooltip background white and text black
+        style: {
+          fontSize: '12px',
+          color: '#000'   // 👈 tooltip text color
+        }
       },
       colors: [
-        "#AED6F1", // Light Blue  
-        "#A3E4D7", // Soft Teal  
-        "#F9E79F", // Light Yellow  
-        "#F5B7B1", // Light Pink  
-        "#D7BDE2", // Light Purple  
-        "#A2D9CE", // Mint Green  
-        "#FAD7A0", // Soft Orange  
-        "#85C1E9", // Sky Blue  
-        "#D5F5E3", // Pastel Green  
-        "#FDEBD0", // Peach  
-        "#C5E1A5", // Light Green  
-        "#FFCCBC"  // Light Coral  
-      ],
-      labels: categories,
-      // responsive: [{
-      //   breakpoint: 480,
-      //   options: {
-      //     chart: {
-      //       width: 200
-      //     },
-      //   }
-      // }]
+        "#AED6F1", "#A3E4D7", "#F9E79F", "#F5B7B1",
+        "#D7BDE2", "#A2D9CE", "#FAD7A0", "#85C1E9",
+        "#D5F5E3", "#FDEBD0", "#C5E1A5", "#FFCCBC"
+      ]
     };
   }
+  
 
-  getLineChartOptions(seriesValues: number[], categories: string[]) {
+  getLineChartOptions(seriesValues: number[], categories: string[],ytext?:string, xtext?:string) {
     return {
       series: [
         {
@@ -941,7 +968,7 @@ console.log(response);
       xaxis: {
         categories: categories,
         title: {
-
+        text: xtext,
           style: {
             fontSize: '14px',
             fontWeight: 'bold',
@@ -951,14 +978,14 @@ console.log(response);
       },
       yaxis: {
         title: {
-          text: "Emissions (kg CO2)", // Y-axis label
+          text: ytext,
           style: {
             fontSize: '14px',
             fontWeight: 'bold',
             color: '#333'
           }
         }
-      }
+      },
     };
   }
 

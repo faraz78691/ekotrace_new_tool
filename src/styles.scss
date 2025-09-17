@@ -2848,3 +2848,14 @@ th{
 }
 
 
+.apexcharts-tooltip {
+    color: #000 !important;        /* text inside tooltip */
+    background: #fff !important;   /* background white */
+    border: 1px solid #ccc !important;  /* optional: light border */
+  }
+  
+  .apexcharts-tooltip-title {
+    color: #000 !important;        /* title text */
+    background: #f8f8f8 !important; /* title background */
+  }
+ 

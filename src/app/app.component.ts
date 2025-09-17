@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FacilityService } from '@services/facility.service';
 import { LoginInfo } from './models/loginInfo';
+import { AppService } from '@services/app.service';
+import { ApiService } from '@services/api.service';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +14,7 @@ export class AppComponent {
 
     facilitysubgrouplist: any[] = [];
     loginInfo: any;
-    constructor(private facilityService: FacilityService) {
+    constructor(private facilityService: FacilityService, private appService: ApiService, private apiService: AppService) {
         if (localStorage.getItem('LoginInfo') != null) {
             let userInfo = localStorage.getItem('LoginInfo');
             let jsonObj = JSON.parse(userInfo);
@@ -22,7 +24,25 @@ export class AppComponent {
             this.GetSubGroupList(tenantID)
         }
 
-    }
+    };
+
+    ngOnInit() {
+        // if (localStorage.getItem('assets') != null) {
+        //     let userAssets = localStorage.getItem('assets');
+        //     console.log(userAssets);
+        //    const favIcon = JSON.parse(userAssets).fav_icon;
+        //    this.appService.updateFavicon(favIcon);
+          
+        // } else {
+        //     this.apiService.getApi('/login_logo').subscribe((res) => {
+        //        const favIcon= res.data.fav_icon;
+        //         this.appService.updateFavicon(favIcon);
+        //         const jsonAssets = JSON.stringify(res.data[0]);
+        //         localStorage.setItem('assets', jsonAssets);
+
+        //     })
+        // }
+     }
 
     GetSubGroupList(tenantID) {
         this.facilitysubgrouplist = []

@@ -361,12 +361,12 @@ export const menu = [
                 iconSRC: 'assets/img/BRSR.svg',
                 path: ['GhgReporting']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -499,12 +499,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -727,12 +727,12 @@ export const menu = [
                 iconSRC: 'assets/img/BRSR.svg',
                 path: ['GhgReporting']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -853,12 +853,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -1082,12 +1082,12 @@ export const menu = [
                 iconSRC: 'assets/img/BRSR.svg',
                 path: ['GhgReporting']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -1238,12 +1238,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -1369,12 +1369,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             // {
             //     head: 'Target Setting',
             //     name: 'Set Emission Inventory',
@@ -1723,12 +1723,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -1841,12 +1841,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             // {
             //     head: 'Target Setting',
             //     name: 'Set Emission Inventory',
@@ -2065,12 +2065,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             {
                 head: 'Target Setting',
                 name: 'Set Emission Inventory',
@@ -2183,12 +2183,12 @@ export const menu = [
                 iconSRC: 'assets/img/report_icon.svg',
                 path: ['report']
             },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
-            },
+            // {
+            //     name: 'BRSR',
+            //     iconClasses: 'fas fa-table',
+            //     iconSRC: 'assets/img/BRSR.svg',
+            //     path: ['brsrReport']
+            // },
             // {
             //     head: 'Target Setting',
             //     name: 'Set Emission Inventory',

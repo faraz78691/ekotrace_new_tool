@@ -137,7 +137,7 @@
                     <div class="ct_supplier_emission mb-4">
                         <h4 class="ct_fs_24 ct_fw_600">Supplier Emissions by Product
                         </h4>
-                        <div id="By_employee_location" *ngIf="pieChart2">
+                        <div id="By_employee_location" *ngIf="pieChart2" style="width:100%; max-width:600px; margin:auto;">
                             <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
                                 [legend]="pieChart2.legend" [responsive]="pieChart2.responsive"
                                 [colors]="pieChart2.colors"></apx-chart>

@@ -318,34 +318,61 @@ export class VendorDashboardComponent {
         this.pieChart2 = {
           series: this.productsEmission,
           chart: {
-            width: "300px",
-            height: "500",
             type: "donut",
-
+            height: 500,       // bigger height
+            width: "100%",     // responsive width
           },
           legend: {
             position: "bottom",
-            fontSize: '15px',
-            floating: false,
-            horizontalAlign: 'left',
-
+            fontSize: '14px',
+            horizontalAlign: 'center',
           },
           labels: this.productsSeries,
-          colors: ['#246377', '#009087', '#002828', '#F9C74F', '#F9C74F'],
+          colors: ['#246377', '#009087', '#002828', '#F9C74F', '#F9844A'], // changed last for better contrast
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "65%",   // control donut hole size
+              }
+            }
+          },
           responsive: [
+            {
+              breakpoint: 1200,
+              options: {
+                chart: {
+                  height: 350
+                },
+                legend: {
+                  fontSize: '13px'
+                }
+              }
+            },
+            {
+              breakpoint: 768,
+              options: {
+                chart: {
+                  height: 300
+                },
+                legend: {
+                  fontSize: '12px'
+                }
+              }
+            },
             {
               breakpoint: 480,
               options: {
                 chart: {
-                  width: 300
+                  height: 250
                 },
                 legend: {
-                  position: "bottom"
+                  fontSize: '11px'
                 }
               }
             }
           ]
         };
+        
       } else {
         this.pieChart2 = undefined
       }
