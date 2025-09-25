@@ -83,7 +83,8 @@
                         <div class="selectyear mx-0">
                             <p-calendar placeholder="Select Year" #calendarRef
                                 class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
-                                [(ngModel)]="reportingYear" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                                [(ngModel)]="reportingYear" view="year" dateFormat="yy"
+                                inputId="yearpicker"></p-calendar>
 
 
                         </div>
@@ -110,7 +111,7 @@
                                 </p-multiSelect>
                             </div>
                         </ng-container>
-    
+
                     </div>
 
 
@@ -178,8 +179,8 @@
                                 style="justify-items: center;max-width:500px; width: 100%;"
                                 src="assets/img/Carbontek.png" alt=""> -->
                             <img style="object-fit: contain;"
-                                style="justify-items: center;max-width:200px; width: 100%;"
-                                [src]="dashboardLogoUrl" alt="">
+                                style="justify-items: center;max-width:200px; width: 100%;" [src]="dashboardLogoUrl"
+                                alt="">
                         </div>
                         <hr class="et_hr_line_green mb-3" />
                         <p class="et_text_595959 et_fw_500 et_fs_18">Year {{reportingYear.getFullYear()}}
@@ -296,7 +297,8 @@
                         and net-zero alignment.
                     </p>
                     <div class="text-center mt-2">
-                        <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in {{reportingYear.getFullYear()}}
+                        <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in
+                            {{reportingYear.getFullYear()}}
                         </small>
 
 
@@ -347,23 +349,26 @@
                             <table class="styled-table ct_dark_table_head">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">Key findings</th>
+                                        <th [attr.colspan]="baseYear && baseYearGhg > 0 ? 3 : 2">Key findings</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>GHG emissions</td>
-                                        <td>
-                                            Scope 1: {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.2-2' }} tCO2e
+                                        <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 2">
+                                            Scope 1:
+                                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.2-2' }} tCO2e
                                             <br>
-                                            Scope 2: {{this.scopeEmissons?.Scope2[0].total_emission | number : '1.2-2'  }} tCO2e
+                                            Scope 2:
+                                            {{this.scopeEmissons?.Scope2[0].total_emission | number : '1.2-2'  }} tCO2e
                                             <br>
-                                            Scope 3: {{this.scopeEmissons?.Scope3[0].total_emission | number : '1.2-2' }} tCO2e
+                                            Scope 3:
+                                            {{this.scopeEmissons?.Scope3[0].total_emission | number : '1.2-2' }} tCO2e
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Waste </td>
-                                        <td>
+                                        <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 1">
                                             Emission Generated: {{this.scopeEmissons?.waste_emissions ==0 ? '-' :
                                             this.scopeEmissons?.waste_emissions}} T
                                             <br>
@@ -441,18 +446,24 @@
                                     <ng-container *ngFor="let item of kpiData">
                                         <tr>
                                             <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
-                                                {{item[0].facility_name}}</td>
+                                                {{item[0].facility_name}}
+                                            </td>
                                             <td class="text-center">{{item[0].base_year_annual | number : '1.4-4'}}</td>
-                                            <td class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}
+                                            </td>
                                             <td class="text-center">{{item[0].base_year_annual ?((item[0].current_year_annual - item[0].base_year_annual)
                                                 /item[0].base_year_annual *100  | number : '1.4-4' )  : '-'}}</td>
-                                            <td class="text-center">{{item[1]?.base_year_annual | number : '1.4-4' }}</td>
-                                            <td class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[1]?.base_year_annual | number : '1.4-4' }}
+                                            </td>
+                                            <td class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}
+                                            </td>
                                             <td class="text-center">{{item[1]?.base_year_annual ?
                                                 ((item[1].current_year_annual - item[1].base_year_annual)
                                                 /item[1].base_year_annual *100 | number : '1.4-4' ) : '-'}}</td>
-                                            <td class="text-center">{{item[2]?.base_year_annual | number : '1.4-4'}}</td>
-                                            <td class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item[2]?.base_year_annual | number : '1.4-4'}}
+                                            </td>
+                                            <td class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}
+                                            </td>
                                             <td class="text-center">{{item[2]?.base_year_annual ?
                                                 ((item[2].current_year_annual - item[2].base_year_annual)
                                                 /item[2].base_year_annual *100  | number : '1.4-4') : '-'}}</td>
@@ -484,15 +495,22 @@
                                     <ng-container *ngFor="let item of kpiData">
                                         <tr>
                                             <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
-                                                {{item[0].facility_name}}</td>
+                                                {{item[0].facility_name}}
+                                            </td>
 
-                                            <td colspan="3" class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}</td>
+                                            <td colspan="3" class="text-center">
+                                                {{item[0].current_year_annual | number : '1.4-4'}}
+                                            </td>
 
 
-                                            <td colspan="3" class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}</td>
+                                            <td colspan="3" class="text-center">
+                                                {{item[1]?.current_year_annual | number : '1.4-4'}}
+                                            </td>
 
 
-                                            <td colspan="3" class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}</td>
+                                            <td colspan="3" class="text-center">
+                                                {{item[2]?.current_year_annual | number : '1.4-4'}}
+                                            </td>
 
                                         </tr>
 
@@ -504,7 +522,8 @@
                             <p *ngIf="baseYear" class="ct_fs_14 mt-3 text-end et_fw_700">Base year:
                                 {{baseYear.getFullYear()}}<br>Reporting
                                 year:
-                                {{reportingYear.getFullYear()}}</p>
+                                {{reportingYear.getFullYear()}}
+                            </p>
 
                         </div>
 
@@ -548,15 +567,18 @@
                                     <tr>
                                         <td class="category" rowspan="3">Fuels</td>
                                         <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName || '-'}}</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission | number : '1.4-4'}}</td>
+                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission | number : '1.4-4'}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>{{scope1Emissions?.CombustionEmissionData[1]?.TypeName || '-'}}</td>
-                                        <td>{{(scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission | number : '1.4-4') || '-'  }}</td>
+                                        <td>{{(scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission | number : '1.4-4') || '-'  }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>{{scope1Emissions?.CombustionEmissionData[2]?.TypeName || '-'}}</td>
-                                        <td>{{(scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission | number : '1.4-4') || '-'}}</td>
+                                        <td>{{(scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission | number : '1.4-4') || '-'}}
+                                        </td>
                                     </tr>
 
                                 </ng-container>
@@ -577,44 +599,51 @@
                                     <td>{{scope1Emissions?.RefrigerantEmissionData ?
                                         scope1Emissions?.RefrigerantEmissionData.TypeName : '-'}}</td>
                                     <td>{{scope1Emissions?.RefrigerantEmissionData ?
-                                        (scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                        (scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="category">Fire extinguisher</td>
                                     <td>CO₂ type</td>
                                     <td>{{scope1Emissions?.ExtinguisherEmissionData ?
-                                        (scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                        (scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="category">Company owned vehicles</td>
                                     <td>Passenger vehicle (Diesel)</td>
                                     <td>{{scope1Emissions?.DieselPassengerData ?
-                                       ( scope1Emissions?.DieselPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                       ( scope1Emissions?.DieselPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Passenger vehicle (Petrol)</td>
                                     <td>{{scope1Emissions?.PetrolPassengerData ?
-                                        (scope1Emissions?.PetrolPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                        (scope1Emissions?.PetrolPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Delivery vehicle (Diesel)</td>
                                     <td>{{scope1Emissions?.DieselDeliveryData ?
-                                        (scope1Emissions?.DieselDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                        (scope1Emissions?.DieselDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>Delivery vehicle (Other)</td>
                                     <td>{{scope1Emissions?.otherDeliveryData ?
-                                        (scope1Emissions?.otherDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}</td>
+                                        (scope1Emissions?.otherDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="ct_dark_green_bg mt-3">
                         <p class="mb-0 et_fw_700">Total scope 1 emissions =
-                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.4-4' }} tCO₂e</p>
+                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.4-4' }} tCO₂e
+                        </p>
                     </div>
 
                 </div>
@@ -696,7 +725,8 @@
                         </div>
                     </div>
                     <div class="ct_dark_green_bg mt-5">
-                        <p class="mb-0 et_fw_700">Total scope 2 emissions = {{scope2Emissions?.total | number : '1.4-4'}} tCO₂e
+                        <p class="mb-0 et_fw_700">Total scope 2 emissions =
+                            {{scope2Emissions?.total | number : '1.4-4'}} tCO₂e
                         </p>
                     </div>
                 </div>
@@ -836,7 +866,7 @@
                     </ng-container>
                 </div>
                 <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital Goods 
+                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital Goods
                     </small>
                     <ng-container *ngIf="servicesPieOptions">
                         <div class="text-center">
@@ -1144,7 +1174,8 @@
 
         <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
         <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR {{reportingYear.getFullYear()}}
+            <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR
+                {{reportingYear.getFullYear()}}
 
             </h2>
 
@@ -1183,7 +1214,8 @@
 
         <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
         <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM {{baseYear.getFullYear()}}-{{reportingYear.getFullYear()}}
+            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM
+                {{baseYear.getFullYear()}}-{{reportingYear.getFullYear()}}
             </h2>
 
             <hr class="et_hr_line_green mb-3 mt-2" />
@@ -1201,8 +1233,10 @@
                         </div>
                     </div>
 
-                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a {{baseYear.getFullYear() > reportingYear.getFullYear() ?
-                        'consistent reduction' : baseYear.getFullYear() == reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in emissions
+                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a
+                        {{baseYear.getFullYear() > reportingYear.getFullYear() ?
+                        'consistent reduction' : baseYear.getFullYear() == reportingYear.getFullYear() ? 'stable trend' : 'increase'}}
+                        in emissions
                         across all
                         scopes from {{baseYear.getFullYear()}} to
                         {{reportingYear.getFullYear()}}, reflecting {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear.getFullYear()
@@ -1254,8 +1288,9 @@
                         <div id="chart" *ngIf="employeeLineGraphOptions">
                             <apx-chart [series]="employeeLineGraphOptions.series"
                                 [chart]="employeeLineGraphOptions.chart" [xaxis]="employeeLineGraphOptions.xaxis"
-                                [dataLabels]="employeeLineGraphOptions.dataLabels" [yaxis]="employeeLineGraphOptions.yaxis"
-                                [grid]="employeeLineGraphOptions.grid" [stroke]="employeeLineGraphOptions.stroke"
+                                [dataLabels]="employeeLineGraphOptions.dataLabels"
+                                [yaxis]="employeeLineGraphOptions.yaxis" [grid]="employeeLineGraphOptions.grid"
+                                [stroke]="employeeLineGraphOptions.stroke"
                                 [title]="employeeLineGraphOptions.title"></apx-chart>
                         </div>
                     </div>
@@ -1265,7 +1300,8 @@
 
             </div>
             <p class="mt-4"><strong>Remark:</strong> The {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'steady decline' : baseYear.getFullYear() ==
-                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from {{baseYear.getFullYear()}}
+                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from
+                {{baseYear.getFullYear()}}
                 to {{reportingYear.getFullYear()}} highlights {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'significant efficiency gains' : baseYear.getFullYear() ==
                 reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
 
@@ -1334,7 +1370,8 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{intensitySeries[0] >
                     intensitySeries[intensitySeries.length - 1 ] ? 'steady decline' : intensitySeries[0] ==
                     intensitySeries[intensitySeries.length - 1 ] ? 'stable trend' : 'increase'}} in emission intensity
-                    from {{baseYear.getFullYear()}} to {{reportingYear.getFullYear()}} indicates {{intensitySeries[0] > intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
+                    from {{baseYear.getFullYear()}} to {{reportingYear.getFullYear()}} indicates
+                    {{intensitySeries[0] > intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
                     == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' : 'rising environmental impact'}}
 
                 </p>
@@ -1462,7 +1499,8 @@
             </div>
             <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is managed through
                 {{sustainableWaste > nonsustainableWaste ? 'more sustainable methods' : 'less sustainable methods' }}
-                {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' : 'highlighting the need for improved waste management strategies'}} to further reduce environmental impact.
+                {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' : 'highlighting the need for improved waste management strategies'}}
+                to further reduce environmental impact.
 
 
             </p>
@@ -1593,33 +1631,41 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="vertical-align: top;" rowspan="6">GHG emissions</td>
+                                    <td style="vertical-align: top;" rowspan="5">GHG emissions</td>
                                     <td style="vertical-align: top;">Scope 1:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
+                                    <td style="vertical-align: top;">
+                                        {{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Scope 2:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
+                                    <td style="vertical-align: top;">
+                                        {{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Scope 3:</td>
-                                    <td style="vertical-align: top;">{{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
+                                    <td style="vertical-align: top;">
+                                        {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Business Travel</td>
-                                    <td style="vertical-align: top;">{{businessTravelTotal?.emission | number : '1.4-4'}} tCO₂e</td>
+                                    <td style="vertical-align: top;">
+                                        {{businessTravelTotal?.emission | number : '1.4-4'}} tCO₂e
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Employee Commute</td>
-                                    <td style="vertical-align: top;">{{employeeTotal?.emission | number : '1.4-4'}} tCO₂e</td>
+                                    <td style="vertical-align: top;">{{employeeTotal?.emission | number : '1.4-4'}}
+                                        tCO₂e</td>
                                 </tr>
                                 <ng-container *ngFor="let item of noofEmployeeData">
                                     <tr *ngIf="item.year == currentYear">
                                         <td style="vertical-align: top;">GHG emission per employee:</td>
-                                        <td style="vertical-align: top;">{{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e</td>
+                                        <td style="vertical-align: top;">
+                                            {{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e
+                                        </td>
                                     </tr>
 
                                 </ng-container>
@@ -1631,8 +1677,10 @@
                                     <td style="vertical-align: top;" rowspan="3">Waste</td>
                                     <td style="vertical-align: top;">Total waste generated:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.waste_emissions ==0 ? '-' :
-                                        this.scopeEmissons?.waste_emissions | number : '1.4-4'}} {{this.scopeEmissons?.waste_emissions ==0
-                                        ? '' : 'tonnes'}}</td>
+                                        this.scopeEmissons?.waste_emissions | number : '1.4-4'}}
+                                        {{this.scopeEmissons?.waste_emissions ==0
+                                        ? '' : 'tonnes'}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;">Total waste disposal:</td>
@@ -1643,8 +1691,10 @@
                                 <tr>
                                     <td style="vertical-align: top;">Total waste diverted:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0 ? '-' :
-                                        this.scopeEmissons?.diverted_emssion | number : '1.4-4'}} {{this.scopeEmissons?.diverted_emssion
-                                        ==0 ? '' : '%'}}</td>
+                                        this.scopeEmissons?.diverted_emssion | number : '1.4-4'}}
+                                        {{this.scopeEmissons?.diverted_emssion
+                                        ==0 ? '' : '%'}}
+                                    </td>
                                 </tr>
 
                             </tbody>
@@ -1658,8 +1708,8 @@
                             <div id="chart" *ngIf="yearWiseLineOptions">
                                 <apx-chart [series]="yearWiseLineOptions.series" [chart]="yearWiseLineOptions.chart"
                                     [xaxis]="yearWiseLineOptions.xaxis" [dataLabels]="yearWiseLineOptions.dataLabels"
-                                    [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke" [yaxis]="yearWiseLineOptions.yaxis"
-                                    [title]="yearWiseLineOptions.title"></apx-chart>
+                                    [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke"
+                                    [yaxis]="yearWiseLineOptions.yaxis" [title]="yearWiseLineOptions.title"></apx-chart>
                             </div>
                         </div>
                     </div>
@@ -1672,7 +1722,9 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{baseYearGhg > currentYearGhg ? 'steady decline' :
                     baseYearGhg == currentYearGhg ? 'stable trend' : 'increase'}} in GHG emissions from the
                     {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg == currentYearGhg ?
-                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}} {{percentageIncDec}} % by {{reportingYear.getFullYear()}}.
+                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a
+                    {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}}
+                    {{percentageIncDec}} % by {{reportingYear.getFullYear()}}.
 
 
                 </p>
