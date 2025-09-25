@@ -214,11 +214,11 @@ export class DataProgressComponent {
     const filtered = this.transformedData.filter(items =>
       Object.keys(items)[0] == id
     );
-   console.log(filtered);
+  //  console.log(filtered);
 
 
     this.dataPreparerCustom = [filtered[0][id]];
-    console.log(this.dataPreparerCustom);
+    // console.log(this.dataPreparerCustom);
 
     const filterStationary = this.dataPreparerCustom[0].scope_1?.find(items => items.category == 'Stationary Combustion');
 

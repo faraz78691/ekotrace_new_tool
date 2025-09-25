@@ -330,7 +330,7 @@ export class TrackingService {
         );
     };
     uploadFranchise(formData: any): Observable<any> {
-        console.log(formData);
+     
         return this.http.post(
             environment.baseUrl + '/franchiseEmissionCalculate',
             formData

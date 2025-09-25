@@ -277,7 +277,7 @@ export class FinanceEmissionsComponent {
 
                 this.groupId = this.facilityService.selectedGroupSignal()
                 this.countryCode = this.facilityService.groupsCountrySignal();
-                console.log('countryCode', this.countryCode);
+                // console.log('countryCode', this.countryCode);
                 this.ALLEntries()
             }
         })

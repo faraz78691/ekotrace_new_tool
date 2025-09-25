@@ -160,7 +160,7 @@ export class HeaderComponent implements OnInit {
 
                 this.GetFacilityGroupList(tenantID);
             } else if (baseUrl === '/tracking-view-requests') {
-                console.log("tracking-view-requests");
+                // console.log("tracking-view-requests");
                 this.facilitysubgrouplist = [];
                 this.showFacility = true;
                 this.showGroup = false;

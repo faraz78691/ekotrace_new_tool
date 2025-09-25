@@ -9,11 +9,11 @@ export const environment = {
     // baseUrl: 'http://89.116.21.92:5500',
     // baseUrl2: 'http://89.116.21.92:5000',
 
-    baseUrl: 'https://ekotrace.ekobon.com:4000',
-    baseUrl2: 'https://ekotrace.ekobon.com:5000',
+    // baseUrl: 'https://ekotrace.ekobon.com:4000',
+    // baseUrl2: 'https://ekotrace.ekobon.com:5000',
 
-    // baseUrl: 'https://newportal.net0carbontek.com:4000',
-    // baseUrl2: 'https://newportal.net0carbontek.com:5000',
+    baseUrl: 'https://newportal.net0carbontek.com:4000',
+    baseUrl2: 'https://newportal.net0carbontek.com:5000',
 
     NoData: 'No Data Point',
     none: 'none',

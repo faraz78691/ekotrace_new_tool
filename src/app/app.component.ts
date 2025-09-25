@@ -27,21 +27,20 @@ export class AppComponent {
     };
 
     ngOnInit() {
-        // if (localStorage.getItem('assets') != null) {
-        //     let userAssets = localStorage.getItem('assets');
-        //     console.log(userAssets);
-        //    const favIcon = JSON.parse(userAssets).fav_icon;
-        //    this.appService.updateFavicon(favIcon);
+        if (localStorage.getItem('assets') != null) {
+            let userAssets = localStorage.getItem('assets');
+           const favIcon = JSON.parse(userAssets).fav_icon;
+           this.appService.updateFavicon(favIcon);
           
-        // } else {
-        //     this.apiService.getApi('/login_logo').subscribe((res) => {
-        //        const favIcon= res.data.fav_icon;
-        //         this.appService.updateFavicon(favIcon);
-        //         const jsonAssets = JSON.stringify(res.data[0]);
-        //         localStorage.setItem('assets', jsonAssets);
+        } else {
+            this.apiService.getApi('/login_logo').subscribe((res) => {
+               const favIcon= res.data.fav_icon;
+                this.appService.updateFavicon(favIcon);
+                const jsonAssets = JSON.stringify(res.data[0]);
+                localStorage.setItem('assets', jsonAssets);
 
-        //     })
-        // }
+            })
+        }
      }
 
     GetSubGroupList(tenantID) {

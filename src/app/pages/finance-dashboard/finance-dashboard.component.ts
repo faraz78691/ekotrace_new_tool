@@ -132,7 +132,7 @@ export class FinanceDashboardComponent {
       if (result.success == true) {
     
         this.groupsData = result.categories;
-        console.log(this.groupsData);
+        // console.log(this.groupsData);
         this.selectedSubGrupId = this.groupsData[0].id;
       
         this.getFinancedEmission(this.selectedSubGrupId);

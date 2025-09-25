@@ -107,7 +107,7 @@ export class PurchasedGoodsServicesComponent {
     effect(() => {
       this.subCategoryID = this.facilityService.subCategoryId();
       this.year = this.facilityService.yearSignal();
-      console.log("months", this.year);
+    
       this.months = this.facilityService.monthSignal();
       if (this.facilityService.selectedfacilitiesSignal() != 0) {
         this.facilityID = this.facilityService.selectedfacilitiesSignal();
@@ -391,7 +391,7 @@ export class PurchasedGoodsServicesComponent {
       facilityID: this.facilityID,
       product_name: row.productResult?.product
     }))
-    console.log("payload", payload);
+  
     var purchaseTableStringfy = JSON.stringify(payload);
 
     let formData = new URLSearchParams();

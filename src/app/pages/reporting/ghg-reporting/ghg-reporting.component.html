@@ -179,7 +179,7 @@
                                 src="assets/img/Carbontek.png" alt=""> -->
                             <img style="object-fit: contain;"
                                 style="justify-items: center;max-width:200px; width: 100%;"
-                                src="assets/img/ekobonL.png" alt="">
+                                [src]="dashboardLogoUrl" alt="">
                         </div>
                         <hr class="et_hr_line_green mb-3" />
                         <p class="et_text_595959 et_fw_500 et_fs_18">Year {{reportingYear.getFullYear()}}
@@ -291,7 +291,7 @@
                         assessment, based on the data provided and subject to its accuracy, completeness, and
                         appropriate classification. The assessment provides valuable insights into the company’s carbon
                         footprint, helping to identify key emission sources and opportunities for reduction. By
-                        leveraging these insights, Ekotrace Company can take strategic steps toward enhanced
+                        leveraging these insights,Company can take strategic steps toward enhanced
                         sustainability
                         and net-zero alignment.
                     </p>
@@ -329,7 +329,7 @@
                                     </tr>
                                     <tr *ngIf="baseYear">
                                         <td>Base year and comparability</td>
-                                        <td>{{baseYear}}</td>
+                                        <td>{{baseYear.getFullYear()}}</td>
                                     </tr>
                                     <tr>
                                         <td>Plot area</td>
@@ -364,20 +364,20 @@
                                     <tr>
                                         <td>Waste </td>
                                         <td>
-                                            Generated: {{this.scopeEmissons?.waste_emissions ==0 ? '-' :
+                                            Emission Generated: {{this.scopeEmissons?.waste_emissions ==0 ? '-' :
                                             this.scopeEmissons?.waste_emissions}} T
                                             <br>
                                             Disposal: {{this.scopeEmissons?.waste_disposed == 0 ? '-' :
                                             this.scopeEmissons?.waste_disposed}} T
                                             <br>
                                             Diversion: {{this.scopeEmissons?.diverted_emssion == 0 ? '-' :
-                                            this.scopeEmissons?.diverted_emssion}} T
+                                            this.scopeEmissons?.diverted_emssion}} %
 
                                         </td>
                                     </tr>
                                     <tr *ngIf="baseYear && baseYearGhg > 0">
                                         <td>% change in GHG emission
-                                            from baseline ({{baseYear}})
+                                            from baseline ({{baseYear.getFullYear()}})
                                         </td>
                                         <td *ngIf="baseYearGhg > currentYearGhg">
                                             total decrease of {{((baseYearGhg - currentYearGhg) / reportingYear.getFullYear() * 100) |
@@ -390,7 +390,7 @@
 
                                         </td>
                                         <td *ngIf="baseYearGhg < currentYearGhg">
-                                            total increase of {{((currentYearGhg - baseYearGhg) / baseYear * 100) |
+                                            total increase of {{((currentYearGhg - baseYearGhg) / baseYear.getFullYear() * 100) |
                                             number:'1.2-2'}}%
 
                                         </td>
@@ -502,7 +502,7 @@
                             </table>
 
                             <p *ngIf="baseYear" class="ct_fs_14 mt-3 text-end et_fw_700">Base year:
-                                {{baseYear}}<br>Reporting
+                                {{baseYear.getFullYear()}}<br>Reporting
                                 year:
                                 {{reportingYear.getFullYear()}}</p>
 
@@ -836,7 +836,7 @@
                     </ng-container>
                 </div>
                 <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard Services
+                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital Goods 
                     </small>
                     <ng-container *ngIf="servicesPieOptions">
                         <div class="text-center">
@@ -851,7 +851,7 @@
                             <table class="table-bordered styled-table">
                                 <thead>
                                     <tr>
-                                        <th>Type of standard service
+                                        <th>Type of Capital Goods
 
                                         </th>
                                         <th>Emissions (tCO2)
@@ -874,7 +874,7 @@
                     </ng-container>
                 </div>
                 <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital Goods
+                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard Services
                     </small>
                     <ng-container *ngIf="capitalPieOptions">
                         <div class="text-center">
@@ -889,7 +889,7 @@
                             <table class="table-bordered styled-table">
                                 <thead>
                                     <tr>
-                                        <th>Type of capital goods
+                                        <th>Type of Standard Services
                                         </th>
                                         <th>Emissions (tCO2)
                                         </th>
@@ -1183,7 +1183,7 @@
 
         <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
         <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM {{baseYear}}-{{reportingYear.getFullYear()}}
+            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM {{baseYear.getFullYear()}}-{{reportingYear.getFullYear()}}
             </h2>
 
             <hr class="et_hr_line_green mb-3 mt-2" />
@@ -1201,11 +1201,11 @@
                         </div>
                     </div>
 
-                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a {{baseYear > reportingYear.getFullYear() ?
-                        'consistent reduction' : baseYear == reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in emissions
+                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a {{baseYear.getFullYear() > reportingYear.getFullYear() ?
+                        'consistent reduction' : baseYear.getFullYear() == reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in emissions
                         across all
-                        scopes from {{baseYear}} to
-                        {{reportingYear.getFullYear()}}, reflecting {{baseYear > reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear
+                        scopes from {{baseYear.getFullYear()}} to
+                        {{reportingYear.getFullYear()}}, reflecting {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear.getFullYear()
                         == reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
                     </p>
                 </div>
@@ -1264,9 +1264,9 @@
 
 
             </div>
-            <p class="mt-4"><strong>Remark:</strong> The {{baseYear > reportingYear.getFullYear() ? 'steady decline' : baseYear ==
-                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from {{baseYear}}
-                to {{reportingYear.getFullYear()}} highlights {{baseYear > reportingYear.getFullYear() ? 'significant efficiency gains' : baseYear ==
+            <p class="mt-4"><strong>Remark:</strong> The {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'steady decline' : baseYear.getFullYear() ==
+                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from {{baseYear.getFullYear()}}
+                to {{reportingYear.getFullYear()}} highlights {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'significant efficiency gains' : baseYear.getFullYear() ==
                 reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
 
             </p>
@@ -1334,10 +1334,8 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{intensitySeries[0] >
                     intensitySeries[intensitySeries.length - 1 ] ? 'steady decline' : intensitySeries[0] ==
                     intensitySeries[intensitySeries.length - 1 ] ? 'stable trend' : 'increase'}} in emission intensity
-                    from {{baseYear}} to {{reportingYear.getFullYear()}} indicates {{intensitySeries[0] >
-                    intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
-                    == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' : 'rising environmental
-                    impact'}}
+                    from {{baseYear.getFullYear()}} to {{reportingYear.getFullYear()}} indicates {{intensitySeries[0] > intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
+                    == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' : 'rising environmental impact'}}
 
                 </p>
 
@@ -1646,7 +1644,7 @@
                                     <td style="vertical-align: top;">Total waste diverted:</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0 ? '-' :
                                         this.scopeEmissons?.diverted_emssion | number : '1.4-4'}} {{this.scopeEmissons?.diverted_emssion
-                                        ==0 ? '' : 'tonnes'}}</td>
+                                        ==0 ? '' : '%'}}</td>
                                 </tr>
 
                             </tbody>
@@ -1674,7 +1672,7 @@
                 <p class="mt-4"><strong>Remark:</strong> The {{baseYearGhg > currentYearGhg ? 'steady decline' :
                     baseYearGhg == currentYearGhg ? 'stable trend' : 'increase'}} in GHG emissions from the
                     {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg == currentYearGhg ?
-                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}} {{percentageIncDec}} by {{reportingYear.getFullYear()}}.
+                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}} {{percentageIncDec}} % by {{reportingYear.getFullYear()}}.
 
 
                 </p>

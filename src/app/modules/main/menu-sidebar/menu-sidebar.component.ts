@@ -58,9 +58,9 @@ export class MenuSidebarComponent implements OnInit {
      
         if (localStorage.getItem('assets') != null) {
             let userAssets = localStorage.getItem('assets');
-            console.log(userAssets);
+        
             this.dashboardLogoUrl = JSON.parse(userAssets).dashboard_logo
-            console.log(this.dashboardLogoUrl);
+          
         } else {
             this.appService.getApi('/login_logo').subscribe((res) => {
                 this.dashboardLogoUrl = res.data.dashboard_logo
