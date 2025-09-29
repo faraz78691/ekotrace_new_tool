@@ -814,9 +814,8 @@ export class GhgReportingComponent {
       tap((response: any) => {
 
         if(response.data.length > 0){
-          this.baseYearGhg = response.data.find((item: any) => item.category == base_year).emission;
-         
-          this.currentYearGhg = response.data.find((item: any) => item.category == this.reportingYear.getFullYear().toString()).emission;
+          this.baseYearGhg = parseFloat(response.data.find((item: any) => item.category == base_year).emission);
+          this.currentYearGhg = parseFloat(response.data.find((item: any) => item.category == this.reportingYear.getFullYear().toString()).emission);
           if (this.baseYearGhg) {
             if (this.baseYearGhg > this.currentYearGhg) {
               this.percentageIncDec = Number(((this.baseYearGhg - this.currentYearGhg) / this.reportingYear.getFullYear()) * 100).toFixed(2);
