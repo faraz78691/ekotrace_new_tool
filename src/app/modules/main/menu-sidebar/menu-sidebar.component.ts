@@ -55,12 +55,12 @@ export class MenuSidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-     
+
         if (localStorage.getItem('assets') != null) {
             let userAssets = localStorage.getItem('assets');
-        
+
             this.dashboardLogoUrl = JSON.parse(userAssets).dashboard_logo
-          
+
         } else {
             this.appService.getApi('/login_logo').subscribe((res) => {
                 this.dashboardLogoUrl = res.data.dashboard_logo
@@ -241,6 +241,12 @@ export class MenuSidebarComponent implements OnInit {
             localStorage.setItem('theme', 'theme4');
         }
     }
+
+    activeDropdownIndex: number = 0
+    toggleDropdown(index: number): void {
+        this.activeDropdownIndex = this.activeDropdownIndex === index ? -1 : index;
+
+    }
 }
 export const menu = [
     {
@@ -250,10 +256,12 @@ export const menu = [
         items: [
             {
                 head: 'Platform Admin',
-                name: 'Assign package',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['platformAdmin']
+                children: [{
+                    name: 'Assign package',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['platformAdmin']
+                }]
             },
 
         ]
@@ -265,162 +273,192 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        head: undefined,
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        head: undefined,
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
-            },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            {
-                name: 'Financed E. Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['financeDash']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    },
+                    {
+                        name: 'KPI Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['kpiDashboard']
+                    },
+                    {
+                        name: 'Financed E. Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['financeDash']
+                    }
+                ]
             },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-
-            {
-                name: 'Financed Emissions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['finance_emissions']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            {
-                name: 'Emissions Inventory',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['kpi_inventory']
-            },
-            {
-                name: 'Cost Centre',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['cost_centre']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Financed Emissions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['finance_emissions']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    },
+                    {
+                        name: 'Emissions Inventory',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['kpi_inventory']
+                    },
+                    {
+                        name: 'Cost Centre',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['cost_centre']
+                    }
+                ]
             },
             {
                 head: 'Vendor',
-                name: 'Vendors',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendors']
+                children: [
+                    {
+                        name: 'Vendors',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendors']
+                    },
+                    {
+                        name: 'Vendor Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendorDashboard']
+                    }
+                ]
             },
             {
-                name: 'Vendor Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendorDashboard']
+                head: 'Reporting',
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'GHG Emissions Report',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['GhgReporting']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            {
-                head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
-            },
-            {
-                name: 'GHG Emissions Report',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['GhgReporting']
-            },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [
+                    {
+                        name: 'Set Emission Inventory',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['setEmissionInventory']
+                    },
+                    {
+                        name: 'Target Setting',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['targetSetting']
+                    },
+                    {
+                        name: 'Actions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['actions']
+                    }
+                ]
             },
             {
                 head: 'Carbon offsetting',
-                name: 'Offset Entry',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['carbonOffset']
+                children: [
+                    {
+                        name: 'Offset Entry',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['carbonOffset']
+                    }
+                ]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
             },
             {
                 head: 'Others',
-                name: 'Attachments',
-                iconClasses: 'fa fa-paperclip',
-                iconSRC: 'assets/img/attachments.png',
-                path: ['attachments']
-            },
-            // {
-            //     name: 'Billing',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/biling_icon_211.png',
-            //     path: ['adminBilling']
-            // },
+                children: [
+                    {
+                        name: 'Attachments',
+                        iconClasses: 'fa fa-paperclip',
+                        iconSRC: 'assets/img/attachments.png',
+                        path: ['attachments']
+                    }
+                ]
+            }
         ]
     },
+
     {
         role: 'Super Admin',
         haveMainGorup: 2,
@@ -428,101 +466,121 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
-            },
+
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                    // {
+                    //     name: 'KPI Dashboard',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/dashboard.svg',
+                    //     path: ['kpiDashboard']
+                    // },
+                    // {
+                    //     name: 'Financed E. Dashboard',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['financeDash']
+                    // },
+                ]
             },
-            // {
-            //     name: 'KPI Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/dashboard.svg',
-            //     path: ['kpiDashboard']
-            // },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
+
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                    // {
+                    //     name: 'Financed Emissions',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['finance_emissions']
+                    // },
+                    // {
+                    //     name: 'Vendors / Cost Centre',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['vendors']
+                    // }
+                ]
             },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            // {
-            //     name: 'Financed Emissions',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['finance_emissions']
-            // },
-            // {
-            //     name: 'Vendors / Cost Centre',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['vendors']
-            // },
 
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [
+                    {
+                        name: 'Set Emission Inventory',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['setEmissionInventory']
+                    },
+                    {
+                        name: 'Target Setting',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['targetSetting']
+                    },
+                    {
+                        name: 'Actions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['actions']
+                    }
+                ]
             },
             // {
             //     head: 'Carbon offsetting',
@@ -533,17 +591,21 @@ export const menu = [
             // },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
             // {
             //     name: 'Billing',
             //     iconClasses: 'fas fa-folder',
@@ -552,6 +614,7 @@ export const menu = [
             // },
         ]
     },
+
     {
         role: 'Super Admin',
         haveMainGorup: 2,
@@ -559,70 +622,84 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                    // {
+                    //     name: 'Financed E. Dashboard',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['financeDash']
+                    // }
+                ]
             },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
             // {
             //     name: 'Billing',
             //     iconClasses: 'fas fa-folder',
             //     iconSRC: 'assets/img/biling_icon_211.png',
             //     path: ['adminBilling']
-            // },
+            // }
         ]
     },
     {
@@ -787,33 +864,38 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                ]
             },
-
             // {
             //     name: 'Financed E. Dashboard',
             //     iconClasses: 'fas fa-table',
@@ -822,16 +904,20 @@ export const menu = [
             // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             // {
             //     name: 'Financed Emissions',
@@ -845,38 +931,45 @@ export const menu = [
             //     iconSRC: 'assets/img/BRSR.svg',
             //     path: ['vendors']
             // },
-
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [
+                    {
+                        name: 'Set Emission Inventory',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['setEmissionInventory']
+                    },
+                    {
+                        name: 'Target Setting',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['targetSetting']
+                    },
+                    {
+                        name: 'Actions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['actions']
+                    }
+                ]
             },
             // {
             //     head: 'Carbon offsetting',
@@ -887,23 +980,27 @@ export const menu = [
             // },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
             // {
             //     name: 'Billing',
             //     iconClasses: 'fas fa-folder',
             //     iconSRC: 'assets/img/biling_icon_211.png',
             //     path: ['adminBilling']
-            // },
+            // }
         ]
     },
     {
@@ -913,31 +1010,37 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                ]
             },
             // {
             //     name: 'Financed E. Dashboard',
@@ -947,29 +1050,37 @@ export const menu = [
             // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
             },
             // {
             //     name: 'Billing',
@@ -979,6 +1090,7 @@ export const menu = [
             // },
         ]
     },
+
     {
         role: 'Admin',
         haveMainGorup: 1,
@@ -986,154 +1098,187 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
-            },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            {
-                name: 'Financed E. Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['financeDash']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    },
+                    {
+                        name: 'KPI Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['kpiDashboard']
+                    },
+                    {
+                        name: 'Financed E. Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['financeDash']
+                    }
+                ]
             },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-
-            {
-                name: 'Financed Emissions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['finance_emissions']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            {
-                name: 'Emissions Inventory',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['kpi_inventory']
-            },
-            {
-                name: 'Cost Centre',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['cost_centre']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Financed Emissions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['finance_emissions']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    },
+                    {
+                        name: 'Emissions Inventory',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['kpi_inventory']
+                    },
+                    {
+                        name: 'Cost Centre',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['cost_centre']
+                    }
+                ]
             },
             {
                 head: 'Vendor',
-                name: 'Vendors',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendors']
-            },
-            {
-                name: 'Vendor Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendorDashboard']
+                children: [
+                    {
+                        name: 'Vendors',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendors']
+                    },
+                    {
+                        name: 'Vendor Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendorDashboard']
+                    }
+                ]
             },
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'GHG Emissions Report',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['GhgReporting']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            {
-                name: 'GHG Emissions Report',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['GhgReporting']
-            },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [
+                    {
+                        name: 'Set Emission Inventory',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['setEmissionInventory']
+                    },
+                    {
+                        name: 'Target Setting',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['targetSetting']
+                    },
+                    {
+                        name: 'Actions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['actions']
+                    }
+                ]
             },
             {
                 head: 'Carbon offsetting',
-                name: 'Offset Entry',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['carbonOffset']
+                children: [
+                    {
+                        name: 'Offset Entry',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['carbonOffset']
+                    }
+                ]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
             },
             {
                 head: 'Others',
-                name: 'Attachments',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['attachments']
-            },
+                children: [
+                    {
+                        name: 'Attachments',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['attachments']
+                    }
+                ]
+            }
             // {
             //     name: 'Billing',
             //     iconClasses: 'fas fa-folder',
@@ -1142,155 +1287,7 @@ export const menu = [
             // },
         ]
     },
-    {
-        role: 'Admin',
-        haveMainGorup: 2,
-        package_name: 'Comprehensive',
-        items: [
-            {
-                head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
-            },
-            {
-                head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
-            },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            {
-                name: 'Financed E. Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['financeDash']
-            },
-            {
-                head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Financed Emissions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['finance_emissions']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            {
-                name: 'Emissions Inventory',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['kpi_inventory']
-            },
-            {
-                name: 'Cost Centre',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['cost_centre']
-            },
-            {
-                head: 'Vendor',
-                name: 'Vendors',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendors']
-            },
-            {
-                name: 'Vendor Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendorDashboard']
-            },
-            {
-                head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
-            },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
-            {
-                head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
-            },
-            {
-                head: 'Carbon offsetting',
-                name: 'Offset Entry',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['carbonOffset']
-            },
-            {
-                head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-            // {
-            //     name: 'Billing',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/biling_icon_211.png',
-            //     path: ['adminBilling']
-            // },
-        ]
-    },
+
     {
         role: 'Admin',
         haveMainGorup: 2,
@@ -1298,37 +1295,43 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
-            },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    },
+                    {
+                        name: 'KPI Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['kpiDashboard']
+                    }
+                ]
             },
             // {
             //     name: 'Financed E. Dashboard',
@@ -1338,16 +1341,20 @@ export const menu = [
             // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             // {
             //     name: 'Financed Emissions',
@@ -1361,20 +1368,23 @@ export const menu = [
             //     iconSRC: 'assets/img/BRSR.svg',
             //     path: ['vendors']
             // },
-
             {
-                head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                head: 'Reporting',
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             // {
             //     head: 'Target Setting',
             //     name: 'Set Emission Inventory',
@@ -1403,16 +1413,20 @@ export const menu = [
             // },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
             },
             // {
             //     name: 'Billing',
@@ -1422,6 +1436,7 @@ export const menu = [
             // },
         ]
     },
+
     {
         role: 'Admin',
         haveMainGorup: 1,
@@ -1429,37 +1444,43 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
-            },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    },
+                    {
+                        name: 'KPI Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['kpiDashboard']
+                    }
+                ]
             },
             // {
             //     name: 'Financed E. Dashboard',
@@ -1469,16 +1490,20 @@ export const menu = [
             // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             // {
             //     name: 'Financed Emissions',
@@ -1492,19 +1517,22 @@ export const menu = [
             //     iconSRC: 'assets/img/BRSR.svg',
             //     path: ['vendors']
             // },
-
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
-            },
-            {
-                name: 'BRSR',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['brsrReport']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
             // {
             //     head: 'Target Setting',
@@ -1534,16 +1562,20 @@ export const menu = [
             // },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
             },
             // {
             //     name: 'Billing',
@@ -1553,6 +1585,7 @@ export const menu = [
             // },
         ]
     },
+
     {
         role: 'Admin',
         haveMainGorup: 2,
@@ -1586,12 +1619,6 @@ export const menu = [
                 iconSRC: 'assets/img/dashboard.svg',
                 path: ['dashboard']
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
             // {
             //     name: 'Financed E. Dashboard',
             //     iconClasses: 'fas fa-table',
@@ -1611,7 +1638,6 @@ export const menu = [
                 iconSRC: 'assets/img/BRSR.svg',
                 path: ['dataProgress']
             },
-
             {
                 head: 'Account Details',
                 name: 'Company Profile',
@@ -1627,6 +1653,7 @@ export const menu = [
             },
         ]
     },
+
     {
         role: 'Manager',
         haveMainGorup: 2,
@@ -1634,148 +1661,145 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [{
+                    name: 'Tree',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['main_tree']
+                },
+                {
+                    name: 'Add User',
+                    iconClasses: 'fas fa-user-plus',
+                    iconSRC: 'assets/img/user_121.png',
+                    path: ['user']
+                },
+                {
+                    name: 'Set GHG Template',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/tracking_icon.svg',
+                    path: ['setGhgTemplate']
+                }]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [{
+                    name: 'GHG Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['dashboard']
+                },
+                {
+                    name: 'KPI Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['kpiDashboard']
+                }]
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            {
-                name: 'Emissions Inventory',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['kpi_inventory']
-            },
-            // {
-            //     name: 'Financed Emissions',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['finance_emissions']
-            // },
-            {
-                name: 'Cost Centre',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['cost_centre']
+                children: [{
+                    name: 'Corporate Emissions',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['tracking']
+                },
+                {
+                    name: 'Data Progress',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['dataProgress']
+                },
+                {
+                    name: 'Emissions Inventory',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['kpi_inventory']
+                },
+                {
+                    name: 'Cost Centre',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['cost_centre']
+                }]
             },
             {
                 head: 'Vendor',
-                name: 'Vendors',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendors']
+                children: [{
+                    name: 'Vendors',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['vendors']
+                },
+                {
+                    name: 'Vendor Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['vendorDashboard']
+                }]
             },
             {
-                name: 'Vendor Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendorDashboard']
+                head: 'Reporting',
+                children: [{
+                    name: 'Report',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/report_icon.svg',
+                    path: ['report']
+                },
+                {
+                    name: 'BRSR',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['brsrReport']
+                }]
             },
-            {
-                head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
-            },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [{
+                    name: 'Set Emission Inventory',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/report_icon.svg',
+                    path: ['setEmissionInventory']
+                },
+                {
+                    name: 'Target Setting',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['targetSetting']
+                },
+                {
+                    name: 'Actions',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['actions']
+                }]
             },
             {
                 head: 'Carbon offsetting',
-                name: 'Offset Entry',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['carbonOffset']
+                children: [{
+                    name: 'Offset Entry',
+                    iconClasses: 'fas fa-eye',
+                    iconSRC: 'assets/img/building.svg',
+                    path: ['carbonOffset']
+                }]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-            // {
-            //     name: 'Billing',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/biling_icon_211.png',
-            //     path: ['adminBilling']
-            // },
+                children: [{
+                    name: 'Company Profile',
+                    iconClasses: 'fas fa-eye',
+                    iconSRC: 'assets/img/building.svg',
+                    path: ['company-profile']
+                },
+                {
+                    name: 'Billing',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/biling_icon_211.png',
+                    path: ['billing']
+                }]
+            }
         ]
     },
+
     {
         role: 'Manager',
         haveMainGorup: 2,
@@ -1783,117 +1807,88 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [{
+                    name: 'Tree',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['main_tree']
+                },
+                {
+                    name: 'Add User',
+                    iconClasses: 'fas fa-user-plus',
+                    iconSRC: 'assets/img/user_121.png',
+                    path: ['user']
+                },
+                {
+                    name: 'Set GHG Template',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/tracking_icon.svg',
+                    path: ['setGhgTemplate']
+                }]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [{
+                    name: 'GHG Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['dashboard']
+                },
+                {
+                    name: 'KPI Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['kpiDashboard']
+                }]
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
+                children: [{
+                    name: 'Corporate Emissions',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['tracking']
+                },
+                {
+                    name: 'Data Progress',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['dataProgress']
+                }]
             },
             {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                head: 'Reporting',
+                children: [{
+                    name: 'Report',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/report_icon.svg',
+                    path: ['report']
+                },
+                {
+                    name: 'BRSR',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['brsrReport']
+                }]
             },
-            {
-                head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
-            },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
-            // {
-            //     head: 'Target Setting',
-            //     name: 'Set Emission Inventory',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/report_icon.svg',
-            //     path: ['setEmissionInventory']
-            // },
-            // {
-            //     name: 'Target Setting',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['targetSetting']
-            // },
-            // {
-            //     name: 'Actions',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['actions']
-            // },
-            // {
-            //     head: 'Carbon offsetting',
-            //     name: 'Offset Entry',
-            //     iconClasses: 'fas fa-eye',
-            //     iconSRC: 'assets/img/building.svg',
-            //     path: ['carbonOffset']
-            // },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-            // {
-            //     name: 'Billing',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/biling_icon_211.png',
-            //     path: ['adminBilling']
-            // },
+                children: [{
+                    name: 'Company Profile',
+                    iconClasses: 'fas fa-eye',
+                    iconSRC: 'assets/img/building.svg',
+                    path: ['company-profile']
+                },
+                {
+                    name: 'Billing',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/biling_icon_211.png',
+                    path: ['billing']
+                }]
+            }
         ]
     },
+
     {
         role: 'Manager',
         haveMainGorup: 2,
@@ -1901,73 +1896,73 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [{
+                    name: 'Tree',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['main_tree']
+                },
+                {
+                    name: 'Add User',
+                    iconClasses: 'fas fa-user-plus',
+                    iconSRC: 'assets/img/user_121.png',
+                    path: ['user']
+                },
+                {
+                    name: 'Set GHG Template',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/tracking_icon.svg',
+                    path: ['setGhgTemplate']
+                }]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [{
+                    name: 'GHG Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['dashboard']
+                },
+                {
+                    name: 'KPI Dashboard',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/dashboard.svg',
+                    path: ['kpiDashboard']
+                }]
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
+                children: [{
+                    name: 'Corporate Emissions',
+                    iconClasses: 'fas fa-star',
+                    iconSRC: 'assets/img/trees.png',
+                    path: ['tracking']
+                },
+                {
+                    name: 'Data Progress',
+                    iconClasses: 'fas fa-table',
+                    iconSRC: 'assets/img/BRSR.svg',
+                    path: ['dataProgress']
+                }]
             },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
+                children: [{
+                    name: 'Company Profile',
+                    iconClasses: 'fas fa-eye',
+                    iconSRC: 'assets/img/building.svg',
+                    path: ['company-profile']
+                },
+                {
+                    name: 'Billing',
+                    iconClasses: 'fas fa-folder',
+                    iconSRC: 'assets/img/biling_icon_211.png',
+                    path: ['billing']
+                }]
+            }
         ]
     },
+
     {
         role: 'Preparer',
         haveMainGorup: 2,
@@ -1975,149 +1970,161 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    },
+                    {
+                        name: 'KPI Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['kpiDashboard']
+                    }
+                ]
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-            {
-                name: 'Emissions Inventory',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['kpi_inventory']
-            },
-            // {
-            //     name: 'Financed Emissions',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['finance_emissions']
-            // },
-            {
-                name: 'Cost Centre',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['cost_centre']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    },
+                    {
+                        name: 'Emissions Inventory',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['kpi_inventory']
+                    },
+                    {
+                        name: 'Cost Centre',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['cost_centre']
+                    }
+                ]
             },
             {
                 head: 'Vendor',
-                name: 'Vendors',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendors']
+                children: [
+                    {
+                        name: 'Vendors',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendors']
+                    },
+                    {
+                        name: 'Vendor Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['vendorDashboard']
+                    }
+                ]
             },
-            {
-                name: 'Vendor Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['vendorDashboard']
-            },
-
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
             {
                 head: 'Target Setting',
-                name: 'Set Emission Inventory',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['setEmissionInventory']
-            },
-            {
-                name: 'Target Setting',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['targetSetting']
-            },
-            {
-                name: 'Actions',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['actions']
+                children: [
+                    {
+                        name: 'Set Emission Inventory',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['setEmissionInventory']
+                    },
+                    {
+                        name: 'Target Setting',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['targetSetting']
+                    },
+                    {
+                        name: 'Actions',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['actions']
+                    }
+                ]
             },
             {
                 head: 'Carbon offsetting',
-                name: 'Offset Entry',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['carbonOffset']
+                children: [
+                    {
+                        name: 'Offset Entry',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['carbonOffset']
+                    }
+                ]
             },
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-            // {
-            //     name: 'Billing',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/biling_icon_211.png',
-            //     path: ['adminBilling']
-            // },
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
         ]
     },
+
     {
         role: 'Preparer',
         haveMainGorup: 2,
@@ -2125,106 +2132,92 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                ]
             },
-            {
-                name: 'KPI Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['kpiDashboard']
-            },
-            // {
-            //     name: 'Financed E. Dashboard',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['financeDash']
-            // },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
-            },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
             {
                 head: 'Reporting ',
-                name: 'Report',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/report_icon.svg',
-                path: ['report']
+                children: [
+                    {
+                        name: 'Report',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/report_icon.svg',
+                        path: ['report']
+                    },
+                    {
+                        name: 'BRSR',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['brsrReport']
+                    }
+                ]
             },
-            // {
-            //     name: 'BRSR',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['brsrReport']
-            // },
-            // {
-            //     head: 'Target Setting',
-            //     name: 'Set Emission Inventory',
-            //     iconClasses: 'fas fa-folder',
-            //     iconSRC: 'assets/img/report_icon.svg',
-            //     path: ['setEmissionInventory']
-            // },
-            // {
-            //     name: 'Target Setting',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['targetSetting']
-            // },
-            // {
-            //     name: 'Actions',
-            //     iconClasses: 'fas fa-table',
-            //     iconSRC: 'assets/img/BRSR.svg',
-            //     path: ['actions']
-            // },
-
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
         ]
     },
+
     {
         role: 'Preparer',
         haveMainGorup: 2,
@@ -2232,61 +2225,72 @@ export const menu = [
         items: [
             {
                 head: 'Organisation Structure',
-                name: 'Tree',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['main_tree']
-            },
-            {
-                head: undefined,
-                name: 'Add User',
-                iconClasses: 'fas fa-user-plus',
-                iconSRC: 'assets/img/user_121.png',
-                path: ['user']
-            },
-            {
-                head: undefined,
-                name: 'Set GHG Template',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/tracking_icon.svg',
-                path: ['setGhgTemplate']
+                children: [
+                    {
+                        name: 'Tree',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['main_tree']
+                    },
+                    {
+                        name: 'Add User',
+                        iconClasses: 'fas fa-user-plus',
+                        iconSRC: 'assets/img/user_121.png',
+                        path: ['user']
+                    },
+                    {
+                        name: 'Set GHG Template',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/tracking_icon.svg',
+                        path: ['setGhgTemplate']
+                    }
+                ]
             },
             {
                 head: 'Dashboard',
-                name: 'GHG Dashboard',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/dashboard.svg',
-                path: ['dashboard']
+                children: [
+                    {
+                        name: 'GHG Dashboard',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/dashboard.svg',
+                        path: ['dashboard']
+                    }
+                ]
             },
             {
                 head: 'GHG Emissions',
-                name: 'Corporate Emissions',
-                iconClasses: 'fas fa-star',
-                iconSRC: 'assets/img/trees.png',
-                path: ['tracking']
+                children: [
+                    {
+                        name: 'Corporate Emissions',
+                        iconClasses: 'fas fa-star',
+                        iconSRC: 'assets/img/trees.png',
+                        path: ['tracking']
+                    },
+                    {
+                        name: 'Data Progress',
+                        iconClasses: 'fas fa-table',
+                        iconSRC: 'assets/img/BRSR.svg',
+                        path: ['dataProgress']
+                    }
+                ]
             },
-            {
-                name: 'Data Progress',
-                iconClasses: 'fas fa-table',
-                iconSRC: 'assets/img/BRSR.svg',
-                path: ['dataProgress']
-            },
-
             {
                 head: 'Account Details',
-                name: 'Company Profile',
-                iconClasses: 'fas fa-eye',
-                iconSRC: 'assets/img/building.svg',
-                path: ['company-profile']
-            },
-            {
-                name: 'Billing',
-                iconClasses: 'fas fa-folder',
-                iconSRC: 'assets/img/biling_icon_211.png',
-                path: ['billing']
-            },
-
+                children: [
+                    {
+                        name: 'Company Profile',
+                        iconClasses: 'fas fa-eye',
+                        iconSRC: 'assets/img/building.svg',
+                        path: ['company-profile']
+                    },
+                    {
+                        name: 'Billing',
+                        iconClasses: 'fas fa-folder',
+                        iconSRC: 'assets/img/biling_icon_211.png',
+                        path: ['billing']
+                    }
+                ]
+            }
         ]
-    },
-
+    }
 ];
