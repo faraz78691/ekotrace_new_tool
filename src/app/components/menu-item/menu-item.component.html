@@ -1,4 +1,4 @@
-<a (click)="handleMainMenuAction()" class="nav-link {{
+<a (click)="handleMainMenuAction()" class="nav-link borderB {{
         loginInfo.role === 'Super Admin' && isExpired ? 'disabled' : ''
     }}" [ngClass]="{active: isMainActive || isOneOfChildrenActive}">
 

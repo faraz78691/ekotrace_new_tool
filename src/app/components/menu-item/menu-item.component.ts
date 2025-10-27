@@ -101,7 +101,7 @@ export class MenuItemComponent implements OnInit {
     }
 
      calculateIsActive(url: string) {
-       
+       console.log(url);
       
         this.isMainActive = false;
         this.isOneOfChildrenActive = false;

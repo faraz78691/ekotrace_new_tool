@@ -956,7 +956,7 @@
                         <div class="text-center">
 
                             <div *ngIf="otherModesOfTransportPieOptions">
-                                <apx-chart [series]="otherModesOfTransportPieOptions.series"
+                                <apx-chart class="piePostions" [series]="otherModesOfTransportPieOptions.series"
                                     [chart]="otherModesOfTransportPieOptions.chart"
                                     [labels]="otherModesOfTransportPieOptions.labels"
                                     [legend]="otherModesOfTransportPieOptions.legend"
@@ -993,7 +993,7 @@
                     </small>
                     <div class="text-center">
                         <div *ngIf="transportationPieOptions">
-                            <apx-chart [series]="transportationPieOptions.series"
+                            <apx-chart class="piePostions" [series]="transportationPieOptions.series"
                                 [chart]="transportationPieOptions.chart" [labels]="transportationPieOptions.labels"
                                 [legend]="transportationPieOptions.legend"
                                 [responsive]="transportationPieOptions.responsive"
@@ -1026,7 +1026,7 @@
                     </small>
                     <div class="text-center">
                         <div *ngIf="hotelPieOptions">
-                            <apx-chart [series]="hotelPieOptions.series" [chart]="hotelPieOptions.chart"
+                            <apx-chart class="piePostions" [series]="hotelPieOptions.series" [chart]="hotelPieOptions.chart"
                                 [labels]="hotelPieOptions.labels" [legend]="hotelPieOptions.legend"
                                 [responsive]="hotelPieOptions.responsive" [colors]="hotelPieOptions.colors"></apx-chart>
                         </div>
@@ -1403,7 +1403,7 @@
                             <thead>
                                 <tr>
                                     <th>Type of waste</th>
-                                    <th>Quantity (Metric tons)
+                                    <th>Quantity tonnes
                                     </th>
 
                                 </tr>
@@ -1462,7 +1462,7 @@
                             <thead>
                                 <tr>
                                     <th>Disposal method</th>
-                                    <th>Percentage (%)
+                                    <th>tonnes
                                     </th>
 
                                 </tr>
@@ -1523,7 +1523,7 @@
                                 <tr>
                                     <th>Waste diversion method
                                     </th>
-                                    <th>Percentage (%)
+                                    <th>tonnes
                                     </th>
 
                                 </tr>
@@ -1591,13 +1591,13 @@
 
 
             </div>
-            <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is diverted through
+            <!-- <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is diverted through
                 {{wasteDate?.method_type[0]?.method}} and
                 {{wasteDate?.method_type[1]?.method}}, showcasing effective resource recovery and sustainability
                 efforts.
 
 
-            </p>
+            </p> -->
         </div>
         <!--REPORT ON WASTE DIVERSION E -->
 
@@ -1632,19 +1632,19 @@
                             <tbody>
                                 <tr>
                                     <td style="vertical-align: top;" rowspan="5">GHG emissions</td>
-                                    <td style="vertical-align: top;">Scope 1:</td>
+                                    <td style="vertical-align: top;">Scope 1</td>
                                     <td style="vertical-align: top;">
                                         {{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="vertical-align: top;">Scope 2:</td>
+                                    <td style="vertical-align: top;">Scope 2</td>
                                     <td style="vertical-align: top;">
                                         {{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="vertical-align: top;">Scope 3:</td>
+                                    <td style="vertical-align: top;">Scope 3</td>
                                     <td style="vertical-align: top;">
                                         {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
                                     </td>
@@ -1662,7 +1662,7 @@
                                 </tr>
                                 <ng-container *ngFor="let item of noofEmployeeData">
                                     <tr *ngIf="item.year == currentYear">
-                                        <td style="vertical-align: top;">GHG emission per employee:</td>
+                                        <td style="vertical-align: top;">GHG emission per employee</td>
                                         <td style="vertical-align: top;">
                                             {{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e
                                         </td>
@@ -1675,7 +1675,7 @@
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: top;" rowspan="3">Waste</td>
-                                    <td style="vertical-align: top;">Total waste generated:</td>
+                                    <td style="vertical-align: top;">Total waste generated</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.waste_emissions ==0 ? '-' :
                                         this.scopeEmissons?.waste_emissions | number : '1.4-4'}}
                                         {{this.scopeEmissons?.waste_emissions ==0
@@ -1683,13 +1683,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="vertical-align: top;">Total waste disposal:</td>
+                                    <td style="vertical-align: top;">Total waste disposal</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.waste_disposed ==0 ? '-' :
                                         this.scopeEmissons?.waste_disposed }} {{this.scopeEmissons?.waste_disposed ==0 ?
                                         '' : 'tonnes'}}</td>
                                 </tr>
                                 <tr>
-                                    <td style="vertical-align: top;">Total waste diverted:</td>
+                                    <td style="vertical-align: top;">Total waste diverted</td>
                                     <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0 ? '-' :
                                         this.scopeEmissons?.diverted_emssion | number : '1.4-4'}}
                                         {{this.scopeEmissons?.diverted_emssion

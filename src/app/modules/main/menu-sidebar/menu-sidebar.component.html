@@ -37,7 +37,7 @@
 <div class="sidebar">
 
     <!-- Sidebar Menu -->
-    <nav class="mt-2" style="overflow-y: scroll">
+    <nav class="mt-2" >
 
         <div>
             <ul *ngIf="IsPAdmin" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -57,7 +57,7 @@
             <ul *ngIf="!IsPAdmin" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <div *ngFor="let item of menu; let i = index" class="ct_custom_dropdown"
-                    [ngClass]="{'ct_active': activeDropdownIndex === i}">
+                    [ngClass]="{'ct_active': activeDropdownIndexes.includes(i)}">
                     <p (click)="toggleDropdown(i)" class="my-0" *ngIf="item.head !== undefined" [ngClass]="
                             this.updatedtheme === 'dark'
                                 ? 'headtextD'

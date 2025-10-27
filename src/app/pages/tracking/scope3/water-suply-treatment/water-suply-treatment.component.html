@@ -114,7 +114,7 @@
                                           <div class="mb-4" style="gap: 10px;">
                                                 <label class=" ct_text_wrape">Total water withdrawn</label>
                                                 <i class="fa-solid fa-eye ml-3 text-primary"
-                                                      (click)="annualEntry && (visible = !visible)"></i>
+                                                      (click)="annualEntry && (visible = true)"></i>
                                                 <div class="d-flex align-items-center " style="gap: 15px;">
                                                       <div class="position-relative" style="flex: 1;">
                                                             <input type="number" placeholder="Enter water withdrawn"
@@ -165,16 +165,18 @@
                                                                                     <div style="position: relative;"
                                                                                           class="w-75">
 
-                                                                                          <input type="number"
-                                                                                                class="form-control "
-                                                                                                name="surface_water" [min]="0"
-                                                                                                [max]="100"
-                                                                                                required
-                                                                                                #surfaceWaterModel="ngModel"
-                                                                                         
-                                                                                                ngModel    [ngModel]="100"
-                                                                                                (input)="onInput($event,0)"
-                                                                                                placeholder="Enter required value">
+                                                                                          <input
+                                                                                          type="number"
+                                                                                          class="form-control"
+                                                                                          name="surface_water"
+                                                                                          [min]="0"
+                                                                                          [max]="100"
+                                                                                          required
+                                                                                          #surfaceWaterModel="ngModel"
+                                                                                          [(ngModel)]="surfaceWater"
+                                                                                          (input)="onInput($event, 0)"
+                                                                                          placeholder="Enter required value"
+                                                                                        />
                                                                                           <span
                                                                                                 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
 
@@ -451,11 +453,12 @@
                                                                   <div style="position: relative;" class="w-75">
                                                                         <input type="number" class="form-control"
                                                                               style="width: 200px;"
-                                                                              name="surface_water_dest" ngModel  [ngModel]="100"
+                                                                              name="surface_water_dest" ngModel
                                                                               (input)="onInputDischarge($event, 0)"  [min]="0"
                                                                               [max]="100"
                                                                               required
-                                                                              #surfaceWaterDestModel="ngModel"
+                                                                              #surfaceWaterDestModel="ngModel" 
+                                                                              [(ngModel)]="surfacewaterDest"
                                                                               placeholder="Enter value">
                                                                         <span
                                                                               style="position: absolute; right: -37px; top: 50%; transform: translateY(-50%); color: #6c757d;">%</span>
@@ -782,7 +785,7 @@
                         <tr *ngFor="let item of monthsData">
                               <td class="text-center" style="vertical-align: middle;">
                                     <input type="checkbox" class="ct_input_checkbox_1234" [(ngModel)]="item.selected"
-                                          [ngModelOptions]="{standalone: true}">
+                                          [ngModelOptions]="{standalone: true}"   (change)="onCheckboxChange(item)">
                               </td>
                               <td class="text-center" style="vertical-align: middle;">{{item.name}}</td>
                               <td><input type="text" class="form-control w-auto" placeholder="Reading Value"

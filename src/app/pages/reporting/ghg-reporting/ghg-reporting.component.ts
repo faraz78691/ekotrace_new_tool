@@ -199,6 +199,7 @@ export class GhgReportingComponent {
       this.ghgEnergyMonth(),
       this.getWaste(),
       this.getTopEmissions(),
+      this.getTopEmissionsPieGraph(),
       this.getGhgNoofEmployee(),
       this.getKPIEmisions()
 
@@ -683,6 +684,21 @@ export class GhgReportingComponent {
           ...response.Scope2.map((item: any) => item.category),
           ...response.Scope3.map((item: any) => item.category)
         ];
+
+        // this.ghgTopEmissionsGen = this.getPieCharOptions(series, labels);
+      })
+    );
+  }
+  getTopEmissionsPieGraph() {
+    const formData = new URLSearchParams();
+    formData.set('facilities', this.selectedMultipleFacility.toString());
+  formData.set('year', this.reportingYear.getFullYear().toString());
+
+    return this._appService.postAPI('/dashboardTopEmssion', formData).pipe(
+      tap((response: any) => {
+        let series = response.top5Emissions.map((item: any) => Number(item.emission));
+        let labels = response.top5Emissions.map((item: any) => (item.category));
+       console.log(series);
 
         this.ghgTopEmissionsGen = this.getPieCharOptions(series, labels);
       })

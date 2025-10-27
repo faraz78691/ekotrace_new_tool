@@ -70,7 +70,7 @@
 <form #dataEntryForm="ngForm" (ngSubmit)="EntrySave(dataEntryForm)">
 
       <div class="trackingFooter">
-            <div class="col-md-12 table-responsive p-4" style="height: 53vh;">
+            <div class="col-md-12 table-responsive p-4" style="height: 45vh;">
                   <table class="table ct_home_office_table ett_verticle_align_top" style="height:357px">
                         <thead class="thead-dark">
                               <tr>
@@ -95,14 +95,14 @@
                                           <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                 [(ngModel)]="row.trasnportMode" [ngModelOptions]="{standalone: true}"
                                                 [options]="ModesTravelGrid" (onChange)="onModesChangeM($event , row)"
-                                                optionLabel="modes" optionValue="modes" placeholder="Select mode">
+                                                optionLabel="modes" optionValue="modes" placeholder="Select mode"  (onShow)="handleDropdownShow()"  (onHide)="handleDropdownHide()" filterInputAutoFocus="false">
                                           </p-dropdown>
                                     </td>
                                     <td>
                                           <p-dropdown class="ct_select_op_input ct_chev_icon_dark230" ngModel
                                                 [options]="row.mode_type" optionLabel="mode_type"
                                                 optionValue="mode_type" [(ngModel)]="row.selectedMode"
-                                                [ngModelOptions]="{standalone: true}" #cartype="ngModel">
+                                                [ngModelOptions]="{standalone: true}" #cartype="ngModel" (onShow)="handleDropdownShow()"  (onHide)="handleDropdownHide()" filterInputAutoFocus="false">
                                           </p-dropdown>
                                     </td>
                                     <!-- <td>
@@ -139,7 +139,7 @@
                                           <p-dropdown class="ct_select_op_input ct_flex_1 ct_chev_icon_dark230"
                                                 [options]="row.month" optionLabel="name"
                                                 [(ngModel)]="row.selectedMonths" [ngModelOptions]="{standalone: true}"
-                                                name="months" ngModel optionValue="value">
+                                                name="months" ngModel optionValue="value" (onShow)="handleDropdownShow()"  (onHide)="handleDropdownHide()" filterInputAutoFocus="false">
                                           </p-dropdown>
                                     </td>
                                     <td>
@@ -148,6 +148,7 @@
                               </tr>
                         </tbody>
                         <span class="ml-2 trackingsubmitb et_plusadd_455" (click)="addrowsOtherModes()">+</span>
+                      
                   </table>
             </div>
             <div class="col-8">

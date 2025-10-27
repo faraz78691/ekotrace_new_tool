@@ -189,7 +189,7 @@ export class DownstreamTransportationComponent {
   };
 
   getSubVehicleCategory(categoryId: any) {
-    this.appService.getApi(`/vehicleSubCategories?id=${categoryId}&facility_id=${this.facilityID}`).subscribe({
+    this.appService.getApi(`/vehicleSubCategories?id=${categoryId}&facility_id=${this.facilityID}&year=${this.year}`).subscribe({
       next: (response: any) => {
         // // // console.log(response);
         if (response.success == true) {

@@ -48,6 +48,8 @@ export class WaterSuplyTreatmentComponent {
   treatmentToKilo: any = [];
   waterSupplyUnit2 = 1;
   loginInfo: LoginInfo = new LoginInfo();
+  surfaceWater:any = 100;
+  surfacewaterDest:any = 100;
   waterSupplyUnitGrid = 
     [
       {
@@ -60,6 +62,8 @@ export class WaterSuplyTreatmentComponent {
       }
     ]
   constructor(private facilityService: FacilityService, private notification: NotificationService, private appService: AppService) {
+   
+    
 
     this.monthsData = getMonthsData();
     this.waterUsageLevel =
@@ -87,8 +91,42 @@ export class WaterSuplyTreatmentComponent {
       }
     });
   };
+  
+  ngAfterViewInit() {
+    // Give Angular time to initialize template form controls
+    setTimeout(() => {
+      this.dataEntryForm.reset({
+        ground_levelTreatment: "Primary",
+        ground_withTreatment: 0,
+        groundwater: 0,
+        groundwater_dest: 0,
+        others: 0,
+        others_dest: 0,
+        others_levelTreatment: "Primary",
+        others_withTreatment: 0,
+        seaWater: 0,
+        seaWater_dest: 0,
+        seawater_levelTreatment: "Primary",
+        seawater_withTreatment: 0,
+        surface_levelTreatment: "Primary",
+        surface_water: 100,
+        surface_water_dest: 100,
+        surface_withTreatment: 0,
+        thirdParty: 0,
+        thirdParty_dest: 0,
+        third_levelTreatment: "Primary",
+        third_withTreatment: 0
+      });
+
+      console.log(this.dataEntryForm.value.surface_water, 'surface water ✅');
+    }, 0);
+  }
+  
+
+ 
 
   async EntrySave(form: NgForm) {
+   
     if(form.invalid){
       return
     }
@@ -100,34 +138,36 @@ export class WaterSuplyTreatmentComponent {
       var allUnits = 2
     }
 
-    const  totalWaterSupply = parseFloat(form.value.surface_water) +parseFloat(form.value.groundwater) + parseFloat(form.value.thirdParty) + parseFloat(form.value.seaWater) + parseFloat(form.value.others);
+    const  totalWaterSupply = parseFloat(this.surfaceWater) +parseFloat(form.value.groundwater) + parseFloat(form.value.thirdParty) + parseFloat(form.value.seaWater) + parseFloat(form.value.others);
     if(totalWaterSupply > 100){
       this.notification.showWarning('Total sum of water withdrawal source cannot be greater than 100%', '');
       return
     };
-    const  totalWaterDischarge = parseFloat(form.value.surface_water_dest) +parseFloat(form.value.groundwater_dest) + parseFloat(form.value.seaWater_dest) + parseFloat(form.value.thirdParty_dest) + parseFloat(form.value.others_dest);
+    const  totalWaterDischarge = parseFloat(this.surfacewaterDest) +parseFloat(form.value.groundwater_dest) + parseFloat(form.value.seaWater_dest) + parseFloat(form.value.thirdParty_dest) + parseFloat(form.value.others_dest);
     if(totalWaterDischarge > 100){
       this.notification.showWarning('Total sum of water discharge destination cannot be greater than 100%', '');
       return
     };
 
-    var waterobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water || 100 };
+    var waterobj1 = { "type": "Surface water", "kilolitres": (this.surfaceWater == '' || this.surfaceWater == undefined  ) ? 0 : this.surfaceWater };
     var waterobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater || 0  };
     var waterobj3 = { "type": "Third party water", "kilolitres": form.value.thirdParty || 0  };
     var waterobj4 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater || 0  };
     var waterobj5 = { "type": "Others", "kilolitres": form.value.others || 0  };
 
+   
     const typoOfOffice = [waterobj1, waterobj2, waterobj3, waterobj4, waterobj5]
+  
     var water_withdrawlStringfy = JSON.stringify(typoOfOffice);
 
 
-    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres": form.value.surface_water_dest || 100 };
+    var waterDischargeonlyobj1 = { "type": "Surface water", "kilolitres":  (this.surfacewaterDest == '' || this.surfacewaterDest == undefined ) ? 0 : this.surfacewaterDest };
     var waterDischargeonlyobj2 = { "type": "Groundwater", "kilolitres": form.value.groundwater_dest || 0 };
     var waterDischargeonlyobj3 = { "type": "Sea water / desalinated water", "kilolitres": form.value.seaWater_dest || 0 };
     var waterDischargeonlyobj4 = { "type": "Third party water", "kilolitres": form.value.thirdParty_dest || 0 };
     var waterDischargeonlyobj5 = { "type": "Others", "kilolitres": form.value.others_dest || 0 };
-
     const typoOfDischargeonlyOffice = [waterDischargeonlyobj1, waterDischargeonlyobj2, waterDischargeonlyobj3, waterDischargeonlyobj4, waterDischargeonlyobj5]
+  
     var water_DischargeonlyStringfy = JSON.stringify(typoOfDischargeonlyOffice);
 
     var waterDischargeobj1 = { "type": "Into Surface water", "withthtreatment": form.value.surface_withTreatment || 0, "leveloftreatment": form.value.surface_levelTreatment };
@@ -137,6 +177,7 @@ export class WaterSuplyTreatmentComponent {
     var waterDischargeobj5 = { "type": "Others", "withthtreatment": form.value.others_withTreatment || 0, "leveloftreatment": form.value.others_levelTreatment };
 
     const dischargeWater = [waterDischargeobj1, waterDischargeobj2, waterDischargeobj3, waterDischargeobj4, waterDischargeobj5]
+  
     var waterDischargeStringfy = JSON.stringify(dischargeWater);
 
     formData.set('water_supply_unit', this.waterSupplyUnit.toString());
@@ -150,6 +191,7 @@ export class WaterSuplyTreatmentComponent {
 
     if (this.annualEntry) {
       const selectedMonths = this.monthsData.filter(item => item.selected);
+   
       if (selectedMonths.length == 0) {
         this.notification.showWarning('Please select at least one month', 'Warning');
         this.isSubmitting = false;
@@ -157,17 +199,18 @@ export class WaterSuplyTreatmentComponent {
       }
       this.isSubmitting = true;
 
-      for (let index = 0; index < this.monthsData.length; index++) {
-        const item = this.monthsData[index];
+      for (let index = 0; index < selectedMonths.length; index++) {
+        const item = selectedMonths[index];
 
         if (item.selected) {
-          formData.set('water_supply', JSON.stringify([item.readingValue1]));
-          formData.set('water_treatment', JSON.stringify([item.readingValue2]));
+          formData.set('water_supply', item.readingValue1);
+          formData.set('water_treatment', item.readingValue2);
           formData.set('month', JSON.stringify([item.value]));
           try {
             const response: any = await firstValueFrom(
               this.appService.postAPI('/UploadWaterSupplyDE', formData)
             )
+            console.log(response);
 
             if (response.success === true) {
               if (index === selectedMonths.length - 1) {
@@ -209,6 +252,30 @@ export class WaterSuplyTreatmentComponent {
           await new Promise(res => setTimeout(res, 200));
         }
       }
+      this.dataEntryForm.reset({
+        ground_levelTreatment: "Primary",
+        ground_withTreatment: 0,
+        groundwater: 0,
+        groundwater_dest: 0,
+        others: 0,
+        others_dest: 0,
+        others_levelTreatment: "Primary",
+        others_withTreatment: 0,
+        seaWater: 0,
+        seaWater_dest: 0,
+        seawater_levelTreatment: "Primary",
+        seawater_withTreatment: 0,
+        surface_levelTreatment: "Primary",
+        surface_water: 100,
+        surface_water_dest: 100,
+        surface_withTreatment: 0,
+        thirdParty: 0,
+        thirdParty_dest: 0,
+        third_levelTreatment: "Primary",
+        third_withTreatment: 0
+      });
+      this.surfaceWater = 100;
+      this.surfacewaterDest = 100;
 
     } else {
       if (form.value.water_supply <= form.value.water_treatment) {
@@ -256,9 +323,29 @@ export class WaterSuplyTreatmentComponent {
               this.treatmentToKilo[i] = null;
             }
             this.dataEntryForm.reset({
+              ground_levelTreatment: "Primary",
+              ground_withTreatment: 0,
+              groundwater: 0,
+              groundwater_dest: 0,
+              others: 0,
+              others_dest: 0,
+              others_levelTreatment: "Primary",
+              others_withTreatment: 0,
+              seaWater: 0,
+              seaWater_dest: 0,
+              seawater_levelTreatment: "Primary",
+              seawater_withTreatment: 0,
+              surface_levelTreatment: "Primary",
+              surface_water: 100,
               surface_water_dest: 100,
-              surface_water: 100
+              surface_withTreatment: 0,
+              thirdParty: 0,
+              thirdParty_dest: 0,
+              third_levelTreatment: "Primary",
+              third_withTreatment: 0
             });
+            this.surfaceWater = 100;
+            this.surfacewaterDest = 100;
      
 
           } else {
@@ -296,15 +383,33 @@ export class WaterSuplyTreatmentComponent {
 
 
   onAnnualChange(event: any) {
+  
     this.appService.sendData(event);
+    this.visible = event;
+    if (event == true) {
+      this.dataEntryForm.control.patchValue({
+        water_supply: '',
+        water_treatment : ''
+
+      });
+    }
 
   };
 
-  selectAll(event: any) {
+  selectAll(event: any): void {
+    const checked = event.target.checked;
+  
     this.monthsData.forEach(item => {
-      item.selected = event.target.checked
-    })
+      item.selected = checked;
+  
+      // If unchecked, clear the values
+      if (!checked) {
+        item.readingValue1 = '';
+        item.readingValue2 = '';
+      }
+    });
   }
+  
 
   onInput(event: any, type: any) {
     this.convertToKilo[type] = (event.target.value * this.dataEntryForm.value.water_supply) / 100
@@ -348,6 +453,13 @@ export class WaterSuplyTreatmentComponent {
   onInputTreatment(event: any, type: any) {
     this.treatmentToKilo[type] = (event.target.value * this.dischargeToKilo[type]) / 100
   };
+
+  onCheckboxChange(item: any): void {
+    if (!item.selected) {
+      item.readingValue1 = '';
+      item.readingValue2 = '';
+    }
+  }
 
   ngOnDestroy(): void {
     this.appService.sendData(false);

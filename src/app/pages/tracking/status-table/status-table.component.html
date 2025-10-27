@@ -11,9 +11,12 @@
 
         <!-- If this column is array -->
         <ng-container *ngIf="col.isArray; else normalHeader">
-          <ng-container *ngFor="let item of data[0][col.field]; let i = index">
-            <th> {{ item.water_withdrawl || item.water_discharge }} (%) </th>
-            <th *ngIf="col.xtra"> {{ col.xtra }} </th>
+          <ng-container *ngIf="data[0]">
+            <ng-container *ngFor="let item of data[0][col?.field]; let i = index">
+              <th> {{ item.water_withdrawl || item.water_discharge }} (%) </th>
+              <th *ngIf="col.xtra"> {{ col.xtra }} </th>
+            </ng-container>
+
           </ng-container>
         </ng-container>
 

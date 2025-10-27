@@ -54,7 +54,12 @@ export class MenuSidebarComponent implements OnInit {
 
     }
 
+    
+    activeDropdownIndex: number = 1
+    activeDropdownIndexes: number[] = [1];
+
     ngOnInit() {
+        this.activeDropdownIndexes = JSON.parse(sessionStorage.getItem('activeIndexS')) || [1];
 
         if (localStorage.getItem('assets') != null) {
             let userAssets = localStorage.getItem('assets');
@@ -107,7 +112,7 @@ export class MenuSidebarComponent implements OnInit {
                                 menu.find((item) => item.role === this.loginInfo.role && item.haveMainGorup == this.haveMainGroup)
                                     ?.items || [];
                         } else {
-
+                            console.log(this.menu, this.haveMainGroup);
                             this.menu =
                                 menu.find((item) => item.role === this.loginInfo.role && item.package_name == this.loginInfo.package_name && item.haveMainGorup == this.haveMainGroup)
                                     ?.items || [];
@@ -242,10 +247,17 @@ export class MenuSidebarComponent implements OnInit {
         }
     }
 
-    activeDropdownIndex: number = 0
-    toggleDropdown(index: number): void {
-        this.activeDropdownIndex = this.activeDropdownIndex === index ? -1 : index;
 
+    toggleDropdown(index: number): void {
+        const existingIndex = this.activeDropdownIndexes.indexOf(index);
+        if (existingIndex === -1) {
+
+            this.activeDropdownIndexes.push(index);
+            sessionStorage.setItem('activeIndexS', JSON.stringify(this.activeDropdownIndexes))
+        } else {
+            this.activeDropdownIndexes.splice(existingIndex, 1);
+            sessionStorage.setItem('activeIndexS', JSON.stringify(this.activeDropdownIndexes))
+        }
     }
 }
 export const menu = [
@@ -386,12 +398,12 @@ export const menu = [
                         iconSRC: 'assets/img/BRSR.svg',
                         path: ['GhgReporting']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             {
@@ -551,12 +563,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             {
@@ -940,12 +952,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                //    {
+                //         name: 'BRSR',
+                //         iconClasses: 'fas fa-table',
+                //         iconSRC: 'assets/img/BRSR.svg',
+                //         path: ['brsrReport']
+                //     } 
                 ]
             },
             {
@@ -1093,7 +1105,7 @@ export const menu = [
 
     {
         role: 'Admin',
-        haveMainGorup: 1,
+        haveMainGorup: 2,
         package_name: 'Comprehensive',
         items: [
             {
@@ -1209,12 +1221,12 @@ export const menu = [
                         iconSRC: 'assets/img/BRSR.svg',
                         path: ['GhgReporting']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             {
@@ -1377,12 +1389,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             // {
@@ -1526,12 +1538,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             // {
@@ -2063,12 +2075,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             {
@@ -2190,12 +2202,12 @@ export const menu = [
                         iconSRC: 'assets/img/report_icon.svg',
                         path: ['report']
                     },
-                    {
-                        name: 'BRSR',
-                        iconClasses: 'fas fa-table',
-                        iconSRC: 'assets/img/BRSR.svg',
-                        path: ['brsrReport']
-                    }
+                    // {
+                    //     name: 'BRSR',
+                    //     iconClasses: 'fas fa-table',
+                    //     iconSRC: 'assets/img/BRSR.svg',
+                    //     path: ['brsrReport']
+                    // }
                 ]
             },
             {

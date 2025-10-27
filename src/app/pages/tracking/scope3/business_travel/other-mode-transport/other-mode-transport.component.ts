@@ -177,6 +177,7 @@ export class OtherModeTransportComponent {
     const formdata = new URLSearchParams();
     formdata.set('type_name', selectedMode);
     formdata.set('facility_id', this.facilityID.toString());
+    formdata.set('year', this.year.toString());
 
     this.appService.postAPI('/get_Othermodes_of_transport_node_type_by_type_name', formdata).subscribe({
       next: (response: any) => {
@@ -281,5 +282,21 @@ export class OtherModeTransportComponent {
     deleteRow(row: any) {
       if(this.rowsOtherTransport.length == 1) return
       this.rowsOtherTransport = this.rowsOtherTransport.filter(item => item.id !== row.id);
+    }
+
+    handleDropdownShow(): void {
+      window.addEventListener('scroll', this.preventScroll, true);
+    }
+    
+    handleDropdownHide(): void {
+      window.removeEventListener('scroll', this.preventScroll, true);
+    }
+    
+    preventScroll(event: Event): void {
+      const dropdown = document.querySelector('.p-dropdown-panel');
+      if (dropdown) {
+        // console.log('Preventing scroll');
+        event.stopPropagation();
+      }
     }
 }

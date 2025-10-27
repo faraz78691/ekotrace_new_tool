@@ -153,7 +153,7 @@
 
 .ct_custom_dropdown_items {
     position: relative;
-    background-color: #fff;
+    background-color: white;
     transition: 0.4s ease all;
     // height: 0px;
     overflow: auto;
@@ -184,7 +184,7 @@
      transition: 0.4s ease all;
 }
 .ct_custom_dropdown.ct_active > p {
-    background-color: #a2c17e;
+    background-color: #8ab25c;
     color: #fff;
 }
 
