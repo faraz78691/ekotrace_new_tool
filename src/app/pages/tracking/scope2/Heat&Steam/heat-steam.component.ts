@@ -26,7 +26,12 @@ export class HeatSteamComponent {
   facilityCountryCode: string;
   isHowtoUse = false;
   subCategoryID: number = 1;
-  units: any[] = [];
+  units: any[] =  [
+    {
+        "ID": 24,
+        "UnitName": "Kwh",
+        "seedsubcatID": 12
+    }];
   isSubmitting = false;
   unit: any;
   year: string;
@@ -55,7 +60,7 @@ export class HeatSteamComponent {
 
   ngOnInit(): void {
     this.getsubCategoryType(this.subCategoryID);
-    this.getUnit(this.subCategoryID);
+    // this.getUnit(this.subCategoryID);
   };
 
   getsubCategoryType(subCatID: number) {
@@ -227,6 +232,29 @@ export class HeatSteamComponent {
     this.monthsData.forEach(item => {
       item.selected = event.target.checked
     })
+  }
+  onTypeChange(event: any) {
+   
+ if(event.value == 3) {
+  this.units = [
+    {
+        "ID": 24,
+        "UnitName": "Kwh",
+        "seedsubcatID": 12
+    }];
+ } else {
+  this.units = [
+    {
+      "ID": 24,
+      "UnitName": "Kwh",
+      "seedsubcatID": 12
+    },{
+      "ID": 25,
+      "UnitName": "Rth",
+      "seedsubcatID": 12
+    }
+  ]
+ }
   }
 
   ngOnDestroy(): void {

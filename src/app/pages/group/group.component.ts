@@ -243,7 +243,7 @@ export class GroupComponent {
         // formData.set('tenantID',  this.groupdetails.tenantID.toString());
         formData.set('facility',this.selectedFaciltiy);
 
-        return
+        
         this.GroupService.newEditGroup(formData.toString()).subscribe({
             next: (response) => {
                

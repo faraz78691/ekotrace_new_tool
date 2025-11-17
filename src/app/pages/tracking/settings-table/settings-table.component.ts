@@ -85,9 +85,9 @@ export class SettingsTableComponent {
       case 7:
         return [
           { field: 'typeName', header: 'Type' },
-          { field: 'readingValue', header: 'Value' },
+          { field: 'GHGEmissionFactor', header: 'Emission Factor' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'user_name', header: 'User' },
         ]
       case 8:
         return [

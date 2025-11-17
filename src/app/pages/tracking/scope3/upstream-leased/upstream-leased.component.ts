@@ -247,7 +247,7 @@ export class UpstreamLeasedComponent {
   };
 
   getSubVehicleCategoryLease(categoryId: any) {
-    this.appService.getApi(`/vehicleSubCategories_lease?id=${categoryId}&facility_id=${this.facilityID}`).subscribe({
+    this.appService.getApi(`/vehicleSubCategories_lease?id=${categoryId}&facility_id=${this.facilityID}&year=${this.year}`).subscribe({
       next: (response) => {
         // // // console.log(response);
         if (response.success == true) {
