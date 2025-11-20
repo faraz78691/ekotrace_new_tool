@@ -250,7 +250,12 @@ export class TrackingComponent {
                             this.categoryId = categoryId;
                             const child = this.AssignedDataPoint[0].manageDataPointCategories[0].manageDataPointSubCategories[0];
                             const catName = this.AssignedDataPoint[0].manageDataPointCategories[0].catName;
-                            this.SubCatData(child, categoryId, catName);
+                            if (categoryId === 13) {
+                                this.SubCatData(child, categoryId, catName, 24);
+                            } else {
+                                this.SubCatData(child, categoryId, catName);
+                            }
+
                         }
                     },
                     error: (err) => {

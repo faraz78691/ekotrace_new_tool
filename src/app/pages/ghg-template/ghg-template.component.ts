@@ -161,7 +161,7 @@ export class GhgTemplateComponent {
         this.facilityService.newGetFacilityByTenant(tenantId).subscribe({
             next: (response: any) => {
                 this.LocData = response;
-               
+
                 if (this.LocData.length == 0) {
                     this.NoData = 'block';
                     this.FacilityData = 'none';
@@ -191,7 +191,7 @@ export class GhgTemplateComponent {
         this.GetsavedDataPoint(data.id)
         // this.getUserofFacility(id);
     }
- 
+
     defaultData() {
         this.id_var = this.LocData[0].id;
         let tenantId = this.loginInfo.tenantID;
@@ -200,7 +200,7 @@ export class GhgTemplateComponent {
         this.GetsavedDataPoint(this.facilityDetails.id);
     }
 
-   
+
 
     facilitygrouplist: facilities[] = [];
 
@@ -287,7 +287,31 @@ export class GhgTemplateComponent {
 
                 this.scope1Category = response.scope1;
                 this.scope2Category = response.scope2;
-                this.scope3Category = response.scope3;
+                const scope3Order = [
+                    'Purchased goods and services',
+                    'Fuel and Energy-related Activities',
+                    'Upstream Transportation and Distribution',
+                    'Water Supply and Treatment',
+                    'Waste generated in operations',
+                    'Business Travel',
+                    'Employee Commuting',
+                    'Home Office',
+                    'Upstream Leased Assets',
+                    'Downstream Transportation and Distribution',
+                    'Processing of Sold Products',
+                    'Use of Sold Products',
+                    'End-of-Life Treatment of Sold Products',
+                    'Downstream Leased Assets',
+                    'Franchises'
+                ];
+                this.scope3Category = [];
+                if (Array.isArray(response.scope3)) {
+                    this.scope3Category = scope3Order
+                        .map((name) => response.scope3.find(c => (c.label || c.name) === name))
+                        .filter(Boolean);
+                } else {
+                    this.scope3Category = response.scope3;
+                }
             }
         });
     };
