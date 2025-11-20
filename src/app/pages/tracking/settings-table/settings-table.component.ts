@@ -86,7 +86,7 @@ export class SettingsTableComponent {
         return [
           { field: 'typeName', header: 'Type' },
           { field: 'GHGEmissionFactor', header: 'Emission Factor' },
-          { field: 'unit', header: 'Unit' },
+          { xtra: 'kg CO2e/', field: 'unit', header: 'Unit' },
           { field: 'user_name', header: 'User' },
         ]
       case 8:

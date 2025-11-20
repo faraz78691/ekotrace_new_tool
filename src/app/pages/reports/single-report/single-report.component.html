@@ -169,6 +169,9 @@
                                 <th *ngIf="selectedCategory ==8">
                                     Product / Service
                                 </th>
+                                <th *ngIf="selectedCategory ==9">
+                                   Sub Category
+                                </th>
                                 <th *ngIf="selectedCategory ==8">
                                     Code
                                 </th>
@@ -437,6 +440,13 @@
                                     {{de.Years}} </td>
                                 <td *ngIf="selectedCategory == 8">
                                     {{de.Months}} </td>
+                                <td
+                                    *ngIf="selectedCategory == 9">
+                                    {{de.category_name}}</td>
+                                <td *ngIf="selectedCategory == 9">
+                                    {{de.subcategory}}</td>
+                             
+                              
 
                                 <td *ngIf=" selectedCategory ==18 "> {{de.sub_activity}}</td>
                                 <td *ngIf="selectedCategory == 18">{{ de.processing_acitivity }}</td>
