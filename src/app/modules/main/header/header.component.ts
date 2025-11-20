@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
     facilityCountryCode: any;
     showFacility = false;
     showGroup = false;
-
+    dashboardLogoUrl: string = '';
     constructor(
         private appService: AppService,
         private companyService: CompanyService,
@@ -82,6 +82,21 @@ export class HeaderComponent implements OnInit {
 
         this.facilityService.headerTracking();
         this.href = this.router.url;
+
+
+        if (localStorage.getItem('assets') != null) {
+            let userAssets = localStorage.getItem('assets');
+
+            this.dashboardLogoUrl = JSON.parse(userAssets).dashboard_logo
+
+        } else {
+            this.appService.getApi('/login_logo').subscribe((res) => {
+                this.dashboardLogoUrl = res.data.dashboard_logo
+                const jsonAssets = JSON.stringify(res.data[0]);
+                localStorage.setItem('assets', jsonAssets);
+
+            })
+        }
 
         this.loginInfo = new LoginInfo();
         if (localStorage.getItem('LoginInfo') != null) {
