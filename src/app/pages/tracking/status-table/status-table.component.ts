@@ -116,7 +116,7 @@ export class StatusTableComponent {
       case 9:
         return [
           { field: 'tablename', header: 'Category' },
-          { field: 'subcatName', header: 'Sub Category' },
+          { field: 'typeName', header: 'Sub Category' },
           { field: 'readingValue', header: 'Reading Value' },
           { field: 'unit', header: 'Unit' },
           { field: 'month', header: 'Month' },

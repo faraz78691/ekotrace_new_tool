@@ -209,7 +209,7 @@ export class SingleReportComponent {
         }
     };
 
-    readonly monthCategoryIds = [1, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23];
+    readonly monthCategoryIds = [1, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 9];
 
     isMonthCategory(categoryId: number): boolean {
         return this.monthCategoryIds.includes(categoryId);
@@ -413,7 +413,7 @@ export class SingleReportComponent {
                     url = 'reportFilterPurchaseGoods'
                     break;
                 case 9:
-                    url = 'reportStationaryCombustion'
+                    url = 'reportFuelAndEnergyRelated'
                     break;
                 case 10:
                     url = 'reportUpStreamVehicles'

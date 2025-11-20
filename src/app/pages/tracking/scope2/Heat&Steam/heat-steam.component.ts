@@ -234,27 +234,30 @@ export class HeatSteamComponent {
     })
   }
   onTypeChange(event: any) {
-   
- if(event.value == 3) {
-  this.units = [
-    {
-        "ID": 24,
-        "UnitName": "Kwh",
-        "seedsubcatID": 12
-    }];
- } else {
-  this.units = [
-    {
-      "ID": 24,
-      "UnitName": "Kwh",
-      "seedsubcatID": 12
-    },{
-      "ID": 25,
-      "UnitName": "Rth",
-      "seedsubcatID": 12
+    
+    const typeName = this.heatType.find(item => item.ID == event.value)?.Item;
+    
+    if (typeName === "District heat and steam") {
+      this.units = [
+        {
+          "ID": 24,
+          "UnitName": "Kwh",
+          "seedsubcatID": 12
+        }];
+    } else {
+      this.units = [
+        {
+          "ID": 24,
+          "UnitName": "Kwh",
+          "seedsubcatID": 12
+        },
+        {
+          "ID": 25,
+          "UnitName": "RTh",
+          "seedsubcatID": 12
+        }
+      ];
     }
-  ]
- }
   }
 
   ngOnDestroy(): void {
