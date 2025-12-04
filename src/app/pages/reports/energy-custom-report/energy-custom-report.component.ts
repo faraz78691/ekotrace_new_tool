@@ -58,7 +58,7 @@ export class EnergyCustomReportComponent {
     selectReportType = 'Monthly'
     notevalue: string;
     Datapoints: string;
- 
+
     selectedFacilityID: any;
     selectedYear: number;
     facilityhavedp = 'none';
@@ -90,10 +90,10 @@ export class EnergyCustomReportComponent {
     selectedMultipleCategories: any;
     selectedMultipleFacility: any;
     @ViewChild('dt', { static: false }) table: any;
-    startMonth:any;
+    startMonth: any;
     startYear: any;
-    endMonth:any;
-    endYear:any;
+    endMonth: any;
+    endYear: any;
     AssignedDataPoint = [
         {
             "Id": 1,
@@ -261,7 +261,7 @@ export class EnergyCustomReportComponent {
     reportType: any[] = [
         { name: '1', value: 'Monthly' },
         { name: '2', value: 'Consolidated' },
-    
+
     ];
     @ViewChild('calendarRef') calendarRef!: Calendar;
     date: Date;
@@ -273,7 +273,7 @@ export class EnergyCustomReportComponent {
 
 
 
-       
+
         this.Modes =
             [
 
@@ -304,21 +304,21 @@ export class EnergyCustomReportComponent {
             this.loginInfo = jsonObj as LoginInfo;
             this.facilityID = sessionStorage.getItem('SelectedfacilityID');
             this.GetAllFacility()
-          
+
 
         }
     };
 
-  
 
-  
+
+
 
     //Retrieves all facilities for a tenant
     GetAllFacility() {
         let tenantId = this.loginInfo.tenantID;
         this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
             this.facilityData = response;
-          
+
             this.lfcount = this.facilityData.length;
         });
     };
@@ -326,7 +326,7 @@ export class EnergyCustomReportComponent {
     openCalendar(calendar: Calendar) {
         calendar.toggle();
     };
- 
+
 
     dataPointChangedID(id) {
         if (id == 13) {
@@ -338,8 +338,8 @@ export class EnergyCustomReportComponent {
 
     multipleDataPointsChanged(event: any) {
         this.selectedMultipleCategories = event.value; // This stores the selected IDs in the array
-      
-       
+
+
     }
 
 
@@ -423,11 +423,11 @@ export class EnergyCustomReportComponent {
 
         doc.save('report.pdf');
     };
-   
+
 
     newgenerateReport() {
-     
-    
+
+
         this.CustomReportData = [];
         const reportFormData = new URLSearchParams();
         // this.selectedCategory = 'Stationary Combustion';
@@ -436,14 +436,14 @@ export class EnergyCustomReportComponent {
         if (this.isMultiple) {
             const startYear = this.startYear.getFullYear().toString();
             const endYear = this.endYear.getFullYear().toString();
- 
 
-            if(this.selectReportType == 'Monthly'){
+
+            if (this.selectReportType == 'Monthly') {
                 url = 'reportFilterMultipleCategoryNew'
-            }else{
-                  url = 'reportFilterMultipleCategoryConsolidated'
+            } else {
+                url = 'reportFilterMultipleCategoryConsolidated'
             }
-            if(!this.selectedMultipleFacility ){
+            if (!this.selectedMultipleFacility) {
                 this.notification.showInfo(
                     "Please select at least one facility",
                     'Warning'
@@ -452,10 +452,10 @@ export class EnergyCustomReportComponent {
             }
             let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
 
-          
+
 
             const categoryMap = {
-             
+
                 "Stationary Combustion": "stationary_combustion",
                 "Upstream Leased Assets": "upstreamlease_emission",
                 "Downstream Leased Assets": "downstreamlease_emission",
@@ -467,7 +467,7 @@ export class EnergyCustomReportComponent {
                 "Refrigerants": "refrigerant",
                 "Heat and Steam": "heat_steam",
                 "Electricity": "renewable_electricity",
-                "Company Owned Vehicles" : "company_owned_vehicles",
+                "Company Owned Vehicles": "company_owned_vehicles",
                 "End-of-Life Treatment of Sold Products": "end_of_life_treatment",
                 "Fire Extinguisher": "fire_extinguisher",
                 "Purchased goods and services": "purchase_goods",
@@ -477,13 +477,13 @@ export class EnergyCustomReportComponent {
                 "Investment Emissions": "investment_emission",
                 "Business Travel": "business_travel",
                 "Water Supply and Treatment": "water_supply_treatment",
-
+                "Fuel and Energy-related Activities": "fuel_and_energy_related",
             };
 
 
             this.AssignedDataPoint.forEach(category => {
                 const field = categoryMap[category.CatName];
-                if(field){
+                if (field) {
                     if (this.selectedMultipleCategories.includes(category.Id)) {
                         reportFormData.set(field, '1'); // Set selected category to 1
                     } else {
@@ -491,32 +491,32 @@ export class EnergyCustomReportComponent {
                     }
                 }
             })
-           
+
 
             for (let key in categoryMap) {
-                let value = this.AssignedDataPoint.find(items=>items.CatName == key)
-                if (!value){
-                
+                let value = this.AssignedDataPoint.find(items => items.CatName == key)
+                if (!value) {
+
                     reportFormData.set(categoryMap[key], '0');
                 }
-            } 
-            
-        
-            reportFormData.set('facility',selectedFacilities)
-            reportFormData.set('investment_emission','0')
-            reportFormData.set('flight_travel',this.selectMode == 1 ? '1' : '0')
-            reportFormData.set('hotel_stays',this.selectMode == 2 ? '1' : '0')
-            reportFormData.set('other_transport',this.selectMode == 3 ? '1' : '0')
+            }
+
+
+            reportFormData.set('facility', selectedFacilities)
+            reportFormData.set('investment_emission', '0')
+            reportFormData.set('flight_travel', this.selectMode == 1 ? '1' : '0')
+            reportFormData.set('hotel_stays', this.selectMode == 2 ? '1' : '0')
+            reportFormData.set('other_transport', this.selectMode == 3 ? '1' : '0')
             reportFormData.set('start_year', startYear)
             reportFormData.set('end_year', endYear)
             reportFormData.set('start_month', this.startMonth.value)
             reportFormData.set('end_month', this.endMonth.value)
 
         } else {
-                   this.dataEntry.month = this.selectMonths.map((month) => month.value).join(',');
-        this.dataEntry.year = this.date.getFullYear().toString();
-    
-        const selectedMonths = this.dataEntry.month.split(',').map(month => `'${month}'`).join(',');
+            this.dataEntry.month = this.selectMonths.map((month) => month.value).join(',');
+            this.dataEntry.year = this.date.getFullYear().toString();
+
+            const selectedMonths = this.dataEntry.month.split(',').map(month => `'${month}'`).join(',');
             switch (this.selectedCategory) {
                 case 1:
                     url = 'reportStationaryCombustion'
@@ -540,7 +540,7 @@ export class EnergyCustomReportComponent {
                     url = 'reportFilterPurchaseGoods'
                     break;
                 case 9:
-                    url = 'reportStationaryCombustion'
+                    url = 'fuel_and_energy_related'
                     break;
                 case 10:
                     url = 'reportUpStreamVehicles'
@@ -607,7 +607,7 @@ export class EnergyCustomReportComponent {
             // reportFormData.set('page', '1')
             // reportFormData.set('page_size', '10')
             if (url != 'reportEmployeeCommuting' && url != 'reportHomeOffice') {
-             
+
             }
         }
 
@@ -615,15 +615,15 @@ export class EnergyCustomReportComponent {
             next: res => {
                 if (res.success) {
                     this.reportData = res.result
-                   
+
                 } else {
                     this.notification.showWarning(
                         'No data found',
                         ''
                     );
                 }
-                
-               
+
+
             }
         })
     };
@@ -642,21 +642,21 @@ export class EnergyCustomReportComponent {
     exportTableToExcel() {
         // Get the table element
         const tableElement = this.table.el.nativeElement.querySelector('.p-datatable-table');
-    
+
         // Create a new worksheet from the table element
         const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tableElement);
-    
+
         // Create a new workbook and append the worksheet
         const workbook: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'ReportData');
-    
+
         // Generate the Excel file and download it
         XLSX.writeFile(workbook, 'ReportData.xlsx');
-      };
+    };
 
-      onMultpleChange(e:any){
+    onMultpleChange(e: any) {
         this.reportData = []
-      
-// console.log(this.isMultiple);
-      }
+
+        // console.log(this.isMultiple);
+    }
 }
