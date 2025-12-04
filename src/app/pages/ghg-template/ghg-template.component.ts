@@ -529,7 +529,7 @@ export class GhgTemplateComponent {
         const isSubcategoryEmptyForAllCategories = this.selectedScope1.length == 0 && this.selectedScope2.length == 0 && this.selectedScope3.length == 0
         if (isSubcategoryEmptyForAllCategories == true) {
             this.notification.showInfo(
-                'Please select any data point otherwise close this!',
+                'Please select any data point!',
                 'Info'
             );
         } else {
