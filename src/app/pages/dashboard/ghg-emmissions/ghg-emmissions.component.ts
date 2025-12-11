@@ -121,7 +121,7 @@ export class GhgEmmissionsComponent implements OnDestroy {
     private facilityService: FacilityService,
     private trackingService: TrackingService,
     private dashboardService: DashboardService) {
-  
+
 
     this.loginInfo = new LoginInfo();
 
@@ -133,13 +133,11 @@ export class GhgEmmissionsComponent implements OnDestroy {
     if (storedYear) {
       // Create a new Date object using the stored year
       this.year = new Date(Number(storedYear), 0); // January of the stored year
-    }else{
+    } else {
       this.year = new Date();
     }
     // Set the max date to the last day of the current year
     this.maxYear = new Date(currentYear, 11, 31);
-
-
 
     if (localStorage.getItem('LoginInfo') !== null) {
       const userInfo = localStorage.getItem('LoginInfo');
@@ -278,16 +276,16 @@ export class GhgEmmissionsComponent implements OnDestroy {
         this.labelScopeDonut2 = getScopeSDonuts.labelScope2;
         const lScope3 = getScopeSDonuts.labelScope3;
         this.labelScopeDonut3 = lScope3
-        .filter(item => !item.includes("Stationary Combustion - 0.000 Tonnes")) // Remove items with 0.000 Tonnes
-        .map(item => {
-          if (item.includes("Stationary Combustion")) {
-            return item.replace("Stationary Combustion", "Fuel and Energy-related Activities");
-          }
-          return item;
-        });
+          .filter(item => !item.includes("Stationary Combustion - 0.000 Tonnes")) // Remove items with 0.000 Tonnes
+          .map(item => {
+            if (item.includes("Stationary Combustion")) {
+              return item.replace("Stationary Combustion", "Fuel and Energy-related Activities");
+            }
+            return item;
+          });
 
-        this.seriesScopeDonut3 = this.seriesScopeDonut3.filter(item =>  item !== 0); // Remove items with 0.000 Tonnes
-      
+        this.seriesScopeDonut3 = this.seriesScopeDonut3.filter(item => item !== 0); // Remove items with 0.000 Tonnes
+
 
         this.donotOptions1 = {
           series: this.seriesScopeDonut1,
@@ -454,7 +452,7 @@ export class GhgEmmissionsComponent implements OnDestroy {
 
   // Handle the scopeWiseResult
   handleScopeWiseResult(scopeWiseResult: any) {
-  console.log("scopeWiseResult",scopeWiseResult);
+    console.log("scopeWiseResult", scopeWiseResult);
     this.scopeMonths = scopeWiseResult.month;
     this.scopeWiseSeries = scopeWiseResult.series;
     this.series_graph = scopeWiseResult.series_graph;

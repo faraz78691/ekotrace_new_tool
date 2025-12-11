@@ -1,1742 +1,1869 @@
-<div class="container-fluid">
-    <div class=" pt-3">
-        <div class="d-flex align-items-center">
+<p-tabView>
+    <p-tabPanel header="GHG Emissions Report">
+        <div class="container-fluid">
+            <div class="pt-3">
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0">GHG Emissions Report</h3>
+                    <div class="ct_how_use_tooltip_main ml-auto">
+                        <i class="fa fa-question-circle" (click)="isHowtoUse = !isHowtoUse"></i>
+                        <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
+                            <div>
+                                <p class="mb-1 ">This section allows you to generate a custom, presentation-ready GHG
+                                    emission
+                                    report in PDF format. The report helps you visualize emissions across selected
+                                    facilities,
+                                    years, and KPIs.
+                                </p>
+                                <h5 class="ct_fs_16 mt-3 mb-2">Key Features:
+                                </h5>
 
-            <h3 class="mb-0">GHG Emissions Report</h3>
-            <div class="ct_how_use_tooltip_main ml-auto">
-                <i class="fa fa-question-circle" (click)="isHowtoUse = !isHowtoUse"></i>
-                <div class="ct_how_use_tooltip_cnt" [ngClass]="isHowtoUse ? 'ct_active' : ''">
-                    <div>
-                        <p class="mb-1 ">This section allows you to generate a custom, presentation-ready GHG emission
-                            report in PDF format. The report helps you visualize emissions across selected facilities,
-                            years, and KPIs.
-                        </p>
-                        <h5 class="ct_fs_16 mt-3 mb-2">Key Features:
-                        </h5>
+                                <ul style="list-style: disc;" class="mb-0 pl-4">
+                                    <li>Ready-to-present PDF report aligned with GHG Protocol, ISO 14064, and SBTi
+                                        frameworks.
+                                    </li>
+                                    <li>Covers multiple facilities and custom timeframes (Reporting year and base year).
+                                    </li>
+                                    <li>Includes interactive graphs and diagrams for easy data visualization.
+                                    </li>
+                                    <li>
+                                        Add up to 3 KPIs for detailed review and performance tracking.
+                                    </li>
+                                    <li>Select only the relevant GHG categories (Scope 1, 2, and 3) for a focused
+                                        report.
+                                    </li>
+                                    <li>Ideal for stakeholder reporting, audits, and internal performance reviews.
+                                    </li>
+                                </ul>
 
-                        <ul style="list-style: disc;" class="mb-0 pl-4">
-                            <li>Ready-to-present PDF report aligned with GHG Protocol, ISO 14064, and SBTi frameworks.
-                            </li>
-                            <li>Covers multiple facilities and custom timeframes (Reporting year and base year).
-                            </li>
-                            <li>Includes interactive graphs and diagrams for easy data visualization.
-                            </li>
-                            <li>
-                                Add up to 3 KPIs for detailed review and performance tracking.
-                            </li>
-                            <li>Select only the relevant GHG categories (Scope 1, 2, and 3) for a focused report.
-                            </li>
-                            <li>Ideal for stakeholder reporting, audits, and internal performance reviews.
-                            </li>
-                        </ul>
+                                <h5 class="ct_fs_16 mb-0 mt-3 mb-2">Steps to Generate Report:
+                                </h5>
+                                <ul style="list-style: numric;" class="mb-2 pl-4">
+                                    <li>Select facilities – Single or multiple.
 
-                        <h5 class="ct_fs_16 mb-0 mt-3 mb-2">Steps to Generate Report:
-                        </h5>
-                        <ul style="list-style: numric;" class="mb-2 pl-4">
-                            <li>Select facilities – Single or multiple.
+                                    </li>
+                                    <li>Choose base year and Reporting year
+                                        (Note: If there’s no previous data, select the Reporting year as base year)
+                                    </li>
+                                    <li>Select up to 3 KPIs – Shown as graphs in the report.
+                                    </li>
+                                    <li>Select emission categories – Relevant Scope 1, 2, and 3 data points.
+                                    </li>
+                                    <li>Tap on ‘Download’ to generate and save your report.
+                                    </li>
+                                </ul>
 
-                            </li>
-                            <li>Choose base year and Reporting year
-                                (Note: If there’s no previous data, select the Reporting year as base year)
-                            </li>
-                            <li>Select up to 3 KPIs – Shown as graphs in the report.
-                            </li>
-                            <li>Select emission categories – Relevant Scope 1, 2, and 3 data points.
-                            </li>
-                            <li>Tap on ‘Download’ to generate and save your report.
-                            </li>
-                        </ul>
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row firstbox">
+                <div class="col">
+                    <div class="row mt-4  text-white">
+                        <ng-container>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname" class="text-dark">Facility</label>
+                                <ng-container>
+                                    <div
+                                        class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                                        <p-multiSelect [options]="facilityData" [(ngModel)]="selectedMultipleFacility"
+                                            optionLabel="AssestType" optionValue="id" styleClass="pcalender"
+                                            defaultLabel="Select Multiple Data Points" name="facility">
+                                        </p-multiSelect>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fyear" class="text-dark">Reporting Year</label>
+                                <div class="selectyear mx-0">
+                                    <p-calendar placeholder="Select Year" #calendarRef
+                                        class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                        [(ngModel)]="reportingYear" view="year" dateFormat="yy"
+                                        inputId="yearpicker"></p-calendar>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fyear" class="text-dark">Base Year</label>
+                                <div class="selectyear mx-0">
+                                    <p-calendar placeholder="Select Year" #calendarRef
+                                        class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                        [(ngModel)]="baseYear" view="year" dateFormat="yy"
+                                        inputId="yearpicker"></p-calendar>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fname " class="text-dark">Categories</label>
+                                <ng-container>
+                                    <div
+                                        class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                                        <p-multiSelect [options]="categoriesData"
+                                            [(ngModel)]="selectedMultipleCategories" optionLabel="name" optionValue="id"
+                                            styleClass="pcalender" (onChange)="onCategoriesSelected()"
+                                            defaultLabel="Select Multiple Data Points" name="multipleDataPoints">
+                                        </p-multiSelect>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+
+
+
+                        </ng-container>
+
 
 
                     </div>
+                    <div class="row mt-2  text-white">
 
+                        <div class="col-md-6 mb-3">
+                            <label for="fname " class="text-dark">KPIs</label>
+                            <ng-container>
+                                <div
+                                    class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                                    <p-multiSelect [options]="kpiList" [(ngModel)]="selectedMultipleKPIs"
+                                        optionLabel="kpi_name" optionValue="id" styleClass="pcalender"
+                                        placeholder="Select maximum three KPIs" name="multipleDataPoints"
+                                        (onChange)="limitSelection()">
+                                    </p-multiSelect>
+                                </div>
+                            </ng-container>
 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pt-2">
+                            <button class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3"
+                                (click)="onGenerateReport()">
+                                <span>Submit</span>
 
-
-
-
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
+        <ng-container *ngIf="showContent">
+            <div class="col d-flex justify-content-end mt-3">
 
-    <div class="row firstbox">
-        <div class="col">
-            <div class="row mt-4  text-white">
-                <ng-container>
-                    <div class="col-md-6 mb-3">
-                        <label for="fname" class="text-dark">Facility</label>
-                        <ng-container>
-                            <div
-                                class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                                <p-multiSelect [options]="facilityData" [(ngModel)]="selectedMultipleFacility"
-                                    optionLabel="AssestType" optionValue="id" styleClass="pcalender"
-                                    defaultLabel="Select Multiple Data Points" name="facility">
-                                </p-multiSelect>
-                            </div>
-                        </ng-container>
-
+                <button class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3"
+                    (click)="handleDownload()">
+                    <span *ngIf="!isGenerating">Download Report</span>
+                    <div *ngIf="isGenerating" class="pdf-timer">
+                        ⏳ Generating PDF... {{ remainingTime }}sec remaining
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="fyear" class="text-dark">Reporting Year</label>
-                        <div class="selectyear mx-0">
-                            <p-calendar placeholder="Select Year" #calendarRef
-                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
-                                [(ngModel)]="reportingYear" view="year" dateFormat="yy"
-                                inputId="yearpicker"></p-calendar>
-
-
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="fyear" class="text-dark">Base Year</label>
-                        <div class="selectyear mx-0">
-                            <p-calendar placeholder="Select Year" #calendarRef
-                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
-                                [(ngModel)]="baseYear" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
-
-
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="fname " class="text-dark">Categories</label>
-                        <ng-container>
-                            <div
-                                class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                                <p-multiSelect [options]="categoriesData" [(ngModel)]="selectedMultipleCategories"
-                                    optionLabel="name" optionValue="id" styleClass="pcalender"
-                                    (onChange)="onCategoriesSelected()" defaultLabel="Select Multiple Data Points"
-                                    name="multipleDataPoints">
-                                </p-multiSelect>
-                            </div>
-                        </ng-container>
-
-                    </div>
-
-
-
-                </ng-container>
-
-
-
+                </button>
             </div>
-            <div class="row mt-2  text-white">
 
-                <div class="col-md-6 mb-3">
-                    <label for="fname " class="text-dark">KPIs</label>
-                    <ng-container>
-                        <div
-                            class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                            <p-multiSelect [options]="kpiList" [(ngModel)]="selectedMultipleKPIs" optionLabel="kpi_name"
-                                optionValue="id" styleClass="pcalender" placeholder="Select maximum three KPIs"
-                                name="multipleDataPoints" (onChange)="limitSelection()">
-                            </p-multiSelect>
-                        </div>
-                    </ng-container>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="pt-2">
-                    <button class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3"
-                        (click)="onGenerateReport()">
-                        <span>Submit</span>
-
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-<ng-container *ngIf="showContent">
-    <div class="col d-flex justify-content-end mt-3">
-
-        <button class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3" (click)="handleDownload()">
-            <span *ngIf="!isGenerating">Download Report</span>
-            <div *ngIf="isGenerating" class="pdf-timer">
-                ⏳ Generating PDF... {{ remainingTime }}sec remaining
-            </div>
-        </button>
-    </div>
-
-    <div id="pdf-content">
-        <!-- GHG EMISSION REPORT S -->
-        <div class="et_pdf_white_bg et_pdf_width d-flex mt-5 pdf-section">
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-7">
-                    <div class="et_inner_space_15 text-center et_py_15">
-                        <h2 class="et_fs_36 et_fw_500">GHG EMISSION <br>
-                            REPORT</h2>
-                        <h3 class="et_light_green_bg et_fs_24 mx-auto mt-4">{{loginInfo.companyName}}
-                        </h3>
-                        <!-- <p class="et_grey_bg mx-auto mt-3 et_fw_500">Company logo/image</p> -->
-                        <div class="mt-4">
-                            <!-- <img style="object-fit: contain;"
+            <div id="pdf-content">
+                <!-- GHG EMISSION REPORT S -->
+                <div class="et_pdf_white_bg et_pdf_width d-flex mt-5 pdf-section">
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-7">
+                            <div class="et_inner_space_15 text-center et_py_15">
+                                <h2 class="et_fs_36 et_fw_500">GHG EMISSION <br>
+                                    REPORT</h2>
+                                <h3 class="et_light_green_bg et_fs_24 mx-auto mt-4">{{loginInfo.companyName}}
+                                </h3>
+                                <!-- <p class="et_grey_bg mx-auto mt-3 et_fw_500">Company logo/image</p> -->
+                                <div class="mt-4">
+                                    <!-- <img style="object-fit: contain;"
                                 style="justify-items: center;max-width:500px; width: 100%;"
                                 src="assets/img/Carbontek.png" alt=""> -->
-                            <img style="object-fit: contain;"
-                                style="justify-items: center;max-width:200px; width: 100%;" [src]="dashboardLogoUrl"
-                                alt="">
-                        </div>
-                        <hr class="et_hr_line_green mb-3" />
-                        <p class="et_text_595959 et_fw_500 et_fs_18">Year {{reportingYear.getFullYear()}}
-                        </p>
-
-                        <div class="mt-5 pt-5">
-                            <img src="assets/ghgImages/Picture2.png" alt="" class="img-fluid">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-5">
-                    <div class="et_right_img">
-                        <img src="assets/ghgImages/Picture1.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- GHG EMISSION REPORT E -->
-
-
-        <!-- Index REPORT S -->
-        <div class="et_pdf_white_bg et_pdf_width pdf-section">
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-5">
-                    <div class="et_left_img">
-                        <img loading="lazy" src="assets/ghgImages/Picture3.png" alt="">
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="et_inner_space_15  et_py_15">
-                        <h2 class="et_fs_36 et_fw_500 text-center">INDEX</h2>
-                        <hr class="et_hr_line_green mb-3" />
-                        <div>
-                            <div class="d-flex et_gap_20">
-                                <div class="et_leaf_icon">
-                                    <h4 class="mb-0 et_green_text">1</h4>
+                                    <img style="object-fit: contain;"
+                                        style="justify-items: center;max-width:200px; width: 100%;"
+                                        [src]="dashboardLogoUrl" alt="">
                                 </div>
+                                <hr class="et_hr_line_green mb-3" />
+                                <p class="et_text_595959 et_fw_500 et_fs_18">Year {{reportingYear.getFullYear()}}
+                                </p>
+
+                                <div class="mt-5 pt-5">
+                                    <img src="assets/ghgImages/Picture2.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="et_right_img">
+                                <img src="assets/ghgImages/Picture1.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- GHG EMISSION REPORT E -->
+
+
+                <!-- Index REPORT S -->
+                <div class="et_pdf_white_bg et_pdf_width pdf-section">
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-5">
+                            <div class="et_left_img">
+                                <img loading="lazy" src="assets/ghgImages/Picture3.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="et_inner_space_15  et_py_15">
+                                <h2 class="et_fs_36 et_fw_500 text-center">INDEX</h2>
+                                <hr class="et_hr_line_green mb-3" />
                                 <div>
-                                    <h4 class="et_fs_24 ct_ff_arial_bold">Overview</h4>
-                                    <ul class="mb-0 ct_ul_decoration">
-                                        <li>Executive Summary</li>
-                                    </ul>
+                                    <div class="d-flex et_gap_20">
+                                        <div class="et_leaf_icon">
+                                            <h4 class="mb-0 et_green_text">1</h4>
+                                        </div>
+                                        <div>
+                                            <h4 class="et_fs_24 ct_ff_arial_bold">Overview</h4>
+                                            <ul class="mb-0 ct_ul_decoration">
+                                                <li>Executive Summary</li>
+                                            </ul>
 
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex  et_gap_20 mt-4">
+                                        <div class="et_leaf_icon">
+                                            <h4 class="mb-0 et_green_text">2</h4>
+                                        </div>
+                                        <div>
+                                            <h4 class="et_fs_24 ct_ff_arial_bold">Emission Report
+                                            </h4>
+                                            <ul class="mb-0 ct_ul_decoration">
+                                                <li>Scope 1</li>
+                                                <li>Scope 2</li>
+                                                <li>Scope 3</li>
+                                                <li>Overall GHG Inventory</li>
+                                                <li>GHG Emission Per Employee </li>
+                                                <li>Emission Intensity Per Unit Output</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex et_gap_20 mt-4">
+                                        <div class="et_leaf_icon">
+                                            <h4 class="mb-0 et_green_text">3</h4>
+                                        </div>
+                                        <div>
+                                            <h4 class="et_fs_24 ct_ff_arial_bold">Other Reports
+                                            </h4>
+                                            <ul class="mb-0 ct_ul_decoration">
+                                                <li>Waste Generated</li>
+                                                <li>Waste Disposal</li>
+                                                <li>Waste Diverted</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex  et_gap_20 mt-4">
+                                        <div class="et_leaf_icon">
+                                            <h4 class="mb-0 et_green_text">4</h4>
+                                        </div>
+                                        <div>
+                                            <h4 class="et_fs_24 ct_ff_arial_bold">Conclusion
+                                            </h4>
+
+                                        </div>
+
+                                    </div>
                                 </div>
-
                             </div>
-                            <div class="d-flex  et_gap_20 mt-4">
-                                <div class="et_leaf_icon">
-                                    <h4 class="mb-0 et_green_text">2</h4>
-                                </div>
-                                <div>
-                                    <h4 class="et_fs_24 ct_ff_arial_bold">Emission Report
-                                    </h4>
-                                    <ul class="mb-0 ct_ul_decoration">
-                                        <li>Scope 1</li>
-                                        <li>Scope 2</li>
-                                        <li>Scope 3</li>
-                                        <li>Overall GHG Inventory</li>
-                                        <li>GHG Emission Per Employee </li>
-                                        <li>Emission Intensity Per Unit Output</li>
-                                    </ul>
-                                </div>
 
-                            </div>
-                            <div class="d-flex et_gap_20 mt-4">
-                                <div class="et_leaf_icon">
-                                    <h4 class="mb-0 et_green_text">3</h4>
-                                </div>
-                                <div>
-                                    <h4 class="et_fs_24 ct_ff_arial_bold">Other Reports
-                                    </h4>
-                                    <ul class="mb-0 ct_ul_decoration">
-                                        <li>Waste Generated</li>
-                                        <li>Waste Disposal</li>
-                                        <li>Waste Diverted</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                            <div class="d-flex  et_gap_20 mt-4">
-                                <div class="et_leaf_icon">
-                                    <h4 class="mb-0 et_green_text">4</h4>
-                                </div>
-                                <div>
-                                    <h4 class="et_fs_24 ct_ff_arial_bold">Conclusion
-                                    </h4>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- Index REPORT E -->
-
-        <!-- EXECUTIVE SUMMARY 1 S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-6">
-                    <p class="ct_fw_500">This report presents the findings of {{loginInfo.companyName}}'s
-                        {{reportingYear.getFullYear()}} GHG emissions
-                        assessment, based on the data provided and subject to its accuracy, completeness, and
-                        appropriate classification. The assessment provides valuable insights into the company’s carbon
-                        footprint, helping to identify key emission sources and opportunities for reduction. By
-                        leveraging these insights,Company can take strategic steps toward enhanced
-                        sustainability
-                        and net-zero alignment.
-                    </p>
-                    <div class="text-center mt-2">
-                        <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in
-                            {{reportingYear.getFullYear()}}
-                        </small>
-
-
-                        <div class="ct_grey_border_1 d-flex align-items-center justify-content-center">
-
-                            <div *ngIf="pieChart">
-                                <apx-chart [series]="pieChart.series" [chart]="pieChart.chart"
-                                    [labels]="pieChart.labels" [legend]="pieChart.legend"
-                                    [responsive]="pieChart.responsive" [colors]="pieChart.colors"></apx-chart>
-                            </div>
                         </div>
 
                     </div>
-
                 </div>
-                <div class="col-sm-6">
-                    <div class="et_inner_space_15">
-                        <div class="table-container">
-                            <table class="styled-table ct_dark_table_head">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">General overview
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Reporting period</td>
-                                        <td>{{reportingYear.getFullYear()}}</td>
-                                    </tr>
-                                    <tr *ngIf="baseYear">
-                                        <td>Base year and comparability</td>
-                                        <td>{{baseYear.getFullYear()}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Plot area</td>
-                                        <td>{{this.scopeEmissons?.area}} sqft</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Regulatory and reporting frameworks</td>
-                                        <td>GHG Protocol, ISO 14064, SBTi
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-container mt-2">
-                            <table class="styled-table ct_dark_table_head">
-                                <thead>
-                                    <tr>
-                                        <th [attr.colspan]="baseYear && baseYearGhg > 0 ? 3 : 2">Key findings</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>GHG emissions</td>
-                                        <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 2">
-                                            Scope 1:
-                                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.2-2' }} tCO2e
-                                            <br>
-                                            Scope 2:
-                                            {{this.scopeEmissons?.Scope2[0].total_emission | number : '1.2-2'  }} tCO2e
-                                            <br>
-                                            Scope 3:
-                                            {{this.scopeEmissons?.Scope3[0].total_emission | number : '1.2-2' }} tCO2e
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Waste </td>
-                                        <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 1">
-                                            Emission Generated: {{this.scopeEmissons?.waste_emissions ==0 ? '-' :
-                                            this.scopeEmissons?.waste_emissions}} T
-                                            <br>
-                                            Disposal: {{this.scopeEmissons?.waste_disposed == 0 ? '-' :
-                                            this.scopeEmissons?.waste_disposed}} T
-                                            <br>
-                                            Diversion: {{this.scopeEmissons?.diverted_emssion == 0 ? '-' :
-                                            this.scopeEmissons?.diverted_emssion}} %
+                <!-- Index REPORT E -->
 
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="baseYear && baseYearGhg > 0">
-                                        <td>% change in GHG emission
-                                            from baseline ({{baseYear.getFullYear()}})
-                                        </td>
-                                        <td *ngIf="baseYearGhg > currentYearGhg">
-                                            total decrease of {{((baseYearGhg - currentYearGhg) / reportingYear.getFullYear() * 100) |
-                                            number:'1.2-2'}}%
-
-                                        </td>
-                                        <td *ngIf="baseYearGhg > currentYearGhg">
-
-                                            minimal change
-
-                                        </td>
-                                        <td *ngIf="baseYearGhg < currentYearGhg">
-                                            total increase of {{((currentYearGhg - baseYearGhg) / baseYear.getFullYear() * 100) |
-                                            number:'1.2-2'}}%
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- EXECUTIVE SUMMARY 1 E -->
-
-        <!-- EXECUTIVE SUMMARY  S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="kpiData.length > 0">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3 ">
-
-                <div class="col-sm-12">
-                    <div class="et_inner_space_15">
-                        <div class="table-container">
-                            <table class="styled-table ct_dark_table_head" *ngIf="baseYear">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th colspan="3">{{kpiData[0][0]?.kpi_name}} ({{kpiData[0][0]?.kpi_unit}})</th>
-                                        <th colspan="3">{{kpiData[0][1]?.kpi_name}} ({{kpiData[0][1]?.kpi_unit}})</th>
-                                        <th colspan="3">{{kpiData[0][2]?.kpi_name}} ({{kpiData[0][2]?.kpi_unit}})</th>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th>Base year</th>
-                                        <th>Reporting year</th>
-                                        <th>ΔKPI₁</th>
-                                        <th>Base year</th>
-                                        <th>Reporting year</th>
-                                        <th>ΔKPI₂</th>
-                                        <th>Base year</th>
-                                        <th>Reporting year</th>
-                                        <th>ΔKPI₃</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let item of kpiData">
-                                        <tr>
-                                            <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
-                                                {{item[0].facility_name}}
-                                            </td>
-                                            <td class="text-center">{{item[0].base_year_annual | number : '1.4-4'}}</td>
-                                            <td class="text-center">{{item[0].current_year_annual | number : '1.4-4'}}
-                                            </td>
-                                            <td class="text-center">{{item[0].base_year_annual ?((item[0].current_year_annual - item[0].base_year_annual)
-                                                /item[0].base_year_annual *100  | number : '1.4-4' )  : '-'}}</td>
-                                            <td class="text-center">{{item[1]?.base_year_annual | number : '1.4-4' }}
-                                            </td>
-                                            <td class="text-center">{{item[1]?.current_year_annual | number : '1.4-4'}}
-                                            </td>
-                                            <td class="text-center">{{item[1]?.base_year_annual ?
-                                                ((item[1].current_year_annual - item[1].base_year_annual)
-                                                /item[1].base_year_annual *100 | number : '1.4-4' ) : '-'}}</td>
-                                            <td class="text-center">{{item[2]?.base_year_annual | number : '1.4-4'}}
-                                            </td>
-                                            <td class="text-center">{{item[2]?.current_year_annual | number : '1.4-4'}}
-                                            </td>
-                                            <td class="text-center">{{item[2]?.base_year_annual ?
-                                                ((item[2].current_year_annual - item[2].base_year_annual)
-                                                /item[2].base_year_annual *100  | number : '1.4-4') : '-'}}</td>
-                                        </tr>
-
-                                    </ng-container>
-
-                                </tbody>
-                            </table>
-                            <table class="styled-table ct_dark_table_head" *ngIf="!baseYear">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th colspan="3">{{kpiData[0][0]?.kpi_name}} ({{kpiData[0][0]?.kpi_unit}})</th>
-                                        <th colspan="3">{{kpiData[0][1]?.kpi_name}} ({{kpiData[0][1]?.kpi_unit}})</th>
-                                        <th colspan="3">{{kpiData[0][2]?.kpi_name}} ({{kpiData[0][2]?.kpi_unit}})</th>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-
-                                        <th colspan="3">KPI₁</th>
-
-                                        <th colspan="3">KPI₂</th>
-
-                                        <th colspan="3">KPI₃</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let item of kpiData">
-                                        <tr>
-                                            <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
-                                                {{item[0].facility_name}}
-                                            </td>
-
-                                            <td colspan="3" class="text-center">
-                                                {{item[0].current_year_annual | number : '1.4-4'}}
-                                            </td>
-
-
-                                            <td colspan="3" class="text-center">
-                                                {{item[1]?.current_year_annual | number : '1.4-4'}}
-                                            </td>
-
-
-                                            <td colspan="3" class="text-center">
-                                                {{item[2]?.current_year_annual | number : '1.4-4'}}
-                                            </td>
-
-                                        </tr>
-
-                                    </ng-container>
-
-                                </tbody>
-                            </table>
-
-                            <p *ngIf="baseYear" class="ct_fs_14 mt-3 text-end et_fw_700">Base year:
-                                {{baseYear.getFullYear()}}<br>Reporting
-                                year:
-                                {{reportingYear.getFullYear()}}
+                <!-- EXECUTIVE SUMMARY 1 S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-6">
+                            <p class="ct_fw_500">This report presents the findings of {{loginInfo.companyName}}'s
+                                {{reportingYear.getFullYear()}} GHG emissions
+                                assessment, based on the data provided and subject to its accuracy, completeness, and
+                                appropriate classification. The assessment provides valuable insights into the company’s
+                                carbon
+                                footprint, helping to identify key emission sources and opportunities for reduction. By
+                                leveraging these insights,Company can take strategic steps toward enhanced
+                                sustainability
+                                and net-zero alignment.
                             </p>
+                            <div class="text-center mt-2">
+                                <small class="mb-1 d-block et_fw_700">Scope wise emission contribution in
+                                    {{reportingYear.getFullYear()}}
+                                </small>
+
+
+                                <div class="ct_grey_border_1 d-flex align-items-center justify-content-center">
+
+                                    <div *ngIf="pieChart">
+                                        <apx-chart [series]="pieChart.series" [chart]="pieChart.chart"
+                                            [labels]="pieChart.labels" [legend]="pieChart.legend"
+                                            [responsive]="pieChart.responsive" [colors]="pieChart.colors"></apx-chart>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="et_inner_space_15">
+                                <div class="table-container">
+                                    <table class="styled-table ct_dark_table_head">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">General overview
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Reporting period</td>
+                                                <td>{{reportingYear.getFullYear()}}</td>
+                                            </tr>
+                                            <tr *ngIf="baseYear">
+                                                <td>Base year and comparability</td>
+                                                <td>{{baseYear.getFullYear()}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Plot area</td>
+                                                <td>{{this.scopeEmissons?.area}} sqft</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regulatory and reporting frameworks</td>
+                                                <td>GHG Protocol, ISO 14064, SBTi
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-container mt-2">
+                                    <table class="styled-table ct_dark_table_head">
+                                        <thead>
+                                            <tr>
+                                                <th [attr.colspan]="baseYear && baseYearGhg > 0 ? 3 : 2">Key findings
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>GHG emissions</td>
+                                                <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 2">
+                                                    Scope 1:
+                                                    {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.2-2' }}
+                                                    tCO2e
+                                                    <br>
+                                                    Scope 2:
+                                                    {{this.scopeEmissons?.Scope2[0].total_emission | number : '1.2-2' }}
+                                                    tCO2e
+                                                    <br>
+                                                    Scope 3:
+                                                    {{this.scopeEmissons?.Scope3[0].total_emission | number : '1.2-2' }}
+                                                    tCO2e
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Waste </td>
+                                                <td [attr.colspan]="baseYear && baseYearGhg > 0 ? 2 : 1">
+                                                    Emission Generated: {{this.scopeEmissons?.waste_emissions ==0 ? '-'
+                                                    :
+                                                    this.scopeEmissons?.waste_emissions}} T
+                                                    <br>
+                                                    Disposal: {{this.scopeEmissons?.waste_disposed == 0 ? '-' :
+                                                    this.scopeEmissons?.waste_disposed}} T
+                                                    <br>
+                                                    Diversion: {{this.scopeEmissons?.diverted_emssion == 0 ? '-' :
+                                                    this.scopeEmissons?.diverted_emssion}} %
+
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="baseYear && baseYearGhg > 0">
+                                                <td>% change in GHG emission
+                                                    from baseline ({{baseYear.getFullYear()}})
+                                                </td>
+                                                <td *ngIf="baseYearGhg > currentYearGhg">
+                                                    total decrease of {{((baseYearGhg - currentYearGhg) /
+                                                    reportingYear.getFullYear() * 100) |
+                                                    number:'1.2-2'}}%
+
+                                                </td>
+                                                <td *ngIf="baseYearGhg > currentYearGhg">
+
+                                                    minimal change
+
+                                                </td>
+                                                <td *ngIf="baseYearGhg < currentYearGhg">
+                                                    total increase of {{((currentYearGhg - baseYearGhg) /
+                                                    baseYear.getFullYear()
+                                                    * 100) |
+                                                    number:'1.2-2'}}%
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
 
                         </div>
 
+                    </div>
+                </div>
+                <!-- EXECUTIVE SUMMARY 1 E -->
+
+                <!-- EXECUTIVE SUMMARY  S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="kpiData.length > 0">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">EXECUTIVE SUMMARY </h2>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3 ">
+
+                        <div class="col-sm-12">
+                            <div class="et_inner_space_15">
+                                <div class="table-container">
+                                    <table class="styled-table ct_dark_table_head" *ngIf="baseYear">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th colspan="3">{{kpiData[0][0]?.kpi_name}}
+                                                    ({{kpiData[0][0]?.kpi_unit}})
+                                                </th>
+                                                <th colspan="3">{{kpiData[0][1]?.kpi_name}}
+                                                    ({{kpiData[0][1]?.kpi_unit}})
+                                                </th>
+                                                <th colspan="3">{{kpiData[0][2]?.kpi_name}}
+                                                    ({{kpiData[0][2]?.kpi_unit}})
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>Base year</th>
+                                                <th>Reporting year</th>
+                                                <th>ΔKPI₁</th>
+                                                <th>Base year</th>
+                                                <th>Reporting year</th>
+                                                <th>ΔKPI₂</th>
+                                                <th>Base year</th>
+                                                <th>Reporting year</th>
+                                                <th>ΔKPI₃</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let item of kpiData">
+                                                <tr>
+                                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
+                                                        {{item[0].facility_name}}
+                                                    </td>
+                                                    <td class="text-center">{{item[0].base_year_annual | number :
+                                                        '1.4-4'}}
+                                                    </td>
+                                                    <td class="text-center">{{item[0].current_year_annual | number :
+                                                        '1.4-4'}}
+                                                    </td>
+                                                    <td class="text-center">{{item[0].base_year_annual
+                                                        ?((item[0].current_year_annual - item[0].base_year_annual)
+                                                        /item[0].base_year_annual *100 | number : '1.4-4' ) : '-'}}</td>
+                                                    <td class="text-center">{{item[1]?.base_year_annual | number :
+                                                        '1.4-4'
+                                                        }}
+                                                    </td>
+                                                    <td class="text-center">{{item[1]?.current_year_annual | number :
+                                                        '1.4-4'}}
+                                                    </td>
+                                                    <td class="text-center">{{item[1]?.base_year_annual ?
+                                                        ((item[1].current_year_annual - item[1].base_year_annual)
+                                                        /item[1].base_year_annual *100 | number : '1.4-4' ) : '-'}}</td>
+                                                    <td class="text-center">{{item[2]?.base_year_annual | number :
+                                                        '1.4-4'}}
+                                                    </td>
+                                                    <td class="text-center">{{item[2]?.current_year_annual | number :
+                                                        '1.4-4'}}
+                                                    </td>
+                                                    <td class="text-center">{{item[2]?.base_year_annual ?
+                                                        ((item[2].current_year_annual - item[2].base_year_annual)
+                                                        /item[2].base_year_annual *100 | number : '1.4-4') : '-'}}</td>
+                                                </tr>
+
+                                            </ng-container>
+
+                                        </tbody>
+                                    </table>
+                                    <table class="styled-table ct_dark_table_head" *ngIf="!baseYear">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th colspan="3">{{kpiData[0][0]?.kpi_name}}
+                                                    ({{kpiData[0][0]?.kpi_unit}})
+                                                </th>
+                                                <th colspan="3">{{kpiData[0][1]?.kpi_name}}
+                                                    ({{kpiData[0][1]?.kpi_unit}})
+                                                </th>
+                                                <th colspan="3">{{kpiData[0][2]?.kpi_name}}
+                                                    ({{kpiData[0][2]?.kpi_unit}})
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+
+                                                <th colspan="3">KPI₁</th>
+
+                                                <th colspan="3">KPI₂</th>
+
+                                                <th colspan="3">KPI₃</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let item of kpiData">
+                                                <tr>
+                                                    <td class=" et_fw_700" style="background-color:#b6d7a8 ;">
+                                                        {{item[0].facility_name}}
+                                                    </td>
+
+                                                    <td colspan="3" class="text-center">
+                                                        {{item[0].current_year_annual | number : '1.4-4'}}
+                                                    </td>
+
+
+                                                    <td colspan="3" class="text-center">
+                                                        {{item[1]?.current_year_annual | number : '1.4-4'}}
+                                                    </td>
+
+
+                                                    <td colspan="3" class="text-center">
+                                                        {{item[2]?.current_year_annual | number : '1.4-4'}}
+                                                    </td>
+
+                                                </tr>
+
+                                            </ng-container>
+
+                                        </tbody>
+                                    </table>
+
+                                    <p *ngIf="baseYear" class="ct_fs_14 mt-3 text-end et_fw_700">Base year:
+                                        {{baseYear.getFullYear()}}<br>Reporting
+                                        year:
+                                        {{reportingYear.getFullYear()}}
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
 
                     </div>
-
                 </div>
+                <!-- EXECUTIVE SUMMARY E -->
 
-            </div>
-        </div>
-        <!-- EXECUTIVE SUMMARY E -->
+                <!-- EMISSION REPORT S -->
+                <div class="ct_light_green_bg ct_my_15 et_pdf_width pdf-section">
+                    <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">EMISSION REPORT</h4>
+                </div>
+                <!-- EMISSION REPORT E -->
 
-        <!-- EMISSION REPORT S -->
-        <div class="ct_light_green_bg ct_my_15 et_pdf_width pdf-section">
-            <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">EMISSION REPORT</h4>
-        </div>
-        <!-- EMISSION REPORT E -->
-
-        <!--SCOPE 1  S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 1
-            </h2>
-            <small class="d-block text-center et_fw_500">(Direct emissions - generated directly by company and it’s
-                activities)
-            </small>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Scope 1 category</th>
-                                    <th>Emission source</th>
-                                    <th>Emissions (tCO₂)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
+                <!--SCOPE 1  S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 1
+                    </h2>
+                    <small class="d-block text-center et_fw_500">(Direct emissions - generated directly by company and
+                        it’s
+                        activities)
+                    </small>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Scope 1 category</th>
+                                            <th>Emission source</th>
+                                            <th>Emissions (tCO₂)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
                                 length > 0">
-                                    <tr>
-                                        <td class="category" rowspan="3">Fuels</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName || '-'}}</td>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission | number : '1.4-4'}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[1]?.TypeName || '-'}}</td>
-                                        <td>{{(scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission | number : '1.4-4') || '-'  }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{scope1Emissions?.CombustionEmissionData[2]?.TypeName || '-'}}</td>
-                                        <td>{{(scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission | number : '1.4-4') || '-'}}
-                                        </td>
-                                    </tr>
+                                            <tr>
+                                                <td class="category" rowspan="3">Fuels</td>
+                                                <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName || '-'}}</td>
+                                                <td>{{scope1Emissions?.CombustionEmissionData[0]?.Total_GHGEmission |
+                                                    number
+                                                    :
+                                                    '1.4-4'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{scope1Emissions?.CombustionEmissionData[1]?.TypeName || '-'}}</td>
+                                                <td>{{(scope1Emissions?.CombustionEmissionData[1]?.Total_GHGEmission |
+                                                    number :
+                                                    '1.4-4') || '-' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{scope1Emissions?.CombustionEmissionData[2]?.TypeName || '-'}}</td>
+                                                <td>{{(scope1Emissions?.CombustionEmissionData[2]?.Total_GHGEmission |
+                                                    number :
+                                                    '1.4-4') || '-'}}
+                                                </td>
+                                            </tr>
 
-                                </ng-container>
-                            <tbody>
-                                <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
+                                        </ng-container>
+                                    <tbody>
+                                        <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
                                 length == 0">
-                                    <tr>
-                                        <td class="category">Fuels</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
+                                            <tr>
+                                                <td class="category">Fuels</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
 
 
-                                </ng-container>
+                                        </ng-container>
 
-                                <tr>
-                                    <td class="category">Refrigerants</td>
-                                    <td>{{scope1Emissions?.RefrigerantEmissionData ?
-                                        scope1Emissions?.RefrigerantEmissionData.TypeName : '-'}}</td>
-                                    <td>{{scope1Emissions?.RefrigerantEmissionData ?
-                                        (scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="category">Fire extinguisher</td>
-                                    <td>CO₂ type</td>
-                                    <td>{{scope1Emissions?.ExtinguisherEmissionData ?
-                                        (scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="category">Company owned vehicles</td>
-                                    <td>Passenger vehicle (Diesel)</td>
-                                    <td>{{scope1Emissions?.DieselPassengerData ?
-                                       ( scope1Emissions?.DieselPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Passenger vehicle (Petrol)</td>
-                                    <td>{{scope1Emissions?.PetrolPassengerData ?
-                                        (scope1Emissions?.PetrolPassengerData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Delivery vehicle (Diesel)</td>
-                                    <td>{{scope1Emissions?.DieselDeliveryData ?
-                                        (scope1Emissions?.DieselDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Delivery vehicle (Other)</td>
-                                    <td>{{scope1Emissions?.otherDeliveryData ?
-                                        (scope1Emissions?.otherDeliveryData.Total_GHGEmission | number : '1.4-4') : '-'}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <tr>
+                                            <td class="category">Refrigerants</td>
+                                            <td>{{scope1Emissions?.RefrigerantEmissionData ?
+                                                scope1Emissions?.RefrigerantEmissionData.TypeName : '-'}}</td>
+                                            <td>{{scope1Emissions?.RefrigerantEmissionData ?
+                                                (scope1Emissions?.RefrigerantEmissionData.Total_GHGEmission | number :
+                                                '1.4-4')
+                                                : '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="category">Fire extinguisher</td>
+                                            <td>CO₂ type</td>
+                                            <td>{{scope1Emissions?.ExtinguisherEmissionData ?
+                                                (scope1Emissions?.ExtinguisherEmissionData.Total_GHGEmission | number :
+                                                '1.4-4')
+                                                : '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="category">Company owned vehicles</td>
+                                            <td>Passenger vehicle (Diesel)</td>
+                                            <td>{{scope1Emissions?.DieselPassengerData ?
+                                                ( scope1Emissions?.DieselPassengerData.Total_GHGEmission | number :
+                                                '1.4-4')
+                                                :
+                                                '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Passenger vehicle (Petrol)</td>
+                                            <td>{{scope1Emissions?.PetrolPassengerData ?
+                                                (scope1Emissions?.PetrolPassengerData.Total_GHGEmission | number :
+                                                '1.4-4')
+                                                :
+                                                '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Delivery vehicle (Diesel)</td>
+                                            <td>{{scope1Emissions?.DieselDeliveryData ?
+                                                (scope1Emissions?.DieselDeliveryData.Total_GHGEmission | number :
+                                                '1.4-4') :
+                                                '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Delivery vehicle (Other)</td>
+                                            <td>{{scope1Emissions?.otherDeliveryData ?
+                                                (scope1Emissions?.otherDeliveryData.Total_GHGEmission | number :
+                                                '1.4-4') :
+                                                '-'}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="ct_dark_green_bg mt-3">
+                                <p class="mb-0 et_fw_700">Total scope 1 emissions =
+                                    {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.4-4' }} tCO₂e
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="mt-0 ct_graph_center">
+                                <div *ngIf="scope1PieOptions" style="width: 470px; height: 370px; overflow: hidden;">
+                                    <apx-chart [series]="scope1PieOptions.series" [chart]="scope1PieOptions.chart"
+                                        [labels]="scope1PieOptions.labels" [legend]="scope1PieOptions.legend"
+                                        [responsive]="scope1PieOptions.responsive"
+                                        [colors]="scope1PieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+
+                            <div class="" *ngIf="scope1BarOptions"
+                                style="width: 470px; height: 370px; overflow: hidden;">
+                                <apx-chart [series]="scope1BarOptions.series" [chart]="scope1BarOptions.chart"
+                                    [dataLabels]="scope1BarOptions.dataLabels"
+                                    [plotOptions]="scope1BarOptions.plotOptions"
+                                    [xaxis]="scope1BarOptions.xaxis"></apx-chart>
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="ct_dark_green_bg mt-3">
-                        <p class="mb-0 et_fw_700">Total scope 1 emissions =
-                            {{this.scopeEmissons?.Scope1[0].total_emission | number : '1.4-4' }} tCO₂e
-                        </p>
-                    </div>
-
                 </div>
-                <div class="col-sm-6">
+                <!-- Scope 1 E -->
 
-                    <div class="mt-0 ct_graph_center">
-                        <div *ngIf="scope1PieOptions" style="width: 470px; height: 370px; overflow: hidden;">
-                            <apx-chart [series]="scope1PieOptions.series" [chart]="scope1PieOptions.chart"
-                                [labels]="scope1PieOptions.labels" [legend]="scope1PieOptions.legend"
-                                [responsive]="scope1PieOptions.responsive"
-                                [colors]="scope1PieOptions.colors"></apx-chart>
+                <!--SCOPE 2  S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 2
+                    </h2>
+                    <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s consumption
+                        of
+                        electricity, heat & steam)
+
+                    </small>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="" *ngIf="electrcityBarOptions">
+                                <apx-chart [series]="electrcityBarOptions.series" [chart]="electrcityBarOptions.chart"
+                                    [dataLabels]="electrcityBarOptions.dataLabels"
+                                    [plotOptions]="electrcityBarOptions.plotOptions"
+                                    [xaxis]="electrcityBarOptions.xaxis"></apx-chart>
+                            </div>
+
+                            <div class="table-responsive mt-4 w-75 ml-auto">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Energy source</th>
+                                            <th>Emissions (tCO₂)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Electricity from grid</td>
+                                            <td>{{scope2Emissions?.electricity.totalGHGEmission | number : '1.4-4'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" class="category">Renewable energy</td>
+                                            <td>Solar - {{scope2Emissions?.recSolar.totalGHGEmission | number :
+                                                '1.4-4'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wind - {{scope2Emissions?.recWind.totalGHGEmission | number : '1.4-4'}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="ct_graph_center">
+                                <div id="" *ngIf="pieElectricityChart">
+                                    <apx-chart [series]="pieElectricityChart.series" [chart]="pieElectricityChart.chart"
+                                        [labels]="pieElectricityChart.labels" [legend]="pieElectricityChart.legend"
+                                        [responsive]="pieElectricityChart.responsive"
+                                        [colors]="pieElectricityChart.colors"></apx-chart>
+                                </div>
+                            </div>
+                            <div class="ct_dark_green_bg mt-5">
+                                <p class="mb-0 et_fw_700">Total scope 2 emissions =
+                                    {{scope2Emissions?.total | number : '1.4-4'}} tCO₂e
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Scope 2 E -->
+
+
+                <!--SCOPE 3 S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 3
+                    </h2>
+                    <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s upstream &
+                        downstream operations & activities)
+
+
+                    </small>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+                            <div class="" *ngIf="scope3BarOptions">
+                                <apx-chart [series]="scope3BarOptions.series" [chart]="scope3BarOptions.chart"
+                                    [dataLabels]="scope3BarOptions.dataLabels"
+                                    [plotOptions]="scope3BarOptions.plotOptions" [xaxis]="scope3BarOptions.xaxis"
+                                    [colors]="scope3BarOptions.colors"></apx-chart>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="ct_graph_center">
+                                <div *ngIf="scope3PieOptions">
+                                    <apx-chart [series]="scope3PieOptions.series" [chart]="scope3PieOptions.chart"
+                                        [labels]="scope3PieOptions.labels" [legend]="scope3PieOptions.legend"
+                                        [responsive]="scope3PieOptions.responsive"
+                                        [colors]="scope3PieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="table-responsive mt-4  ms-auto" style="width: 80%;">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Emission category</th>
+                                            <th>Emissions (tCO₂)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of scope3Data?.slice(0, 5)">
+                                            <td>{{item.category}}</td>
+                                            <td>{{item.emission | number : '1.4-4'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class=" position-relative">
+                                <div class="ct_dark_green_bg mt-5 et_verticle_badge">
+                                    <p class="mb-0 et_fw_700">Total scope 3 emissions =
+                                        {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
+
+                                    </p>
+                                </div>
+                                <div class="table-responsive mt-4  ms-auto" style="width: 100%;">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Emission category</th>
+                                                <th>Emissions (tCO₂)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of scope3Data?.slice(5, 10)">
+                                                <td>{{item.category}}</td>
+                                                <td>{{item.emission | number : '1.4-4'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Scope 3 E -->
+
+
+                <!--PurchaseGOODS -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section "
+                    *ngIf="selectedMultipleCategories?.includes(1)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">PURCHASE GOODS & SERVICES
+                    </h2>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard
+                                Goods
+                            </small>
+                            <ng-container *ngIf="standardPieOptions">
+                                <div class="text-center ">
+                                    <div id="" *ngIf="standardPieOptions">
+                                        <apx-chart [series]="standardPieOptions.series"
+                                            [chart]="standardPieOptions.chart" [labels]="standardPieOptions.labels"
+                                            [legend]="standardPieOptions.legend"
+                                            [responsive]="standardPieOptions.responsive"
+                                            [colors]="standardPieOptions.colors"></apx-chart>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive mt-4  ms-auto">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of standard goods
+                                                </th>
+                                                <th>Emissions (tCO2)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase1">
+                                                <td>{{item.product}}</td>
+                                                <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </ng-container>
+                            <ng-container *ngIf="!standardPieOptions">
+                                <div class="text-center ms-auto">NA</div>
+                            </ng-container>
+                        </div>
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital
+                                Goods
+                            </small>
+                            <ng-container *ngIf="servicesPieOptions">
+                                <div class="text-center">
+                                    <div *ngIf="servicesPieOptions">
+                                        <apx-chart [series]="servicesPieOptions.series"
+                                            [chart]="servicesPieOptions.chart" [labels]="servicesPieOptions.labels"
+                                            [legend]="servicesPieOptions.legend"
+                                            [responsive]="servicesPieOptions.responsive"
+                                            [colors]="servicesPieOptions.colors"></apx-chart>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-4  ms-auto">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Capital Goods
+
+                                                </th>
+                                                <th>Emissions (tCO2)
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase2">
+                                                <td>{{item.product}}</td>
+                                                <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </ng-container>
+                            <ng-container *ngIf="!servicesPieOptions">
+                                <div class="text-center ms-auto">NA</div>
+                            </ng-container>
+                        </div>
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard
+                                Services
+                            </small>
+                            <ng-container *ngIf="capitalPieOptions">
+                                <div class="text-center">
+                                    <div *ngIf="capitalPieOptions">
+                                        <apx-chart [series]="capitalPieOptions.series" [chart]="capitalPieOptions.chart"
+                                            [labels]="capitalPieOptions.labels" [legend]="capitalPieOptions.legend"
+                                            [responsive]="capitalPieOptions.responsive"
+                                            [colors]="capitalPieOptions.colors"></apx-chart>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-4  ms-auto">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Standard Services
+                                                </th>
+                                                <th>Emissions (tCO2)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase3">
+                                                <td>{{item.product}}</td>
+                                                <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!capitalPieOptions">
+                                <div class="text-center ms-auto">NA</div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <!-- PurchaseGOODS -->
 
-                    <div class="" *ngIf="scope1BarOptions" style="width: 470px; height: 370px; overflow: hidden;">
-                        <apx-chart [series]="scope1BarOptions.series" [chart]="scope1BarOptions.chart"
-                            [dataLabels]="scope1BarOptions.dataLabels" [plotOptions]="scope1BarOptions.plotOptions"
-                            [xaxis]="scope1BarOptions.xaxis"></apx-chart>
-                    </div>
+                <!--BUSINESS TRAVEL S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(3)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">BUSINESS TRAVEL
+                    </h2>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of
+                                transport
+                            </small>
+                            <ng-container *ngIf="businesTravelData?.modeOfTransportRespose.length > 0">
+                                <div class="text-center">
 
-                </div>
+                                    <div *ngIf="otherModesOfTransportPieOptions">
+                                        <apx-chart class="piePostions" [series]="otherModesOfTransportPieOptions.series"
+                                            [chart]="otherModesOfTransportPieOptions.chart"
+                                            [labels]="otherModesOfTransportPieOptions.labels"
+                                            [legend]="otherModesOfTransportPieOptions.legend"
+                                            [responsive]="otherModesOfTransportPieOptions.responsive"
+                                            [colors]="otherModesOfTransportPieOptions.colors"></apx-chart>
+                                    </div>
+                                </div>
 
-            </div>
-        </div>
-        <!-- Scope 1 E -->
+                                <div class="table-responsive mt-4  ms-auto">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Modes of transport
+                                                </th>
+                                                <th>Emissions (tCO2)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of businesTravelData.modeOfTransportRespose">
+                                                <td>{{item.mode_of_trasport}}</td>
+                                                <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                            </tr>
 
-        <!--SCOPE 2  S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 2
-            </h2>
-            <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s consumption of
-                electricity, heat & steam)
+                                        </tbody>
+                                    </table>
+                                </div>
 
-            </small>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="" *ngIf="electrcityBarOptions">
-                        <apx-chart [series]="electrcityBarOptions.series" [chart]="electrcityBarOptions.chart"
-                            [dataLabels]="electrcityBarOptions.dataLabels"
-                            [plotOptions]="electrcityBarOptions.plotOptions"
-                            [xaxis]="electrcityBarOptions.xaxis"></apx-chart>
-                    </div>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="businesTravelData?.modeOfTransportRespose.length === 0">NA</ng-container>
+                        </div>
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions due to different types of
+                                flights
+                            </small>
+                            <div class="text-center">
+                                <div *ngIf="transportationPieOptions">
+                                    <apx-chart class="piePostions" [series]="transportationPieOptions.series"
+                                        [chart]="transportationPieOptions.chart"
+                                        [labels]="transportationPieOptions.labels"
+                                        [legend]="transportationPieOptions.legend"
+                                        [responsive]="transportationPieOptions.responsive"
+                                        [colors]="transportationPieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-4  ms-auto">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Type of flight
 
-                    <div class="table-responsive mt-4 w-75 ml-auto">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Energy source</th>
-                                    <th>Emissions (tCO₂)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Electricity from grid</td>
-                                    <td>{{scope2Emissions?.electricity.totalGHGEmission | number : '1.4-4'}}</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2" class="category">Renewable energy</td>
-                                    <td>Solar - {{scope2Emissions?.recSolar.totalGHGEmission | number : '1.4-4'}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Wind - {{scope2Emissions?.recWind.totalGHGEmission | number : '1.4-4'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                            </th>
+                                            <th>Emissions (tCO2)
 
-                </div>
-                <div class="col-sm-6">
-                    <div class="ct_graph_center">
-                        <div id="" *ngIf="pieElectricityChart">
-                            <apx-chart [series]="pieElectricityChart.series" [chart]="pieElectricityChart.chart"
-                                [labels]="pieElectricityChart.labels" [legend]="pieElectricityChart.legend"
-                                [responsive]="pieElectricityChart.responsive"
-                                [colors]="pieElectricityChart.colors"></apx-chart>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of businesTravelData?.data">
+                                            <td>{{item.flight_Type}}</td>
+                                            <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of hotel
+                                stays
+                            </small>
+                            <div class="text-center">
+                                <div *ngIf="hotelPieOptions">
+                                    <apx-chart class="piePostions" [series]="hotelPieOptions.series"
+                                        [chart]="hotelPieOptions.chart" [labels]="hotelPieOptions.labels"
+                                        [legend]="hotelPieOptions.legend" [responsive]="hotelPieOptions.responsive"
+                                        [colors]="hotelPieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-4  ms-auto">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Type of hotel stay
+                                            </th>
+                                            <th>Emissions (tCO2)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of businesTravelData?.hotelStayResponse">
+                                            <td>{{item.type_of_hotel}}</td>
+                                            <td>{{item.total_emission | number : '1.4-4'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="ct_dark_green_bg mt-5">
-                        <p class="mb-0 et_fw_700">Total scope 2 emissions =
-                            {{scope2Emissions?.total | number : '1.4-4'}} tCO₂e
-                        </p>
-                    </div>
                 </div>
+                <!-- BUSINESS TRAVEL E -->
+                <!--EMPLOYEE COMMUTE   S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(4)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMPLOYEE COMMUTE
 
-            </div>
-        </div>
-        <!-- Scope 2 E -->
+                    </h2>
 
-
-        <!--SCOPE 3 S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE 3
-            </h2>
-            <small class="d-block text-center et_fw_500">(Indirect emissions - related to company’s upstream &
-                downstream operations & activities)
-
-
-            </small>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-12">
-                    <div class="" *ngIf="scope3BarOptions">
-                        <apx-chart [series]="scope3BarOptions.series" [chart]="scope3BarOptions.chart"
-                            [dataLabels]="scope3BarOptions.dataLabels" [plotOptions]="scope3BarOptions.plotOptions"
-                            [xaxis]="scope3BarOptions.xaxis" [colors]="scope3BarOptions.colors"></apx-chart>
-                    </div>
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="w-75 mx-auto">
 
 
+                                <div class="table-responsive">
+                                    <table class="table-bordered styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of transport</th>
+                                                <th>Emissions (tCO2)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of employeeData?.data">
+                                                <td>{{item.type}}</td>
+                                                <td>{{item.subtotal_total_emission | number : '1.4-4'}}</td>
+                                            </tr>
 
-                </div>
-                <div class="col-sm-12">
-                    <div class="ct_graph_center">
-                        <div *ngIf="scope3PieOptions">
-                            <apx-chart [series]="scope3PieOptions.series" [chart]="scope3PieOptions.chart"
-                                [labels]="scope3PieOptions.labels" [legend]="scope3PieOptions.legend"
-                                [responsive]="scope3PieOptions.responsive"
-                                [colors]="scope3PieOptions.colors"></apx-chart>
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="ct_dark_green_bg mt-3">
+                                    <p class="mb-0 et_fw_700">Total emissions from employee commute =
+                                        {{employeeData?.total_emission | number : '1.4-4'}} tCO₂e
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
+                        <div class="col-sm-6">
+                            <small class="et_fw_700 d-block mb-2 text-center">Emissions due to employee commute
+                            </small>
+                            <div class="ct_graph_center">
+                                <div *ngIf="employeePieOptions">
+                                    <apx-chart [series]="employeePieOptions.series" [chart]="employeePieOptions.chart"
+                                        [labels]="employeePieOptions.labels" [legend]="employeePieOptions.legend"
+                                        [responsive]="employeePieOptions.responsive"
+                                        [colors]="employeePieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+
+
+                        </div>
+
                     </div>
-
                 </div>
-                <div class="col-sm-6">
-                    <div class="table-responsive mt-4  ms-auto" style="width: 80%;">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Emission category</th>
-                                    <th>Emissions (tCO₂)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of scope3Data?.slice(0, 5)">
-                                    <td>{{item.category}}</td>
-                                    <td>{{item.emission | number : '1.4-4'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- EMPLOYEE COMMUTE  E -->
+
+                <!--FUEL AND RELATED ACTIVITIES S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(2)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">FUEL AND ENERGY RELATED ACTIVITIES
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <small class="et_fw_700 d-block mb-2 text-center">Emission by stationary combustion
+                            </small>
+                            <div class="text-center">
+                                <div class="text-center ct_graph_center">
+                                    <div *ngIf="ghgEnergyPieOptions">
+                                        <apx-chart [series]="ghgEnergyPieOptions.series"
+                                            [chart]="ghgEnergyPieOptions.chart" [labels]="ghgEnergyPieOptions.labels"
+                                            [legend]="ghgEnergyPieOptions.legend"
+                                            [responsive]="ghgEnergyPieOptions.responsive"
+                                            [colors]="ghgEnergyPieOptions.colors"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <small class="et_fw_700 d-block mb-2 text-center">Emission by activity
+
+                            </small>
+                            <div class="text-center ct_graph_center">
+                                <div *ngIf="welltankpieOptions">
+                                    <apx-chart [series]="welltankpieOptions.series" [chart]="welltankpieOptions.chart"
+                                        [labels]="welltankpieOptions.labels" [legend]="welltankpieOptions.legend"
+                                        [responsive]="welltankpieOptions.responsive"
+                                        [colors]="welltankpieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 mt-4">
+
+                            <div class="text-center">
+                                <div id="ct_emission_by_month" *ngIf="ghgEnergyMonthBarOptions">
+                                    <apx-chart [series]="ghgEnergyMonthBarOptions.series"
+                                        [chart]="ghgEnergyMonthBarOptions.chart"
+                                        [dataLabels]="ghgEnergyMonthBarOptions.dataLabels"
+                                        [plotOptions]="ghgEnergyMonthBarOptions.plotOptions"
+                                        [yaxis]="ghgEnergyMonthBarOptions.yaxis"
+                                        [legend]="ghgEnergyMonthBarOptions.legend"
+                                        [fill]="ghgEnergyMonthBarOptions.fill"
+                                        [stroke]="ghgEnergyMonthBarOptions.stroke"
+                                        [tooltip]="ghgEnergyMonthBarOptions.tooltip"
+                                        [xaxis]="ghgEnergyMonthBarOptions.xaxis"></apx-chart>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
-
                 </div>
-                <div class="col-sm-6">
-                    <div class=" position-relative">
-                        <div class="ct_dark_green_bg mt-5 et_verticle_badge">
-                            <p class="mb-0 et_fw_700">Total scope 3 emissions =
-                                {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
+                <!-- FUEL AND RELATED ACTIVITIES   E -->
 
+                <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR
+                        {{reportingYear.getFullYear()}}
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+
+                            <div class="text-center position-relative ct_graph_center">
+                                <div *ngIf="pieChart">
+                                    <apx-chart [series]="pieChart.series" [chart]="pieChart.chart"
+                                        [labels]="pieChart.labels" [legend]="pieChart.legend"
+                                        [responsive]="pieChart.responsive" [colors]="pieChart.colors"></apx-chart>
+                                </div>
+                                <img loading="lazy" src="assets/ghgImages/Picture30.png" alt="" class="ct_arrow_icon">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="text-center ct_graph_center">
+                                <div *ngIf="ghgTopEmissionsGen">
+                                    <apx-chart [series]="ghgTopEmissionsGen.series" [chart]="ghgTopEmissionsGen.chart"
+                                        [labels]="ghgTopEmissionsGen.labels" [legend]="ghgTopEmissionsGen.legend"
+                                        [responsive]="ghgTopEmissionsGen.responsive"
+                                        [colors]="ghgTopEmissionsGen.colors"></apx-chart>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
+
+
+                <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM
+                        {{baseYear.getFullYear()}}-{{reportingYear.getFullYear()}}
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+
+                            <div class="text-center">
+                                <div id="chart" *ngIf="rangeScopeBarOptions">
+                                    <apx-chart [series]="rangeScopeBarOptions.series"
+                                        [chart]="rangeScopeBarOptions.chart"
+                                        [dataLabels]="rangeScopeBarOptions.dataLabels"
+                                        [plotOptions]="rangeScopeBarOptions.plotOptions"
+                                        [yaxis]="rangeScopeBarOptions.yaxis" [legend]="rangeScopeBarOptions.legend"
+                                        [fill]="rangeScopeBarOptions.fill" [stroke]="rangeScopeBarOptions.stroke"
+                                        [tooltip]="rangeScopeBarOptions.tooltip"
+                                        [xaxis]="rangeScopeBarOptions.xaxis"></apx-chart>
+                                </div>
+                            </div>
+
+                            <p class="mt-4"><strong>Remark:</strong> The graph highlights a
+                                {{baseYear.getFullYear() > reportingYear.getFullYear() ?
+                                'consistent reduction' : baseYear.getFullYear() == reportingYear.getFullYear() ?
+                                'stabletrend' : 'increase'}}
+                                in emissions
+                                across all
+                                scopes from {{baseYear.getFullYear()}} to
+                                {{reportingYear.getFullYear()}}, reflecting {{baseYear.getFullYear() >
+                                reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear.getFullYear()
+                                == reportingYear.getFullYear() ? 'steady emissions levels' :
+                                'risingenvironmentalimpact'}}.
                             </p>
                         </div>
-                        <div class="table-responsive mt-4  ms-auto" style="width: 100%;">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Emission category</th>
-                                        <th>Emissions (tCO₂)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of scope3Data?.slice(5, 10)">
-                                        <td>{{item.category}}</td>
-                                        <td>{{item.emission | number : '1.4-4'}}</td>
-                                    </tr>
 
-                                </tbody>
-                            </table>
-                        </div>
+
+
                     </div>
                 </div>
+                <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
 
-            </div>
-        </div>
-        <!-- Scope 3 E -->
+                <!--GHG EMISSIONS PER NUMBER OF EMPLOYEES S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">GHG EMISSIONS PER NUMBER OF EMPLOYEES
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="ct_word_break">Year</th>
+                                            <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
+                                            <th class="ct_word_break">Number of employees</th>
+                                            <th class="ct_word_break">GHG emission per employee (tCO₂e)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of noofEmployeeData">
+                                            <td class="text-center">{{item.year}}</td>
+                                            <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
+                                            <td class="text-center">{{item.total_employees}}</td>
+                                            <td class="text-center">{{item.total_per_employee_emission | number :
+                                                '1.4-4'}}
+                                            </td>
+                                        </tr>
 
 
-        <!--PurchaseGOODS -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section "
-            *ngIf="selectedMultipleCategories?.includes(1)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">PURCHASE GOODS & SERVICES
-            </h2>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard Goods
-                    </small>
-                    <ng-container *ngIf="standardPieOptions">
-                        <div class="text-center ">
-                            <div id="" *ngIf="standardPieOptions">
-                                <apx-chart [series]="standardPieOptions.series" [chart]="standardPieOptions.chart"
-                                    [labels]="standardPieOptions.labels" [legend]="standardPieOptions.legend"
-                                    [responsive]="standardPieOptions.responsive"
-                                    [colors]="standardPieOptions.colors"></apx-chart>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center">
+                                <div id="chart" *ngIf="employeeLineGraphOptions">
+                                    <apx-chart [series]="employeeLineGraphOptions.series"
+                                        [chart]="employeeLineGraphOptions.chart"
+                                        [xaxis]="employeeLineGraphOptions.xaxis"
+                                        [dataLabels]="employeeLineGraphOptions.dataLabels"
+                                        [yaxis]="employeeLineGraphOptions.yaxis" [grid]="employeeLineGraphOptions.grid"
+                                        [stroke]="employeeLineGraphOptions.stroke"
+                                        [title]="employeeLineGraphOptions.title"></apx-chart>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="table-responsive mt-4  ms-auto">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Type of standard goods
-                                        </th>
-                                        <th>Emissions (tCO2)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase1">
-                                        <td>{{item.product}}</td>
-                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                    </tr>
 
-                                </tbody>
-                            </table>
-                        </div>
 
-                    </ng-container>
-                    <ng-container *ngIf="!standardPieOptions">
-                        <div class="text-center ms-auto">NA</div>
-                    </ng-container>
-                </div>
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Capital Goods
-                    </small>
-                    <ng-container *ngIf="servicesPieOptions">
-                        <div class="text-center">
-                            <div *ngIf="servicesPieOptions">
-                                <apx-chart [series]="servicesPieOptions.series" [chart]="servicesPieOptions.chart"
-                                    [labels]="servicesPieOptions.labels" [legend]="servicesPieOptions.legend"
-                                    [responsive]="servicesPieOptions.responsive"
-                                    [colors]="servicesPieOptions.colors"></apx-chart>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-4  ms-auto">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Type of Capital Goods
-
-                                        </th>
-                                        <th>Emissions (tCO2)
-
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase2">
-                                        <td>{{item.product}}</td>
-                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </ng-container>
-                    <ng-container *ngIf="!servicesPieOptions">
-                        <div class="text-center ms-auto">NA</div>
-                    </ng-container>
-                </div>
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions Contribution by Top 5 Standard Services
-                    </small>
-                    <ng-container *ngIf="capitalPieOptions">
-                        <div class="text-center">
-                            <div *ngIf="capitalPieOptions">
-                                <apx-chart [series]="capitalPieOptions.series" [chart]="capitalPieOptions.chart"
-                                    [labels]="capitalPieOptions.labels" [legend]="capitalPieOptions.legend"
-                                    [responsive]="capitalPieOptions.responsive"
-                                    [colors]="capitalPieOptions.colors"></apx-chart>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-4  ms-auto">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Type of Standard Services
-                                        </th>
-                                        <th>Emissions (tCO2)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of purchaseGoodsData.purchaseGoodDetailsByTypeOfPurchase3">
-                                        <td>{{item.product}}</td>
-                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="!capitalPieOptions">
-                        <div class="text-center ms-auto">NA</div>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
-        <!-- PurchaseGOODS -->
-
-        <!--BUSINESS TRAVEL S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(3)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">BUSINESS TRAVEL
-            </h2>
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of transport
-                    </small>
-                    <ng-container *ngIf="businesTravelData?.modeOfTransportRespose.length > 0">
-                        <div class="text-center">
-
-                            <div *ngIf="otherModesOfTransportPieOptions">
-                                <apx-chart class="piePostions" [series]="otherModesOfTransportPieOptions.series"
-                                    [chart]="otherModesOfTransportPieOptions.chart"
-                                    [labels]="otherModesOfTransportPieOptions.labels"
-                                    [legend]="otherModesOfTransportPieOptions.legend"
-                                    [responsive]="otherModesOfTransportPieOptions.responsive"
-                                    [colors]="otherModesOfTransportPieOptions.colors"></apx-chart>
-                            </div>
-                        </div>
-
-                        <div class="table-responsive mt-4  ms-auto">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Modes of transport
-                                        </th>
-                                        <th>Emissions (tCO2)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of businesTravelData.modeOfTransportRespose">
-                                        <td>{{item.mode_of_trasport}}</td>
-                                        <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </ng-container>
-                    <ng-container *ngIf="businesTravelData?.modeOfTransportRespose.length === 0">NA</ng-container>
-                </div>
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions due to different types of flights
-                    </small>
-                    <div class="text-center">
-                        <div *ngIf="transportationPieOptions">
-                            <apx-chart class="piePostions" [series]="transportationPieOptions.series"
-                                [chart]="transportationPieOptions.chart" [labels]="transportationPieOptions.labels"
-                                [legend]="transportationPieOptions.legend"
-                                [responsive]="transportationPieOptions.responsive"
-                                [colors]="transportationPieOptions.colors"></apx-chart>
-                        </div>
                     </div>
-                    <div class="table-responsive mt-4  ms-auto">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Type of flight
+                    <p class="mt-4"><strong>Remark:</strong> The {{baseYear.getFullYear() > reportingYear.getFullYear()
+                        ?
+                        'steady decline' : baseYear.getFullYear() ==
+                        reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee
+                        from
+                        {{baseYear.getFullYear()}}
+                        to {{reportingYear.getFullYear()}} highlights {{baseYear.getFullYear() >
+                        reportingYear.getFullYear()
+                        ?
+                        'significant efficiency gains' : baseYear.getFullYear() ==
+                        reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
 
-                                    </th>
-                                    <th>Emissions (tCO2)
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of businesTravelData?.data">
-                                    <td>{{item.flight_Type}}</td>
-                                    <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <small class="d-block text-center et_fw_600 mb-2">Emissions due to different modes of hotel stays
-                    </small>
-                    <div class="text-center">
-                        <div *ngIf="hotelPieOptions">
-                            <apx-chart class="piePostions" [series]="hotelPieOptions.series" [chart]="hotelPieOptions.chart"
-                                [labels]="hotelPieOptions.labels" [legend]="hotelPieOptions.legend"
-                                [responsive]="hotelPieOptions.responsive" [colors]="hotelPieOptions.colors"></apx-chart>
-                        </div>
-                    </div>
-                    <div class="table-responsive mt-4  ms-auto">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Type of hotel stay
-                                    </th>
-                                    <th>Emissions (tCO2)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of businesTravelData?.hotelStayResponse">
-                                    <td>{{item.type_of_hotel}}</td>
-                                    <td>{{item.total_emission | number : '1.4-4'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- BUSINESS TRAVEL E -->
-        <!--EMPLOYEE COMMUTE   S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(4)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMPLOYEE COMMUTE
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="w-75 mx-auto">
-
-
-                        <div class="table-responsive">
-                            <table class="table-bordered styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Type of transport</th>
-                                        <th>Emissions (tCO2)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of employeeData?.data">
-                                        <td>{{item.type}}</td>
-                                        <td>{{item.subtotal_total_emission | number : '1.4-4'}}</td>
-                                    </tr>
-
-
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="ct_dark_green_bg mt-3">
-                            <p class="mb-0 et_fw_700">Total emissions from employee commute =
-                                {{employeeData?.total_emission | number : '1.4-4'}} tCO₂e
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-6">
-                    <small class="et_fw_700 d-block mb-2 text-center">Emissions due to employee commute
-                    </small>
-                    <div class="ct_graph_center">
-                        <div *ngIf="employeePieOptions">
-                            <apx-chart [series]="employeePieOptions.series" [chart]="employeePieOptions.chart"
-                                [labels]="employeePieOptions.labels" [legend]="employeePieOptions.legend"
-                                [responsive]="employeePieOptions.responsive"
-                                [colors]="employeePieOptions.colors"></apx-chart>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-        </div>
-        <!-- EMPLOYEE COMMUTE  E -->
-
-        <!--FUEL AND RELATED ACTIVITIES S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(2)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">FUEL AND ENERGY RELATED ACTIVITIES
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <small class="et_fw_700 d-block mb-2 text-center">Emission by stationary combustion
-                    </small>
-                    <div class="text-center">
-                        <div class="text-center ct_graph_center">
-                            <div *ngIf="ghgEnergyPieOptions">
-                                <apx-chart [series]="ghgEnergyPieOptions.series" [chart]="ghgEnergyPieOptions.chart"
-                                    [labels]="ghgEnergyPieOptions.labels" [legend]="ghgEnergyPieOptions.legend"
-                                    [responsive]="ghgEnergyPieOptions.responsive"
-                                    [colors]="ghgEnergyPieOptions.colors"></apx-chart>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-6">
-                    <small class="et_fw_700 d-block mb-2 text-center">Emission by activity
-
-                    </small>
-                    <div class="text-center ct_graph_center">
-                        <div *ngIf="welltankpieOptions">
-                            <apx-chart [series]="welltankpieOptions.series" [chart]="welltankpieOptions.chart"
-                                [labels]="welltankpieOptions.labels" [legend]="welltankpieOptions.legend"
-                                [responsive]="welltankpieOptions.responsive"
-                                [colors]="welltankpieOptions.colors"></apx-chart>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-12 mt-4">
-
-                    <div class="text-center">
-                        <div id="ct_emission_by_month" *ngIf="ghgEnergyMonthBarOptions">
-                            <apx-chart [series]="ghgEnergyMonthBarOptions.series"
-                                [chart]="ghgEnergyMonthBarOptions.chart"
-                                [dataLabels]="ghgEnergyMonthBarOptions.dataLabels"
-                                [plotOptions]="ghgEnergyMonthBarOptions.plotOptions"
-                                [yaxis]="ghgEnergyMonthBarOptions.yaxis" [legend]="ghgEnergyMonthBarOptions.legend"
-                                [fill]="ghgEnergyMonthBarOptions.fill" [stroke]="ghgEnergyMonthBarOptions.stroke"
-                                [tooltip]="ghgEnergyMonthBarOptions.tooltip"
-                                [xaxis]="ghgEnergyMonthBarOptions.xaxis"></apx-chart>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- FUEL AND RELATED ACTIVITIES   E -->
-
-        <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">OVERALL GHG INVENTORY FOR YEAR
-                {{reportingYear.getFullYear()}}
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-
-                    <div class="text-center position-relative ct_graph_center">
-                        <div *ngIf="pieChart">
-                            <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"
-                                [legend]="pieChart.legend" [responsive]="pieChart.responsive"
-                                [colors]="pieChart.colors"></apx-chart>
-                        </div>
-                        <img loading="lazy" src="assets/ghgImages/Picture30.png" alt="" class="ct_arrow_icon">
-                    </div>
-
-                </div>
-                <div class="col-sm-6">
-
-                    <div class="text-center ct_graph_center">
-                        <div *ngIf="ghgTopEmissionsGen">
-                            <apx-chart [series]="ghgTopEmissionsGen.series" [chart]="ghgTopEmissionsGen.chart"
-                                [labels]="ghgTopEmissionsGen.labels" [legend]="ghgTopEmissionsGen.legend"
-                                [responsive]="ghgTopEmissionsGen.responsive"
-                                [colors]="ghgTopEmissionsGen.colors"></apx-chart>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-        <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
-
-
-        <!--OVERALL GHG INVENTORY FOR YEAR 2024S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">SCOPE WISE GHG EMISSIONS FROM
-                {{baseYear.getFullYear()}}-{{reportingYear.getFullYear()}}
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-12">
-
-                    <div class="text-center">
-                        <div id="chart" *ngIf="rangeScopeBarOptions">
-                            <apx-chart [series]="rangeScopeBarOptions.series" [chart]="rangeScopeBarOptions.chart"
-                                [dataLabels]="rangeScopeBarOptions.dataLabels"
-                                [plotOptions]="rangeScopeBarOptions.plotOptions" [yaxis]="rangeScopeBarOptions.yaxis"
-                                [legend]="rangeScopeBarOptions.legend" [fill]="rangeScopeBarOptions.fill"
-                                [stroke]="rangeScopeBarOptions.stroke" [tooltip]="rangeScopeBarOptions.tooltip"
-                                [xaxis]="rangeScopeBarOptions.xaxis"></apx-chart>
-                        </div>
-                    </div>
-
-                    <p class="mt-4"><strong>Remark:</strong> The graph highlights a
-                        {{baseYear.getFullYear() > reportingYear.getFullYear() ?
-                        'consistent reduction' : baseYear.getFullYear() == reportingYear.getFullYear() ? 'stable trend' : 'increase'}}
-                        in emissions
-                        across all
-                        scopes from {{baseYear.getFullYear()}} to
-                        {{reportingYear.getFullYear()}}, reflecting {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'effective mitigation efforts' : baseYear.getFullYear()
-                        == reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
                     </p>
                 </div>
+                <!-- GHG EMISSIONS PER NUMBER OF EMPLOYEES  E -->
+
+
+                <!--EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT
+
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="ct_word_break">Year</th>
+                                            <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
+                                            <th class="ct_word_break">Revenue
+                                                (in million $)
+                                            </th>
+                                            <th class="ct_word_break">Emission Intensity (tCO2e per million $ of
+                                                revenue)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let items of ghgIntensity; let i = index">
+                                            <tr>
+                                                <td class="text-center">{{items.category}}</td>
+                                                <td class="text-center">{{items.emission | number : '1.4-4'}}</td>
+                                                <td class="text-center">{{ghgRevenue[i].emission | number : '1.4-4'}}
+                                                </td>
+                                                <td class="text-center">{{ghgRevenue[i].emission ? (items.emission /
+                                                    ghgRevenue[i].emission | number :'1.2-2') : '-'}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
 
 
 
-            </div>
-        </div>
-        <!-- OVERALL GHG INVENTORY FOR YEAR 2024 E -->
-
-        <!--GHG EMISSIONS PER NUMBER OF EMPLOYEES S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">GHG EMISSIONS PER NUMBER OF EMPLOYEES
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th class="ct_word_break">Year</th>
-                                    <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
-                                    <th class="ct_word_break">Number of employees</th>
-                                    <th class="ct_word_break">GHG emission per employee (tCO₂e)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of noofEmployeeData">
-                                    <td class="text-center">{{item.year}}</td>
-                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
-                                    <td class="text-center">{{item.total_employees}}</td>
-                                    <td class="text-center">{{item.total_per_employee_emission | number : '1.4-4'}}</td>
-                                </tr>
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-center">
-                        <div id="chart" *ngIf="employeeLineGraphOptions">
-                            <apx-chart [series]="employeeLineGraphOptions.series"
-                                [chart]="employeeLineGraphOptions.chart" [xaxis]="employeeLineGraphOptions.xaxis"
-                                [dataLabels]="employeeLineGraphOptions.dataLabels"
-                                [yaxis]="employeeLineGraphOptions.yaxis" [grid]="employeeLineGraphOptions.grid"
-                                [stroke]="employeeLineGraphOptions.stroke"
-                                [title]="employeeLineGraphOptions.title"></apx-chart>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-            <p class="mt-4"><strong>Remark:</strong> The {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'steady decline' : baseYear.getFullYear() ==
-                reportingYear.getFullYear() ? 'stable trend' : 'increase'}} in the carbon footprint per employee from
-                {{baseYear.getFullYear()}}
-                to {{reportingYear.getFullYear()}} highlights {{baseYear.getFullYear() > reportingYear.getFullYear() ? 'significant efficiency gains' : baseYear.getFullYear() ==
-                reportingYear.getFullYear() ? 'steady emissions levels' : 'rising environmental impact'}}.
-
-            </p>
-        </div>
-        <!-- GHG EMISSIONS PER NUMBER OF EMPLOYEES  E -->
-
-
-        <!--EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section" *ngIf="baseYear">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT
-
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th class="ct_word_break">Year</th>
-                                    <th class="ct_word_break">Total GHG emissions (tCO₂e)</th>
-                                    <th class="ct_word_break">Revenue
-                                        (in million $)
-                                    </th>
-                                    <th class="ct_word_break">Emission Intensity (tCO2e per million $ of revenue)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngFor="let items of ghgIntensity; let i = index">
-                                    <tr>
-                                        <td class="text-center">{{items.category}}</td>
-                                        <td class="text-center">{{items.emission | number : '1.4-4'}}</td>
-                                        <td class="text-center">{{ghgRevenue[i].emission | number : '1.4-4'}}</td>
-                                        <td class="text-center">{{ghgRevenue[i].emission ? (items.emission /
-                                            ghgRevenue[i].emission | number :'1.2-2') : '-'}}
-                                        </td>
-                                    </tr>
-                                </ng-container>
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-center">
-                        <div id="chart" *ngIf="ghgIntensityLineOptions">
-                            <apx-chart [series]="ghgIntensityLineOptions.series" [chart]="ghgIntensityLineOptions.chart"
-                                [xaxis]="ghgIntensityLineOptions.xaxis"
-                                [dataLabels]="ghgIntensityLineOptions.dataLabels" [grid]="ghgIntensityLineOptions.grid"
-                                [stroke]="ghgIntensityLineOptions.stroke" [yaxis]="ghgIntensityLineOptions.yaxis"
-                                [title]="ghgIntensityLineOptions.title"></apx-chart>
+                        <div class="col-sm-6">
+                            <div class="text-center">
+                                <div id="chart" *ngIf="ghgIntensityLineOptions">
+                                    <apx-chart [series]="ghgIntensityLineOptions.series"
+                                        [chart]="ghgIntensityLineOptions.chart" [xaxis]="ghgIntensityLineOptions.xaxis"
+                                        [dataLabels]="ghgIntensityLineOptions.dataLabels"
+                                        [grid]="ghgIntensityLineOptions.grid" [stroke]="ghgIntensityLineOptions.stroke"
+                                        [yaxis]="ghgIntensityLineOptions.yaxis"
+                                        [title]="ghgIntensityLineOptions.title"></apx-chart>
+                                </div>
+                            </div>
                         </div>
+
+
+
                     </div>
+                    <ng-container *ngIf="intensitySeries.length > 0">
+                        <p class="mt-4"><strong>Remark:</strong> The {{intensitySeries[0] >
+                            intensitySeries[intensitySeries.length - 1 ] ? 'steady decline' : intensitySeries[0] ==
+                            intensitySeries[intensitySeries.length - 1 ] ? 'stable trend' : 'increase'}} in emission
+                            intensity
+                            from {{baseYear.getFullYear()}} to {{reportingYear.getFullYear()}} indicates
+                            {{intensitySeries[0] > intensitySeries[intensitySeries.length - 1 ] ?
+                            'significantefficiencygains'
+                            : intensitySeries[0]
+                            == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' :
+                            'risingenvironmentalimpact'}}
+
+                        </p>
+
+                    </ng-container>
                 </div>
+                <!-- EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT  E -->
 
-
-
-            </div>
-            <ng-container *ngIf="intensitySeries.length > 0">
-                <p class="mt-4"><strong>Remark:</strong> The {{intensitySeries[0] >
-                    intensitySeries[intensitySeries.length - 1 ] ? 'steady decline' : intensitySeries[0] ==
-                    intensitySeries[intensitySeries.length - 1 ] ? 'stable trend' : 'increase'}} in emission intensity
-                    from {{baseYear.getFullYear()}} to {{reportingYear.getFullYear()}} indicates
-                    {{intensitySeries[0] > intensitySeries[intensitySeries.length - 1 ] ? 'significant efficiency gains' : intensitySeries[0]
-                    == intensitySeries[intensitySeries.length - 1 ] ? 'steady emissions levels ' : 'rising environmental impact'}}
-
-                </p>
-
-            </ng-container>
-        </div>
-        <!-- EMISSION INTENSITY (tCO2e) PER UNIT OUTPUT  E -->
-
-        <!-- WASTE REPORT S -->
-        <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_waste_report pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(6)">
-            <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">WASTE REPORT
-            </h4>
-        </div>
-        <!-- WASTE REPORT E -->
-
-
-        <!--REPORT ON WASTE GENERATED S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(6)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE GENERATED
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Type of waste</th>
-                                    <th>Quantity tonnes
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of wasteDate?.waste_type">
-                                    <td class="text-center">{{item.product}}
-                                    </td>
-                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
-
-                                </tr>
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- WASTE REPORT S -->
+                <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_waste_report pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(6)">
+                    <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">WASTE REPORT
+                    </h4>
                 </div>
-                <div class="col-sm-6">
-                    <div class="text-center">
-                        <div class="" *ngIf="wasteBarOptions">
-                            <apx-chart [series]="wasteBarOptions.series" [chart]="wasteBarOptions.chart"
-                                [dataLabels]="wasteBarOptions.dataLabels" [plotOptions]="wasteBarOptions.plotOptions"
-                                [xaxis]="wasteBarOptions.xaxis" [colors]="wasteBarOptions.colors"></apx-chart>
+                <!-- WASTE REPORT E -->
+
+
+                <!--REPORT ON WASTE GENERATED S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(6)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE GENERATED
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Type of waste</th>
+                                            <th>Quantity tonnes
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of wasteDate?.waste_type">
+                                            <td class="text-center">{{item.product}}
+                                            </td>
+                                            <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
+
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-            <p class="mt-4" *ngIf="wasteDate?.waste_type.length >0"><strong>Remark:</strong> A significant portion of
-                waste comes from {{wasteDate?.waste_type[0]?.product}} and {{wasteDate?.waste_type[1]?.product}},
-                highlighting the major waste streams. This underscores the need for targeted waste management strategies
-                and
-                enhanced reduction efforts.
-
-
-            </p>
-        </div>
-        <!-- REPORT ON WASTE GENERATED  E -->
-
-
-        <!--REPORT ON WASTE DISPOSAL S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(6)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DISPOSAL
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Disposal method</th>
-                                    <th>tonnes
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of wasteDate?.method_type">
-
-                                    <td class="text-center">{{item.method}}
-
-                                    </td>
-                                    <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
-
-                                </tr>
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-center ct_graph_center">
-                        <small class="et_fw_700 d-block text-center mb-2">Waste Disposal Method Distribution</small>
-                        <div *ngIf="wastePieOptions">
-                            <apx-chart [series]="wastePieOptions.series" [chart]="wastePieOptions.chart"
-                                [labels]="wastePieOptions.labels" [legend]="wastePieOptions.legend"
-                                [responsive]="wastePieOptions.responsive" [colors]="wastePieOptions.colors"></apx-chart>
+                        <div class="col-sm-6">
+                            <div class="text-center">
+                                <div class="" *ngIf="wasteBarOptions">
+                                    <apx-chart [series]="wasteBarOptions.series" [chart]="wasteBarOptions.chart"
+                                        [dataLabels]="wasteBarOptions.dataLabels"
+                                        [plotOptions]="wasteBarOptions.plotOptions" [xaxis]="wasteBarOptions.xaxis"
+                                        [colors]="wasteBarOptions.colors"></apx-chart>
+                                </div>
+                            </div>
                         </div>
+
+
+
                     </div>
+                    <p class="mt-4" *ngIf="wasteDate?.waste_type.length >0"><strong>Remark:</strong> A significant
+                        portion
+                        of
+                        waste comes from {{wasteDate?.waste_type[0]?.product}} and
+                        {{wasteDate?.waste_type[1]?.product}},
+                        highlighting the major waste streams. This underscores the need for targeted waste management
+                        strategies
+                        and
+                        enhanced reduction efforts.
+
+
+                    </p>
                 </div>
+                <!-- REPORT ON WASTE GENERATED  E -->
+
+
+                <!--REPORT ON WASTE DISPOSAL S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(6)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DISPOSAL
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Disposal method</th>
+                                            <th>tonnes
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of wasteDate?.method_type">
+
+                                            <td class="text-center">{{item.method}}
+
+                                            </td>
+                                            <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
+
+                                        </tr>
 
 
 
-            </div>
-            <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is managed through
-                {{sustainableWaste > nonsustainableWaste ? 'more sustainable methods' : 'less sustainable methods' }}
-                {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' : 'highlighting the need for improved waste management strategies'}}
-                to further reduce environmental impact.
-
-
-            </p>
-        </div>
-        <!--REPORT ON WASTE DISPOSAL E -->
-
-        <!--REPORT ON WASTE DIVERSION S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
-            *ngIf="selectedMultipleCategories?.includes(6)">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DIVERSION
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-6">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Waste diversion method
-                                    </th>
-                                    <th>tonnes
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngFor="let item of wasteDate?.method_type">
-                                    <tr *ngIf="item.method === 'reuse'">
-
-                                        <td class="text-center">Reuse
-
-                                        </td>
-                                        <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
-
-                                    </tr>
-
-                                </ng-container>
-                                <tr>
-                                    <td class="text-center">Open loop recycling
-
-
-
-                                    </td>
-                                    <td class="text-center">{{wasteDate?.open_recycling.length > 0 ?
-                                         (wasteDate?.open_recycling[0]?.total_emission | number : '1.4-4') : 0}}</td>
-
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Closed loop recycling
-
-
-
-                                    </td>
-                                    <td class="text-center">{{wasteDate?.close_recycling.length > 0 ?
-                                        (wasteDate?.close_recycling[0]?.total_emission | number : '1.4-4') : 0}}</td>
-
-                                </tr>
-                                <ng-container *ngFor="let item of wasteDate?.method_type">
-                                    <tr *ngIf="item.method === 'composting'">
-
-                                        <td class="text-center">Composting
-
-                                        </td>
-                                        <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
-
-                                    </tr>
-
-                                </ng-container>
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-center ct_graph_center">
-                        <div *ngIf="wasteMixChartOptions">
-                            <apx-chart [series]="wasteMixChartOptions.series" [chart]="wasteMixChartOptions.chart"
-                                [labels]="wasteMixChartOptions.labels" [legend]="wasteMixChartOptions.legend"
-                                [responsive]="wasteMixChartOptions.responsive"
-                                [colors]="wasteMixChartOptions.colors"></apx-chart>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="text-center ct_graph_center">
+                                <small class="et_fw_700 d-block text-center mb-2">Waste Disposal Method
+                                    Distribution</small>
+                                <div *ngIf="wastePieOptions">
+                                    <apx-chart [series]="wastePieOptions.series" [chart]="wastePieOptions.chart"
+                                        [labels]="wastePieOptions.labels" [legend]="wastePieOptions.legend"
+                                        [responsive]="wastePieOptions.responsive"
+                                        [colors]="wastePieOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+                    <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is managed through
+                        {{sustainableWaste > nonsustainableWaste ? 'more sustainable methods' :
+                        'less sustainablemethods'
+                        }}
+                        {{sustainableWaste > nonsustainableWaste ? 'demonstrating progress in sustainability' :
+                        'highlighting the need for improved waste management strategies'}} to further reduce
+                        environmental impact.
+                    </p>
                 </div>
+                <!--REPORT ON WASTE DISPOSAL E -->
+
+                <!--REPORT ON WASTE DIVERSION S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section"
+                    *ngIf="selectedMultipleCategories?.includes(6)">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">REPORT ON WASTE DIVERSION
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Waste diversion method
+                                            </th>
+                                            <th>tonnes
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let item of wasteDate?.method_type">
+                                            <tr *ngIf="item.method === 'reuse'">
+
+                                                <td class="text-center">Reuse
+
+                                                </td>
+                                                <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
+
+                                            </tr>
+
+                                        </ng-container>
+                                        <tr>
+                                            <td class="text-center">Open loop recycling
 
 
 
-            </div>
-            <!-- <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is diverted through
+                                            </td>
+                                            <td class="text-center">{{wasteDate?.open_recycling.length > 0 ?
+                                                (wasteDate?.open_recycling[0]?.total_emission | number : '1.4-4') : 0}}
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Closed loop recycling
+
+
+
+                                            </td>
+                                            <td class="text-center">{{wasteDate?.close_recycling.length > 0 ?
+                                                (wasteDate?.close_recycling[0]?.total_emission | number : '1.4-4') : 0}}
+                                            </td>
+
+                                        </tr>
+                                        <ng-container *ngFor="let item of wasteDate?.method_type">
+                                            <tr *ngIf="item.method === 'composting'">
+
+                                                <td class="text-center">Composting
+
+                                                </td>
+                                                <td class="text-center">{{item.total_emission | number : '1.4-4'}}</td>
+
+                                            </tr>
+
+                                        </ng-container>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center ct_graph_center">
+                                <div *ngIf="wasteMixChartOptions">
+                                    <apx-chart [series]="wasteMixChartOptions.series"
+                                        [chart]="wasteMixChartOptions.chart" [labels]="wasteMixChartOptions.labels"
+                                        [legend]="wasteMixChartOptions.legend"
+                                        [responsive]="wasteMixChartOptions.responsive"
+                                        [colors]="wasteMixChartOptions.colors"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is diverted through
                 {{wasteDate?.method_type[0]?.method}} and
                 {{wasteDate?.method_type[1]?.method}}, showcasing effective resource recovery and sustainability
                 efforts.
 
 
             </p> -->
-        </div>
-        <!--REPORT ON WASTE DIVERSION E -->
-
-        <!--CONCLUSION S -->
-        <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_conclusion pdf-section">
-            <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">CONCLUSION
-
-            </h4>
-        </div>
-        <!-- CONCLUSION E -->
-
-
-        <!--CONCLUSION S -->
-        <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
-            <h2 class="et_fs_36 et_fw_500 text-center mb-0">CONCLUSION
-
-            </h2>
-
-            <hr class="et_hr_line_green mb-3 mt-2" />
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-12">
-                    <div class="table-responsive">
-                        <table class="table-bordered styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Metrics</th>
-                                    <th>Result</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="vertical-align: top;" rowspan="5">GHG emissions</td>
-                                    <td style="vertical-align: top;">Scope 1</td>
-                                    <td style="vertical-align: top;">
-                                        {{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Scope 2</td>
-                                    <td style="vertical-align: top;">
-                                        {{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Scope 3</td>
-                                    <td style="vertical-align: top;">
-                                        {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Business Travel</td>
-                                    <td style="vertical-align: top;">
-                                        {{businessTravelTotal?.emission | number : '1.4-4'}} tCO₂e
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Employee Commute</td>
-                                    <td style="vertical-align: top;">{{employeeTotal?.emission | number : '1.4-4'}}
-                                        tCO₂e</td>
-                                </tr>
-                                <ng-container *ngFor="let item of noofEmployeeData">
-                                    <tr *ngIf="item.year == currentYear">
-                                        <td style="vertical-align: top;">GHG emission per employee</td>
-                                        <td style="vertical-align: top;">
-                                            {{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e
-                                        </td>
-                                    </tr>
-
-                                </ng-container>
-                                <tr class="d-none">
-                                    <td style="vertical-align: top;">Emission intensity per unit output:</td>
-                                    <td style="vertical-align: top;">22.2 tCO₂e per million $ of revenue</td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;" rowspan="3">Waste</td>
-                                    <td style="vertical-align: top;">Total waste generated</td>
-                                    <td style="vertical-align: top;">{{this.scopeEmissons?.waste_emissions ==0 ? '-' :
-                                        this.scopeEmissons?.waste_emissions | number : '1.4-4'}}
-                                        {{this.scopeEmissons?.waste_emissions ==0
-                                        ? '' : 'tonnes'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Total waste disposal</td>
-                                    <td style="vertical-align: top;">{{this.scopeEmissons?.waste_disposed ==0 ? '-' :
-                                        this.scopeEmissons?.waste_disposed }} {{this.scopeEmissons?.waste_disposed ==0 ?
-                                        '' : 'tonnes'}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align: top;">Total waste diverted</td>
-                                    <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0 ? '-' :
-                                        this.scopeEmissons?.diverted_emssion | number : '1.4-4'}}
-                                        {{this.scopeEmissons?.diverted_emssion
-                                        ==0 ? '' : '%'}}
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-                <ng-container *ngIf="baseYear">
+                <!--REPORT ON WASTE DIVERSION E -->
 
-                    <div class="col-sm-12">
-                        <div class="text-center">
-                            <div id="chart" *ngIf="yearWiseLineOptions">
-                                <apx-chart [series]="yearWiseLineOptions.series" [chart]="yearWiseLineOptions.chart"
-                                    [xaxis]="yearWiseLineOptions.xaxis" [dataLabels]="yearWiseLineOptions.dataLabels"
-                                    [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke"
-                                    [yaxis]="yearWiseLineOptions.yaxis" [title]="yearWiseLineOptions.title"></apx-chart>
+                <!--CONCLUSION S -->
+                <div class="ct_light_green_bg ct_my_15 et_pdf_width ct_conclusion pdf-section">
+                    <h4 class="et_fs_36 mb-0 et_fw_700 text-center text-dark">CONCLUSION
+
+                    </h4>
+                </div>
+                <!-- CONCLUSION E -->
+
+
+                <!--CONCLUSION S -->
+                <div class="et_pdf_white_bg ct_py_24_40 et_pdf_width pdf-section">
+                    <h2 class="et_fs_36 et_fw_500 text-center mb-0">CONCLUSION
+
+                    </h2>
+
+                    <hr class="et_hr_line_green mb-3 mt-2" />
+                    <div class="row align-items-center mt-3">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table-bordered styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Metrics</th>
+                                            <th>Result</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: top;" rowspan="5">GHG emissions</td>
+                                            <td style="vertical-align: top;">Scope 1</td>
+                                            <td style="vertical-align: top;">
+                                                {{scopeEmissons?.Scope1[0].total_emission | number : '1.4-4'}} tCO₂e
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Scope 2</td>
+                                            <td style="vertical-align: top;">
+                                                {{scopeEmissons?.Scope2[0].total_emission | number : '1.4-4'}} tCO₂e
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Scope 3</td>
+                                            <td style="vertical-align: top;">
+                                                {{scopeEmissons?.Scope3[0].total_emission | number : '1.4-4'}} tCO₂e
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Business Travel</td>
+                                            <td style="vertical-align: top;">
+                                                {{businessTravelTotal?.emission | number : '1.4-4'}} tCO₂e
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Employee Commute</td>
+                                            <td style="vertical-align: top;">{{employeeTotal?.emission | number :
+                                                '1.4-4'}}
+                                                tCO₂e</td>
+                                        </tr>
+                                        <ng-container *ngFor="let item of noofEmployeeData">
+                                            <tr *ngIf="item.year == currentYear">
+                                                <td style="vertical-align: top;">GHG emission per employee</td>
+                                                <td style="vertical-align: top;">
+                                                    {{item.total_per_employee_emission | number : '1.4-4'}} tCO₂e
+                                                </td>
+                                            </tr>
+
+                                        </ng-container>
+                                        <tr class="d-none">
+                                            <td style="vertical-align: top;">Emission intensity per unit output:</td>
+                                            <td style="vertical-align: top;">22.2 tCO₂e per million $ of revenue</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;" rowspan="3">Waste</td>
+                                            <td style="vertical-align: top;">Total waste generated</td>
+                                            <td style="vertical-align: top;">{{this.scopeEmissons?.waste_emissions ==0 ?
+                                                '-'
+                                                :
+                                                this.scopeEmissons?.waste_emissions | number : '1.4-4'}}
+                                                {{this.scopeEmissons?.waste_emissions ==0
+                                                ? '' : 'tonnes'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Total waste disposal</td>
+                                            <td style="vertical-align: top;">{{this.scopeEmissons?.waste_disposed ==0 ?
+                                                '-'
+                                                :
+                                                this.scopeEmissons?.waste_disposed }}
+                                                {{this.scopeEmissons?.waste_disposed
+                                                ==0 ?
+                                                '' : 'tonnes'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">Total waste diverted</td>
+                                            <td style="vertical-align: top;">{{this.scopeEmissons?.diverted_emssion ==0
+                                                ?
+                                                '-' :
+                                                this.scopeEmissons?.diverted_emssion | number : '1.4-4'}}
+                                                {{this.scopeEmissons?.diverted_emssion
+                                                ==0 ? '' : '%'}}
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                        <ng-container *ngIf="baseYear">
+
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <div id="chart" *ngIf="yearWiseLineOptions">
+                                        <apx-chart [series]="yearWiseLineOptions.series"
+                                            [chart]="yearWiseLineOptions.chart" [xaxis]="yearWiseLineOptions.xaxis"
+                                            [dataLabels]="yearWiseLineOptions.dataLabels"
+                                            [grid]="yearWiseLineOptions.grid" [stroke]="yearWiseLineOptions.stroke"
+                                            [yaxis]="yearWiseLineOptions.yaxis"
+                                            [title]="yearWiseLineOptions.title"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+
                     </div>
-                </ng-container>
+                    <ng-container *ngIf="baseYear && baseYearGhg != 0">
+                        <p class="mt-4"><strong>Remark:</strong> The {{baseYearGhg > currentYearGhg ? 'steady decline' :
+                            baseYearGhg == currentYearGhg ? 'stable trend' : 'increase'}} in GHG emissions from the
+                            {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg ==
+                            currentYearGhg ?
+                            'stable trends' : ' increasing challenges'}} reflects a , resulting in a
+                            {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ?
+                            'minimal change' : 'total increase of '}}
+                            {{percentageIncDec}} % by {{reportingYear.getFullYear()}}.
+                        </p>
 
-
+                    </ng-container>
+                </div>
+                <!--REPORT ON WASTE DIVERSION E -->
 
             </div>
-            <ng-container *ngIf="baseYear && baseYearGhg != 0">
-                <p class="mt-4"><strong>Remark:</strong> The {{baseYearGhg > currentYearGhg ? 'steady decline' :
-                    baseYearGhg == currentYearGhg ? 'stable trend' : 'increase'}} in GHG emissions from the
-                    {{baseYearGhg > currentYearGhg ? 'continued reduction efforts' : baseYearGhg == currentYearGhg ?
-                    'stable trends' : ' increasing challenges'}} reflects a , resulting in a
-                    {{baseYearGhg > currentYearGhg ? 'total decrease of' : baseYearGhg == currentYearGhg ? 'minimal change' : 'total increase of '}}
-                    {{percentageIncDec}} % by {{reportingYear.getFullYear()}}.
+        </ng-container>
 
-
-                </p>
-
-            </ng-container>
-        </div>
-        <!--REPORT ON WASTE DIVERSION E -->
-
-    </div>
-</ng-container>
-
-
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="true">
-    <p style="color: white"> Fetching Data... </p>
-</ngx-spinner>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse"
+            [fullScreen]="true">
+            <p style="color: white"> Fetching Data... </p>
+        </ngx-spinner>
+    </p-tabPanel>
+    <p-tabPanel header="Comprehensive Report">
+        <app-comprehensive-report></app-comprehensive-report>
+    </p-tabPanel>
+</p-tabView>

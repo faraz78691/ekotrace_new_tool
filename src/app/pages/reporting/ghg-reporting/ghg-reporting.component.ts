@@ -52,7 +52,7 @@ export class GhgReportingComponent {
   facilityData: any[] = [];
   categoriesData: any[] = [];
   selectedMultipleFacility: any[] = [];
-  selectedMultipleCategories: any[]=[];
+  selectedMultipleCategories: any[] = [];
   selectedMultipleKPIs: any[] = [1, 4, 9];
   reportData: any;
   currentYear: any;
@@ -112,6 +112,7 @@ export class GhgReportingComponent {
   remainingTime: number = 50;  // total countdown time
   timerInterval: any;
   dashboardLogoUrl: any;
+
   constructor(
 
     private _apiService: ApiService, private spinner: NgxSpinnerService, private facilityService: FacilityService, private cdr: ChangeDetectorRef, private _appService: AppService, private notificationService: NotificationService
@@ -135,17 +136,17 @@ export class GhgReportingComponent {
   ngOnInit() {
     if (localStorage.getItem('assets') != null) {
       let userAssets = localStorage.getItem('assets');
-     
+
       this.dashboardLogoUrl = JSON.parse(userAssets).dashboard_logo
-     
-  } else {
+
+    } else {
       this._appService.getApi('/login_logo').subscribe((res) => {
-          this.dashboardLogoUrl = res.data.dashboard_logo
-          const jsonAssets = JSON.stringify(res.data[0]);
-          localStorage.setItem('assets', jsonAssets);
+        this.dashboardLogoUrl = res.data.dashboard_logo
+        const jsonAssets = JSON.stringify(res.data[0]);
+        localStorage.setItem('assets', jsonAssets);
 
       })
-  }
+    }
     if (localStorage.getItem('LoginInfo') != null) {
       let userInfo = localStorage.getItem('LoginInfo');
       let jsonObj = JSON.parse(userInfo);
@@ -168,9 +169,9 @@ export class GhgReportingComponent {
   };
 
   onGenerateReport() {
-   console.log(this.baseYear);
+    console.log(this.baseYear);
 
-    if(this.baseYear?.getFullYear() >= this.reportingYear.getFullYear()){
+    if (this.baseYear?.getFullYear() >= this.reportingYear.getFullYear()) {
       this.notificationService.showInfo('Base year should be less than reporting year', '')
       return
     }
@@ -180,7 +181,7 @@ export class GhgReportingComponent {
       return
     }
     if (this.selectedMultipleKPIs.length != 3) {
-   
+
       this.notificationService.showInfo('Please select any 3 KPIs', '')
       return
     }
@@ -251,10 +252,10 @@ export class GhgReportingComponent {
     return this._appService.postAPI('/GhgScopewiseEmssion', formData).pipe(
       tap((response) => {
         this.scopeEmissons = response;
-        
+
         const pieEmissions = [
           Number(this.scopeEmissons.Scope1[0].total_emission),
-          Number(this.scopeEmissons.Scope2[0].total_emission) , Number(this.scopeEmissons.Scope3[0].total_emission)
+          Number(this.scopeEmissons.Scope2[0].total_emission), Number(this.scopeEmissons.Scope3[0].total_emission)
         ];
         this.pieChart = {
           dataLabels: { enabled: false },
@@ -274,7 +275,7 @@ export class GhgReportingComponent {
   scope1Categories() {
     const formData = new URLSearchParams();
     formData.set('facilityIds', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgScope1Emissions', formData).pipe(
       tap((response: any) => {
@@ -307,7 +308,7 @@ export class GhgReportingComponent {
   scope2Categories() {
     const formData = new URLSearchParams();
     formData.set('faciltyId', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/fetchScope2Comission', formData).pipe(
       tap((response: any) => {
@@ -347,7 +348,7 @@ export class GhgReportingComponent {
   scope3Categories() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/Scope3WiseEmssionOnly', formData).pipe(
       tap((response: any) => {
@@ -396,7 +397,7 @@ export class GhgReportingComponent {
   getPurchaseGoodsServices() {
     const formData = new URLSearchParams();
     formData.set('faciltyId', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/purchaseGoodAndService', formData).pipe(
       tap((response: any) => {
@@ -429,7 +430,7 @@ export class GhgReportingComponent {
   getBusinessTravel() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgBussinessTravelServices', formData).pipe(
       tap((response: any) => {
@@ -462,7 +463,7 @@ export class GhgReportingComponent {
   getEmployee() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEmployeeCommute', formData).pipe(
       tap((response: any) => {
@@ -481,7 +482,7 @@ export class GhgReportingComponent {
   getWelltoTank() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumptionWellTank', formData).pipe(
       tap((response: any) => {
@@ -493,7 +494,7 @@ export class GhgReportingComponent {
   ghgEnergy() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumption', formData).pipe(
       tap((response: any) => {
@@ -518,15 +519,15 @@ export class GhgReportingComponent {
           return (!isFinite(result) || isNaN(result)) ? 0 : Number(result.toFixed(2));
         });
 
-      
-        this.ghgIntensityLineOptions = this.getLineChartOptions(this.intensitySeries, intensityLabel,'tCO2e / mn','Economic Intensity');
+
+        this.ghgIntensityLineOptions = this.getLineChartOptions(this.intensitySeries, intensityLabel, 'tCO2e / mn', 'Economic Intensity');
       })
     );
   }
   getWaste() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgWasteEmission', formData).pipe(
       tap((response: any) => {
@@ -541,11 +542,11 @@ export class GhgReportingComponent {
           .reduce((sum: number, item: any) => sum + Number(item.total_emission), 0);
 
 
-        
-          let series = this.wasteDate?.method_type
+
+        let series = this.wasteDate?.method_type
           .filter((item: any) => item.method === 'reuse' || item.method === 'composting')
           .map((item: any) => Number(item.total_emission)) || [];
-        
+
 
         series = [
           ...series,
@@ -576,7 +577,7 @@ export class GhgReportingComponent {
   ghgEnergyMonth() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgEnergyConsumptionMonth', formData).pipe(
       tap((response: any) => {
@@ -648,7 +649,7 @@ export class GhgReportingComponent {
           },
           yaxis: {
             title: {
-              text:'tCO2e',
+              text: 'tCO2e',
               style: {
                 fontSize: '14px',
                 fontWeight: 'bold',
@@ -656,7 +657,7 @@ export class GhgReportingComponent {
               }
             },
             labels: {
-            
+
               style: {
                 fontSize: '13px'
               }
@@ -669,7 +670,7 @@ export class GhgReportingComponent {
   getTopEmissions() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/ghgTopEmissionGenerating', formData).pipe(
       tap((response: any) => {
@@ -692,13 +693,13 @@ export class GhgReportingComponent {
   getTopEmissionsPieGraph() {
     const formData = new URLSearchParams();
     formData.set('facilities', this.selectedMultipleFacility.toString());
-  formData.set('year', this.reportingYear.getFullYear().toString());
+    formData.set('year', this.reportingYear.getFullYear().toString());
 
     return this._appService.postAPI('/dashboardTopEmssion', formData).pipe(
       tap((response: any) => {
         let series = response.top5Emissions.map((item: any) => Number(item.emission));
         let labels = response.top5Emissions.map((item: any) => (item.category));
-       console.log(series);
+        console.log(series);
 
         this.ghgTopEmissionsGen = this.getPieCharOptions(series, labels);
       })
@@ -742,7 +743,7 @@ export class GhgReportingComponent {
         let series = this.noofEmployeeData.map((item: any) => item.total_per_employee_emission);
         let labels = this.noofEmployeeData.map((item: any) => item.year);
 
-        this.employeeLineGraphOptions = this.getLineChartOptions(series, labels,'tCO₂e', 'Emission tonnes per employee');
+        this.employeeLineGraphOptions = this.getLineChartOptions(series, labels, 'tCO₂e', 'Emission tonnes per employee');
       })
     );
   }
@@ -803,7 +804,7 @@ export class GhgReportingComponent {
                 color: '#333'
               }
             }
-          
+
           },
           fill: {
             opacity: 1
@@ -829,7 +830,7 @@ export class GhgReportingComponent {
     return this._appService.postAPI('/GhgEmssionYearRangeWise', formData).pipe(
       tap((response: any) => {
 
-        if(response.data.length > 0){
+        if (response.data.length > 0) {
           this.baseYearGhg = parseFloat(response.data.find((item: any) => item.category == base_year).emission);
           this.currentYearGhg = parseFloat(response.data.find((item: any) => item.category == this.reportingYear.getFullYear().toString()).emission);
           if (this.baseYearGhg) {
@@ -837,12 +838,12 @@ export class GhgReportingComponent {
               this.percentageIncDec = Number(((this.baseYearGhg - this.currentYearGhg) / this.reportingYear.getFullYear()) * 100).toFixed(2);
             } else {
               this.percentageIncDec = Number(((this.currentYearGhg - this.baseYearGhg) / this.baseYear.getFullYear()) * 100).toFixed(2);
-  
+
             }
           }
           // this.rangeScopeLineOptions = this.getLineChartOptions(response.emission, response.year);
-          this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category),'tCO2e','GHG Emissions');
-          
+          this.yearWiseLineOptions = this.getLineChartOptions(response.data.map((item: any) => item.emission), response.data.map((item: any) => item.category), 'tCO2e', 'GHG Emissions');
+
         }
 
       })
@@ -973,9 +974,9 @@ export class GhgReportingComponent {
       ]
     };
   }
-  
 
-  getLineChartOptions(seriesValues: number[], categories: string[],ytext?:string, xtext?:string) {
+
+  getLineChartOptions(seriesValues: number[], categories: string[], ytext?: string, xtext?: string) {
     return {
       series: [
         {
@@ -1005,7 +1006,7 @@ export class GhgReportingComponent {
       xaxis: {
         categories: categories,
         title: {
-        text: xtext,
+          text: xtext,
           style: {
             fontSize: '14px',
             fontWeight: 'bold',
@@ -1209,17 +1210,17 @@ export class GhgReportingComponent {
   // }
   handleDownload() {
     this.isGenerating = true;
-    if(this.baseYear && this.selectedMultipleCategories.length ==0){
-      this.remainingTime =25;
-    }else if(!this.baseYear && this.selectedMultipleCategories.length ==0){
-      this.remainingTime =20;
-    }else if(this.baseYear && this.selectedMultipleCategories.length > 3){
-      this.remainingTime =105;
-    }else if(this.baseYear && this.selectedMultipleCategories.length < 3 ){
+    if (this.baseYear && this.selectedMultipleCategories.length == 0) {
+      this.remainingTime = 25;
+    } else if (!this.baseYear && this.selectedMultipleCategories.length == 0) {
+      this.remainingTime = 20;
+    } else if (this.baseYear && this.selectedMultipleCategories.length > 3) {
+      this.remainingTime = 105;
+    } else if (this.baseYear && this.selectedMultipleCategories.length < 3) {
       this.remainingTime = 45;
-    }else if(!this.baseYear && this.selectedMultipleCategories.length > 3){
-      this.remainingTime =70;
-    }else if(!this.baseYear && this.selectedMultipleCategories.length < 3){
+    } else if (!this.baseYear && this.selectedMultipleCategories.length > 3) {
+      this.remainingTime = 70;
+    } else if (!this.baseYear && this.selectedMultipleCategories.length < 3) {
       this.remainingTime = 48;
     }
     setTimeout(() => {
@@ -1255,11 +1256,11 @@ export class GhgReportingComponent {
   //     const sections = content.querySelectorAll('.pdf-section');
   //     const pdf = new jsPDF('l', 'mm'); 
 
-    
+
   //     const canvasPromises = Array.from(sections).map(async (section) => {
   //       const elem = section as HTMLElement;
 
-      
+
   //       const contentWidth = elem.scrollWidth;
   //       const contentHeight = elem.scrollHeight;
 
@@ -1281,23 +1282,23 @@ export class GhgReportingComponent {
   //       const canvas = data.canvas;
   //       const imgData = canvas.toDataURL('image/jpeg', options.image.quality);
 
-     
+
   //       const pageWidth = 400; 
   //       const pageHeight = (data.originalHeight * 0.264583) + (options.margin * 2);
 
 
   //       if (index > 0) pdf.addPage([pageWidth, pageHeight], 'l');
 
-      
+
   //       pdf.setPage(index + 1);
   //       pdf.internal.pageSize.height = pageHeight;
   //       pdf.internal.pageSize.width = pageWidth;
 
-       
+
   //       const imgWidth = pageWidth - options.margin * 2;
   //       const imgHeight = pageHeight - options.margin * 2;
 
-      
+
   //       pdf.addImage(imgData, 'JPEG',
   //         options.margin,
   //         options.margin,
@@ -1324,7 +1325,7 @@ export class GhgReportingComponent {
       console.error('PDF generation failed: Element #pdf-content not found');
       return;
     }
-  
+
     this.timerInterval = setInterval(() => {
       if (this.remainingTime > 0) {
         this.remainingTime--;
@@ -1343,18 +1344,18 @@ export class GhgReportingComponent {
           ignoreElements: (element: Element) => element.classList.contains('no-print')
         }
       };
-  
+
       const sections = content.querySelectorAll('.pdf-section');
       const pdf = new jsPDF('l', 'mm'); // Start with landscape orientation
-  
+
       const canvasData: { canvas: HTMLCanvasElement, originalHeight: number }[] = [];
-  
+
       // Sequential rendering instead of Promise.all
       for (const section of Array.from(sections)) {
         const elem = section as HTMLElement;
         const contentWidth = elem.scrollWidth;
         const contentHeight = elem.scrollHeight;
-  
+
         const canvas = await html2canvas(elem, {
           ...options.html2canvas,
           windowWidth: contentWidth,
@@ -1362,32 +1363,32 @@ export class GhgReportingComponent {
           width: contentWidth,
           height: contentHeight
         });
-  
+
         canvasData.push({
           canvas,
           originalHeight: contentHeight
         });
-  
+
         // Give browser a little time to breathe
         await new Promise(resolve => setTimeout(resolve, 0));
       }
-  
+
       canvasData.forEach((data, index) => {
         const canvas = data.canvas;
         const imgData = canvas.toDataURL('image/jpeg', options.image.quality);
-  
+
         const pageWidth = 400; // Fixed landscape width
         const pageHeight = (data.originalHeight * 0.264583) + (options.margin * 2);
-  
+
         if (index > 0) pdf.addPage([pageWidth, pageHeight], 'l');
-  
+
         pdf.setPage(index + 1);
         pdf.internal.pageSize.height = pageHeight;
         pdf.internal.pageSize.width = pageWidth;
-  
+
         const imgWidth = pageWidth - options.margin * 2;
         const imgHeight = pageHeight - options.margin * 2;
-  
+
         pdf.addImage(imgData, 'JPEG',
           options.margin,
           options.margin,
@@ -1397,7 +1398,7 @@ export class GhgReportingComponent {
           'FAST'
         );
       });
-  
+
       pdf.save(options.filename);
       this.isGenerating = false;
       console.log("PDF successfully downloaded!");
@@ -1406,12 +1407,12 @@ export class GhgReportingComponent {
       this.notificationService.showWarning('PDF generation failed', 'Error');
       console.error('PDF generation failed:', error);
     }
-   finally {
-    clearInterval(this.timerInterval);
-    this.isGenerating = false;
+    finally {
+      clearInterval(this.timerInterval);
+      this.isGenerating = false;
+    }
   }
-  }
-  
+
 
 
   limitSelection() {
@@ -1425,5 +1426,7 @@ export class GhgReportingComponent {
   onCategoriesSelected() {
     console.log(this.selectedMultipleCategories);
   }
+
+
 
 }

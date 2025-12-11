@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ThemeService} from '@services/theme.service';
+import { Component } from '@angular/core';
+import { ThemeService } from '@services/theme.service';
 
 interface reports {
     heading: string;
@@ -66,7 +66,6 @@ export class ReportComponent {
                 button: 'view',
                 route: '/financed-report'
             }
-          
         ];
     }
 

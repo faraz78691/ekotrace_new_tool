@@ -117,6 +117,7 @@ import { DataProgressComponent } from './pages/data-progress/data-progress.compo
 import { DisableScrollDirective } from './utils/disable-scroll.directive';
 import { VehicleFleetComponent } from './pages/vehicle-fleet/vehicle-fleet.component';
 import { GhgReportingComponent } from './pages/reporting/ghg-reporting/ghg-reporting.component';
+import { ComprehensiveReportComponent } from './pages/reporting/comprehensive-report/comprehensive-report.component';
 import { PdfReportingComponent } from './pages/pdf-reporting/pdf-reporting.component';
 import { KpiDashboardComponent } from './pages/kpi-dashboard/kpi-dashboard.component';
 import { KpiInventoryComponent } from './pages/kpi-inventory/kpi-inventory.component';
@@ -138,7 +139,7 @@ registerLocaleData(localeEn, 'en-EN');
         BlankComponent,
         ProfileComponent,
         RegisterComponent,
-       
+
         MessagesComponent,
         NotificationsComponent,
         ForgotPasswordComponent,
@@ -208,6 +209,7 @@ registerLocaleData(localeEn, 'en-EN');
         DisableScrollDirective,
         VehicleFleetComponent,
         GhgReportingComponent,
+        ComprehensiveReportComponent,
         PdfReportingComponent,
         KpiDashboardComponent,
         KpiInventoryComponent,
@@ -222,11 +224,11 @@ registerLocaleData(localeEn, 'en-EN');
         HttpClientModule,
         NgxSpinnerModule.forRoot({ type: 'ball-clip-rotate-pulse' }),
         StoreModule.forRoot({ auth: authReducer, ui: uiReducer }),
-        ToastrModule.forRoot({  }),
+        ToastrModule.forRoot({}),
         ProfabricComponentsModule, // if only used in app shell/layout
         ImageModule, // if only used in main app
         SharedModule
-       
+
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
@@ -239,7 +241,7 @@ registerLocaleData(localeEn, 'en-EN');
         MessageService,
         CustomerService
     ],
-    exports:[ControlSidebarComponent],
+    exports: [ControlSidebarComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

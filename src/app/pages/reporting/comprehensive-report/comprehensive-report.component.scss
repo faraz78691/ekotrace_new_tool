@@ -509,3 +509,49 @@ img.ct_arrow_icon {
 .et_gap_20 {
     gap: 20px;
 }
+
+.table_loc {
+    font-size: 14px;
+    width: 100%;
+    justify-content: flex-start;
+    border-bottom: white;
+}
+
+.ct_space_table_21 tr th {
+    background-color: rgba(136, 173, 71, 0.75);
+    padding: 6px 10px;
+}
+
+.ct_space_table_21 tr td {
+    padding: 6px 10px;
+    border-color: #eee;
+    border: 3px solid #fff;
+}
+
+.tableRow:hover:not(.first-row),
+.tableRow:focus:not(.first-row) {
+    background-color: #DEE9C7 !important;
+    color: #454149;
+}
+
+.tableRowclicked:not(.first-row) {
+    background-color: #DEE9C7 !important;
+    color: #454149;
+}
+
+.first-row {
+    background-color: #5d7132 !important;
+    color: #ffffff;
+}
+
+.expand-row {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.expand-row.open {
+    max-height: 500px;
+    opacity: 1;
+}

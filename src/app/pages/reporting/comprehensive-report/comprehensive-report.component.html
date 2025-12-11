@@ -1,0 +1,394 @@
+<div class="container-fluid">
+    <div class="pt-3">
+        <div class="d-flex align-items-center">
+            <h3 class="mb-0">Comprehensive Report</h3>
+        </div>
+    </div>
+    <div class="row firstbox">
+        <div class="col">
+            <div class="row mt-4  text-white">
+                <ng-container>
+                    <div class="col-md-6 mb-3">
+                        <label for="fname" class="text-dark">Facility</label>
+                        <ng-container>
+                            <div
+                                class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
+                                <p-multiSelect [options]="AllFacilityData" [(ngModel)]="selectedFacility"
+                                    optionLabel="AssestType" optionValue="id" styleClass="pcalender"
+                                    defaultLabel="Select Multiple Data Points" name="anotherFacility">
+                                </p-multiSelect>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fyear" class="text-dark">Reporting Year</label>
+                        <div class="selectyear mx-0">
+                            <p-calendar placeholder="Select Year" #calendarRef
+                                class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
+                                [(ngModel)]="year" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row">
+                <div class="pt-2">
+                    <button class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3"
+                        (click)="onGenerateReport()">
+                        <span>Submit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dataTable scrollit mt-5 h-auto" *ngIf="ComprehensiveReportData.length > 0">
+        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+            <thead>
+                <tr>
+                    <th scope="col" style="font-size: 16px;">Facility </th>
+                    <th scope="col" style="font-size: 16px;">Scope1 (tC02e)</th>
+                    <th scope="col" style="font-size: 16px;">Scope2 (tC02e)</th>
+                    <th scope="col" style="font-size: 16px;">Scope3 (tC02e)</th>
+                    <th scope="col" style="font-size: 16px;">Total Emissions (tC02e)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr clickable *ngFor="let data of ComprehensiveReportData;let index = index
+                                        " class="col-12 tableRow border-bottom rounded pointer"
+                    [ngClass]="{ 'tableRowclicked': index === selectedRowIndex }">
+
+                    <td (click)="onFacilityClick(data.id, index, data.facility)" class="td " style="font-size: 16px;">
+                        {{ data.facility }}
+                    </td>
+                    <td class="td " style="font-size: 16px;">
+                        {{ data.scope1 }}
+
+                    </td>
+                    <td class="td  pb-1" style="font-size: 16px;">
+                        {{ data.scope2 }}
+
+                    </td>
+                    <td class="td  pb-1" style="font-size: 16px;">
+                        {{ data.scope3}}
+
+                    </td>
+                    <td class="td pb-1">
+                        {{ data.total}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="dataTable scrollit mt-5 h-auto"
+        *ngIf="FacilityWiseScope1Data.length > 0 || FacilityWiseScope2Data.length > 0 || FacilityWiseScope3Data.length > 0">
+        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+            <thead>
+                <tr>
+                    <th scope="col" style="font-size: 16px;"></th>
+                    <th scope="col" style="font-size: 16px;">Jan</th>
+                    <th scope="col" style="font-size: 16px;">Feb</th>
+                    <th scope="col" style="font-size: 16px;">Mar</th>
+                    <th scope="col" style="font-size: 16px;">Apr</th>
+                    <th scope="col" style="font-size: 16px;">May</th>
+                    <th scope="col" style="font-size: 16px;">Jun</th>
+                    <th scope="col" style="font-size: 16px;">Jul</th>
+                    <th scope="col" style="font-size: 16px;">Aug</th>
+                    <th scope="col" style="font-size: 16px;">Sep</th>
+                    <th scope="col" style="font-size: 16px;">Oct</th>
+                    <th scope="col" style="font-size: 16px;">Nov</th>
+                    <th scope="col" style="font-size: 16px;">Dec</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of FacilityWiseScope1Data; let index = index let first = first">
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                        (click)="isExpanded(item.category) ? toggleRow(index, item.category) : null">
+                        <td class="td" style="font-size: 16px;">
+                            <div class="d-flex align-items-center">
+                                <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
+                                    [ngClass]="{'fa-chevron-down': expandedRowIndex === index, 'fa-chevron-right': expandedRowIndex !== index}"></i>
+                                <span class="ml-2">{{ item.category }}</span>
+                            </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ item.Jan | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Feb | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Mar | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Apr | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.May | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jun | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jul | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Aug | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Sep | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Oct | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Nov | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Dec | number:'1.4-4'}}
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="expandedRowIndex === index">
+                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                            <td class="pl-5 td" style="font-size: 16px;">
+                                {{detail.category}}
+                            </td>
+                            <td class="td " style="font-size: 16px;">
+                                {{ detail.Jan | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Feb | number:'1.4-4' }}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Mar | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Apr | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.May | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jun | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jul | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Aug | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Sep | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Oct | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Nov | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Dec | number:'1.4-4'}}
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <tr>
+                    <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
+                </tr>
+                <ng-container *ngFor="let item of FacilityWiseScope2Data; let index2 = index let first = first">
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                        (click)="isExpanded(item.category) ? toggleRow2(index2, item.category) : null">
+                        <td class="td" style="font-size: 16px;">
+                            <div class="d-flex align-items-center">
+                                <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
+                                    [ngClass]="{'fa-chevron-down': expandedRowIndex2 === index2, 'fa-chevron-right': expandedRowIndex2 !== index2}"></i>
+                                <span class="ml-2">{{ item.category }}</span>
+                            </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ item.Jan | number:'1.4-4'}}
+
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Feb | number:'1.4-4' }}
+
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Mar | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Apr | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.May | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jun | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jul | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Aug | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Sep | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Oct | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Nov | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Dec | number:'1.4-4'}}
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="expandedRowIndex2 === index2">
+                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                            <td class=" td pl-5" style="font-size: 16px;">
+                                {{detail.category}}
+                            </td>
+                            <td class="td" style="font-size: 16px;">
+                                {{ detail.Jan | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Feb | number:'1.4-4' }}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Mar | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Apr | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.May | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jun | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jul | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Aug | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Sep | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Oct | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Nov | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Dec | number:'1.4-4'}}
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <tr>
+                    <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
+                </tr>
+                <ng-container *ngFor="let item of FacilityWiseScope3Data;let index3 = index; let first = first">
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                        (click)="isExpanded(item.category) ? toggleRow3(index3, item.category) : null">
+                        <td class="td" style="font-size: 16px;">
+                            <div class="d-flex align-items-center">
+                                <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
+                                    [ngClass]="{'fa-chevron-down': expandedRowIndex3 === index3, 'fa-chevron-right': expandedRowIndex3 !== index3}"></i>
+                                <span class="ml-2">{{ item.category }}</span>
+                            </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ item.Jan | number:'1.4-4'}}
+
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Feb | number:'1.4-4'}}
+
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Mar | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Apr | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.May | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jun | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Jul | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Aug | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Sep | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Oct | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Nov | number:'1.4-4'}}
+                        </td>
+                        <td class="td  pb-1" style="font-size: 16px;">
+                            {{ item.Dec | number:'1.4-4' }}
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="expandedRowIndex3 === index3">
+                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                            <td class="pl-5 td" style="font-size: 16px;">
+                                {{detail.category}}
+                            </td>
+                            <td class="td " style="font-size: 16px;">
+                                {{ detail.Jan | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Feb | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Mar | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Apr | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.May | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jun | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Jul | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Aug | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Sep | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Oct | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Nov | number:'1.4-4'}}
+                            </td>
+                            <td class="td  pb-1" style="font-size: 16px;">
+                                {{ detail.Dec | number:'1.4-4'}}
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
