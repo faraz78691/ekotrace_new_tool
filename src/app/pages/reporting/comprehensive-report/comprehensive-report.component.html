@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="pt-3">
         <div class="d-flex align-items-center">
-            <h3 class="mb-0">Comprehensive Report</h3>
+            <h3 class="mb-0">Comprehensive Emissions data</h3>
         </div>
     </div>
     <div class="row firstbox">
@@ -13,10 +13,37 @@
                         <ng-container>
                             <div
                                 class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                                <p-multiSelect [options]="AllFacilityData" [(ngModel)]="selectedFacility"
-                                    optionLabel="AssestType" optionValue="id" styleClass="pcalender"
-                                    defaultLabel="Select Multiple Data Points" name="anotherFacility">
-                                </p-multiSelect>
+                                <p-multiSelect 
+                                [options]="AllFacilityData"
+                                [(ngModel)]="selectedFacility"
+                                optionLabel="AssestType"
+                                optionValue="ID"
+                                styleClass="pcalender"
+                                defaultLabel="Select Multiple Data Points"
+                                name="anotherFacility">
+                        
+                                <!-- CUSTOM TEMPLATE -->
+                                <ng-template let-option pTemplate="item">
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    
+                                    <!-- Label -->
+                                    <div>{{ option.AssestType }}</div>
+                                    
+                                    <!-- Icon -->
+                                    <div>
+                                      <i 
+                                        class="fa"
+                                        [ngClass]="{
+                                          'fa-users': isArray(option.ID),
+                                          'fa-user': !isArray(option.ID)
+                                        }">
+                                      </i>
+                                    </div>
+                        
+                                  </div>
+                                </ng-template>
+                        
+                            </p-multiSelect>
                             </div>
                         </ng-container>
                     </div>
@@ -40,8 +67,11 @@
             </div>
         </div>
     </div>
-    <div class="dataTable scrollit mt-5 h-auto" *ngIf="ComprehensiveReportData.length > 0">
-        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+    <div class="dataTable scrollit mt-5 h-auto " *ngIf="ComprehensiveReportData.length > 0">
+        <button (click)="exportTableToExcel() "
+        class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3 float-right">Download
+        Report</button>
+        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 " #dt>
             <thead>
                 <tr>
                     <th scope="col" style="font-size: 16px;">Facility </th>
@@ -75,12 +105,21 @@
                         {{ data.total}}
                     </td>
                 </tr>
+                <tr clickable (click)="onFacilityTotalClick(ComprehensiveReportData)"  [ngClass]="{'tableRowclicked': selectedRowIndex === -1}">
+                    <td class="td pb-1" style="font-size: 16px;">Total Emissions (tC02e)</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope1 }}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope2 }}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope3 }}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalAll }}</td>
+                  </tr>
+
+                
             </tbody>
         </table>
     </div>
     <div class="dataTable scrollit mt-5 h-auto"
         *ngIf="FacilityWiseScope1Data.length > 0 || FacilityWiseScope2Data.length > 0 || FacilityWiseScope3Data.length > 0">
-        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 ">
+        <table class="table_loc ct_space_table_21 ct_billing_table_bg_120 table_loc2 ">
             <thead>
                 <tr>
                     <th scope="col" style="font-size: 16px;"></th>
@@ -147,7 +186,7 @@
                         </td>
                     </tr>
                     <ng-container *ngIf="expandedRowIndex === index">
-                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                        <tr *ngFor="let detail of detailsScope1" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>
@@ -246,7 +285,7 @@
                         </td>
                     </tr>
                     <ng-container *ngIf="expandedRowIndex2 === index2">
-                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                        <tr *ngFor="let detail of detailsScope2" class="bg-light border p-2">
                             <td class=" td pl-5" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>
@@ -345,7 +384,7 @@
                         </td>
                     </tr>
                     <ng-container *ngIf="expandedRowIndex3 === index3">
-                        <tr *ngFor="let detail of detailsData" class="bg-light border p-2">
+                        <tr *ngFor="let detail of detailsScope3" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>
