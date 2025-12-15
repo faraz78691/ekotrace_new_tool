@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AppService } from '@services/app.service';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-comprehensive-report',
   templateUrl: './comprehensive-report.component.html',
   styleUrls: ['./comprehensive-report.component.scss']
 })
 export class ComprehensiveReportComponent {
+  @ViewChild('dt', { static: false }) table: any;
   AllFacilityData: any[] = [];
   selectedFacility: any[] = [];
   year: Date;
@@ -18,7 +19,15 @@ export class ComprehensiveReportComponent {
   FacilityWiseScope2Data: any[] = [];
   FacilityWiseScope3Data: any[] = [];
   detailsData: any[] = [];
+  detailsScope1: any[] = [];
+  detailsScope2: any[] = [];
+  detailsScope3: any[] = [];
+
   selectedFacilityId: any;
+  totalScope1 = 0;
+  totalScope2 = 0;
+  totalScope3 = 0;
+  totalAll = 0;
   constructor(private _appService: AppService) {
 
   }
@@ -55,6 +64,9 @@ export class ComprehensiveReportComponent {
   onGenerateReport() {
     this._appService.getApi(`/reporting/get-facility-wise-scope?facility_id=${this.selectedFacility.join(',')}&year=${this.year.getFullYear()}`).subscribe((result: any) => {
       this.ComprehensiveReportData = result.data;
+
+      this.calculateTotals();
+      this.onFacilityClick(this.selectedFacility[0], 0, this.selectedFacility[0]);
     });
   }
 
@@ -90,34 +102,45 @@ export class ComprehensiveReportComponent {
   expandedRowIndex3: number | null = null;
   toggleRow2(index: number, category: string) {
     this.expandedRowIndex2 = this.expandedRowIndex2 === index ? null : index;
-    let url = this.getUrlByCategory(category);
-    this.getDetails(url);
+    if (this.expandedRowIndex2 !== null) {
+      let url = this.getUrlByCategory(category);
+      this.getDetails(url, 2);
+    }
   }
   toggleRow3(index: number, category: string) {
     this.expandedRowIndex3 = this.expandedRowIndex3 === index ? null : index;
-    let url = this.getUrlByCategory(category);
-    this.getDetails(url);
+    if (this.expandedRowIndex3 !== null) {
+      let url = this.getUrlByCategory(category);
+      this.getDetails(url, 3);
+    }
   }
+  
 
   toggleRow(index: number, category: string) {
     this.expandedRowIndex = this.expandedRowIndex === index ? null : index;
-    let url = this.getUrlByCategory(category);
-    this.getDetails(url);
+    if (this.expandedRowIndex !== null) {
+      let url = this.getUrlByCategory(category);
+      this.getDetails(url, 1);
+    }
   }
+  
 
-  getDetails(url: string) {
+  getDetails(url: string, scope: number) {
     this._appService.getApi(url + '?facilities=' + this.selectedFacilityId.toString() + '&year=' + this.year.getFullYear()).subscribe((result: any) => {
-      this.detailsData = result.data;
-    }, (error: any) => {
-      this.detailsData = [];
+      if (scope === 1) this.detailsScope1 = result.data;
+      if (scope === 2) this.detailsScope2 = result.data;
+      if (scope === 3) this.detailsScope3 = result.data;
     });
   }
+  
 
   isExpanded(category: string) {
     let categories = ['Stationary Combustion', 'Company Owned Vehicles', 'Heat and Steam', 'Purchased goods and services', 'Fuel and Energy-related Activities', 'Waste generated in operations', 'Water Supply and Treatment'];
     return categories.includes(category);
   }
-
+  isArray(id: any) {
+    return Array.isArray(id);
+  }
   getUrlByCategory(category: string) {
     switch (category) {
       case 'Stationary Combustion':
@@ -138,4 +161,69 @@ export class ComprehensiveReportComponent {
         return '';
     }
   }
+
+  exportTableToExcel() {
+    const table1: any = document.querySelector('.table_loc');
+    const table2: any = document.querySelector('.table_loc2');
+
+    // Convert both tables
+    const ws1 = XLSX.utils.table_to_sheet(table1);
+    const ws2 = XLSX.utils.table_to_sheet(table2);
+
+    // Start by using ws1 as base
+    const ws = ws1;
+
+    // Find last row of table1
+    const range1 = XLSX.utils.decode_range(ws1['!ref']);
+    const startRowForTable2 = range1.e.r + 2; // 2 blank rows gap
+
+    // Merge table2 below table1
+    Object.keys(ws2).forEach(cell => {
+      if (cell[0] === '!') return;
+
+      const cellRef = XLSX.utils.decode_cell(cell);
+
+      const newCellRef = XLSX.utils.encode_cell({
+        r: cellRef.r + startRowForTable2,
+        c: cellRef.c // keep month columns as-is
+      });
+
+      ws[newCellRef] = ws2[cell];
+    });
+
+    // Update sheet size (ref)
+    const range2 = XLSX.utils.decode_range(ws2['!ref']);
+    ws['!ref'] = XLSX.utils.encode_range({
+      s: { r: 0, c: 0 },
+      e: { r: startRowForTable2 + range2.e.r, c: range2.e.c }
+    });
+
+    // Save workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "ReportData");
+    XLSX.writeFile(wb, "ReportData.xlsx");
+  }
+
+
+  calculateTotals() {
+    this.totalScope1 = this.ComprehensiveReportData
+      .reduce((acc, item) => acc + Number(item.scope1 || 0), 0);
+
+    this.totalScope2 = this.ComprehensiveReportData
+      .reduce((acc, item) => acc + Number(item.scope2 || 0), 0);
+
+    this.totalScope3 = this.ComprehensiveReportData
+      .reduce((acc, item) => acc + Number(item.scope3 || 0), 0);
+
+    this.totalAll = this.ComprehensiveReportData
+      .reduce((acc, item) => acc + Number(item.total || 0), 0);
+  }
+
+  onFacilityTotalClick(data: any) {
+    this.selectedRowIndex = -1
+    this.selectedFacilityId = data.map((item: any) => item.id).join(',');
+    this.getFacilityWiseScope(this.selectedFacilityId);
+    this.calculateTotals();
+  }
+
 }
