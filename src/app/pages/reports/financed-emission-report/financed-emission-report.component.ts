@@ -12,10 +12,10 @@ import jsPDF from 'jspdf';
 import { Calendar } from 'primeng/calendar';
 import * as XLSX from 'xlsx';
 interface financialyear {
-    financialyear: string;
+  financialyear: string;
 }
 interface locations {
-    location: string;
+  location: string;
 }
 @Component({
   selector: 'app-financed-emission-report',
@@ -112,8 +112,8 @@ export class FinancedEmissionReportComponent {
       this.loginInfo = jsonObj as LoginInfo;
       this.facilityID = sessionStorage.getItem('SelectedfacilityID');
 
-this.GetAllSubGrups()
-    
+      this.GetAllSubGrups()
+
 
     }
   };
@@ -141,7 +141,7 @@ this.GetAllSubGrups()
   };
 
   GetAssignedDataPoint(facilityID: number) {
-   
+
     this.trackingService
       .getDataPointsByFacility(facilityID)
       .subscribe({
@@ -158,8 +158,8 @@ this.GetAllSubGrups()
   };
 
 
-  
-  
+
+
 
   newgenerateReport() {
 
@@ -168,11 +168,11 @@ this.GetAllSubGrups()
     let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
     const reportFormData = new URLSearchParams();
     let url = ''
-    if(this.selectReportType == 'Monthly'){
+    if (this.selectReportType == 'Monthly') {
       url = 'reportFilterMultipleCategoryNew'
-  }else{
-        url = 'reportFilterMultipleCategoryConsolidated'
-  }
+    } else {
+      url = 'reportFilterMultipleCategoryConsolidated'
+    }
     reportFormData.set('stationary_combustion', "0")
     reportFormData.set('refrigerant', "0")
     reportFormData.set('fire_extinguisher', "0")
@@ -192,9 +192,12 @@ this.GetAllSubGrups()
     reportFormData.set('downstreamlease_emission', "0")
     reportFormData.set('franchise_emission', "0")
     reportFormData.set('investment_emission', "1")
-    reportFormData.set('flight_travel','0')
-    reportFormData.set('hotel_stays','0')
-    reportFormData.set('other_transport','0')
+    reportFormData.set('flight_travel', '0')
+    reportFormData.set('hotel_stays', '0')
+    reportFormData.set('other_transport', '0')
+    reportFormData.set('business_travel', "0")
+    reportFormData.set('water_supply_treatment', "0")
+    reportFormData.set('fuel_and_energy_related', "0")
     reportFormData.set('facility', selectedFacilities)
     reportFormData.set('start_year', startYear)
     reportFormData.set('end_year', endYear)
@@ -444,19 +447,19 @@ this.GetAllSubGrups()
     formData.set('tenantID', tenantId.toString())
     this.facilityService.getActualSubGroups(formData.toString()).subscribe((result: any) => {
 
-        if (result.success == true) {
-     
-            if(result.categories.length > 0){
-              this.facilityData = result.categories;
-         
-                // this.haveMainGroup = result.categories[0].is_subgroup
-              
-            }
+      if (result.success == true) {
 
+        if (result.categories.length > 0) {
+          this.facilityData = result.categories;
+
+          // this.haveMainGroup = result.categories[0].is_subgroup
 
         }
 
+
+      }
+
     });
-};
+  };
 
 }

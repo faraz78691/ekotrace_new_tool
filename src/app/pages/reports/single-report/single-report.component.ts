@@ -96,7 +96,7 @@ export class SingleReportComponent {
     endYear: any;
     loading = false;
     page = 1;
-    rows = 10;
+    rows = 500;
     totalRecords = 0;
     reportmonths: any[] = [
         { name: 'Jan', value: 'Jan' },

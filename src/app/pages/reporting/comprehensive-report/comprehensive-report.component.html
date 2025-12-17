@@ -19,7 +19,7 @@
 
                                     <!-- CUSTOM TEMPLATE -->
                                     <ng-template let-option pTemplate="item">
-                                        <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <div class="d-flex justify-content-between align-items-center w-100 pr-3">
 
                                             <!-- Label -->
                                             <div>{{ option.AssestType }}</div>
@@ -84,30 +84,26 @@
                     </td>
                     <td class="td " style="font-size: 16px;">
                         {{ data.scope1 }}
-
                     </td>
                     <td class="td  pb-1" style="font-size: 16px;">
                         {{ data.scope2 }}
-
                     </td>
                     <td class="td  pb-1" style="font-size: 16px;">
                         {{ data.scope3}}
-
                     </td>
                     <td class="td pb-1">
                         {{ data.total}}
                     </td>
                 </tr>
                 <tr clickable (click)="onFacilityTotalClick(ComprehensiveReportData)"
-                    [ngClass]="{'tableRowclicked': selectedRowIndex === -1}">
+                    [ngClass]="{'tableRowclicked': selectedRowIndex === -1}"
+                    class="col-12 tableRow border-bottom rounded pointer">
                     <td class="td pb-1" style="font-size: 16px;">Total Emissions (tC02e)</td>
                     <td class="td pb-1" style="font-size: 16px;">{{ totalScope1 }}</td>
                     <td class="td pb-1" style="font-size: 16px;">{{ totalScope2 }}</td>
                     <td class="td pb-1" style="font-size: 16px;">{{ totalScope3 }}</td>
                     <td class="td pb-1" style="font-size: 16px;">{{ totalAll }}</td>
                 </tr>
-
-
             </tbody>
         </table>
     </div>
@@ -138,7 +134,7 @@
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
                                 <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
-                                    [ngClass]="{'fa-chevron-down': expandedRowIndex === index, 'fa-chevron-right': expandedRowIndex !== index}"></i>
+                                    [ngClass]="{'fa-chevron-down': expandedRowsScope1.has(index), 'fa-chevron-right': !expandedRowsScope1.has(index)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
                         </td>
@@ -179,8 +175,8 @@
                             {{ item.Dec | number:'1.4-4'}}
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedRowIndex === index">
-                        <tr *ngFor="let detail of detailsScope1" class="bg-light border p-2">
+                    <ng-container *ngIf="expandedRowsScope1.has(index)">
+                        <tr *ngFor="let detail of detailsScope1Map.get(index)" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>
@@ -235,7 +231,7 @@
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
                                 <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
-                                    [ngClass]="{'fa-chevron-down': expandedRowIndex2 === index2, 'fa-chevron-right': expandedRowIndex2 !== index2}"></i>
+                                    [ngClass]="{'fa-chevron-down': expandedRowsScope2.has(index2), 'fa-chevron-right': !expandedRowsScope2.has(index2)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
                         </td>
@@ -278,8 +274,8 @@
                             {{ item.Dec | number:'1.4-4'}}
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedRowIndex2 === index2">
-                        <tr *ngFor="let detail of detailsScope2" class="bg-light border p-2">
+                    <ng-container *ngIf="expandedRowsScope2.has(index2)">
+                        <tr *ngFor="let detail of detailsScope2Map.get(index2)" class="bg-light border p-2">
                             <td class=" td pl-5" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>
@@ -334,7 +330,7 @@
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
                                 <i *ngIf="isExpanded(item.category)" class="fas text-muted" style="font-size: 14px;"
-                                    [ngClass]="{'fa-chevron-down': expandedRowIndex3 === index3, 'fa-chevron-right': expandedRowIndex3 !== index3}"></i>
+                                    [ngClass]="{'fa-chevron-down': expandedRowsScope3.has(index3), 'fa-chevron-right': !expandedRowsScope3.has(index3)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
                         </td>
@@ -377,8 +373,8 @@
                             {{ item.Dec | number:'1.4-4' }}
                         </td>
                     </tr>
-                    <ng-container *ngIf="expandedRowIndex3 === index3">
-                        <tr *ngFor="let detail of detailsScope3" class="bg-light border p-2">
+                    <ng-container *ngIf="expandedRowsScope3.has(index3)">
+                        <tr *ngFor="let detail of detailsScope3Map.get(index3)" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
                             </td>

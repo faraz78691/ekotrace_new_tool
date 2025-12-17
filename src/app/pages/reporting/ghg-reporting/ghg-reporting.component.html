@@ -1,4 +1,7 @@
 <p-tabView>
+    <p-tabPanel header="Comprehensive Emissions data">
+        <app-comprehensive-report></app-comprehensive-report>
+    </p-tabPanel>
     <p-tabPanel header="GHG Emissions Report">
         <div class="container-fluid">
             <div class="pt-3">
@@ -178,8 +181,8 @@
                                 <!-- <p class="et_grey_bg mx-auto mt-3 et_fw_500">Company logo/image</p> -->
                                 <div class="mt-4">
                                     <!-- <img style="object-fit: contain;"
-                                style="justify-items: center;max-width:500px; width: 100%;"
-                                src="assets/img/Carbontek.png" alt=""> -->
+                                        style="justify-items: center;max-width:500px; width: 100%;"
+                                        src="assets/img/Carbontek.png" alt=""> -->
                                     <img style="object-fit: contain;"
                                         style="justify-items: center;max-width:200px; width: 100%;"
                                         [src]="dashboardLogoUrl" alt="">
@@ -596,7 +599,7 @@
                                     </thead>
                                     <tbody>
                                         <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
-                                length > 0">
+                                        length > 0">
                                             <tr>
                                                 <td class="category" rowspan="3">Fuels</td>
                                                 <td>{{scope1Emissions?.CombustionEmissionData[0]?.TypeName || '-'}}</td>
@@ -624,7 +627,7 @@
                                         </ng-container>
                                     <tbody>
                                         <ng-container *ngIf="scope1Emissions?.CombustionEmissionData.
-                                length == 0">
+                                        length == 0">
                                             <tr>
                                                 <td class="category">Fuels</td>
                                                 <td>-</td>
@@ -1703,12 +1706,12 @@
 
                     </div>
                     <!-- <p class="mt-4"><strong>Remark:</strong> A significant portion of waste is diverted through
-                {{wasteDate?.method_type[0]?.method}} and
-                {{wasteDate?.method_type[1]?.method}}, showcasing effective resource recovery and sustainability
-                efforts.
-
-
-            </p> -->
+                        {{wasteDate?.method_type[0]?.method}} and
+                        {{wasteDate?.method_type[1]?.method}}, showcasing effective resource recovery and sustainability
+                        efforts.
+        
+        
+                    </p> -->
                 </div>
                 <!--REPORT ON WASTE DIVERSION E -->
 
@@ -1862,8 +1865,5 @@
             [fullScreen]="true">
             <p style="color: white"> Fetching Data... </p>
         </ngx-spinner>
-    </p-tabPanel>
-    <p-tabPanel header="Comprehensive Emissions data">
-        <app-comprehensive-report></app-comprehensive-report>
     </p-tabPanel>
 </p-tabView>

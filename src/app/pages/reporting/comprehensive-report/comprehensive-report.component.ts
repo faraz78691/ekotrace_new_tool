@@ -19,9 +19,9 @@ export class ComprehensiveReportComponent {
   FacilityWiseScope2Data: any[] = [];
   FacilityWiseScope3Data: any[] = [];
   detailsData: any[] = [];
-  detailsScope1: any[] = [];
-  detailsScope2: any[] = [];
-  detailsScope3: any[] = [];
+  detailsScope1Map = new Map<number, any[]>();
+  detailsScope2Map = new Map<number, any[]>();
+  detailsScope3Map = new Map<number, any[]>();
 
   selectedFacilityId: any;
   totalScope1 = 0;
@@ -73,6 +73,9 @@ export class ComprehensiveReportComponent {
   onFacilityClick(id: any, index: any, fName: any) {
     this.selectedRowIndex = index;
     this.getFacilityWiseScope(id);
+    setTimeout(() => {
+      this.openAllSubCategories();
+    }, 1000);
   }
 
   getFacilityWiseScope(id: any) {
@@ -97,45 +100,82 @@ export class ComprehensiveReportComponent {
     });
   }
 
-  expandedRowIndex: number | null = null;
-  expandedRowIndex2: number | null = null;
-  expandedRowIndex3: number | null = null;
+  expandedRowsScope1 = new Set<number>();
+  expandedRowsScope2 = new Set<number>();
+  expandedRowsScope3 = new Set<number>();
+
   toggleRow2(index: number, category: string) {
-    this.expandedRowIndex2 = this.expandedRowIndex2 === index ? null : index;
-    if (this.expandedRowIndex2 !== null) {
-      let url = this.getUrlByCategory(category);
-      this.getDetails(url, 2);
+    if (this.expandedRowsScope2.has(index)) {
+      this.expandedRowsScope2.delete(index);
+    } else {
+      this.expandedRowsScope2.add(index);
+
+      if (!this.detailsScope2Map.has(index)) {
+        const url = this.getUrlByCategory(category);
+        this.getDetails(url, 2, index);
+      }
     }
   }
+
   toggleRow3(index: number, category: string) {
-    this.expandedRowIndex3 = this.expandedRowIndex3 === index ? null : index;
-    if (this.expandedRowIndex3 !== null) {
-      let url = this.getUrlByCategory(category);
-      this.getDetails(url, 3);
+    if (this.expandedRowsScope3.has(index)) {
+      this.expandedRowsScope3.delete(index);
+    } else {
+      this.expandedRowsScope3.add(index);
+
+      if (!this.detailsScope3Map.has(index)) {
+        const url = this.getUrlByCategory(category);
+        this.getDetails(url, 3, index);
+      }
     }
   }
-  
-
   toggleRow(index: number, category: string) {
-    this.expandedRowIndex = this.expandedRowIndex === index ? null : index;
-    if (this.expandedRowIndex !== null) {
-      let url = this.getUrlByCategory(category);
-      this.getDetails(url, 1);
+    if (this.expandedRowsScope1.has(index)) {
+      this.expandedRowsScope1.delete(index);
+    } else {
+      this.expandedRowsScope1.add(index);
+
+      if (!this.detailsScope1Map.has(index)) {
+        const url = this.getUrlByCategory(category);
+        this.getDetails(url, 1, index);
+      }
     }
   }
-  
 
-  getDetails(url: string, scope: number) {
-    this._appService.getApi(url + '?facilities=' + this.selectedFacilityId.toString() + '&year=' + this.year.getFullYear()).subscribe((result: any) => {
-      if (scope === 1) this.detailsScope1 = result.data;
-      if (scope === 2) this.detailsScope2 = result.data;
-      if (scope === 3) this.detailsScope3 = result.data;
+  openAllSubCategories() {
+    this.FacilityWiseScope1Data.forEach((item: any, i: number) => {
+      if (this.isExpanded(item.category)) {
+        this.expandedRowsScope1.add(i);
+        this.getDetails(this.getUrlByCategory(item.category), 1, i);
+      }
+    });
+
+    this.FacilityWiseScope2Data.forEach((item: any, i: number) => {
+      if (this.isExpanded(item.category)) {
+        this.expandedRowsScope2.add(i);
+        this.getDetails(this.getUrlByCategory(item.category), 2, i);
+      }
+    });
+
+    this.FacilityWiseScope3Data.forEach((item: any, i: number) => {
+      if (this.isExpanded(item.category)) {
+        this.expandedRowsScope3.add(i);
+        this.getDetails(this.getUrlByCategory(item.category), 3, i);
+      }
     });
   }
-  
+
+  getDetails(url: string, scope: number, rowIndex: number) {
+    this._appService.getApi(url + '?facilities=' + this.selectedFacilityId.toString() + '&year=' + this.year.getFullYear()).subscribe((result: any) => {
+      if (scope === 1) this.detailsScope1Map.set(rowIndex, result.data);
+      if (scope === 2) this.detailsScope2Map.set(rowIndex, result.data);
+      if (scope === 3) this.detailsScope3Map.set(rowIndex, result.data);
+    });
+  }
+
 
   isExpanded(category: string) {
-    let categories = ['Stationary Combustion', 'Company Owned Vehicles', 'Heat and Steam', 'Purchased goods and services', 'Fuel and Energy-related Activities', 'Waste generated in operations', 'Water Supply and Treatment'];
+    let categories = ['Stationary Combustion', 'Company Owned Vehicles', 'Electricity', 'Heat and Steam', 'Purchased goods and services', 'Fuel and Energy-related Activities', 'Waste generated in operations', 'Water Supply and Treatment', 'Business Travel', "Upstream Leased Assets", 'Downstream Leased Assets'];
     return categories.includes(category);
   }
   isArray(id: any) {
@@ -147,6 +187,8 @@ export class ComprehensiveReportComponent {
         return '/reporting/get-stationarycombustion-sub-category-wise-scope1-emission';
       case 'Company Owned Vehicles':
         return '/reporting/get-companyvehicles-sub-category-wise-scope1-emission';
+      case 'Electricity':
+        return '/reporting/get-electricity-sub-category-wise-scope2-emission';
       case 'Heat and Steam':
         return '/reporting/get-heatandsteam-sub-category-wise-scope2-emission';
       case 'Purchased goods and services':
@@ -157,6 +199,12 @@ export class ComprehensiveReportComponent {
         return '/reporting/get-wastegenerated-sub-category-wise-scope3-emission';
       case 'Water Supply and Treatment':
         return '/reporting/get-watersupplytreatment-sub-category-wise-scope3-emission';
+      case 'Business Travel':
+        return '/reporting/get-businesstravel-sub-category-wise-scope3-emission';
+      case 'Upstream Leased Assets':
+        return '/reporting/get-upstreamtransportation-sub-category-wise-scope3-emission';
+      case 'Downstream Leased Assets':
+        return '/reporting/get-downstreamtransportation-sub-category-wise-scope3-emission';
       default:
         return '';
     }

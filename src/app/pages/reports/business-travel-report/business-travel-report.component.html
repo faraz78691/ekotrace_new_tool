@@ -7,10 +7,9 @@
             <h3>Business Travel Report</h3>
         </div>
         <div class="d-flex gap-3 align-items-center">
-            <p-dropdown  class="ct_grop_select_2_drop_white123 ct_group_select_dark_124 mx-4" required
-            ngModel placeholder="select" [options]="reportType"
-            [(ngModel)]="selectReportType" optionLabel="value" optionValue="value"
-            name="group" #group="ngModel"></p-dropdown>
+            <p-dropdown class="ct_grop_select_2_drop_white123 ct_group_select_dark_124 mx-4" required ngModel
+                placeholder="select" [options]="reportType" [(ngModel)]="selectReportType" optionLabel="value"
+                optionValue="value" name="group" #group="ngModel"></p-dropdown>
         </div>
     </div>
 
@@ -68,9 +67,9 @@
                     <ng-container>
                         <div
                             class="ct_box_shadow_none selectmonth card justify-content-center ct_month_select_clr ct_multi_input_38 ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145 ct_month_light_green">
-                            <p-multiSelect [options]="facilityData"
-                                [(ngModel)]="selectedMultipleFacility" optionLabel="AssestType" optionValue="id"
-                                styleClass="pcalender" defaultLabel="Select Multiple Data Points" name="facility">
+                            <p-multiSelect [options]="facilityData" [(ngModel)]="selectedMultipleFacility"
+                                optionLabel="AssestType" optionValue="id" styleClass="pcalender"
+                                defaultLabel="Select Multiple Data Points" name="facility">
                             </p-multiSelect>
                         </div>
                     </ng-container>
@@ -125,7 +124,7 @@
                     <div class="col-md-12" *ngIf="reportData.length >0; else emptyList">
 
                         <p-table class="ct_bottom_table_tr ct_chev_icon_dark230" [paginator]="true" [rowHover]="true"
-                            [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+                            [rows]="500" [rowsPerPageOptions]="[10, 20, 50, 100, 500]" [showCurrentPageReport]="true"
                             styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #dt1
                             class="ct_bottom_table_tr" #dt [value]="reportData" [rowHover]="true"
@@ -142,7 +141,7 @@
                                         Data Point 2
                                     </th>
                                     <th>
-                                       Facility
+                                        Facility
                                     </th>
                                     <th>
                                         Emissons (t CO2e)
@@ -168,9 +167,13 @@
                                     <td> {{de.DataPoint2}}</td>
                                     <td> {{de.facility}}</td>
                                     <td> {{de.Emission / 1000 | number : '1.4-4'}}</td>
-                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Monthly')"> {{de.Months}}</td>
-                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Monthly')"> {{de.Years}}</td>
-                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Consolidated')"> {{startMonth.value + ' '+ startYear.getFullYear().toString() + '-'+ endMonth.value + ' '+ endYear.getFullYear().toString()}}</td>
+                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Monthly')"> {{de.Months}}
+                                    </td>
+                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Monthly')"> {{de.Years}}
+                                    </td>
+                                    <td *ngIf="(this.isMultiple && this.selectReportType == 'Consolidated')">
+                                        {{startMonth.value + ' '+ startYear.getFullYear().toString() + '-'+
+                                        endMonth.value + ' '+ endYear.getFullYear().toString()}}</td>
                                 </tr>
                             </ng-template>
                         </p-table>
