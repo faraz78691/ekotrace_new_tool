@@ -66,7 +66,7 @@ export class ComprehensiveReportComponent {
       this.ComprehensiveReportData = result.data;
 
       this.calculateTotals();
-      this.onFacilityClick(this.selectedFacility[0], 0, this.selectedFacility[0]);
+      this.onFacilityTotalClick(this.ComprehensiveReportData);
     });
   }
 
@@ -76,6 +76,22 @@ export class ComprehensiveReportComponent {
     setTimeout(() => {
       this.openAllSubCategories();
     }, 1000);
+  }
+
+  onYearChange(year: any) {
+    this.ComprehensiveReportData = [];
+    this.FacilityWiseScope1Data = [];
+    this.FacilityWiseScope2Data = [];
+    this.FacilityWiseScope3Data = [];
+    this.detailsData = [];
+    this.detailsScope1Map = new Map<number, any[]>();
+    this.detailsScope2Map = new Map<number, any[]>();
+    this.detailsScope3Map = new Map<number, any[]>();
+    this.selectedRowIndex = -1;
+    this.totalScope1 = 0;
+    this.totalScope2 = 0;
+    this.totalScope3 = 0;
+    this.totalAll = 0;
   }
 
   getFacilityWiseScope(id: any) {
@@ -175,7 +191,7 @@ export class ComprehensiveReportComponent {
 
 
   isExpanded(category: string) {
-    let categories = ['Stationary Combustion', 'Company Owned Vehicles', 'Electricity', 'Heat and Steam', 'Purchased goods and services', 'Fuel and Energy-related Activities', 'Waste generated in operations', 'Water Supply and Treatment', 'Business Travel', "Upstream Leased Assets", 'Downstream Leased Assets'];
+    let categories = ['Stationary Combustion', 'Company Owned Vehicles', 'Electricity', 'Heat and Steam', 'Purchased goods and services', 'Fuel and Energy-related Activities', 'Waste generated in operations', 'Water Supply and Treatment', 'Business Travel', 'Upstream Transportation and Distribution', 'Downstream Transportation and Distribution', "Upstream Leased Assets", 'Downstream Leased Assets'];
     return categories.includes(category);
   }
   isArray(id: any) {
@@ -202,8 +218,12 @@ export class ComprehensiveReportComponent {
       case 'Business Travel':
         return '/reporting/get-businesstravel-sub-category-wise-scope3-emission';
       case 'Upstream Leased Assets':
-        return '/reporting/get-upstreamtransportation-sub-category-wise-scope3-emission';
+        return '/reporting/get-upstreamLease-sub-category-wise-scope3-emission';
       case 'Downstream Leased Assets':
+        return '/reporting/get-downstreamLease-sub-category-wise-scope3-emission';
+      case 'Upstream Transportation and Distribution':
+        return '/reporting/get-upstreamtransportation-sub-category-wise-scope3-emission';
+      case 'Downstream Transportation and Distribution':
         return '/reporting/get-downstreamtransportation-sub-category-wise-scope3-emission';
       default:
         return '';
@@ -272,6 +292,11 @@ export class ComprehensiveReportComponent {
     this.selectedFacilityId = data.map((item: any) => item.id).join(',');
     this.getFacilityWiseScope(this.selectedFacilityId);
     this.calculateTotals();
+    setTimeout(() => {
+      this.openAllSubCategories();
+    }, 1000);
   }
-
+  getTotalValue(item: any) {
+    return item.Jan + item.Feb + item.Mar + item.Apr + item.May + item.Jun + item.Jul + item.Aug + item.Sep + item.Oct + item.Nov + item.Dec;
+  }
 }

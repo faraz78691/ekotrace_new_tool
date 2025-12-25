@@ -43,7 +43,6 @@ export const environment = {
     brsrAcceptMessage: 'BRSR doc accepted by ',
     brsrRejectMessage: 'BRSR doc rejected by ',
     brsrdocMessage: 'Document uploaded for brsr please check!',
-
     //   <<<-- This ID Belongs to Admin --->>
     adminRoleId: '525debfd-cd64-4936-ae57-346d57de3585'
 };

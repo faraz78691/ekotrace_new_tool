@@ -83,14 +83,13 @@ export class KpiDashboardComponent {
     { name: 'Oct', value: 'Oct' },
     { name: 'Nov', value: 'Nov' },
     { name: 'Dec', value: 'Dec' }
-];
-quarterData = [
-  { name: 'Q1', value: 'Q1' },
-  { name: 'Q2', value: 'Q2' },
-  { name: 'Q3', value: 'Q3' },
-  { name: 'Q4', value: 'Q4' }
-]
-
+  ];
+  quarterData = [
+    { name: 'Q1', value: 'Q1' },
+    { name: 'Q2', value: 'Q2' },
+    { name: 'Q3', value: 'Q3' },
+    { name: 'Q4', value: 'Q4' }
+  ]
 
   dateFormat =
     [
@@ -204,10 +203,12 @@ quarterData = [
     const tenantId = this.loginInfo.tenantID;
     this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
       this.facilityData = response;
-      this.selectedFacility = [this.facilityData[0].id]
-      this.generateGraphs();
-      // this.GetAssignedDataPoint(this.facilityData[0].id)
-
+      this.selectedFacility = this.facilityData.map((facility) => facility.id);
+      this.appService.getApi('/triggerKpiInventoryCalculation?facilities=' + this.facilityData.map((facility) => facility.id).join(',') + '&year=' + this.year.getFullYear()).subscribe((response: any) => {
+        if (response.success == true) {
+          this.generateGraphs();
+        }
+      });
     });
   };
 
@@ -451,13 +452,13 @@ quarterData = [
       return false
     }
 
-    if(this.dateFormatType  == 'Annually' && this.selectedFormatType == 'Aggregate'){
-      if(this.startDate.getFullYear() > this.endDate.getFullYear()){
-       this.notification.showError('Start Year should be less than End Year', '');
-  
+    if (this.dateFormatType == 'Annually' && this.selectedFormatType == 'Aggregate') {
+      if (this.startDate.getFullYear() > this.endDate.getFullYear()) {
+        this.notification.showError('Start Year should be less than End Year', '');
+
         return false
       }
-      
+
     }
 
 

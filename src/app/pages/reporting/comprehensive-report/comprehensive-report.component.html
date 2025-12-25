@@ -45,7 +45,8 @@
                         <div class="selectyear mx-0">
                             <p-calendar placeholder="Select Year" #calendarRef
                                 class="calenderinput ct_border_none_input ct_input_dark_text_145 ct_year_input_full_w"
-                                [(ngModel)]="year" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                                [(ngModel)]="year" view="year" dateFormat="yy" inputId="yearpicker"
+                                (ngModelChange)="onYearChange($event)"></p-calendar>
                         </div>
                     </div>
                 </ng-container>
@@ -83,26 +84,26 @@
                         {{ data.facility }}
                     </td>
                     <td class="td " style="font-size: 16px;">
-                        {{ data.scope1 }}
+                        {{ data.scope1 | number:'1.4-4' }}
                     </td>
                     <td class="td  pb-1" style="font-size: 16px;">
-                        {{ data.scope2 }}
+                        {{ data.scope2 | number:'1.4-4' }}
                     </td>
                     <td class="td  pb-1" style="font-size: 16px;">
-                        {{ data.scope3}}
+                        {{ data.scope3 | number:'1.4-4' }}
                     </td>
                     <td class="td pb-1">
-                        {{ data.total}}
+                        {{ data.total | number:'1.4-4' }}
                     </td>
                 </tr>
                 <tr clickable (click)="onFacilityTotalClick(ComprehensiveReportData)"
                     [ngClass]="{'tableRowclicked': selectedRowIndex === -1}"
                     class="col-12 tableRow border-bottom rounded pointer">
                     <td class="td pb-1" style="font-size: 16px;">Total Emissions (tC02e)</td>
-                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope1 }}</td>
-                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope2 }}</td>
-                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope3 }}</td>
-                    <td class="td pb-1" style="font-size: 16px;">{{ totalAll }}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope1 | number:'1.4-4'}}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope2 | number:'1.4-4'}}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalScope3 | number:'1.4-4'}}</td>
+                    <td class="td pb-1" style="font-size: 16px;">{{ totalAll | number:'1.4-4'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -113,6 +114,7 @@
             <thead>
                 <tr>
                     <th scope="col" style="font-size: 16px;"></th>
+                    <th scope="col" style="font-size: 16px;">Total</th>
                     <th scope="col" style="font-size: 16px;">Jan</th>
                     <th scope="col" style="font-size: 16px;">Feb</th>
                     <th scope="col" style="font-size: 16px;">Mar</th>
@@ -129,7 +131,8 @@
             </thead>
             <tbody>
                 <ng-container *ngFor="let item of FacilityWiseScope1Data; let index = index let first = first">
-                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer light-green-bg"
+                        [ngClass]="{'first-row': first}"
                         (click)="isExpanded(item.category) ? toggleRow(index, item.category) : null">
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
@@ -137,6 +140,9 @@
                                     [ngClass]="{'fa-chevron-down': expandedRowsScope1.has(index), 'fa-chevron-right': !expandedRowsScope1.has(index)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ getTotalValue(item) | number:'1.4-4'}}
                         </td>
                         <td class="td " style="font-size: 16px;">
                             {{ item.Jan | number:'1.4-4'}}
@@ -179,6 +185,9 @@
                         <tr *ngFor="let detail of detailsScope1Map.get(index)" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
+                            </td>
+                            <td class="td " style="font-size: 16px;">
+                                {{ getTotalValue(detail) | number:'1.4-4'}}
                             </td>
                             <td class="td " style="font-size: 16px;">
                                 {{ detail.Jan | number:'1.4-4'}}
@@ -226,7 +235,8 @@
                     <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
                 </tr>
                 <ng-container *ngFor="let item of FacilityWiseScope2Data; let index2 = index let first = first">
-                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer light-green-bg"
+                        [ngClass]="{'first-row': first}"
                         (click)="isExpanded(item.category) ? toggleRow2(index2, item.category) : null">
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
@@ -234,6 +244,9 @@
                                     [ngClass]="{'fa-chevron-down': expandedRowsScope2.has(index2), 'fa-chevron-right': !expandedRowsScope2.has(index2)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ getTotalValue(item) | number:'1.4-4'}}
                         </td>
                         <td class="td " style="font-size: 16px;">
                             {{ item.Jan | number:'1.4-4'}}
@@ -278,6 +291,9 @@
                         <tr *ngFor="let detail of detailsScope2Map.get(index2)" class="bg-light border p-2">
                             <td class=" td pl-5" style="font-size: 16px;">
                                 {{detail.category}}
+                            </td>
+                            <td class="td" style="font-size: 16px;">
+                                {{ getTotalValue(detail) | number:'1.4-4'}}
                             </td>
                             <td class="td" style="font-size: 16px;">
                                 {{ detail.Jan | number:'1.4-4'}}
@@ -325,7 +341,8 @@
                     <td colspan="13" class="td text-center" style="font-size: 16px;"></td>
                 </tr>
                 <ng-container *ngFor="let item of FacilityWiseScope3Data;let index3 = index; let first = first">
-                    <tr clickable class="col-12 tableRow border-bottom rounded pointer" [ngClass]="{'first-row': first}"
+                    <tr clickable class="col-12 tableRow border-bottom rounded pointer light-green-bg"
+                        [ngClass]="{'first-row': first}"
                         (click)="isExpanded(item.category) ? toggleRow3(index3, item.category) : null">
                         <td class="td" style="font-size: 16px;">
                             <div class="d-flex align-items-center">
@@ -333,6 +350,9 @@
                                     [ngClass]="{'fa-chevron-down': expandedRowsScope3.has(index3), 'fa-chevron-right': !expandedRowsScope3.has(index3)}"></i>
                                 <span class="ml-2">{{ item.category }}</span>
                             </div>
+                        </td>
+                        <td class="td " style="font-size: 16px;">
+                            {{ getTotalValue(item) | number:'1.4-4'}}
                         </td>
                         <td class="td " style="font-size: 16px;">
                             {{ item.Jan | number:'1.4-4'}}
@@ -377,6 +397,9 @@
                         <tr *ngFor="let detail of detailsScope3Map.get(index3)" class="bg-light border p-2">
                             <td class="pl-5 td" style="font-size: 16px;">
                                 {{detail.category}}
+                            </td>
+                            <td class="td " style="font-size: 16px;">
+                                {{ getTotalValue(detail) | number:'1.4-4'}}
                             </td>
                             <td class="td " style="font-size: 16px;">
                                 {{ detail.Jan | number:'1.4-4'}}

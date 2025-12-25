@@ -3,14 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from '@modules/main/main.component';
 import { BlankComponent } from '@pages/blank/blank.component';
 import { LoginComponent } from '@modules/login/login.component';
-import { ProfileComponent } from '@pages/profile/profile.component';
 import { RegisterComponent } from '@modules/register/register.component';
-import { DashboardComponent } from '@pages/dashboard/dashboard.component';
 import { AuthGuard } from '@guards/auth.guard';
 import { NonAuthGuard } from '@guards/non-auth.guard';
 import { ForgotPasswordComponent } from '@modules/forgot-password/forgot-password.component';
-import { MainMenuComponent } from '@pages/main-menu/main-menu.component';
-import { SubMenuComponent } from '@pages/main-menu/sub-menu/sub-menu.component';
 import { EnergySectionComponent } from '@pages/refrigerants-section/refrigerants-section.component';
 import { EmissionSectionComponent } from '@pages/stationary-combustion/stationary-combustion.component';
 import { WasteSectionComponent } from '@pages/waste-section/waste-section.component';
@@ -21,7 +17,6 @@ import { UserComponent } from '@pages/user/user.component';
 import { ResetPasswordComponent } from '@modules/reset-password/reset-password.component';
 import { FacilityComponent } from '@pages/facility/facility.component';
 import { BillingComponent } from '@pages/billing/billing.component';
-
 import { CompanyProfileComponent } from '@pages/company-profile/company-profile.component';
 import { TrackingViewRequestsComponent } from '@pages/tracking-view-requests/tracking-view-requests.component';
 import { ReportComponent } from '@pages/reports/report/report.component';
@@ -36,15 +31,8 @@ import { NotificationsComponent } from '@modules/main/header/notifications/notif
 import { WaterCustomReportComponent } from '@pages/reports/water-custom-report/water-custom-report.component';
 import { BrsrQaComponent } from '@modules/brsr-qa/brsr-qa.component';
 import { ReportDocComponent } from '@pages/report-doc/report-doc.component';
-
-
-import { GhgEmmissionsComponent } from '@pages/dashboard/ghg-emmissions/ghg-emmissions.component';
-import { EnergyEmmsionsComponent } from '@pages/dashboard/energy-emmsions/energy-emmsions.component';
-import { BusinessTravelComponent } from '@pages/dashboard/business-travel/business-travel.component';
 import { NewBillingComponent } from '@pages/new-billing/new-billing.component';
-import { WaterUsageComponent } from '@pages/dashboard/water-usage/water-usage.component';
 import { CarbonOffsettingComponent } from '@pages/carbon-offsetting/carbon-offsetting.component';
-import { WasteComponent } from '@pages/dashboard/waste/waste.component';
 import { TreeComponent } from '@pages/tree/tree.component';
 import { TreeListComponent } from '@pages/tree/tree-list/tree-list.component';
 import { MainTreeComponent } from '@pages/tree/main-tree/main-tree.component';
@@ -66,7 +54,6 @@ import { AuditReportComponent } from '@pages/reports/audit-report/audit-report.c
 import { VendorDashboardComponent } from '@pages/vendor-dashboard/vendor-dashboard.component';
 import { CostCentreComponent } from '@pages/cost-centre/cost-centre.component';
 import { DataProgressComponent } from '@pages/data-progress/data-progress.component';
-import { VehicleComponent } from '@pages/vehicle/vehicle.component';
 import { VehicleFleetComponent } from '@pages/vehicle-fleet/vehicle-fleet.component';
 import { PdfReportingComponent } from '@pages/pdf-reporting/pdf-reporting.component';
 import { GhgReportingComponent } from '@pages/reporting/ghg-reporting/ghg-reporting.component';
@@ -618,7 +605,6 @@ const routes: Routes = [
                         'Approver', 'Auditor'
                     ]
                 }
-
             }
         ]
     },
@@ -648,7 +634,6 @@ const routes: Routes = [
         component: ResetPasswordComponent,
         canActivate: [NonAuthGuard]
     },
-
     {
         path: 'reset-password/{email}',
         component: ResetPasswordComponent,

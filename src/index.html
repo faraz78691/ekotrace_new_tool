@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <!-- <title>Ekotrace</title> -->
-    <title>Carbontek</title>
+    <title>Ekotrace</title>
+    <!-- <title>Carbontek</title> -->
     <base href="/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,9 +49,6 @@
             $('.ct_custom_dropdown span').click(function () {
                 $('.ct_custom_dropdown').toggleClass('ct_open_modal')
             })
-
-
-
             $(".browse-button input:file").change(function () {
                 $("input[name='attachment']").each(function () {
                     var fileName = $(this).val().split('/').pop().split('\\').pop();
@@ -59,8 +56,6 @@
                     $(".browse-button-text").html('<i class="fa fa-refresh"></i> Change');
                 });
             });
-
-
         })
     </script>
     <!-- <script src="assets/js/chart.js"></script> -->
