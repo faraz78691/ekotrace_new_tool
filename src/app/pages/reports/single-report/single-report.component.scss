@@ -35,6 +35,13 @@
    
 }
 
+.emptyMessge{
+  position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 28px;
+}
+
 
 .Secondbox h4{
     color: #333;
@@ -57,7 +64,7 @@
 }
 .nodata{
    text-align: center;
-   margin-top: 100px;
+   margin-top: 70px;
 }
 .generateReportButton{
     background-color: rgba(136, 173, 71, 0.75);

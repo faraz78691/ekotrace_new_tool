@@ -73,7 +73,7 @@ export class SingleReportComponent {
     facilityID;
     month: Date;
     facilitynothavedp = 'flex';
-    facilityData: Facility[] = [];
+    facilityData: any[] = [];
     years: number[] = [];
     selectedCategory: number;
     selectMode: number;
@@ -86,6 +86,7 @@ export class SingleReportComponent {
     reportData: any[] = [];
     orgReportData: any[] = [];
     Modes: any[] = [];
+    filteredFuelSubCategory: any[] = [];
     modeShow = false;
     CustomReportData: CustomReportModel[] = [];
     isMultiple: boolean = undefined
@@ -100,6 +101,8 @@ export class SingleReportComponent {
     page = 1;
     rows = 500;
     totalRecords = 0;
+    countryId:any;
+    showReport = false;
     reportmonths: any[] = [
         { name: 'Jan', value: 'Jan' },
         { name: 'Feb', value: 'Feb' },
@@ -119,6 +122,31 @@ export class SingleReportComponent {
         { name: '2', value: 'Consolidated' },
 
     ];
+
+    fuel_categories = [
+        { id: 1, name: 'Stationary Combustion', value: 'stationarycombustionde' },
+        { id: 2, name: 'Company Owned Vehicles', value: 'combineVehicle' },
+        { id: 3, name: 'Electricity', value: 'dbo.renewableelectricityde' },
+        { id: 4, name: 'Heat and Steam', value: 'dbo.heatandsteamde' }
+      ];
+    
+      fuelsubCategories = [
+        { id: 1, name: 'Liquid Fuels', categoryId: 1, value :'Stationary Combustion' },
+        { id: 2, name: 'Solid Fuels', categoryId: 1 , value :'Stationary Combustion'},
+        { id: 5, name: 'Biomass', categoryId: 1, value :'Stationary Combustion' },
+        { id: 3, name: 'Gaseous Fuels', categoryId: 1, value :'Stationary Combustion' },
+        { id: 4, name: 'Biofuel', categoryId: 1 , value :'Stationary Combustion'},
+        { id: 6, name: 'Biogas', categoryId: 1 , value :'Stationary Combustion'},
+    
+        { id: 11, name: 'Delivery Vehicle', categoryId: 2, value :'Company Owned Vehicles' },
+        { id: 10, name: 'Passenger Vehicle', categoryId: 2, value :'Company Owned Vehicles' },
+    
+        { id: 9, name: 'Location Based', categoryId: 3, value :'Electricity' },
+        { id: 1002, name: 'Market Based', categoryId: 3 , value :'Electricity'},
+    
+        { id: 3, name: 'District heat and steam', categoryId: 4, value :'Heat and Steam' },
+        { id: 4, name: 'District Cooling', categoryId: 4, value :'Heat and Steam' }
+      ];
     @ViewChild('calendarRef') calendarRef!: Calendar;
     date: Date;
     columnFilterValues: { [key: string]: any } = {};
@@ -175,6 +203,8 @@ export class SingleReportComponent {
         let tenantId = this.loginInfo.tenantID;
         this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
             this.facilityData = response;
+           
+            this.countryId = this.facilityData[0].country_code
             this.GetAssignedDataPoint(this.facilityData[0].id)
             this.lfcount = this.facilityData.length;
         });
@@ -234,7 +264,7 @@ export class SingleReportComponent {
                         this.AssignedDataPoint = [];
                     } else {
                         this.AssignedDataPoint = response.categories;
-                        console.log(this.AssignedDataPoint);
+                       
                     }
                 },
                 error: (err) => { }
@@ -490,6 +520,7 @@ export class SingleReportComponent {
 
         this.facilityService.gerReport(url, reportFormData.toString()).subscribe({
             next: res => {
+                this.showReport = true
                 if (res.success) {
                     this.orgReportData = res.result;
                     this.reportData = res.result;
@@ -498,7 +529,7 @@ export class SingleReportComponent {
                 } else {
                     this.notification.showSuccess(
                         'No data found',
-                        'Success'
+                        ''
                     );
                     this.orgReportData = [];
                     this.reportData = [];
@@ -564,6 +595,39 @@ export class SingleReportComponent {
         // });
     }
 
+    onCategoryFilterChange(
+        value: any,
+        selectedCategory: any,
+        filterCallback: Function,
+        columnFilter: any
+      ) {
+        // PrimeNG filter
+  filterCallback(value || null);
+
+  // Your existing logic
+  this.onFilterChange(value, selectedCategory);
+      
+        // 🔹 Close filter popup
+        columnFilter.hide();
+      }
+
+
+      onFuelCategoryFilterChange(
+        value: any,
+        selectedCategory: any,
+        filterCallback: Function,
+        columnFilter: any
+      ) {
+        // 🔹 Apply PrimeNG column filter
+        filterCallback(value || null);
+     
+        this.filteredFuelSubCategory = this.fuelsubCategories.filter(items => items.value == value)
+     
+        // 🔹 Close filter popup
+        columnFilter.hide();
+      }
+      
+
     onFilterChange(value: any, selectedCategory: any) {
         if (!value) {
             this.reportData = [...this.orgReportData];
@@ -573,7 +637,7 @@ export class SingleReportComponent {
             let id: any = this.categoriesOptions.find((item: any) => item.name === value).id;
             let formData = new URLSearchParams();
             formData.set('typeofpurchase', id);
-            formData.set('country_id', this.facilityService.countryCodeSignal());
+            formData.set('country_id', this.countryId);
             formData.set('year', this.dataEntry.year);
             this.appService.postAPI(`/purchaseGoodsAllcategoriesFilter`, formData).subscribe((res: any) => {
                 this.purchaseOptions = res.categories;
@@ -585,6 +649,19 @@ export class SingleReportComponent {
         // this.columns = this.getColumnsByCategory(this.selectedCategory);
     }
 
+    onProductFilterChange(
+        value: any,
+        filterCallback: Function,
+        columnFilter: any
+      ) {
+        // Apply PrimeNG column filter
+        filterCallback(value || null);
+      
+        // Close filter popup
+        columnFilter.hide();
+      }
+      
+
     isFilterApplied(field: string): boolean {
         return !!this.columnFilterValues[field];
     }
@@ -593,4 +670,29 @@ export class SingleReportComponent {
         delete this.columnFilterValues[field];
         filterCallback(null); // 🔥 clears PrimeNG filter
     }
+
+
+    applyFilter(columnFilter: any, filterCallback: Function) {
+        filterCallback(this.columnFilterValues['Category']);
+        columnFilter.hide(); // ✅ CLOSE POPUP
+      }
+      
+      clearFilter(columnFilter: any, filterCallback: Function) {
+        this.columnFilterValues['Category'] = null;
+        filterCallback(null);
+        columnFilter.hide(); // ✅ CLOSE POPUP
+      }
+      clear34(table: any) {
+        console.log(this.columnFilterValues);
+        console.log(this.orgReportData);
+        this.columnFilterValues = {};
+        table.reset();
+        this.columnFilterValues['Category'] = null;
+        this.columnFilterValues['subCategory'] = null;
+        // Optional: reset local data
+        this.columnFilterValues = {};
+        this.reportData = [...this.orgReportData];
+      }
+
+
 }
