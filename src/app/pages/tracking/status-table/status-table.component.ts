@@ -1,21 +1,60 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from "primeng/dropdown";
+import { AppService } from '@services/app.service';
+import { FacilityService } from '@services/facility.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-status-table',
   standalone: true,
-  imports: [CommonModule, TableModule],
+  imports: [CommonModule, TableModule, MultiSelectModule, FormsModule, DropdownModule, ButtonModule],
   templateUrl: './status-table.component.html',
   styleUrls: ['./status-table.component.scss']
 })
 export class StatusTableComponent {
   @Input() data: any[] = [];
+  orgData: any[] = [];
   @Input() categoryId: number;
   @Input() businessId: number | null = null;
   @Input() category_name: number | string = '';
   @Input() loading = true;
   columns: any[] = [];
+  value: any[] = [];
+  categories = [
+    { id: 1, name: 'Stationary Combustion', value: 'stationarycombustionde' },
+    { id: 2, name: 'Company Owned Vehicles', value: 'combineVehicle' },
+    { id: 3, name: 'Electricity', value: 'dbo.renewableelectricityde' },
+    { id: 4, name: 'Heat and Steam', value: 'dbo.heatandsteamde' }
+  ];
+
+  subCategories = [
+    { id: 1, name: 'Liquid Fuels', categoryId: 1 },
+    { id: 2, name: 'Solid Fuels', categoryId: 1 },
+    { id: 5, name: 'Biomass', categoryId: 1 },
+    { id: 3, name: 'Gaseous Fuels', categoryId: 1 },
+    { id: 4, name: 'Biofuel', categoryId: 1 },
+    { id: 6, name: 'Biogas', categoryId: 1 },
+
+    { id: 11, name: 'Delivery Vehicle', categoryId: 2 },
+    { id: 10, name: 'Passenger Vehicle', categoryId: 2 },
+
+    { id: 9, name: 'Location Based', categoryId: 3 },
+    { id: 1002, name: 'Market Based', categoryId: 3 },
+
+    { id: 3, name: 'District heat and steam', categoryId: 4 },
+    { id: 4, name: 'District Cooling', categoryId: 4 }
+  ];
+  purchaseOptions = []
+  categoriesOptions = [{ id: 1, name: 'Standard Goods' }, { id: 2, name: 'Capital Goods' }, { id: 3, name: 'Standard Services' }];
+  subCategoriesOptions = [];
+  columnFilterValues: { [key: string]: any } = {};
+
+  constructor(private service: AppService, private facilityService: FacilityService) {
+  }
 
   ngOnInit() {
     this.columns = this.getColumnsByCategory(this.categoryId);
@@ -27,8 +66,7 @@ export class StatusTableComponent {
 
     }
     if (changes['data'] && !changes['data'].firstChange) {
-      this.data = changes['data'].currentValue;
-
+      this.orgData = this.data = changes['data'].currentValue;
     }
     if (changes['category_name'] && !changes['category_name'].firstChange) {
       this.category_name = changes['category_name'].currentValue;
@@ -41,10 +79,21 @@ export class StatusTableComponent {
     if (changes['loading'] && !changes['loading'].firstChange) {
       this.loading = changes['loading'].currentValue;
     }
+
+    if (changes['data'] && !changes['data'].firstChange) {
+      this.resetTableFilters();
+    }
+  }
+
+  @ViewChild('dt') table!: any;
+  resetTableFilters() {
+    this.table.clear();
+    this.columnFilterValues = {};
+    this.table.first = 0;
   }
 
 
-  getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string, isArray?: boolean, xtra?: string }[] {
+  getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string, isArray?: boolean, xtra?: string, filter?: boolean, filterOptions?: any, filterField?: string }[] {
     switch (categoryId) {
       case 1:
         return [
@@ -57,7 +106,6 @@ export class StatusTableComponent {
         ]
       case 2:
         return [
-
           { field: 'TypeName', header: 'Refrigerant Type' },
           { field: 'refAmount', header: 'Refrigerant Amount' },
           { field: 'unit', header: 'Unit' },
@@ -102,8 +150,8 @@ export class StatusTableComponent {
         ]
       case 8:
         return [
-          { field: 'typeofpurchase', header: 'Category' },
-          { field: 'product_category_name', header: 'Product / Service' },
+          { field: 'typeofpurchase', header: 'Category', filter: true, filterOptions: [...this.categoriesOptions], filterField: 'name' },
+          { field: 'product_category_name', header: 'Product / Service', filter: true, filterOptions: [...this.purchaseOptions], filterField: 'name' },
           { field: 'productcodes', header: 'Code' },
           { field: 'valuequantity', header: 'Quantity' },
           { field: 'supplier', header: 'Vendor' },
@@ -115,8 +163,8 @@ export class StatusTableComponent {
         ];
       case 9:
         return [
-          { field: 'tablename', header: 'Category' },
-          { field: 'typeName', header: 'Sub Category' },
+          { field: 'tablename', header: 'Category', filter: true, filterOptions: [...this.categories], filterField: 'value' },
+          { field: 'subcatName', header: 'Sub Category', filter: true, filterOptions: [...this.subCategoriesOptions], filterField: 'name' },
           { field: 'readingValue', header: 'Reading Value' },
           { field: 'unit', header: 'Unit' },
           { field: 'month', header: 'Month' },
@@ -288,7 +336,55 @@ export class StatusTableComponent {
           { field: 'scope2_emission', header: 'Scope 2 (kg CO2e)' },
           { field: 'month', header: 'Month' }
         ];
-
     }
+  }
+
+  onFilterChange(value: any, field: string) {
+    if (!value) {
+      this.data = [...this.orgData];
+      return;
+    }
+
+    if (field === 'tablename') {
+      let id = this.categories.find((item: any) => item.value === value).id;
+      this.subCategoriesOptions = this.subCategories.filter((item: any) => item.categoryId === id);
+      this.columns = this.getColumnsByCategory(this.categoryId);
+    }
+
+    if (field === 'typeofpurchase') {
+      let id: any = this.categoriesOptions.find((item: any) => item.name === value).id;
+      let formData = new URLSearchParams();
+      formData.set('typeofpurchase', id);
+      formData.set('country_id', this.facilityService.countryCodeSignal());
+      formData.set('year', this.facilityService.yearSignal());
+      this.service.postAPI(`/purchaseGoodsAllcategoriesFilter`, formData).subscribe((res: any) => {
+        this.purchaseOptions = res.categories;
+        this.columns = this.getColumnsByCategory(this.categoryId);
+      });
+    }
+
+    // this.data = this.orgData.filter((item: any) => item[field] === value);
+    // this.columns = this.getColumnsByCategory(this.categoryId);
+  }
+
+  handleDropdownShow(): void {
+    window.addEventListener('scroll', this.preventScroll, true);
+  }
+
+  handleDropdownHide(): void {
+    window.removeEventListener('scroll', this.preventScroll, true);
+  }
+
+  preventScroll(event: Event): void {
+    const dropdown = document.querySelector('.p-dropdown-panel');
+    if (dropdown) {
+      // console.log('Preventing scroll');
+      event.stopPropagation();
+    }
+  }
+
+  clearColumnFilter(field: string, filterCallback: Function) {
+    delete this.columnFilterValues[field];
+    filterCallback(null); // 🔥 clears PrimeNG filter
   }
 }

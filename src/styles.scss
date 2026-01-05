@@ -27,7 +27,7 @@
 .validation {
     color: red;
     font-size: 12px;
-  }
+}
 
 body {
     width: 100% !important;
@@ -41,13 +41,13 @@ body {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 
@@ -68,18 +68,19 @@ input[type=number] {
     height: 38px;
     padding-inline: 5px;
     white-space: nowrap;
-  }
-  .ct_quantity_text p{
+}
+
+.ct_quantity_text p {
     margin-bottom: 0px;
     font-size: 14px;
-  }
+}
 
 .navbar-light {
     background-color: #5E6065;
     ;
 }
 
- .ct_quantity_text {
+.ct_quantity_text {
     position: absolute;
     top: 50%;
     right: 0;
@@ -96,38 +97,43 @@ input[type=number] {
     height: 38px;
     padding-inline: 5px;
     white-space: nowrap;
-  }
-  .ct_quantity_text p{
+}
+
+.ct_quantity_text p {
     margin-bottom: 0px;
     font-size: 14px;
-  }
+}
 
-  .ct_home_office_table th{
+.ct_home_office_table th {
     padding-block: 5px;
     font-size: 14px;
     font-weight: 500;
     background-color: rgba(136, 173, 71, 0.75) !important;
 }
+
 .table .thead-dark th {
     color: #fff;
     background-color: #343a40;
     border-color: #454d55;
 }
+
 .ct_home_office_table th:first-child {
     border-radius: 5px 0px 0px 0px;
 }
+
 .table .thead-dark th {
     border-color: #dee2e6;
 }
 
-.et_plusadd_455{
-  height: 28px !important;
-  padding: 0px !important;
-  width: 28px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
+.et_plusadd_455 {
+    height: 28px !important;
+    padding: 0px !important;
+    width: 28px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
+
 // ::-webkit-scrollbar {
 //     width: 0px !important;
 //     background: transparent;
@@ -729,16 +735,20 @@ label:not(.form-check-label):not(.custom-file-label) {
 
 
 }
+
 .eti_report_table_123 .p-datatable-wrapper {
     height: 554px !important;
-  }
-  .eti_report_table_123 .p-datatable-wrapper .p-datatable-thead{
+}
+
+.eti_report_table_123 .p-datatable-wrapper .p-datatable-thead {
     position: sticky;
     top: 0;
-  }
-  .eti_report_table_123 .p-datatable-wrapper .p-datatable-thead th{
+}
+
+.eti_report_table_123 .p-datatable-wrapper .p-datatable-thead th {
     background-color: #a6c275 !important;
-  }
+}
+
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     // background-color: #88AD47!important;
     // color: #fff !important;
@@ -1068,16 +1078,19 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
 }
 
 .p-column-filter-overlay-menu .p-column-filter-constraint {
-    background-color: #454149 !important;
+    background-color: #fff !important;
 }
 
 .p-column-filter-overlay-menu .p-column-filter-buttonbar {
-    background-color: #454149 !important;
+    background-color: #fff !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
 }
 
-.p-column-filter-buttonbar .p-button {
-    border: 1px solid !important;
+.p-column-filter-buttonbar .p-button.p-button-outlined {
+    border: 1px solid #88AD47 !important;
     color: #88AD47 !important;
 }
 
@@ -1085,7 +1098,6 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
     background-color: #88AD47 !important;
     color: #fff !important;
     border-color: #88AD47 !important;
-
 }
 
 .p-button:enabled:hover {
@@ -1115,6 +1127,7 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
     display: inline-block;
     color: black !important;
 }
+
 .ct_accordianclass212 {
     height: auto !important;
     max-height: 325px;
@@ -1127,7 +1140,7 @@ span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
 }
 
 .border-bottom {
-    border-bottom: 1px solid #dee2e6!important;
+    border-bottom: 1px solid #dee2e6 !important;
 }
 
 // New Css S
@@ -2004,9 +2017,10 @@ input.ct_change_choose_file_input12::file-selector-button {
 
 }
 
-.piePostions .apexcharts-canvas{
+.piePostions .apexcharts-canvas {
     left: -58px !important;
 }
+
 .ct_input_checkbox_1234 {
     border: 2px solid #ced4da;
     background: #ffffff;
@@ -2381,6 +2395,16 @@ h1.bft-edit-form-title {
     max-height: 314px !important;
 }
 
+.et_select_min_w_600_434567 .p-dropdown-items-wrapper {
+    max-width: 400px !important;
+    width: 100%;
+    min-width: 100% !important;
+}
+
+.et_select_min_w_600_434567 .p-dropdown-items-wrapper ul {
+    width: 100%;
+}
+
 .ct_chev_icon_dark230 .p-dropdown-trigger {
     color: #6c757d !important;
 }
@@ -2430,7 +2454,8 @@ h1.bft-edit-form-title {
     padding-left: 10px;
 }
 
-.ct_how_use_tooltip_cnt ol li,.ct_how_use_tooltip_cnt ul li  {
+.ct_how_use_tooltip_cnt ol li,
+.ct_how_use_tooltip_cnt ul li {
     padding-top: 10px;
 }
 
@@ -2668,16 +2693,20 @@ h1.bft-edit-form-title {
     max-height: 400px;
     overflow-y: auto;
 }
+
 .en_select_last_right_0 .p-multiselect.p-component {
     width: 250px;
 }
+
 .en_select_last_right_0 .p-component.ng-star-inserted {
     left: auto;
     right: 0px;
 }
-.en_select_last_right_0 .p-component.ng-star-inserted input{
+
+.en_select_last_right_0 .p-component.ng-star-inserted input {
     width: 100% !important;
 }
+
 @media screen and (max-width:575px) {
     .ct_how_use_tooltip_cnt {
         min-width: 250px;
@@ -2688,7 +2717,7 @@ h1.bft-edit-form-title {
 
 .custom_dropdown .p-overlay {
     width: 28.8rem !important;
-  }
+}
 
 //   .ct_modal_cuatom_center_245{
 //     align-items: center;
@@ -2718,13 +2747,15 @@ h1.bft-edit-form-title {
 // .ct_custom_modal .modal-dialog {
 //     flex: 1;
 // }
-.ct_h_40{
+.ct_h_40 {
     height: 40px;
 }
+
 .ct_h_40 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
     height: 40px;
 }
-.ct_svg_icon_white svg path{
+
+.ct_svg_icon_white svg path {
     fill: #fff;
 }
 
@@ -2744,11 +2775,12 @@ h1.bft-edit-form-title {
     transition: 0.4s ease all !important;
     background-color: rgba(136, 173, 71, 0.75) !important;
     color: #fff !important;
-  }
-  .trackingsubmitb:hover{
+}
+
+.trackingsubmitb:hover {
     background-color: #80a745 !important;
     color: #fff !important;
-  }
+}
 
 .trackingDeleteb {
     padding: 6px 16px !important;
@@ -2757,30 +2789,36 @@ h1.bft-edit-form-title {
     transition: 0.4s ease all !important;
     background-color: rgba(170, 34, 34, 0.75) !important;
     color: #fff !important;
-  }
-  .trackingDeleteb:hover{
+}
+
+.trackingDeleteb:hover {
     background-color: #8b2303 !important;
     color: #fff !important;
-  }
+}
 
-  .et_select__38_678 .p-multiselect .p-multiselect-label{
-    padding-block: 7.02px; 
- }
+.et_select__38_678 .p-multiselect .p-multiselect-label {
+    padding-block: 7.02px;
+}
 
- .en_py_5_btn_new_455 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose ,.en_py_5_btn_new_455 {
+.en_py_5_btn_new_455 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose,
+.en_py_5_btn_new_455 {
     padding-block: 4px !important;
     border-radius: 5px !important;
 
 }
-.en_py_5_btn_new_455{
-    border: 0px !important;
-   
-}
-.et_btn_h_38_900 ,.et_btn_h_38_900 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose{
-    height: 38px;
-  }
 
-  .en_py_5_btn_new_455 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose, .en_py_5_btn_new_455 {
+.en_py_5_btn_new_455 {
+    border: 0px !important;
+
+}
+
+.et_btn_h_38_900,
+.et_btn_h_38_900 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose {
+    height: 38px;
+}
+
+.en_py_5_btn_new_455 span.p-ripple.p-element.p-button.p-component.p-fileupload-choose,
+.en_py_5_btn_new_455 {
     max-width: 15rem !important;
 }
 
@@ -2789,6 +2827,7 @@ h1.bft-edit-form-title {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .trackingsubmitb.et_light_blue_123 {
     background-color: #3498db8f ! IMPORTANT;
     border-color: #3498db8f !important;
@@ -2797,16 +2836,18 @@ h1.bft-edit-form-title {
 
 .et_select_min_w_600_43 .ng-trigger.ng-trigger-overlayContentAnimation.p-overlay-content.ng-star-inserted {
     min-width: 600px;
-  }
-  .et_select_min_w_600_43 .ng-trigger.ng-trigger-overlayContentAnimation.p-overlay-content.ng-star-inserted {
-    min-width: 500px;
-  }
+}
 
-  .et_header_drop_down_560 .p-overlay {
+.et_select_min_w_600_43 .ng-trigger.ng-trigger-overlayContentAnimation.p-overlay-content.ng-star-inserted {
+    min-width: 500px;
+}
+
+.et_header_drop_down_560 .p-overlay {
     right: -23px !important;
     left: auto !important;
     top: 31px !important;
 }
+
 .p-tabview .p-tabview-panels {
     margin-top: 15px !important;
     background-color: #fff !important;
@@ -2816,7 +2857,7 @@ h1.bft-edit-form-title {
 
 
 
-.et_select_min_w_400_43 .p-dropdown-panel{
+.et_select_min_w_400_43 .p-dropdown-panel {
     min-width: 300px !important;
 }
 
@@ -2824,12 +2865,12 @@ h1.bft-edit-form-title {
 .et_dropdown_li_left_w_g_b ul#pr_id_2_list {
     text-align: left;
     padding-right: 0px;
-  }
+}
 
-  .et_dropdown_li_left_w_g_b .p-dropdown-panel {
+.et_dropdown_li_left_w_g_b .p-dropdown-panel {
     border-color: #80a745 !important;
     overflow: hidden;
-  }
+}
 
 
 
@@ -2852,8 +2893,8 @@ h1.bft-edit-form-title {
 //      width: 100% !important;
 // }
 
-th{
-      white-space: nowrap;
+th {
+    white-space: nowrap;
 }
 
 .disabledC {
@@ -2862,13 +2903,35 @@ th{
 
 
 .apexcharts-tooltip {
-    color: #000 !important;        /* text inside tooltip */
-    background: #fff !important;   /* background white */
-    border: 1px solid #ccc !important;  /* optional: light border */
-  }
-  
-  .apexcharts-tooltip-title {
-    color: #000 !important;        /* title text */
-    background: #f8f8f8 !important; /* title background */
-  }
- 
+    color: #000 !important;
+    /* text inside tooltip */
+    background: #fff !important;
+    /* background white */
+    border: 1px solid #ccc !important;
+    /* optional: light border */
+}
+
+.apexcharts-tooltip-title {
+    color: #000 !important;
+    /* title text */
+    background: #f8f8f8 !important;
+    /* title background */
+}
+
+.filter-active .p-column-filter-menu-button,
+.p-column-filter-menu-button:hover {
+    background: #364d2a !important;
+    color: #fff !important;
+}
+
+.p-column-filter-overlay-menu .p-column-filter-buttonbar {
+    display: none !important;
+}
+
+.ct_filter_icon_hove_active_1234 button.p-column-filter-menu-button:hover .p-icon-wrapper svg {
+    stroke: #fff;
+}
+
+.ct_filter_icon_hove_active_1234 .p-column-filter-menu-button.p-column-filter-menu-button-active {
+    background-color: #364d2a !important;
+}

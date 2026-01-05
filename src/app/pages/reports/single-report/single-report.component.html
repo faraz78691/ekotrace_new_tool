@@ -12,7 +12,6 @@
     <div class="row firstbox">
         <div class="col">
             <div class="row mt-4  text-white">
-
                 <ng-container>
                     <div class="col-md-6 mb-3">
                         <label for="fyear" class="text-dark">Financial Year</label>
@@ -164,12 +163,66 @@
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} records">
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <th class="ct_filter_icon_hove_active_1234" *ngIf="selectedCategory==8">
+                                        Category
+                                        <p-columnFilter field="Category" display="menu" [showMatchModes]="false"
+                                            [showOperator]="false" [showAddButton]="false" [showApplyButton]="false"
+                                            [showClearButton]="false">
+
+                                            <ng-template pTemplate="filter" let-filter="filterCallback">
+
+                                                <p-dropdown [(ngModel)]="columnFilterValues['Category']"
+                                                    [ngModelOptions]="{ standalone: true }"
+                                                    (onChange)="onFilterChange($event.value, selectedCategory)"
+                                                    [options]="categoriesOptions" optionLabel="name" optionValue="name"
+                                                    placeholder="Any" [filter]="true" filterBy="name"
+                                                    class="ct_select_op_input" [style]="{ width: '200px' }">
+
+                                                </p-dropdown>
+                                                <div class="d-flex" style="gap: 5px;">
+                                                    <button pButton type="button" label="Apply"
+                                                        class="p-button-sm mt-2 btn-sm"
+                                                        (click)="filter(columnFilterValues['Category'])">
+                                                    </button>
+                                                    <button pButton type="button" label="Clear"
+                                                        class="p-button-text p-button-sm mt-2 btn-sm"
+                                                        style="margin-right: 0px !important;"
+                                                        (click)="clearColumnFilter('Category', filter)">
+                                                    </button>
+                                                </div>
+                                            </ng-template>
+                                        </p-columnFilter>
+                                    </th>
                                     <th
-                                        *ngIf="selectMode !=2  && selectedCategory !=14  && selectedCategory !=15 && selectedCategory !=19 && selectedCategory !=16 && selectedCategory !=21">
+                                        *ngIf="selectMode !=2 && selectedCategory!==8 && selectedCategory!==9  && selectedCategory !=14  && selectedCategory !=15 && selectedCategory !=19 && selectedCategory !=16 && selectedCategory !=21">
                                         Category
                                     </th>
                                     <th *ngIf="selectedCategory ==8">
                                         Product / Service
+                                        <p-columnFilter field="Category" display="menu" [showMatchModes]="false"
+                                            [showOperator]="false" [showAddButton]="false" [showApplyButton]="false"
+                                            [showClearButton]="false">
+                                            <ng-template pTemplate="filter" let-filter="filterCallback">
+                                                <p-dropdown [(ngModel)]="columnFilterValues['Product']"
+                                                    [ngModelOptions]="{ standalone: true }" [options]="purchaseOptions"
+                                                    optionLabel="name" optionValue="name" placeholder="Any"
+                                                    [filter]="true" filterBy="name" class="ct_select_op_input"
+                                                    [style]="{ width: '200px' }">
+
+                                                </p-dropdown>
+                                                <div class="d-flex" style="gap: 5px;">
+                                                    <button pButton type="button" label="Apply"
+                                                        class="p-button-sm mt-2 btn-sm"
+                                                        (click)="filter(columnFilterValues['Product'])">
+                                                    </button>
+                                                    <button pButton type="button" label="Clear"
+                                                        class="p-button-text p-button-sm mt-2 btn-sm"
+                                                        style="margin-right: 0px !important;"
+                                                        (click)="clearColumnFilter('Product', filter)">
+                                                    </button>
+                                                </div>
+                                            </ng-template>
+                                        </p-columnFilter>
                                     </th>
                                     <th *ngIf="selectedCategory ==9">
                                         Sub Category

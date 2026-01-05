@@ -41,6 +41,7 @@ export class TrackingViewRequestsComponent {
     modeShow = false;
 
     dataEntriesPending: PendingDataEntries[] = [];
+    orgDataEntriesPending: PendingDataEntries[] = [];
     selectedEntry: PendingDataEntries[] = [];
     selectedScEntry: StationaryCombustionDE;
     selectedObjectEntry: selectedObjectEntry;
@@ -90,6 +91,9 @@ export class TrackingViewRequestsComponent {
     loading = true;
     columns: any[] = [];
     isCategoryChanged = false;
+    columnFilterValues: { [key: string]: any } = {};
+    purchaseOptions = []
+    categoriesOptions = [{ id: 1, name: 'Standard Goods' }, { id: 2, name: 'Capital Goods' }, { id: 3, name: 'Standard Services' }];
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -326,7 +330,7 @@ export class TrackingViewRequestsComponent {
     };
 
     ALLEntries(facilityID: number) {
-        
+
         this.loading = true;
 
         this.modeShow = false;
@@ -343,8 +347,10 @@ export class TrackingViewRequestsComponent {
                     next: (response) => {
                         if (response.success === false) {
                             this.dataEntriesPending = [];
+                            this.columns = this.getColumnsByCategory(this.selectedCategory, this.selectMode);
                         } else {
                             // this.dataEntriesPending = [];
+                            this.orgDataEntriesPending = response.categories;
                             this.dataEntriesPending = response.categories;
                             console.log(this.dataEntriesPending);
                             this.columns = this.getColumnsByCategory(this.selectedCategory, this.selectMode);
@@ -379,9 +385,11 @@ export class TrackingViewRequestsComponent {
                 .subscribe({
                     next: (response) => {
                         if (response.success === false) {
+                            this.orgDataEntriesPending = [];
                             this.dataEntriesPending = [];
                         } else {
-                            this.BusinessEntires = response.categories
+                            this.BusinessEntires = response.categories;
+                            this.orgDataEntriesPending = response.categories;
                             if (this.selectMode == 1) {
                                 this.dataEntriesPending = (response.categories).filter(items => items.tablename == 'flight_travel');
                                 this.columns = this.getColumnsByCategory(this.selectedCategory, this.selectMode);
@@ -642,7 +650,7 @@ export class TrackingViewRequestsComponent {
     };
 
 
-    getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string, isArray?: boolean, xtra?: string }[] {
+    getColumnsByCategory(categoryId: number, businessId?: number): { field: string; header: string, isArray?: boolean, xtra?: string, filter?: boolean, filterOptions?: any, filterField?: string }[] {
         switch (categoryId) {
             case 1:
                 return [
@@ -700,8 +708,8 @@ export class TrackingViewRequestsComponent {
                 ]
             case 8:
                 return [
-                    { field: 'typeofpurchase', header: 'Category' },
-                    { field: 'product_category_name', header: 'Product / Service' },
+                    { field: 'typeofpurchase', header: 'Category', filter: true, filterOptions: [...this.categoriesOptions], filterField: 'name' },
+                    { field: 'product_category_name', header: 'Product / Service', filter: true, filterOptions: [...this.purchaseOptions], filterField: 'name' },
                     { field: 'productcodes', header: 'Code' },
                     { field: 'valuequantity', header: 'Quantity' },
                     { field: 'supplier', header: 'Vendor' },
@@ -723,7 +731,6 @@ export class TrackingViewRequestsComponent {
                     { field: 'typeofpurchase', header: 'Vendor EF Unit' },
                     { field: 'unit', header: 'Unit' },
                     { field: 'unit', header: 'Month' },
-
                 ];
 
             case 10:
@@ -766,7 +773,7 @@ export class TrackingViewRequestsComponent {
                     // { field: 'treatment_emission_factor_used', header: 'Others (%)' },
                     // { field: 'treatment_emission_factor_used', header: 'Treatment' },
                     { field: 'month', header: 'Month' },
-                  ];
+                ];
             case 12:
                 return [
                     { field: 'product', header: 'Category' },
@@ -893,4 +900,50 @@ export class TrackingViewRequestsComponent {
         }
     }
 
+    onFilterChange(value: any, field: string) {
+        if (!value) {
+            this.dataEntriesPending = [...this.orgDataEntriesPending];
+            return;
+        }
+        if (field === 'typeofpurchase') {
+            let id: any = this.categoriesOptions.find((item: any) => item.name === value).id;
+            const year: any = new Date(this.year).getFullYear();
+            let formData = new URLSearchParams();
+            formData.set('typeofpurchase', id);
+            formData.set('country_id', this.facilityService.countryCodeSignal());
+            formData.set('year', year);
+            this.appService.postAPI(`/purchaseGoodsAllcategoriesFilter`, formData).subscribe((res: any) => {
+                this.purchaseOptions = res.categories;
+                this.columns = this.getColumnsByCategory(this.selectedCategory);
+            });
+        }
+
+        // this.columnFilterValues[field] = value;
+        // this.dataEntriesPending = this.orgDataEntriesPending.filter((item: any) => item[field] === value);
+        // this.columns = this.getColumnsByCategory(this.selectedCategory);
+    }
+
+    handleDropdownShow(): void {
+        window.addEventListener('scroll', this.preventScroll, true);
+    }
+
+    handleDropdownHide(): void {
+        window.removeEventListener('scroll', this.preventScroll, true);
+    }
+
+    preventScroll(event: Event): void {
+        const dropdown = document.querySelector('.p-dropdown-panel');
+        if (dropdown) {
+            event.stopPropagation();
+        }
+    }
+
+    isFilterApplied(field: string): boolean {
+        return !!this.columnFilterValues[field];
+    }
+
+    clearColumnFilter(field: string, filterCallback: Function) {
+        delete this.columnFilterValues[field];
+        filterCallback(null); // 🔥 clears PrimeNG filter
+    }
 }

@@ -38,10 +38,10 @@ export class FacilityService {
         private router: Router
     ) {
         this.router.events
-        .pipe(filter(event => event instanceof NavigationEnd))
-        .subscribe((event: NavigationEnd) => {
-            this.checkRoute(event.urlAfterRedirects);
-        });
+            .pipe(filter(event => event instanceof NavigationEnd))
+            .subscribe((event: NavigationEnd) => {
+                this.checkRoute(event.urlAfterRedirects);
+            });
     }
     // Function to check the current route and update the boolean variable
     private checkRoute(currentRoute: string): void {
@@ -81,22 +81,22 @@ export class FacilityService {
     };
     public getSubGroupsByTenantId(tenantId): Observable<any> {
         return this.http.post<any>(
-            environment.baseUrl + '/getdashboardfacilitiessubgroup' , tenantId 
+            environment.baseUrl + '/getdashboardfacilitiessubgroup', tenantId
         );
     };
     public getActualSubGroups(tenantId): Observable<any> {
         return this.http.post<any>(
-            environment.baseUrl + '/getSubGroups' , tenantId 
+            environment.baseUrl + '/getSubGroups', tenantId
         );
     };
     public getMainSubGroupByTenantId(tenantId): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl + '/getFacilityByTenantIdMainGroup/' + tenantId 
+            environment.baseUrl + '/getFacilityByTenantIdMainGroup/' + tenantId
         );
     };
     public getGroupsForAdmin(tenantId): Observable<any> {
         return this.http.get<any>(
-            environment.baseUrl + '/getFacilityGroupsByTenantIdAdmin/' + tenantId 
+            environment.baseUrl + '/getFacilityGroupsByTenantIdAdmin/' + tenantId
         );
     };
 
@@ -139,7 +139,7 @@ export class FacilityService {
     public AssignCountrySubGroup(data): Observable<any> {
         return this.http.post(environment.baseUrl + '/Updatecountry', data);
     };
-    public getDataProgress(data:any): Observable<any> {
+    public getDataProgress(data: any): Observable<any> {
         return this.http.post(environment.baseUrl + '/getDataProgressForFacilities', data);
     };
 
@@ -153,7 +153,7 @@ export class FacilityService {
             environment.baseUrl + '/allfacilitiesbyRole/' + tenantId
         );
     };
-    
+
     public newFacilityDataGet(tenantId): Observable<Facility[]> {
         return this.http.get<Facility[]>(
             environment.baseUrl + 'Group/facility/GroupByData/' + tenantId
@@ -221,7 +221,7 @@ export class FacilityService {
         );
     }
     public getScopeDonutsER(admininfo) {
-        return this.http.post( environment.baseUrl + '/dashboardScope', admininfo);
+        return this.http.post(environment.baseUrl + '/dashboardScope', admininfo);
     };
     public newManageDataPointSave(data: any): Observable<any> {
         return this.http.post(

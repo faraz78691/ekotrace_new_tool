@@ -1,7 +1,9 @@
 <p class="mb-2 pb-2 mt-3 text-dark border-bottom">
   {{ category_name}}
 </p>
-<p-table [value]="data" [paginator]="true" [rowHover]="true" dataKey="id" [rows]="10"
+
+
+<p-table #dt [value]="data" [paginator]="true" [rowHover]="true" dataKey="id" [rows]="10"
   [rowsPerPageOptions]="[10, 20, 50, 100,500]" styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
   [loading]="loading" [loadingIcon]="'pi pi-spinner pi-spin'" [showCurrentPageReport]="true"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"> >
@@ -22,9 +24,29 @@
 
         <!-- Normal header -->
         <ng-template #normalHeader>
-          <th> {{ col.header }} </th>
-        </ng-template>
+          <th class="ct_filter_icon_hove_active_1234">
+            {{ col.header }}
+            <p-columnFilter *ngIf="col.filter" [field]="col.field" display="menu" [showMatchModes]="false"
+              [showOperator]="false" [showAddButton]="false" [showApplyButton]="false" [showClearButton]="false">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-dropdown [(ngModel)]="columnFilterValues[col.field]" [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onFilterChange($event.value, col.field)" [options]="col.filterOptions" optionLabel="name"
+                  [optionValue]="col.filterField" placeholder="Any" [filter]="true" filterBy="name"
+                  class="ct_select_op_input" [style]="{ width: '200px' }">
 
+                </p-dropdown>
+                <div class="d-flex" style="gap: 5px;">
+                  <button pButton type="button" label="Apply" class="p-button-sm mt-2 btn-sm"
+                    (click)="filter(columnFilterValues[col.field])">
+                  </button>
+                  <button pButton type="button" label="Clear" class="p-button-text p-button-sm mt-2 btn-sm"
+                    style="margin-right: 0px !important;" (click)="clearColumnFilter(col.field, filter)">
+                  </button>
+                </div>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+        </ng-template>
       </ng-container>
 
       <th>Year</th>
@@ -54,7 +76,6 @@
         <ng-template #normalCell>
           <td>
             <ng-container [ngSwitch]="col.field">
-
               <!-- combineVehicle -->
               <ng-container *ngSwitchCase="'productcodes'">
                 {{ row.product_code_name }} {{ row.productCode }}
@@ -62,7 +83,6 @@
               <ng-container *ngSwitchCase="'combineVehicle'">
                 {{ row.category_name }} - {{ row.type }}
               </ng-container>
-
               <!-- franchise_spaceLease -->
               <ng-container *ngSwitchCase="'franchise_spaceLease'">
                 {{ row.franchise_space }} {{ row.unit }}
@@ -106,4 +126,11 @@
     </tr>
   </ng-template>
 
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="columns.length + 4" class="text-center py-4">
+        No data available
+      </td>
+    </tr>
+  </ng-template>
 </p-table>

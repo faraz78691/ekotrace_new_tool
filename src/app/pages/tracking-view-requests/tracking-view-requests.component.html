@@ -7,14 +7,11 @@
         <div class="col mx-4 border rounded Dashboard-tab view-request-col">
             <form #sendApprovalForm="ngForm">
                 <div class="row mx-2 border-bottom mt-3 pb-3">
-
                     <div class="row d-flex align-items-center ml-0 gap-3 ct_drop_input_250123">
-
                         <p-dropdown class="ct_custom_drop_white ct_input_dark_text_14 ct_chev_icon_dark230 " ngModel
                             [options]="AllCategory" optionLabel="catName" optionValue="id" name="DEMode"
                             #DEMode="ngModel" [(ngModel)]="selectedCategory" (onChange)="getEntry()"></p-dropdown>
                         <div class="col-md-6" *ngIf="modeShow">
-
                             <p-dropdown class="ct_input_white_bg13 ct_select_2_drop_white ct_input_dark_text_145"
                                 [options]="Modes" defaultLabel="Select Data Points" [(ngModel)]="selectMode"
                                 optionLabel="modeType" optionValue="id" name="datapoint"
@@ -63,8 +60,8 @@
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th>
-                                        <input class="ct_input_checkbox_1234" type="checkbox" [checked]="allSelected"
-                                            (change)="toggleSelectAll($event)" />
+                                        <input class="ct_input_checkbox_1234 d-flex" type="checkbox"
+                                            [checked]="allSelected" (change)="toggleSelectAll($event)" />
                                     </th>
                                     <ng-container *ngFor="let col of columns">
 
@@ -79,9 +76,38 @@
 
                                         <!-- Normal header -->
                                         <ng-template #normalHeader>
-                                            <th> {{ col.header }} </th>
-                                        </ng-template>
+                                            <th class="ct_filter_icon_hove_active_1234"> {{ col.header }}
+                                                <p-columnFilter *ngIf="col.filter" [field]="col.field" display="menu"
+                                                    [showMatchModes]="false" [showOperator]="false"
+                                                    [showAddButton]="false" [showApplyButton]="false"
+                                                    [showClearButton]="false">
 
+                                                    <ng-template pTemplate="filter" let-filter="filterCallback">
+
+                                                        <p-dropdown [(ngModel)]="columnFilterValues[col.field]"
+                                                            [ngModelOptions]="{ standalone: true }"
+                                                            (onChange)="onFilterChange($event.value, col.field)"
+                                                            [options]="col.filterOptions" optionLabel="name"
+                                                            [optionValue]="col.filterField" placeholder="Any"
+                                                            [filter]="true" filterBy="name" class="ct_select_op_input"
+                                                            [style]="{ width: '200px' }">
+
+                                                        </p-dropdown>
+                                                        <div class="d-flex" style="gap: 5px;">
+                                                            <button pButton type="button" label="Apply"
+                                                                class="p-button-sm mt-2 btn-sm"
+                                                                (click)="filter(columnFilterValues[col.field])">
+                                                            </button>
+                                                            <button pButton type="button" label="Clear"
+                                                                class="p-button-text p-button-sm mt-2 btn-sm"
+                                                                style="margin-right: 0px !important;"
+                                                                (click)="clearColumnFilter(col.field, filter)">
+                                                            </button>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-columnFilter>
+                                            </th>
+                                        </ng-template>
                                     </ng-container>
                                     <th>Year</th>
                                     <!-- <th>Month</th> -->
@@ -103,36 +129,36 @@
                                                   ">Sent for Approval</label>
                                     </td>
                                     <!-- If it's an array -->
-                                     <ng-container  *ngFor="let col of columns">
-                                         <ng-container *ngIf="col.isArray; else normalCell">
-                                             <ng-container *ngFor="let item of row[col.field]; let i = index">
-                                                 <td>
-                                                     {{ item.kilolitres || item.withthtreatment }}
-                                                 </td>
-                                                 <td *ngIf="col.xtra"> {{item.treated_water }} </td>
-                                             </ng-container>
-                                         </ng-container>
-     
-                                         <ng-template #normalCell>
-                                             <td>
-                                                 <ng-container [ngSwitch]="col.field">
+                                    <ng-container *ngFor="let col of columns">
+                                        <ng-container *ngIf="col.isArray; else normalCell">
+                                            <ng-container *ngFor="let item of row[col.field]; let i = index">
+                                                <td>
+                                                    {{ item.kilolitres || item.withthtreatment }}
+                                                </td>
+                                                <td *ngIf="col.xtra"> {{item.treated_water }} </td>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-template #normalCell>
+                                            <td>
+                                                <ng-container [ngSwitch]="col.field">
                                                     <ng-container *ngSwitchCase="'productcodes'">
                                                         {{ row.product_code_name }} {{ row.productCode }}
-                                                      </ng-container>
-                                                     <ng-container *ngSwitchCase="'combineVehicle'">
-                                                         {{ row.category_name }} - {{ row.type }}
-                                                     </ng-container>
-                                                     <ng-container *ngSwitchCase="'franchise_spaceLease'">
-                                                         {{ row.franchise_space }} {{ row.unit }}
-                                                     </ng-container>
-                                                     <ng-container *ngSwitchDefault>
-                                                         {{ row[col.field] }}
-                                                     </ng-container>
-                                                 </ng-container>
-                                             </td>
-                                         </ng-template>
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'combineVehicle'">
+                                                        {{ row.category_name }} - {{ row.type }}
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'franchise_spaceLease'">
+                                                        {{ row.franchise_space }} {{ row.unit }}
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchDefault>
+                                                        {{ row[col.field] }}
+                                                    </ng-container>
+                                                </ng-container>
+                                            </td>
+                                        </ng-template>
 
-                                     </ng-container>
+                                    </ng-container>
 
 
                                     <td>{{ row.year }}</td>
@@ -199,7 +225,13 @@
                                 </tr>
                             </ng-template>
 
-
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="columns.length + 6" class="text-center py-4">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </ng-template>
                             <!-- <ng-container *ngIf="loading === true">
                                   <div class="d-flex justify-content-center">
                                       <div class="spinner-border" role="status">
@@ -208,7 +240,6 @@
                                     </div>
                               </ng-container> -->
                         </p-table>
-
                     </ng-template>
                 </div>
             </form>

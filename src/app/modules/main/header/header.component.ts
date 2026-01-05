@@ -180,7 +180,7 @@ export class HeaderComponent implements OnInit {
                 this.showFacility = true;
                 this.showGroup = false;
 
-                // this.GetFacilityGroupList(tenantID);
+                this.GetFacilityGroupList(tenantID);
             };
 
         }
@@ -220,6 +220,7 @@ export class HeaderComponent implements OnInit {
         }
         this.companyService.getTenantsDataById(id).subscribe((response) => {
             this.companyDetails = response;
+            this.facilityService.setFacilityCountryCode(response[0].country_code);
             this.uploadedImageUrl =
                 this.rootUrl +
                 (response.logoName === '' || response.logoName === null
@@ -227,6 +228,7 @@ export class HeaderComponent implements OnInit {
                     : response.logoName);
             localStorage.setItem('uploadedImageUrl', this.uploadedImageUrl);
             localStorage.setItem('companyName', response.companyName);
+
         });
 
     };
@@ -240,7 +242,6 @@ export class HeaderComponent implements OnInit {
 
 
     GetFacilityGroupList(tenantID) {
-
         this.facilitygrouplist = []
         if (this.loginInfo.role === this.excludedRole) {
             return;
@@ -255,9 +256,7 @@ export class HeaderComponent implements OnInit {
 
                     if (facilityID) {
                         this.selectedFacilityID = Number(facilityID);
-
                     } else {
-
                         this.selectedFacilityID = Number(this.facilitygrouplist[0].id);
                         sessionStorage.setItem('SelectedfacilityID', this.selectedFacilityID);
                     }

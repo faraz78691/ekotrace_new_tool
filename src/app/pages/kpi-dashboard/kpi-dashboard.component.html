@@ -14,7 +14,7 @@
                             [showIcon]="true"></p-calendar>
                     </div>
                 </div> -->
-               
+
                 <div class="form-group d-flex align-items-center ct_gap_10   mb-0">
                     <label for="" class="ct_white_space_nowrape mb-0">Frequency
                     </label>
@@ -28,37 +28,43 @@
                 </div>
                 <div class="d-flex align-items-center ct_gap_10 ct_res_100_767">
                     <ng-container *ngIf="dateFormatType == 'Annually'">
-                        <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400" *ngIf="selectedFormatType == 'Aggregate'">
+                        <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400"
+                            *ngIf="selectedFormatType == 'Aggregate'">
                             <label for="" class="ct_white_space_nowrape mb-0">Start Year
                             </label>
-        
+
                             <div
                                 class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
                                 <p-calendar class="w-100" ngModel name="year" year styleClass="pcalender" view="year"
-                                    [(ngModel)]="startDate" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                                    [(ngModel)]="startDate" dateFormat="yy" inputId="yearpicker" [showIcon]="true"
+                                    (ngModelChange)="onYearChange()"></p-calendar>
                             </div>
                         </div>
-                        <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
-                            <label for="" class="ct_white_space_nowrape mb-0">{{selectedFormatType == 'Aggregate' ? 'End Year' : 'Year'}}
+                        <div
+                            class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400">
+                            <label for="" class="ct_white_space_nowrape mb-0">{{selectedFormatType == 'Aggregate' ? 'End
+                                Year' : 'Year'}}
                             </label>
                             <div
                                 class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
-                                <p-calendar class="w-100"  [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" styleClass="pcalender"
-                                    view="year" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                                <p-calendar class="w-100" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}"
+                                    styleClass="pcalender" view="year" dateFormat="yy" inputId="yearpicker"
+                                    [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
                             </div>
                         </div>
-    
+
                     </ng-container>
-                   
+
                     <ng-container *ngIf="dateFormatType !== 'Annually' ">
                         <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0">
                             <label for="" class="ct_white_space_nowrape mb-0">Year
                             </label>
-        
+
                             <div
                                 class="selectyear ct_calander_input col ct_calender_38 ct_month_light_green ct_calender_font_size">
-                                <p-calendar class="w-100"  styleClass="pcalender" view="year"
-                                    [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" dateFormat="yy" inputId="yearpicker" [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
+                                <p-calendar class="w-100" styleClass="pcalender" view="year" [(ngModel)]="endDate"
+                                    [ngModelOptions]="{standalone: true}" dateFormat="yy" inputId="yearpicker"
+                                    [showIcon]="true" (ngModelChange)="onYearChange()"></p-calendar>
                             </div>
                         </div>
                         <!-- <div class="form-group d-flex align-items-center ct_gap_10  ct_res_100_767 mb-0 et_flex_wrap_1400" *ngIf="selectedFormatType == 'Compare'">
@@ -110,9 +116,9 @@
                     </div>
 
                 </div>
-                 
 
-              
+
+
                 <div class="ml-auto d-flex align-items-center">
                     <button class="GroupButton ct_assign_package_btn129 ct_animation_btn_121 w-auto px-3 mt-0"
                         (click)="visible2 = true"> Set Target
@@ -223,7 +229,7 @@
 
             </div>
 
-           
+
 
 
         </div>
@@ -360,7 +366,7 @@
 
             </div>
         </div>
-    
+
     </div>
 </section>
 
@@ -420,3 +426,7 @@
         </div>
     </div>
 </p-dialog>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="true">
+    <p style="color: white"> Fetching Data... </p>
+</ngx-spinner>

@@ -8,6 +8,7 @@ import { months } from '@/models/months';
 import { TrackingDataPoint } from '@/models/TrackingDataPoint';
 import { ManageDataPointSubCategories } from '@/models/TrackingDataPointSubCategories';
 import { Component, ViewChild } from '@angular/core';
+import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
 import { NotificationService } from '@services/notification.service';
 import { TrackingService } from '@services/tracking.service';
@@ -83,6 +84,7 @@ export class SingleReportComponent {
     lfcount: number = 0;
     selectMonths: any[] = [];
     reportData: any[] = [];
+    orgReportData: any[] = [];
     Modes: any[] = [];
     modeShow = false;
     CustomReportData: CustomReportModel[] = [];
@@ -119,10 +121,14 @@ export class SingleReportComponent {
     ];
     @ViewChild('calendarRef') calendarRef!: Calendar;
     date: Date;
+    columnFilterValues: { [key: string]: any } = {};
+    categoriesOptions = [{ id: 1, name: 'Standard Goods' }, { id: 2, name: 'Capital Goods' }, { id: 3, name: 'Standard Services' }];
+    purchaseOptions: any = []
     constructor(
         private notification: NotificationService,
         public facilityService: FacilityService,
-        private trackingService: TrackingService
+        private trackingService: TrackingService,
+        private appService: AppService,
     ) {
 
 
@@ -150,17 +156,13 @@ export class SingleReportComponent {
 
 
     async ngOnInit() {
-
         this.loginInfo = new LoginInfo();
         if (localStorage.getItem('LoginInfo') != null) {
             let userInfo = localStorage.getItem('LoginInfo');
             let jsonObj = JSON.parse(userInfo); // string to "any" object first
             this.loginInfo = jsonObj as LoginInfo;
             this.facilityID = sessionStorage.getItem('SelectedfacilityID');
-
             this.GetAllFacility()
-
-
         }
     };
 
@@ -183,9 +185,7 @@ export class SingleReportComponent {
     };
     //Checks the facility ID and calls the GetAssignedDataPoint function with the provided ID.
     checkFacilityID(id) {
-
-
-
+        this.selectedFacilityID = id;
         this.GetAssignedDataPoint(id);
     };
 
@@ -478,6 +478,10 @@ export class SingleReportComponent {
             reportFormData.set('year', this.dataEntry.year)
             reportFormData.set('page', page.toString())
             reportFormData.set('page_size', page_size.toString())
+            if (this.selectedCategory == 8 || this.selectedCategory == 9) {
+                reportFormData.set('category', this.columnFilterValues.Category ? this.columnFilterValues.Category : '')
+                reportFormData.set('subcategory', this.columnFilterValues.Product ? this.columnFilterValues.Product : '')
+            }
             if (url != 'reportEmployeeCommuting' && url != 'reportHomeOffice') {
                 reportFormData.set('month', selectedMonths)
 
@@ -487,6 +491,7 @@ export class SingleReportComponent {
         this.facilityService.gerReport(url, reportFormData.toString()).subscribe({
             next: res => {
                 if (res.success) {
+                    this.orgReportData = res.result;
                     this.reportData = res.result;
                     this.totalRecords = res.totalCount;
 
@@ -495,6 +500,9 @@ export class SingleReportComponent {
                         'No data found',
                         'Success'
                     );
+                    this.orgReportData = [];
+                    this.reportData = [];
+                    this.totalRecords = 0;
                 }
                 // // console.log( this.reportData );
 
@@ -554,5 +562,35 @@ export class SingleReportComponent {
         //         this.loading = false;
         //     }
         // });
+    }
+
+    onFilterChange(value: any, selectedCategory: any) {
+        if (!value) {
+            this.reportData = [...this.orgReportData];
+            return;
+        }
+        if (selectedCategory === 8) {
+            let id: any = this.categoriesOptions.find((item: any) => item.name === value).id;
+            let formData = new URLSearchParams();
+            formData.set('typeofpurchase', id);
+            formData.set('country_id', this.facilityService.countryCodeSignal());
+            formData.set('year', this.dataEntry.year);
+            this.appService.postAPI(`/purchaseGoodsAllcategoriesFilter`, formData).subscribe((res: any) => {
+                this.purchaseOptions = res.categories;
+            });
+        }
+
+        // this.columnFilterValues[field] = value;
+        // this.dataEntriesPending = this.orgDataEntriesPending.filter((item: any) => item[field] === value);
+        // this.columns = this.getColumnsByCategory(this.selectedCategory);
+    }
+
+    isFilterApplied(field: string): boolean {
+        return !!this.columnFilterValues[field];
+    }
+
+    clearColumnFilter(field: string, filterCallback: Function) {
+        delete this.columnFilterValues[field];
+        filterCallback(null); // 🔥 clears PrimeNG filter
     }
 }

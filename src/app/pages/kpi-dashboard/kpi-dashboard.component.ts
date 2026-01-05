@@ -8,6 +8,7 @@ import { NotificationService } from '@services/notification.service';
 import { ThemeService } from '@services/theme.service';
 import { id } from '@swimlane/ngx-charts';
 import { ApexNonAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexResponsive, ApexXAxis, ApexLegend, ApexFill, ApexGrid, ApexStroke, ApexAxisChartSeries, ApexYAxis } from 'ng-apexcharts';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export type ChartOptions2 = {
   series: ApexNonAxisChartSeries;
@@ -160,6 +161,7 @@ export class KpiDashboardComponent {
     private dashboardService: DashboardService,
     private appService: AppService,
     private notification: NotificationService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -196,21 +198,24 @@ export class KpiDashboardComponent {
     }
   }
 
-
-
-
   GetAllFacility() {
+    this.spinner.show();
     const tenantId = this.loginInfo.tenantID;
     this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
       this.facilityData = response;
       this.selectedFacility = this.facilityData.map((facility) => facility.id);
-      this.appService.getApi('/triggerKpiInventoryCalculation?facilities=' + this.facilityData.map((facility) => facility.id).join(',') + '&year=' + this.year.getFullYear()).subscribe((response: any) => {
-        if (response.success == true) {
-          this.generateGraphs();
-        }
-      });
+      this.syncData();
     });
   };
+
+  syncData() {
+    this.spinner.show();
+    this.appService.getApi('/triggerKpiInventoryCalculation?facilities=' + this.facilityData.map((facility) => facility.id).join(',') + '&year=' + this.year.getFullYear()).subscribe((response: any) => {
+      if (response.success == true) {
+        this.generateGraphs();
+      }
+    });
+  }
 
   getKPIList() {
     const tenantId = this.loginInfo.tenantID;
@@ -448,6 +453,7 @@ export class KpiDashboardComponent {
     })
   }
   generateGraphs() {
+
     if (this.selectedFacility.length == 0) {
       return false
     }
@@ -502,6 +508,7 @@ export class KpiDashboardComponent {
       this.graph6 = this.getBarGraphOptions(response.data.first6.series, response.data.first6.time, '#8BC34A', response.data.first6.kpi_unit, this.dateFormatType, this.selectedFormatType, response.data.first6.target_value);
       // this.graph7 = this.getBarGraphOptions(response.data.first1.series, response.data.first1.time, '#CE93D8', "Total Emissions", this.dateFormatType, this.selectedFormatType);
       // this.graph8 = this.getBarGraphOptions(response.data.first1.series, response.data.first1.time, '#FFDDC1', "Total Emissions", this.dateFormatType, this.selectedFormatType);
+      this.spinner.hide();
     })
   };
 
@@ -514,7 +521,7 @@ export class KpiDashboardComponent {
 
   onYearChange() {
 
-    this.generateGraphs()
+    this.syncData()
     // const year = this.trackingService.getYear(this.year);
 
     // this.facilityService.yearSignal.set(year.toString());
