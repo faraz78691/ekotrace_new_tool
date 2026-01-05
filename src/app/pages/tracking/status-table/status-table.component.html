@@ -7,6 +7,7 @@
   [rowsPerPageOptions]="[10, 20, 50, 100,500]" styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
   [loading]="loading" [loadingIcon]="'pi pi-spinner pi-spin'" [showCurrentPageReport]="true"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"> >
+
   <ng-template pTemplate="header">
     <tr>
       <ng-container *ngFor="let col of columns">
@@ -26,23 +27,16 @@
         <ng-template #normalHeader>
           <th class="ct_filter_icon_hove_active_1234">
             {{ col.header }}
-            <p-columnFilter *ngIf="col.filter" [field]="col.field" display="menu" [showMatchModes]="false"
+            <p-columnFilter *ngIf="col.filter"  #dynamicFilter [field]="col.field" display="menu" [showMatchModes]="false"
               [showOperator]="false" [showAddButton]="false" [showApplyButton]="false" [showClearButton]="false">
               <ng-template pTemplate="filter" let-filter="filterCallback">
                 <p-dropdown [(ngModel)]="columnFilterValues[col.field]" [ngModelOptions]="{ standalone: true }"
-                  (onChange)="onFilterChange($event.value, col.field)" [options]="col.filterOptions" optionLabel="name"
+                (onChange)="onDynamicFilterChange($event.value,col.field,filter,dynamicFilter,dt)" [options]="col.filterOptions" optionLabel="name"
                   [optionValue]="col.filterField" placeholder="Any" [filter]="true" filterBy="name"
                   class="ct_select_op_input" [style]="{ width: '200px' }">
 
                 </p-dropdown>
-                <div class="d-flex" style="gap: 5px;">
-                  <button pButton type="button" label="Apply" class="p-button-sm mt-2 btn-sm"
-                    (click)="filter(columnFilterValues[col.field])">
-                  </button>
-                  <button pButton type="button" label="Clear" class="p-button-text p-button-sm mt-2 btn-sm"
-                    style="margin-right: 0px !important;" (click)="clearColumnFilter(col.field, filter)">
-                  </button>
-                </div>
+             
               </ng-template>
             </p-columnFilter>
           </th>

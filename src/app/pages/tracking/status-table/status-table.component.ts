@@ -339,6 +339,50 @@ export class StatusTableComponent {
     }
   }
 
+  onDynamicFilterChange(
+    value: any,
+    field: string,
+    filterCallback: Function,
+    columnFilter: any,
+    table: any
+  ) {
+    // 🔹 Apply main filter
+    filterCallback(value || null);
+  
+    // 🔹 CATEGORY → clear SUB CATEGORY
+    if (field === 'typeofpurchase') {
+      // Clear model (IMPORTANT)
+      this.columnFilterValues['product_category_name'] = null;
+  
+      // Clear PrimeNG filter state
+      if (table.filters?.['product_category_name']) {
+        delete table.filters['product_category_name'];
+      }
+  
+      // Force table to re-evaluate filters
+      table._filter();
+    }
+  
+    // 🔹 TABLENAME → clear SUBCAT
+    if (field === 'tablename') {
+      this.columnFilterValues['subcatName'] = null;
+  
+      if (table.filters?.['subcatName']) {
+        delete table.filters['subcatName'];
+      }
+  
+      table._filter();
+    }
+  
+    // 🔹 Your existing logic
+    this.onFilterChange(value, field);
+  
+    // 🔹 Close popup
+    columnFilter.hide();
+  }
+  
+
+
   onFilterChange(value: any, field: string) {
     if (!value) {
       this.data = [...this.orgData];
@@ -387,4 +431,11 @@ export class StatusTableComponent {
     delete this.columnFilterValues[field];
     filterCallback(null); // 🔥 clears PrimeNG filter
   }
+
+  clear(table: any) {
+    this.table.clear();
+    this.columnFilterValues = {};
+    this.table.first = 0;
+  }
+
 }
