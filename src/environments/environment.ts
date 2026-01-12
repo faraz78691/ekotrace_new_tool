@@ -5,8 +5,8 @@
 export const environment = {
     production: false,
 
-    // baseUrl: 'http://192.168.29.241:4000',
-    // baseUrl2: 'http://192.168.29.241:5000',
+    // baseUrl: 'http://192.168.1.37:4000',
+    // baseUrl2: 'http://192.168.1.37:5000',
 
 
     baseUrl: 'https://ekotrace.ekobon.com:4000',

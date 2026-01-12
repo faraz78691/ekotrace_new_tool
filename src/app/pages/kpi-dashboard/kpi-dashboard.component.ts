@@ -210,7 +210,7 @@ export class KpiDashboardComponent {
 
   syncData() {
     this.spinner.show();
-    this.appService.getApi('/triggerKpiInventoryCalculation?facilities=' + this.facilityData.map((facility) => facility.id).join(',') + '&year=' + this.year.getFullYear()).subscribe((response: any) => {
+    this.appService.getApi('/triggerKpiInventoryCalculation?facilities=' + this.facilityData.map((facility) => facility.id).join(',') + '&year=' + this.endDate.getFullYear().toString()).subscribe((response: any) => {
       if (response.success == true) {
         this.generateGraphs();
       }
@@ -520,7 +520,6 @@ export class KpiDashboardComponent {
   }
 
   onYearChange() {
-
     this.syncData()
     // const year = this.trackingService.getYear(this.year);
 

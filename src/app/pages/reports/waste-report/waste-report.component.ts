@@ -115,6 +115,12 @@ export class WasteReportComponent {
       this.GetAllFacility()
 
     }
+
+    const currentMonth = new Date().getMonth();
+    this.startMonth = this.reportmonths[currentMonth];
+    this.endMonth = this.reportmonths[this.reportmonths.length - 1];
+    this.startYear = new Date();
+    this.endYear = new Date();
   };
 
 
@@ -346,17 +352,17 @@ export class WasteReportComponent {
   // }
 
   newgenerateReport() {
-        let url = ''
+    let url = ''
     const startYear = this.startYear.getFullYear().toString();
     const endYear = this.endYear.getFullYear().toString();
 
     const reportFormData = new URLSearchParams();
-    if(this.selectReportType == 'Monthly'){
+    if (this.selectReportType == 'Monthly') {
       url = 'reportFilterMultipleCategoryNew'
-  }else{
-        url = 'reportFilterMultipleCategoryConsolidated'
-  }
-  let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
+    } else {
+      url = 'reportFilterMultipleCategoryConsolidated'
+    }
+    let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
     reportFormData.set('stationary_combustion', "0")
     reportFormData.set('refrigerant', "0")
     reportFormData.set('fire_extinguisher', "0")
@@ -434,7 +440,7 @@ export class WasteReportComponent {
 
   };
 
-  
+
 }
 
 

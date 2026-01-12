@@ -38,12 +38,12 @@ interface reportDatapoints {
     december: string;
 }
 @Component({
-  selector: 'app-audit-report',
-  templateUrl: './audit-report.component.html',
-  styleUrls: ['./audit-report.component.scss']
+    selector: 'app-audit-report',
+    templateUrl: './audit-report.component.html',
+    styleUrls: ['./audit-report.component.scss']
 })
 export class AuditReportComponent {
-  public loginInfo: LoginInfo;
+    public loginInfo: LoginInfo;
     financialyear: financialyear[];
     locations: locations[];
     reportdatapoints: reportDatapoints[];
@@ -85,10 +85,10 @@ export class AuditReportComponent {
     selectedMultipleCategories: any;
     selectedMultipleFacility: any;
     @ViewChild('dt', { static: false }) table: any;
-    startMonth:any;
+    startMonth: any;
     startYear: any;
-    endMonth:any;
-    endYear:any;
+    endMonth: any;
+    endYear: any;
     AssignedDataPoint = [
         {
             "Id": 1,
@@ -257,7 +257,7 @@ export class AuditReportComponent {
     reportType: any[] = [
         { name: '1', value: 'Monthly' },
         { name: '2', value: 'Consolidated' },
-    
+
     ];
     @ViewChild('calendarRef') calendarRef!: Calendar;
     date: Date;
@@ -269,7 +269,7 @@ export class AuditReportComponent {
 
 
 
-      
+
         this.Modes =
             [
 
@@ -300,22 +300,26 @@ export class AuditReportComponent {
             this.loginInfo = jsonObj as LoginInfo;
             this.facilityID = sessionStorage.getItem('SelectedfacilityID');
 
-this.GetAllFacility()
-          
-
+            this.GetAllFacility()
         }
+
+        const currentMonth = new Date().getMonth();
+        this.startMonth = this.reportmonths[currentMonth];
+        this.endMonth = this.reportmonths[this.reportmonths.length - 1];
+        this.startYear = new Date();
+        this.endYear = new Date();
     };
 
-  
 
-  
+
+
 
     //Retrieves all facilities for a tenant
     GetAllFacility() {
         let tenantId = this.loginInfo.tenantID;
         this.facilityService.newGetFacilityByTenant(tenantId).subscribe((response) => {
             this.facilityData = response;
-        
+
             this.lfcount = this.facilityData.length;
         });
     };
@@ -325,7 +329,7 @@ this.GetAllFacility()
     };
     //Checks the facility ID and calls the GetAssignedDataPoint function with the provided ID.
     checkFacilityID(id) {
-   
+
 
 
     };
@@ -340,7 +344,7 @@ this.GetAllFacility()
 
     multipleDataPointsChanged(event: any) {
         this.selectedMultipleCategories = event.value; // This stores the selected IDs in the array
-  
+
         if (this.selectedMultipleCategories.includes(13)) {
             this.modeShow = true;  // Show the mode section if ID 13 is selected
         } else {
@@ -352,7 +356,7 @@ this.GetAllFacility()
 
     dataInputType: string = 'single';
 
-  
+
     //method for download generated report in pdf format
     downloadAsPDF() {
         const doc = new jsPDF({
@@ -431,10 +435,10 @@ this.GetAllFacility()
 
         doc.save('report.pdf');
     };
-   
+
 
     newgenerateReport() {
-     
+
         this.CustomReportData = [];
         const reportFormData = new URLSearchParams();
         // this.selectedCategory = 'Stationary Combustion';
@@ -443,10 +447,10 @@ this.GetAllFacility()
         if (this.isMultiple) {
             const startYear = this.startYear.getFullYear().toString();
             const endYear = this.endYear.getFullYear().toString();
-            if(this.selectReportType == 'Monthly'){
+            if (this.selectReportType == 'Monthly') {
                 url = 'reportFilterMultipleCategoryNew'
-            }else{
-                  url = 'reportFilterMultipleCategoryAudit'
+            } else {
+                url = 'reportFilterMultipleCategoryAudit'
             }
             let selectedFacilities = this.selectedMultipleFacility.map(String).map(item => `'${item}'`).join(',');
 
@@ -467,7 +471,7 @@ this.GetAllFacility()
                 "Refrigerants": "refrigerant",
                 "Heat and Steam": "heat_steam",
                 "Electricity": "renewable_electricity",
-                "Company Owned Vehicles" : "company_owned_vehicles",
+                "Company Owned Vehicles": "company_owned_vehicles",
                 "Water Supply and Treatment": "water_supply_treatment",
                 "End-of-Life Treatment of Sold Products": "end_of_life_treatment",
                 "Fire Extinguisher": "fire_extinguisher",
@@ -477,7 +481,7 @@ this.GetAllFacility()
 
             this.AssignedDataPoint.forEach(category => {
                 const field = categoryMap[category.CatName];
-                if(field){
+                if (field) {
                     if (this.selectedMultipleCategories.includes(category.Id)) {
                         reportFormData.set(field, '1'); // Set selected category to 1
                     } else {
@@ -486,28 +490,28 @@ this.GetAllFacility()
                 }
             })
             for (let key in categoryMap) {
-                let value = this.AssignedDataPoint.find(items=>items.CatName == key)
-                if (!value){
-                
+                let value = this.AssignedDataPoint.find(items => items.CatName == key)
+                if (!value) {
+
                     reportFormData.set(categoryMap[key], '0');
                 }
-            } 
-             
-            reportFormData.set('facility',selectedFacilities)
-            reportFormData.set('investment_emission','0')
-            reportFormData.set('flight_travel',this.selectMode == 1 ? '1' : '0')
-            reportFormData.set('hotel_stays',this.selectMode == 2 ? '1' : '0')
-            reportFormData.set('other_transport',this.selectMode == 3 ? '1' : '0')
+            }
+
+            reportFormData.set('facility', selectedFacilities)
+            reportFormData.set('investment_emission', '0')
+            reportFormData.set('flight_travel', this.selectMode == 1 ? '1' : '0')
+            reportFormData.set('hotel_stays', this.selectMode == 2 ? '1' : '0')
+            reportFormData.set('other_transport', this.selectMode == 3 ? '1' : '0')
             reportFormData.set('start_year', startYear)
             reportFormData.set('end_year', endYear)
             reportFormData.set('start_month', this.startMonth.value)
             reportFormData.set('end_month', this.endMonth.value)
 
         } else {
-                   this.dataEntry.month = this.selectMonths.map((month) => month.value).join(',');
-        this.dataEntry.year = this.date.getFullYear().toString();
-    
-        const selectedMonths = this.dataEntry.month.split(',').map(month => `'${month}'`).join(',');
+            this.dataEntry.month = this.selectMonths.map((month) => month.value).join(',');
+            this.dataEntry.year = this.date.getFullYear().toString();
+
+            const selectedMonths = this.dataEntry.month.split(',').map(month => `'${month}'`).join(',');
             switch (this.selectedCategory) {
                 case 1:
                     url = 'reportStationaryCombustion'
@@ -598,18 +602,18 @@ this.GetAllFacility()
             // reportFormData.set('page', '1')
             // reportFormData.set('page_size', '10')
             if (url != 'reportEmployeeCommuting' && url != 'reportHomeOffice') {
-             
+
             }
         }
 
 
-   
+
 
         this.facilityService.gerReport(url, reportFormData.toString()).subscribe({
             next: res => {
                 if (res.success) {
                     this.reportData = res.result
-                   
+
                 } else {
                     this.notification.showSuccess(
                         'No data found',
@@ -617,7 +621,7 @@ this.GetAllFacility()
                     );
                 }
                 // // console.log( this.reportData );
-               
+
             }
         })
     };
@@ -655,21 +659,21 @@ this.GetAllFacility()
     exportTableToExcel() {
         // Get the table element
         const tableElement = this.table.el.nativeElement.querySelector('.p-datatable-table');
-    
+
         // Create a new worksheet from the table element
         const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tableElement);
-    
+
         // Create a new workbook and append the worksheet
         const workbook: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'ReportData');
-    
+
         // Generate the Excel file and download it
         XLSX.writeFile(workbook, 'ReportData.xlsx');
-      };
+    };
 
-      onMultpleChange(e:any){
+    onMultpleChange(e: any) {
         this.reportData = []
-      
 
-      }
+
+    }
 }

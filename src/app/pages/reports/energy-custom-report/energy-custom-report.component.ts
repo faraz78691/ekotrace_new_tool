@@ -307,6 +307,12 @@ export class EnergyCustomReportComponent {
 
 
         }
+
+        const currentMonth = new Date().getMonth();
+        this.startMonth = this.reportmonths[currentMonth];
+        this.endMonth = this.reportmonths[this.reportmonths.length - 1];
+        this.startYear = new Date();
+        this.endYear = new Date();
     };
 
 

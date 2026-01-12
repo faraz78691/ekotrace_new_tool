@@ -131,7 +131,7 @@
             </div>
             <div class="row">
                 <div class="pt-5">
-                    <button (click)="newgenerateReport(this.page , this.rows)"
+                    <button (click)="newgenerateReport(this.page, this.rows)"
                         class="generateReportButton ct_report_button_12 ct_animation_btn_121 ml-3">
                         Generate Report
                     </button>
@@ -163,131 +163,77 @@
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} records">
                             <ng-template pTemplate="caption">
                                 <div class="flex justify-content-between">
-                                  <p-button
-                                    [outlined]="true"
-                                    icon="pi pi-filter-slash"
-                                    label="Clear"
-                                    (onClick)="clear34(dt)">
-                                  </p-button>
-                              
-                              
+                                    <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear"
+                                        (onClick)="clear34(dt)">
+                                    </p-button>
                                 </div>
-                              </ng-template>
-                              
+                            </ng-template>
+
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th class="ct_filter_icon_hove_active_1234" *ngIf="selectedCategory==8">
                                         Category
-                                        <p-columnFilter #categoryFilter field="Category" display="menu" [showMatchModes]="false"
-                                            [showOperator]="false" [showAddButton]="false" [showApplyButton]="false"
-                                            [showClearButton]="false">
-
-                                            <ng-template pTemplate="filter" let-filter="filterCallback">
-
-                                                <p-dropdown [(ngModel)]="columnFilterValues['Category']"
-                                                    [ngModelOptions]="{ standalone: true }" (onChange)="onCategoryFilterChange($event.value,selectedCategory,filter,categoryFilter)" 
-                                                    [options]="categoriesOptions" optionLabel="name" optionValue="name" placeholder="Any" [filter]="true"
-                                                    filterBy="name" class="ct_select_op_input"
-                                                    [style]="{ width: '200px' }">
-
-                                                </p-dropdown>
-
-                                            </ng-template>
-                                        </p-columnFilter>
+                                        <i class="pi"
+                                            [ngClass]="columnFilterValues['Category'] ? 'pi-filter-fill' : 'pi-filter'"
+                                            (click)="openDirectFilter($event, drop)"
+                                            style="cursor:pointer; margin-left:6px"></i>
+                                        <p-dropdown #drop [(ngModel)]="columnFilterValues['Category']"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            (onChange)="applyFilter($event.value, 'Category', selectedCategory, dt)"
+                                            [options]="categoriesOptions" optionLabel="name" optionValue="name"
+                                            placeholder="Any" [filter]="true" filterBy="name" appendTo="body"
+                                            class="ct_select_op_input hidden-multiselect" [style]="{ width: '200px' }">
+                                        </p-dropdown>
                                     </th>
                                     <th
                                         *ngIf="selectMode !=2 && selectedCategory!==8 && selectedCategory!==9  && selectedCategory !=14  && selectedCategory !=15 && selectedCategory !=19 && selectedCategory !=16 && selectedCategory !=21">
                                         Category
                                     </th>
-                                    <th *ngIf="selectedCategory ==8">
+                                    <th *ngIf="selectedCategory ==8" class="ct_filter_icon_hove_active_1234">
                                         Product / Service
-                                        <p-columnFilter
-                                        #productFilter
-                                        field="Product"
-                                        display="menu"
-                                        [showMatchModes]="false"
-                                        [showOperator]="false"
-                                        [showAddButton]="false"
-                                        [showApplyButton]="false"
-                                        [showClearButton]="false">
-                                      
-                                        <ng-template pTemplate="filter" let-filter="filterCallback">
-                                      
-                                          <p-dropdown
-                                            [(ngModel)]="columnFilterValues['Product']"
-                                            [ngModelOptions]="{ standalone: true }"
-                                            [options]="purchaseOptions"
-                                            optionLabel="name"
-                                            optionValue="name"
-                                            placeholder="Any"
-                                            [filter]="true"
-                                            filterBy="name"
-                                            class="ct_select_op_input"
-                                            [style]="{ width: '200px' }"
-                                            (onChange)="onProductFilterChange(
-                                              $event.value,
-                                              filter,
-                                              productFilter
-                                            )">
-                                          </p-dropdown>
-                                      
-                                        </ng-template>
-                                      </p-columnFilter>
-                                      
+                                        <i class="pi"
+                                            [ngClass]="columnFilterValues['Product'] ? 'pi-filter-fill' : 'pi-filter'"
+                                            (click)="openDirectFilter($event, drop2)"
+                                            style="cursor:pointer; margin-left:6px"></i>
+
+                                        <p-dropdown #drop2 [(ngModel)]="columnFilterValues['Product']"
+                                            [ngModelOptions]="{ standalone: true }" [options]="purchaseOptions"
+                                            optionLabel="name" optionValue="name" placeholder="Any" [filter]="true"
+                                            appendTo="body" filterBy="name"
+                                            class="ct_select_op_input hidden-multiselect" [style]="{ width: '200px' }"
+                                            (onChange)="applyFilter($event.value, 'Product', selectedCategory, dt)">
+                                        </p-dropdown>
+
                                     </th>
                                     <th class="ct_filter_icon_hove_active_1234" *ngIf="selectedCategory==9">
                                         Category
-                                        <p-columnFilter #categoryFilter field="Category" display="menu" [showMatchModes]="false"
-                                            [showOperator]="false" [showAddButton]="false" [showApplyButton]="false"
-                                            [showClearButton]="false">
+                                        <i class="pi"
+                                            [ngClass]="columnFilterValues['Category'] ? 'pi-filter-fill' : 'pi-filter'"
+                                            (click)="openDirectFilter($event, drop3)"
+                                            style="cursor:pointer; margin-left:6px"></i>
 
-                                            <ng-template pTemplate="filter" let-filter="filterCallback">
-
-                                                <p-dropdown [(ngModel)]="columnFilterValues['Category']"
-                                                    [ngModelOptions]="{ standalone: true }" (onChange)="onFuelCategoryFilterChange($event.value,selectedCategory,filter,categoryFilter)" 
-                                                    [options]="fuel_categories" optionLabel="name" optionValue="name" placeholder="Any" [filter]="true"
-                                                    filterBy="name" class="ct_select_op_input"
-                                                    [style]="{ width: '200px' }">
-
-                                                </p-dropdown>
-
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th *ngIf="selectedCategory ==9">
-                                        Sub Category
-                                        <p-columnFilter
-                                        #productFilter
-                                        field="Product"
-                                        display="menu"
-                                        [showMatchModes]="false"
-                                        [showOperator]="false"
-                                        [showAddButton]="false"
-                                        [showApplyButton]="false"
-                                        [showClearButton]="false">
-                                      
-                                        <ng-template pTemplate="filter" let-filter="filterCallback">
-                                      
-                                          <p-dropdown
-                                            [(ngModel)]="columnFilterValues['Product']"
+                                        <p-dropdown #drop3 [(ngModel)]="columnFilterValues['Category']"
                                             [ngModelOptions]="{ standalone: true }"
-                                            [options]="filteredFuelSubCategory"
-                                            optionLabel="name"
-                                            optionValue="name"
-                                            placeholder="Any"
-                                            [filter]="true"
-                                            filterBy="name"
-                                            class="ct_select_op_input"
-                                            [style]="{ width: '200px' }"
-                                            (onChange)="onProductFilterChange(
-                                              $event.value,
-                                              filter,
-                                              productFilter
-                                            )">
-                                          </p-dropdown>
-                                      
-                                        </ng-template>
-                                      </p-columnFilter>
+                                            (onChange)="applyFilter($event.value, 'Category', selectedCategory, dt)"
+                                            [options]="fuel_categories" optionLabel="name" optionValue="name"
+                                            placeholder="Any" [filter]="true" filterBy="name" appendTo="body"
+                                            class="ct_select_op_input hidden-multiselect" [style]="{ width: '200px' }">
+                                        </p-dropdown>
+                                    </th>
+                                    <th *ngIf="selectedCategory ==9" class="ct_filter_icon_hove_active_1234">
+                                        Sub Category
+                                        <i class="pi"
+                                            [ngClass]="columnFilterValues['Product'] ? 'pi-filter-fill' : 'pi-filter'"
+                                            (click)="openDirectFilter($event, drop4)"
+                                            style="cursor:pointer; margin-left:6px"></i>
+
+                                        <p-dropdown #drop4 [(ngModel)]="columnFilterValues['Product']"
+                                            [ngModelOptions]="{ standalone: true }" [options]="filteredFuelSubCategory"
+                                            optionLabel="name" optionValue="name" placeholder="Any" [filter]="true"
+                                            filterBy="name" appendTo="body"
+                                            class="ct_select_op_input hidden-multiselect" [style]="{ width: '200px' }"
+                                            (onChange)="applyFilter($event.value, 'Product', selectedCategory, dt)">
+                                        </p-dropdown>
                                     </th>
                                     <th *ngIf="selectedCategory ==8">
                                         Code

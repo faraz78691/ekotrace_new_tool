@@ -1,9 +1,9 @@
 import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from "primeng/dropdown";
+import { Dropdown, DropdownModule } from "primeng/dropdown";
 import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
 import { ButtonModule } from 'primeng/button';
@@ -52,7 +52,20 @@ export class StatusTableComponent {
   categoriesOptions = [{ id: 1, name: 'Standard Goods' }, { id: 2, name: 'Capital Goods' }, { id: 3, name: 'Standard Services' }];
   subCategoriesOptions = [];
   columnFilterValues: { [key: string]: any } = {};
-
+  months: any[] = [
+    { name: 'Jan', value: 'Jan' },
+    { name: 'Feb', value: 'Feb' },
+    { name: 'Mar', value: 'Mar' },
+    { name: 'Apr', value: 'Apr' },
+    { name: 'May', value: 'May' },
+    { name: 'June', value: 'Jun' },
+    { name: 'July', value: 'Jul' },
+    { name: 'Aug', value: 'Aug' },
+    { name: 'Sep', value: 'Sep' },
+    { name: 'Oct', value: 'Oct' },
+    { name: 'Nov', value: 'Nov' },
+    { name: 'Dec', value: 'Dec' }
+  ];
   constructor(private service: AppService, private facilityService: FacilityService) {
   }
 
@@ -88,6 +101,7 @@ export class StatusTableComponent {
   @ViewChild('dt') table!: any;
   resetTableFilters() {
     this.table.clear();
+    this.table.filters = {};
     this.columnFilterValues = {};
     this.table.first = 0;
   }
@@ -102,14 +116,14 @@ export class StatusTableComponent {
           { field: 'BlendType', header: 'Blend' },
           { field: 'readingValue', header: 'Value' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 2:
         return [
           { field: 'TypeName', header: 'Refrigerant Type' },
           { field: 'refAmount', header: 'Refrigerant Amount' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 3:
         return [
@@ -117,7 +131,7 @@ export class StatusTableComponent {
           { field: 'numberOfExtinguisher', header: 'Extinguisher' },
           { field: 'quantityOfCO2makeup', header: 'CO2 Makeup' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 6:
         return [
@@ -129,7 +143,7 @@ export class StatusTableComponent {
           { field: 'ModeofDEID', header: 'Mode' },
           { field: 'Value', header: 'Value' },
           { field: 'unit', header: 'Unit' },
-          { field: 'months', header: 'Month' },
+          { field: 'months', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 5:
         return [
@@ -139,14 +153,14 @@ export class StatusTableComponent {
           { field: 'readingValue', header: 'Value' },
           { field: 'SourceName', header: 'Source' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 7:
         return [
           { field: 'typeName', header: 'Type' },
           { field: 'readingValue', header: 'Value' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ]
       case 8:
         return [
@@ -158,7 +172,7 @@ export class StatusTableComponent {
           { field: 'supplierspecificEF', header: 'Vendor EF' },
           { field: 'supplierunit', header: 'Vendor EF Unit' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
 
         ];
       case 9:
@@ -167,8 +181,7 @@ export class StatusTableComponent {
           { field: 'subcatName', header: 'Sub Category', filter: true, filterOptions: [...this.subCategoriesOptions], filterField: 'name' },
           { field: 'readingValue', header: 'Reading Value' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
-
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
 
       case 10:
@@ -183,7 +196,7 @@ export class StatusTableComponent {
           { field: 'storage_facility_type', header: 'Storage Facility ' },
           { field: 'area_occupied', header: 'Area occupied (sqm)' },
           { field: 'avg_no_of_days', header: 'No of days storage' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
 
       case 11:
@@ -211,7 +224,7 @@ export class StatusTableComponent {
           // { field: 'treatment_emission_factor_used', header: 'Treatment' },
           // { field: 'treatment_emission_factor_used', header: 'Others (%)' },
           // { field: 'treatment_emission_factor_used', header: 'Treatment' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
       case 12:
         return [
@@ -220,7 +233,7 @@ export class StatusTableComponent {
           { field: 'method', header: 'Method' },
           { field: 'total_waste', header: 'Quantity' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
       case 13:
         switch (businessId) {
@@ -233,7 +246,7 @@ export class StatusTableComponent {
               { field: 'avg_distance', header: 'Distance Travelled' },
               { field: 'return_Flight', header: 'Return Flight' },
               { field: 'spend_base_value', header: 'Spend Amount' },
-              { field: 'month', header: 'Month' },
+              { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
             ];
 
           case 25:
@@ -242,7 +255,7 @@ export class StatusTableComponent {
               { field: 'type_of_hotel', header: 'Type of Hotel' },
               { field: 'no_of_occupied_rooms', header: 'No of Rooms' },
               { field: 'no_of_nights_per_room', header: 'No of Nights per Room' },
-              { field: 'month', header: 'Month' },
+              { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
             ];
 
           case 26:
@@ -251,7 +264,7 @@ export class StatusTableComponent {
               { field: 'no_of_trips', header: 'No of Trips' },
               { field: 'no_of_passengers', header: 'No of Passengers' },
               { field: 'distance_travelled', header: 'Distance Travelled (km)' },
-              { field: 'month', header: 'Month' },
+              { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
             ];
 
           default:
@@ -287,7 +300,7 @@ export class StatusTableComponent {
           { field: 'vehicle_subtype', header: 'Sub Category' },
           { field: 'no_of_vehicles', header: 'No of Vehicles' },
           { field: 'distance_travelled', header: 'Distance Travelled' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
       case 18:
         return [
@@ -299,7 +312,7 @@ export class StatusTableComponent {
           { field: 'scope1emissions', header: 'Scope 1 Emission (kg CO2e)' },
           { field: 'scope2emissions', header: 'Scope 2 Emission (kg CO2e)' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' },
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' },
         ];
       case 19:
         return [
@@ -312,7 +325,7 @@ export class StatusTableComponent {
           { field: 'referigentused', header: 'Fuel Used' },
           { field: 'referigerantleakage', header: 'Refri. Leak' },
           { field: 'no_of_Items_unit', header: 'Unit' },
-          { field: 'month', header: 'Month' }
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' }
         ];
       case 20:
         return [
@@ -324,7 +337,7 @@ export class StatusTableComponent {
           { field: 'landfill', header: 'Landfill' },
           { field: 'recycling', header: 'Recycling' },
           { field: 'unit', header: 'Unit' },
-          { field: 'month', header: 'Month' }
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' }
         ];
       case 22:
         return [
@@ -334,7 +347,7 @@ export class StatusTableComponent {
           { field: 'franchise_spaceLease', header: 'Franchise Space' },
           { field: 'scope1_emission', header: 'Scope 1 (kg CO2e)' },
           { field: 'scope2_emission', header: 'Scope 2 (kg CO2e)' },
-          { field: 'month', header: 'Month' }
+          { field: 'month', header: 'Month', filter: true, filterOptions: [...this.months], filterField: 'value' }
         ];
     }
   }
@@ -348,39 +361,39 @@ export class StatusTableComponent {
   ) {
     // 🔹 Apply main filter
     filterCallback(value || null);
-  
+
     // 🔹 CATEGORY → clear SUB CATEGORY
     if (field === 'typeofpurchase') {
       // Clear model (IMPORTANT)
       this.columnFilterValues['product_category_name'] = null;
-  
+
       // Clear PrimeNG filter state
       if (table.filters?.['product_category_name']) {
         delete table.filters['product_category_name'];
       }
-  
+
       // Force table to re-evaluate filters
       table._filter();
     }
-  
+
     // 🔹 TABLENAME → clear SUBCAT
     if (field === 'tablename') {
       this.columnFilterValues['subcatName'] = null;
-  
+
       if (table.filters?.['subcatName']) {
         delete table.filters['subcatName'];
       }
-  
+
       table._filter();
     }
-  
+
     // 🔹 Your existing logic
     this.onFilterChange(value, field);
-  
+
     // 🔹 Close popup
     columnFilter.hide();
   }
-  
+
 
 
   onFilterChange(value: any, field: string) {
@@ -438,4 +451,24 @@ export class StatusTableComponent {
     this.table.first = 0;
   }
 
+  clear34(table: any) {
+    this.columnFilterValues = {};
+    this.columnFilterValues['Category'] = null;
+    this.columnFilterValues['subCategory'] = null;
+    this.columnFilterValues = {};
+    table.filters = {};
+    table.clear();
+    table.reset();
+    this.data = [...this.orgData];
+  }
+
+  openDirectFilter(event: MouseEvent, multiSelect: Dropdown) {
+    event.stopPropagation();
+    multiSelect.show();
+  }
+
+  applyFilter(value: any, field: string, dt: any) {
+    dt.filter(value, field, 'contains');
+    this.onFilterChange(value, field);
+  }
 }

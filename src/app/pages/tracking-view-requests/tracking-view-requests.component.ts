@@ -1,8 +1,5 @@
 import { DataEntry } from '@/models/DataEntry';
 import { PendingDataEntries } from '@/models/PendingDataEntry';
-import { SendNotification } from '@/models/SendNotification';
-import { TrackingDataPoint } from '@/models/TrackingDataPoint';
-import { TrackingTable } from '@/models/TrackingTable';
 import { ViewrequestTable } from '@/models/ViewrequestTable';
 import { LoginInfo } from '@/models/loginInfo';
 import { months } from '@/models/months';
@@ -14,17 +11,11 @@ import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-import { ManageDataPointCategories } from '@/models/TrackingDataPointCategories';
 import { ManageDataPointCategory } from '@/models/ManageDataPointCategory';
 import { StationaryCombustionDE, selectedObjectEntry } from '@/models/StationaryCombustionDE';
-import { RefrigerantsDE } from '@/models/RefrigerantsDE';
-import { FireExtinguisherDE } from '@/models/FireExtinguisherDE';
-import { VehicleDE } from '@/models/VehicleDE';
-import { ElectricityDE } from '@/models/ElectricityDE';
-import { HeatandSteamDE } from '@/models/HeatandSteamDE';
 import { AppService } from '@services/app.service';
 import { FacilityService } from '@services/facility.service';
-import { stat } from 'fs';
+import { Dropdown } from 'primeng/dropdown';
 
 @Component({
     selector: 'app-tracking-view-requests',
@@ -94,6 +85,20 @@ export class TrackingViewRequestsComponent {
     columnFilterValues: { [key: string]: any } = {};
     purchaseOptions = []
     categoriesOptions = [{ id: 1, name: 'Standard Goods' }, { id: 2, name: 'Capital Goods' }, { id: 3, name: 'Standard Services' }];
+    monthsOptions: any[] = [
+        { name: 'Jan', value: 'Jan' },
+        { name: 'Feb', value: 'Feb' },
+        { name: 'Mar', value: 'Mar' },
+        { name: 'Apr', value: 'Apr' },
+        { name: 'May', value: 'May' },
+        { name: 'June', value: 'Jun' },
+        { name: 'July', value: 'Jul' },
+        { name: 'Aug', value: 'Aug' },
+        { name: 'Sep', value: 'Sep' },
+        { name: 'Oct', value: 'Oct' },
+        { name: 'Nov', value: 'Nov' },
+        { name: 'Dec', value: 'Dec' }
+    ];
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -659,7 +664,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'BlendType', header: 'Blend' },
                     { field: 'readingValue', header: 'Value' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 2:
                 return [
@@ -667,7 +672,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'TypeName', header: 'Refrigerant Type' },
                     { field: 'refAmount', header: 'Refrigerant Amount' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 3:
                 return [
@@ -675,7 +680,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'numberOfExtinguisher', header: 'Extinguisher' },
                     { field: 'quantityOfCO2makeup', header: 'CO2 Makeup' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 6:
                 return [
@@ -687,7 +692,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'ModeofDEID', header: 'Mode' },
                     { field: 'Value', header: 'Value' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'months', header: 'Month' },
+                    { field: 'months', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 5:
                 return [
@@ -697,14 +702,14 @@ export class TrackingViewRequestsComponent {
                     { field: 'readingValue', header: 'Value' },
                     { field: 'SourceName', header: 'Source' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 7:
                 return [
                     { field: 'typeName', header: 'Type' },
                     { field: 'readingValue', header: 'Value' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ]
             case 8:
                 return [
@@ -716,7 +721,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'supplierspecificEF', header: 'Vendor EF' },
                     { field: 'supplierunit', header: 'Vendor EF Unit' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
 
                 ];
             case 9:
@@ -730,7 +735,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'typeofpurchase', header: 'Vendor EF' },
                     { field: 'typeofpurchase', header: 'Vendor EF Unit' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'unit', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
 
             case 10:
@@ -744,7 +749,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'storage_facility_type', header: 'Storage Facility ' },
                     { field: 'area_occupied', header: 'Area occupied (sqm)' },
                     { field: 'avg_no_of_days', header: 'No of days storage' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
 
             case 11:
@@ -772,7 +777,7 @@ export class TrackingViewRequestsComponent {
                     // { field: 'treatment_emission_factor_used', header: 'Treatment' },
                     // { field: 'treatment_emission_factor_used', header: 'Others (%)' },
                     // { field: 'treatment_emission_factor_used', header: 'Treatment' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
             case 12:
                 return [
@@ -781,7 +786,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'method', header: 'Method' },
                     { field: 'total_waste', header: 'Quantity' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
             case 13:
                 switch (businessId) {
@@ -793,7 +798,7 @@ export class TrackingViewRequestsComponent {
                             { field: 'no_of_passengers', header: 'No of Trips/Passengers' },
                             { field: 'avg_distance', header: 'Distance Travelled' },
                             { field: 'return_Flight', header: 'Return Flight' },
-                            { field: 'month', header: 'Month' },
+                            { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                         ];
 
                     case 2:
@@ -802,7 +807,7 @@ export class TrackingViewRequestsComponent {
                             { field: 'type_of_hotel', header: 'Type of Hotel' },
                             { field: 'no_of_occupied_rooms', header: 'No of Rooms' },
                             { field: 'no_of_nights_per_room', header: 'No of Nights per Room' },
-                            { field: 'month', header: 'Month' },
+                            { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                         ];
 
                     case 3:
@@ -811,7 +816,7 @@ export class TrackingViewRequestsComponent {
                             { field: 'no_of_trips', header: 'No of Trips' },
                             { field: 'no_of_passengers', header: 'No of Passengers' },
                             { field: 'distance_travelled', header: 'Distance Travelled (km)' },
-                            { field: 'month', header: 'Month' },
+                            { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                         ];
 
                     default:
@@ -847,7 +852,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'vehicle_subtype', header: 'Sub Category' },
                     { field: 'no_of_vehicles', header: 'No of Vehicles' },
                     { field: 'distance_travelled', header: 'Distance Travelled' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
             case 18:
                 return [
@@ -859,7 +864,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'scope1emissions', header: 'Scope 1 Emission (kg CO2e)' },
                     { field: 'scope2emissions', header: 'Scope 2 Emission (kg CO2e)' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' },
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' },
                 ];
             case 19:
                 return [
@@ -872,7 +877,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'referigentused', header: 'Fuel Used' },
                     { field: 'referigerantleakage', header: 'Refri. Leak' },
                     { field: 'no_of_Items_unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' }
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' }
                 ];
             case 20:
                 return [
@@ -884,7 +889,7 @@ export class TrackingViewRequestsComponent {
                     { field: 'landfill', header: 'Landfill' },
                     { field: 'recycling', header: 'Recycling' },
                     { field: 'unit', header: 'Unit' },
-                    { field: 'month', header: 'Month' }
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' }
                 ];
             case 22:
                 return [
@@ -894,10 +899,52 @@ export class TrackingViewRequestsComponent {
                     { field: 'franchise_spaceLease', header: 'Franchise Space' },
                     { field: 'scope1_emission', header: 'Scope 1 (kg CO2e)' },
                     { field: 'scope2_emission', header: 'Scope 2 (kg CO2e)' },
-                    { field: 'month', header: 'Month' }
+                    { field: 'month', header: 'Month', filter: true, filterOptions: [...this.monthsOptions], filterField: 'value' }
                 ];
 
         }
+    }
+
+    onDynamicFilterChange(
+        value: any,
+        field: string,
+        filterCallback: Function,
+        columnFilter: any,
+        table: any
+    ) {
+        // 🔹 Apply main filter
+        filterCallback(value || null);
+
+        // 🔹 CATEGORY → clear SUB CATEGORY
+        if (field === 'typeofpurchase') {
+            // Clear model (IMPORTANT)
+            this.columnFilterValues['product_category_name'] = null;
+
+            // Clear PrimeNG filter state
+            if (table.filters?.['product_category_name']) {
+                delete table.filters['product_category_name'];
+            }
+
+            // Force table to re-evaluate filters
+            table._filter();
+        }
+
+        // 🔹 TABLENAME → clear SUBCAT
+        if (field === 'tablename') {
+            this.columnFilterValues['subcatName'] = null;
+
+            if (table.filters?.['subcatName']) {
+                delete table.filters['subcatName'];
+            }
+
+            table._filter();
+        }
+
+        // 🔹 Your existing logic
+        this.onFilterChange(value, field);
+
+        // 🔹 Close popup
+        columnFilter.hide();
     }
 
     onFilterChange(value: any, field: string) {
@@ -945,5 +992,26 @@ export class TrackingViewRequestsComponent {
     clearColumnFilter(field: string, filterCallback: Function) {
         delete this.columnFilterValues[field];
         filterCallback(null); // 🔥 clears PrimeNG filter
+    }
+
+    clear34(table: any) {
+        this.columnFilterValues = {};
+        table.filters = {};
+        table.clear();
+        table.reset();
+        this.columnFilterValues['Category'] = null;
+        this.columnFilterValues['subCategory'] = null;
+        this.columnFilterValues = {};
+        this.dataEntriesPending = [...this.orgDataEntriesPending];
+    }
+
+    openDirectFilter(event: MouseEvent, multiSelect: Dropdown) {
+        event.stopPropagation();
+        multiSelect.show();
+    }
+
+    applyFilter(value: any, field: string, dt: any) {
+        dt.filter(value, field, 'contains');
+        this.onFilterChange(value, field);
     }
 }

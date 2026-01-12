@@ -140,6 +140,12 @@ export class WaterSupplyComponent {
             this.GetAllFacility()
 
         }
+
+        const currentMonth = new Date().getMonth();
+        this.startMonth = this.reportmonths[currentMonth];
+        this.endMonth = this.reportmonths[this.reportmonths.length - 1];
+        this.startYear = new Date();
+        this.endYear = new Date();
     };
 
 
@@ -161,7 +167,7 @@ export class WaterSupplyComponent {
     };
     //Checks the facility ID and calls the GetAssignedDataPoint function with the provided ID.
     checkFacilityID(id) {
-      
+
 
 
         this.GetAssignedDataPoint(id);
@@ -289,7 +295,7 @@ export class WaterSupplyComponent {
     newgenerateReport() {
         const startYear = this.startYear.getFullYear().toString();
         const endYear = this.endYear.getFullYear().toString();
-        let  url = 'waterReport'
+        let url = 'waterReport'
         const reportFormData = new URLSearchParams();
         // if (this.selectReportType == 'Monthly') {
         //     url = 'waterReport'
@@ -315,7 +321,7 @@ export class WaterSupplyComponent {
                 //     const waterTreated = res.waterDischarge;
 
                 //     const groupedWaterData = this.groupDataByMonth(waterWithDrwal, waterDischarge,waterTreated);
-                  
+
                 //     this.reportData = res.finalResponse;
 
                 // } else {
@@ -331,20 +337,20 @@ export class WaterSupplyComponent {
     };
 
 
-    groupDataByMonth(waterWithdrawal: any[], waterDischarge: any[], waterTreated:any[]) {
+    groupDataByMonth(waterWithdrawal: any[], waterDischarge: any[], waterTreated: any[]) {
         const groupedData: any[] = [];
-    
+
         // Get unique months and years from withdrawal data
         const uniqueMonths = Array.from(new Set(waterWithdrawal.map(w => `${w.month}-${w.year}`)));
-    
+
         uniqueMonths.forEach((monthYear: string) => {
             const [month, year] = monthYear.split("-");
-    
+
             // Filter withdrawal and discharge data for the current month
             const withdrawalForMonth = waterWithdrawal.filter(w => w.month === month && w.year === year);
             const dischargeForMonth = waterDischarge.filter(d => d.month === month && d.year === year);
             const treatmentForMonth = waterTreated.filter(d => d.month === month && d.year === year);
-        
+
             // Merge and sum water withdrawal data by 'water_withdrawl'
             const mergedWithdrawal = Object.values(
                 withdrawalForMonth.reduce((acc: any, item: any) => {
@@ -366,15 +372,15 @@ export class WaterSupplyComponent {
                     }
                     return acc;
                 }, {})
-            ).map((item :any)=> {
+            ).map((item: any) => {
                 // Convert totalwaterwithdrawl explicitly to a number before returning
                 return {
                     ...item,
                     totalwaterwithdrawl: Number(item.totalwaterwithdrawl.toFixed(2)) // Ensure it's a number with two decimals if needed
                 };
             });
-            
-            
+
+
             // Merge and sum water withdrawal data by 'water_withdrawl'
             const mergedDischarge = Object.values(
                 dischargeForMonth.reduce((acc: any, item: any) => {
@@ -399,7 +405,7 @@ export class WaterSupplyComponent {
                     }
                     return acc;
                 }, {})
-            ).map((item :any)=> {
+            ).map((item: any) => {
                 // Convert totalwaterwithdrawl explicitly to a number before returning
                 return {
                     ...item,
@@ -416,31 +422,31 @@ export class WaterSupplyComponent {
                 "Others",
             ];
             const treatmentLevels = ["Primary", "Secondary", "Tertiary"];
-    
+
             const treatedData = treatmentLevels.map(level => {
                 const row: any = { leveloftreatment: level, month, year };
-   
+
                 // Initialize all discharge categories to 0
                 dischargeCategories.forEach(category => {
                     row[category] = 0;
                 });
-              
+
                 // Populate the row with actual values
                 treatmentForMonth.forEach(item => {
                     if (item.leveloftreatment === level && dischargeCategories.includes(item.water_discharge)) {
                         row[item.water_discharge] += parseFloat(item.totalwaterdischarge) || 0;
                     }
                 });
-    
+
                 // Ensure numerical values are properly formatted
                 dischargeCategories.forEach(category => {
                     row[category] = parseFloat(row[category].toFixed(3)); // Round to 3 decimals
                 });
-    
+
                 return row;
             });
-         
-    
+
+
             groupedData.push({
                 month,
                 year,
@@ -449,10 +455,10 @@ export class WaterSupplyComponent {
                 water_treated: treatedData,
             });
         });
-    
+
         return groupedData;
     }
-    
+
 
 
     //Calculates the total value by adding the existing value and the new value for each datapoint
@@ -502,6 +508,6 @@ export class WaterSupplyComponent {
     onMultpleChange(e: any) {
         this.reportData = []
 
-  
+
     }
 }

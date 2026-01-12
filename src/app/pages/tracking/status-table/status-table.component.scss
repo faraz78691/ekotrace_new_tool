@@ -1,0 +1,23 @@
+.et_filter_icon_pesuo {
+    position: relative;
+    padding: 12px 20px 12px 38px !important;
+}
+
+.et_filter_icon_pesuo::after {
+    content: "\e9b7";
+    font-family: 'PrimeIcons';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #fff;
+}
+
+.hidden-multiselect {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}

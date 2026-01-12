@@ -6,12 +6,15 @@
 <p-table #dt [value]="data" [paginator]="true" [rowHover]="true" dataKey="id" [rows]="10"
   [rowsPerPageOptions]="[10, 20, 50, 100,500]" styleClass="statusTable ct_status_tble_230_space ct_status_table_main"
   [loading]="loading" [loadingIcon]="'pi pi-spinner pi-spin'" [showCurrentPageReport]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"> >
-
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <button class="px-4 trackingsubmitb et_filter_icon_pesuo" (click)="clear34(dt)"> Clear</button>
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <ng-container *ngFor="let col of columns">
-
         <!-- If this column is array -->
         <ng-container *ngIf="col.isArray; else normalHeader">
           <ng-container *ngIf="data[0]">
@@ -19,7 +22,6 @@
               <th> {{ item.water_withdrawl || item.water_discharge }} (%) </th>
               <th *ngIf="col.xtra"> {{ col.xtra }} </th>
             </ng-container>
-
           </ng-container>
         </ng-container>
 
@@ -27,18 +29,13 @@
         <ng-template #normalHeader>
           <th class="ct_filter_icon_hove_active_1234">
             {{ col.header }}
-            <p-columnFilter *ngIf="col.filter"  #dynamicFilter [field]="col.field" display="menu" [showMatchModes]="false"
-              [showOperator]="false" [showAddButton]="false" [showApplyButton]="false" [showClearButton]="false">
-              <ng-template pTemplate="filter" let-filter="filterCallback">
-                <p-dropdown [(ngModel)]="columnFilterValues[col.field]" [ngModelOptions]="{ standalone: true }"
-                (onChange)="onDynamicFilterChange($event.value,col.field,filter,dynamicFilter,dt)" [options]="col.filterOptions" optionLabel="name"
-                  [optionValue]="col.filterField" placeholder="Any" [filter]="true" filterBy="name"
-                  class="ct_select_op_input" [style]="{ width: '200px' }">
-
-                </p-dropdown>
-             
-              </ng-template>
-            </p-columnFilter>
+            <i *ngIf="col.filter" class="pi" [ngClass]="columnFilterValues[col.field] ? 'pi-filter-fill' : 'pi-filter'"
+              (click)="openDirectFilter($event, drop)" style="cursor:pointer; margin-left:6px"></i>
+            <p-dropdown #drop [(ngModel)]="columnFilterValues[col.field]" [ngModelOptions]="{ standalone: true }"
+              [options]="col.filterOptions" optionLabel="name" [optionValue]="col.filterField" [filter]="true"
+              filterBy="name" appendTo="body" placeholder="Any" class="ct_select_op_input hidden-multiselect"
+              (onChange)="applyFilter($event.value, col.field, dt)">
+            </p-dropdown>
           </th>
         </ng-template>
       </ng-container>
